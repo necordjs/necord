@@ -1,6 +1,7 @@
 .idea
 .vscode
 .github
+examples
 src
 .commitlintrc.json
 .editorconfig
@@ -8,3 +9,4 @@ src
 .gitattributes
 tsconfig.json
 yarn.lock
+yarn-error.log
