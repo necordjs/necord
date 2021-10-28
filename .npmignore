@@ -1,7 +1,7 @@
 .idea
 .vscode
 .github
-lib
+src
 .commitlintrc.json
 .editorconfig
 .eslintrc

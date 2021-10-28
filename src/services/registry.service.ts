@@ -13,8 +13,7 @@ export class RegistryService {
 
 	private readonly applicationCommands = new Collection<string, ApplicationCommandExecuteMetadata>();
 
-	public constructor(private readonly restService: RestService, private readonly necordClient: NecordClient) {
-	}
+	public constructor(private readonly restService: RestService, private readonly necordClient: NecordClient) {}
 
 	@On('interactionCreate')
 	public async onInteractionCreate(@Context() interaction: Interaction) {
@@ -36,6 +35,8 @@ export class RegistryService {
 
 	public async registerApplicationCommands(applicationCommands: Array<ApplicationCommandExecuteMetadata>) {
 		try {
+			this.logger.log('Started refreshing application (/) commands.');
+
 			const commands = new Collection<string, ApplicationCommandData>();
 
 			const commandGroups: Record<string, [string, ApplicationCommandExecuteMetadata[]]> = {};
@@ -104,8 +105,10 @@ export class RegistryService {
 			await this.restService.put(Routes.applicationGuildCommands('747038640571416666', '580747890272763964'), {
 				body: [...commands.values()]
 			});
+
+			this.logger.log('Successfully reloaded application (/) commands.');
 		} catch (err) {
-			console.error(err);
+			this.logger.error(err);
 		}
 	}
 

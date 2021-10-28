@@ -2,7 +2,7 @@ import { Inject, Injectable, Logger, OnApplicationBootstrap, OnApplicationShutdo
 import { MODULE_OPTIONS } from './necord.constants';
 import { NecordModuleOptions } from './interfaces';
 import { Client as DiscordClient } from 'discord.js';
-import { OnDebug, OnError, OnReady, OnWarn } from './decorators';
+import { OnDebug, OnError, OnWarn } from './decorators';
 
 @Injectable()
 export class NecordClient extends DiscordClient implements OnApplicationBootstrap, OnApplicationShutdown {
@@ -21,11 +21,6 @@ export class NecordClient extends DiscordClient implements OnApplicationBootstra
 
 	public onApplicationShutdown() {
 		return this.destroy();
-	}
-
-	@OnReady
-	public async onReady() {
-		this.logger.log(`Logged In...`);
 	}
 
 	@OnDebug
