@@ -27,9 +27,9 @@ exclusively for bug reports and feature requests.
 
 ## Stay in touch
 
-* Author - Alexey Filippov
+* Author - [Alexey Filippov](https://t.me/socketsomeone)
 * Documentation - https://necord.miko.bot
-* Twitter - @SocketSomeone
+* Twitter - [@SocketSomeone](https://twitter.com/SocketSomeone)
 
 ## License
 
