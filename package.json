@@ -16,7 +16,10 @@
 		"bot framework"
 	],
 	"homepage": "https://necord.miko.bot",
-	"repository": "git@github.com:Miko-Team/necord.git",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Miko-Team/necord"
+	},
 	"bugs": {
 		"url": "https://github.com/Miko-Team/necord/issues"
 	},
