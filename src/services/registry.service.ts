@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { RestService } from './rest.service';
 import { NecordClient } from '../necord-client';
-import { ApplicationCommandExecuteMetadata, ExecuteMetadata, ListenerExecuteMetadata } from '../interfaces';
+import { ApplicationCommandExecuteMetadata, ListenerExecuteMetadata } from '../interfaces';
 import { ApplicationCommandData, Collection, CommandInteraction, Interaction } from 'discord.js';
-import { Routes } from 'discord-api-types';
+import { Routes } from 'discord-api-types/v9';
 import { Context, On } from '../decorators';
 import { ApplicationCommandTypes } from 'discord.js/typings/enums';
 

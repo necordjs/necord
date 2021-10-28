@@ -1,10 +1,9 @@
-import { LogLevel, ModuleMetadata, Type } from '@nestjs/common';
+import { ModuleMetadata, Type } from '@nestjs/common';
 import { ClientOptions as DiscordClientOptions } from 'discord.js';
 
 export interface NecordModuleOptions extends DiscordClientOptions {
 	ownersIDs?: string[];
 	token?: string;
-	logLevel?: LogLevel;
 }
 
 export interface NecordOptionsFactory {

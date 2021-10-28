@@ -1,10 +1,9 @@
-import { Observable } from 'rxjs';
-import { ContextMenuCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders';
+import { ContextMenuCommandBuilder } from '@discordjs/builders';
 import { ListenerMetadata } from './listener-metadata.interface';
-import { ApplicationCommand, ApplicationCommandData, ApplicationCommandOptionData } from 'discord.js';
+import { ApplicationCommandData, ApplicationCommandOptionData } from 'discord.js';
 
 export type ExecuteMetadata = {
-	execute?: (...args) => Observable<any> | Promise<any> | any;
+	execute?: (...args) => Promise<any> | any;
 };
 
 export type ListenerExecuteMetadata = ListenerMetadata & ExecuteMetadata;
