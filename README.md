@@ -5,25 +5,32 @@ src="https://nestjs.com/img/logo-small.svg">
 
 Necord – powerful solution for creating Discord bots.
 
-This package uses the best of the NodeJS world under the hood. [Discord.js](https://github.com/discordjs/discord.js) is the most powerful library
-for creating bots and [NestJS](https://github.com/nestjs) is a progressive framework for creating well-architectured applications. This
-module provides fast and easy way for creating Discord bots and deep integration with your NestJS application.
+This package uses the best of the NodeJS world under the hood. [Discord.js](https://github.com/discordjs/discord.js) is the most powerful
+library for creating bots and [NestJS](https://github.com/nestjs) is a progressive framework for creating well-architectured applications.
+This module provides fast and easy way for creating Discord bots and deep integration with your NestJS application.
 
 **Features**
 
 - Simple. Easy to use.
-- Ton of decorators available out of the box for handling bot actions.
 - Ability to create custom decorators.
-- Interact with Discord (Slash Commands, Context Menus, Message Components, Listeners).
+- Interact with Discord (Commands, Slash Commands, Context Menus, Message Components, Listeners).
 - Full support of NestJS guards, interceptors, filters and pipes!
 
-## Documentation
+## Getting started
 
-If you want to dive fully into Necord then don't waste your time in this dump, check out
-the [documentation site](https://necord.miko.bot).
+If you want to dive fully into Necord check out the [documentation site](https://necord.miko.bot).
 
-## Installation
+## Questions
 
-```bash
-$ npm i necord discord.js
-```
+For questions and support please use the [Discussions page](https://github.com/Miko-Team/necord/discussions). The issue list of this repo is
+exclusively for bug reports and feature requests.
+
+## Stay in touch
+
+* Author - Alexey Filippov
+* Documentation - https://necord.miko.bot
+* Twitter - @SocketSomeone
+
+## License
+
+Necord is [MIT licensed](https://github.com/Miko-Team/necord/blob/main/LICENSE).
