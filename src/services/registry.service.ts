@@ -13,7 +13,8 @@ export class RegistryService {
 
 	private readonly applicationCommands = new Collection<string, ApplicationCommandExecuteMetadata>();
 
-	public constructor(private readonly restService: RestService, private readonly necordClient: NecordClient) {}
+	public constructor(private readonly restService: RestService, private readonly necordClient: NecordClient) {
+	}
 
 	@On('interactionCreate')
 	public async onInteractionCreate(@Context() interaction: Interaction) {
