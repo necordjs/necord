@@ -1,9 +1,7 @@
-# Necord ![npm](https://img.shields.io/npm/dm/necord) ![GitHub last commit](https://img.shields.io/github/last-commit/Miko-Team/necord) ![NPM](https://img.shields.io/npm/l/necord)
+# Necord ![NPM](https://img.shields.io/npm/v/necord) ![NPM](https://img.shields.io/npm/l/necord) ![NPM](https://img.shields.io/npm/dm/necord) ![GitHub last commit](https://img.shields.io/github/last-commit/Miko-Team/necord)
 
 <img align="right" width="95" height="148" title="NestJS logotype"
 src="https://nestjs.com/img/logo-small.svg">
-
-Necord – powerful solution for creating Discord bots.
 
 This package uses the best of the NodeJS world under the hood. [Discord.js](https://github.com/discordjs/discord.js) is the most powerful
 library for creating bots and [NestJS](https://github.com/nestjs) is a progressive framework for creating well-architectured applications.
