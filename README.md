@@ -1,7 +1,18 @@
-# Necord ![NPM](https://img.shields.io/npm/v/necord) ![NPM](https://img.shields.io/npm/l/necord) ![NPM](https://img.shields.io/npm/dm/necord) ![GitHub last commit](https://img.shields.io/github/last-commit/Miko-Team/necord)
+<p align="center">
+  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
+</p>
 
-<img align="right" width="95" height="148" title="NestJS logotype"
-src="https://nestjs.com/img/logo-small.svg">
+<p align="center">
+    A Discord bot framework built on top of  <a href="https://discord.js.org/#/" target="_blank">Discord.js</a> and <a href="https://nestjs.com/" target="_blank">Nest.js</a> for advanced and amazing bots.
+</p>
+<p align="center">
+    <a href='https://img.shields.io/npm/v/necord'><img src="https://img.shields.io/npm/v/necord" alt="NPM Version" /></a>
+    <a href='https://img.shields.io/npm/l/necord'><img src="https://img.shields.io/npm/l/necord" alt="NPM License" /></a>
+    <a href='https://img.shields.io/npm/dm/necord'><img src="https://img.shields.io/npm/dm/necord" alt="NPM Downloads" /></a>
+    <a href='https://img.shields.io/github/last-commit/Miko-Team/necord'><img src="https://img.shields.io/github/last-commit/Miko-Team/necord" alt="Last commt" /></a>
+</p>
+
+## About
 
 This package uses the best of the NodeJS world under the hood. [Discord.js](https://github.com/discordjs/discord.js) is the most powerful
 library for creating bots and [NestJS](https://github.com/nestjs) is a progressive framework for creating well-architectured applications.
