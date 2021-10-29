@@ -15,14 +15,14 @@
 ## About
 
 This package uses the best of the NodeJS world under the hood. [Discord.js](https://github.com/discordjs/discord.js) is the most powerful
-library for creating bots and [NestJS](https://github.com/nestjs) is a progressive framework for creating well-architectured applications.
+library for creating bots and [Nest.js](https://github.com/nestjs) is a progressive framework for creating well-architectured applications.
 This module provides fast and easy way for creating Discord bots and deep integration with your NestJS application.
 
 **Features**
 
 - Simple. Easy to use.
 - Ability to create custom decorators.
-- Interact with Discord (Commands, Slash Commands, Context Menus, Message Components, Listeners).
+- Interact with Discord (Slash Commands, Context Menus, Message Components, Listeners).
 - Full support of NestJS guards, interceptors, filters and pipes!
 
 ## Getting started
