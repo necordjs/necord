@@ -28,7 +28,7 @@ jobs:
         with:
           path: node_modules/
           key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('package*.json') }}
-      - run: npm ci --ignore-scripts
+      - run: npm install
         if: steps.cache.outputs.cache-hit != 'true'
       - run: npm test
       - run: npm run lint
