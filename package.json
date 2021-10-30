@@ -30,6 +30,7 @@
 		"prepublish:npm": "npm run build",
 		"publish:npm": "npm publish --access public",
 		"prepare": "husky install .github/husky",
+		"test": "",
 		"lint": "eslint --ignore-path .gitignore {integration,sample,src}/**/*.ts"
 	},
 	"lint-staged": {
