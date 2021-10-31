@@ -31,6 +31,6 @@ export class MetadataAccessorService {
 	public getOptions(target: Record<string, Function>, methodName: string): Array<ApplicationCommandOptionData> {
 		const metadata = this.reflector.get(OPTIONS_METADATA, target[methodName]);
 
-		return metadata.sort((a, b) => a.parameterIndex - b.parameterIndex);
+		return metadata?.sort((a, b) => a.parameterIndex - b.parameterIndex);
 	}
 }
