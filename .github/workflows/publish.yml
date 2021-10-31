@@ -11,10 +11,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - run : npm install
+      - run: npm install
       - name: Publish to npm
-        run : |
+        run: |
           npm config set //registry.npmjs.org/:_authToken ${NPM_TOKEN}
           npm run publish:npm
-        env :
+        env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

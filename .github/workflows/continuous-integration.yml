@@ -8,27 +8,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version:
-          - 16
-          - 17
-
     steps:
-      - uses: actions/checkout@v2
-        with:
-          persist-credentials: false
-      - name: Use Node.js ${{ matrix.node-version }}
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v16
         uses: actions/setup-node@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - uses: actions/cache@v2
-        id: cache
-        with:
-          path: node_modules/
-          key: ${{ runner.os }}-node${{ matrix.node-version }}-${{ hashFiles('package*.json') }}
-      - run: npm install
-        if: steps.cache.outputs.cache-hit != 'true'
-      - run: npm test
-      - run: npm run lint
+          node-version: 16
+          cache: npm
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run ESlint
+        run: npm run lint
