@@ -3,9 +3,9 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { NecordExecutionContext } from '../context';
 import { CommandInteractionOptionResolver, ContextMenuInteraction } from 'discord.js';
 import { OPTIONS_METADATA } from '../necord.constants';
-import { SlashCommandOptionBase } from '@discordjs/builders/dist/interactions/slashCommands/mixins/CommandOptionBase';
+import { ToAPIApplicationCommandOptions } from '@discordjs/builders';
 
-export const createNecordOption = <V, T extends SlashCommandOptionBase>(
+export const createNecordOption = <V, T extends ToAPIApplicationCommandOptions>(
 	fn: (resolver: CommandInteractionOptionResolver) => V,
 	builder: T = null
 ) =>
