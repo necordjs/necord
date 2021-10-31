@@ -1,6 +1,6 @@
-import { ChannelOptionMetadata, OptionMetadata } from '../../interfaces';
+import { ChannelOptionMetadata } from '../../interfaces';
 import { createNecordOption } from '../../utils';
-import { SlashCommandChannelOption, SlashCommandUserOption } from '@discordjs/builders';
+import { SlashCommandChannelOption } from '@discordjs/builders';
 
 export const ChannelOption = (options: ChannelOptionMetadata) =>
 	createNecordOption(
@@ -9,5 +9,5 @@ export const ChannelOption = (options: ChannelOptionMetadata) =>
 			.setName(options.name)
 			.setDescription(options.description)
 			.setRequired(!!options.required)
-			.addChannelTypes(options.types)
+			.addChannelTypes(options.types as any)
 	);

@@ -1,4 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { DiscoveryService, MetadataScanner } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { ApplicationCommandExecuteMetadata, ListenerExecuteMetadata } from '../interfaces';
@@ -7,20 +7,24 @@ import { PARAM_ARGS_METADATA } from '../necord.constants';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { flatMap } from '../utils';
 import { MetadataAccessorService } from './metadata-accessor.service';
-import { RegistryService } from './registry.service';
+import { ApplicationCommandsService } from './application-commands.service';
 import { ApplicationCommandTypes } from 'discord.js/typings/enums';
 import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
+import { NecordClient } from '../necord-client';
 
 @Injectable()
 export class ExplorerService implements OnModuleInit {
+	private readonly logger = new Logger(ExplorerService.name);
+
 	private readonly necordParamsFactory = new NecordParamsFactory();
 
 	public constructor(
-		private readonly commandsService: RegistryService,
+		private readonly commandsService: ApplicationCommandsService,
 		private readonly discoveryService: DiscoveryService,
 		private readonly externalContextCreator: ExternalContextCreator,
 		private readonly metadataScanner: MetadataScanner,
-		private readonly metadataAccessor: MetadataAccessorService
+		private readonly metadataAccessor: MetadataAccessorService,
+		private readonly necordClient: NecordClient
 	) {}
 
 	public onModuleInit() {
@@ -40,7 +44,14 @@ export class ExplorerService implements OnModuleInit {
 			this.filterListener(instance, prototype)
 		);
 
-		listeners.forEach(listener => this.commandsService.registerListener(listener));
+		listeners.forEach(listener => {
+			this.logger.log(`Registered new listener for event "${listener.event}"`);
+			this.necordClient[listener.once ? 'once' : 'on'](listener.event, (...args) =>
+				typeof listener.filter === 'function'
+					? listener.filter(...args) && listener.execute(...args)
+					: listener.execute(...args)
+			);
+		});
 	}
 
 	private registerApplicationCommands(wrappers: InstanceWrapper[]) {
@@ -48,7 +59,7 @@ export class ExplorerService implements OnModuleInit {
 			this.filterSlashCommands(instance, prototype)
 		);
 
-		return this.commandsService.registerApplicationCommands(applicationCommands);
+		this.commandsService.registerApplicationCommands(applicationCommands);
 	}
 
 	private filterListener(instance: Record<string, any>, prototype: object) {
