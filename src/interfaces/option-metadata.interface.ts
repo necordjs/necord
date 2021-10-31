@@ -1,4 +1,4 @@
-import { ChannelType } from 'discord-api-types';
+import { ChannelTypes } from 'discord.js/typings/enums';
 
 export type OptionMetadata = {
 	name: string;
@@ -7,7 +7,7 @@ export type OptionMetadata = {
 };
 
 export type ChannelOptionMetadata = OptionMetadata & {
-	types: Exclude<ChannelType, ChannelType.DM | ChannelType.GroupDM>[];
+	types: Exclude<ChannelTypes, ChannelTypes.DM | ChannelTypes.GROUP_DM>[];
 };
 
 export type PrimitiveOptionMetadata<V = string> = OptionMetadata & {

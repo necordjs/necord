@@ -1,22 +1,19 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { RestService } from './rest.service';
-import { NecordClient } from '../necord-client';
-import { ApplicationCommandExecuteMetadata, ListenerExecuteMetadata } from '../interfaces';
+import { ApplicationCommandExecuteMetadata } from '../interfaces';
 import { ApplicationCommandData, Collection, CommandInteraction, Interaction } from 'discord.js';
-import { Routes } from 'discord-api-types/v9';
 import { Context, On } from '../decorators';
 import { ApplicationCommandTypes } from 'discord.js/typings/enums';
 
 @Injectable()
-export class RegistryService {
-	private readonly logger = new Logger(RegistryService.name);
+export class ApplicationCommandsService {
+	private readonly logger = new Logger(ApplicationCommandsService.name);
 
-	private readonly applicationCommands = new Collection<string, ApplicationCommandExecuteMetadata>();
+	private readonly applicationCommands = new Collection<string, ApplicationCommandData>();
 
-	public constructor(private readonly restService: RestService, private readonly necordClient: NecordClient) {}
+	private readonly applicationCommandsMetadata = new Collection<string, ApplicationCommandExecuteMetadata>();
 
 	@On('interactionCreate')
-	public async onInteractionCreate(@Context() interaction: Interaction) {
+	private async onInteractionCreate(@Context() interaction: Interaction) {
 		if (!interaction.isCommand()) return;
 
 		const command = this.getCommand(interaction);
@@ -26,18 +23,9 @@ export class RegistryService {
 		}
 	}
 
-	public registerListener({ event, once, execute, filter }: ListenerExecuteMetadata) {
-		this.logger.log(`Registered new listener for event "${event}"`);
-		this.necordClient[once ? 'once' : 'on'](event, (...args) =>
-			typeof filter === 'function' ? filter(...args) && execute(...args) : execute(...args)
-		);
-	}
-
-	public async registerApplicationCommands(applicationCommands: Array<ApplicationCommandExecuteMetadata>) {
+	public registerApplicationCommands(applicationCommands: Array<ApplicationCommandExecuteMetadata>) {
 		try {
 			this.logger.log('Started refreshing application (/) commands.');
-
-			const commands = new Collection<string, ApplicationCommandData>();
 
 			const commandGroups: Record<string, [string, ApplicationCommandExecuteMetadata[]]> = {};
 
@@ -65,10 +53,10 @@ export class RegistryService {
 						options: command.options ?? []
 					};
 
-					commands.set(command.name, data);
+					this.applicationCommands.set(command.name, data);
 				}
 
-				this.applicationCommands.set(commandName, command);
+				this.applicationCommandsMetadata.set(commandName, command);
 			}
 
 			for (const subGroup in commandGroups) {
@@ -81,7 +69,7 @@ export class RegistryService {
 					options: c.options
 				}));
 
-				const applicationData: ApplicationCommandData = commands.get(groupName) ?? {
+				const applicationData: ApplicationCommandData = this.applicationCommands.get(groupName) ?? {
 					type: 1,
 					name: groupName,
 					description: `${groupName} commands`,
@@ -99,17 +87,17 @@ export class RegistryService {
 						: applicationData.options.concat(options);
 				}
 
-				commands.set(groupName, applicationData);
+				this.applicationCommands.set(groupName, applicationData);
 			}
-
-			await this.restService.put(Routes.applicationGuildCommands('747038640571416666', '580747890272763964'), {
-				body: [...commands.values()]
-			});
 
 			this.logger.log('Successfully reloaded application (/) commands.');
 		} catch (err) {
 			this.logger.error(err);
 		}
+	}
+
+	public getApplicationCommands() {
+		return [...this.applicationCommands.values()];
 	}
 
 	private getCommand(interaction: CommandInteraction) {
@@ -129,6 +117,6 @@ export class RegistryService {
 			command = commandName;
 		}
 
-		return this.applicationCommands.get(command);
+		return this.applicationCommandsMetadata.get(command);
 	}
 }
