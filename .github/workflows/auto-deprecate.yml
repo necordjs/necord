@@ -24,6 +24,6 @@ jobs:
         run: npm run build
 
       - name: Deprecate versions
-        run: 'npm exec --no npm-deprecate -- --name "*dev*" --package "necord"'
+        run: 'npx @favware/npm-deprecate --name "*dev*" --package "necord"'
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
