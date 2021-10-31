@@ -7,8 +7,8 @@ import { MODULE_OPTIONS } from './necord.constants';
 
 @Module({
 	imports: [DiscoveryModule],
-	providers: [MetadataAccessorService, ApplicationCommandsService, NecordClient, ExplorerService],
-	exports: [NecordClient]
+	providers: [MetadataAccessorService, ExplorerService, ApplicationCommandsService, NecordClient],
+	exports: [NecordClient, ApplicationCommandsService]
 })
 export class NecordModule {
 	public static forRoot(options: NecordModuleOptions): DynamicModule {
