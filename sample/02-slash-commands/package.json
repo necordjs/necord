@@ -1,0 +1,35 @@
+{
+	"name": "02-slash-commands",
+	"version": "1.0.0",
+	"license": "MIT",
+	"scripts": {
+		"prebuild": "rimraf dist",
+		"build": "nest build",
+		"format": "prettier --write \"src/**/*.ts\"",
+		"start": "nest start",
+		"start:dev": "nest start --watch",
+		"start:debug": "nest start --debug --watch",
+		"start:prod": "node dist/main",
+		"lint": "eslint src/**/*.ts --fix"
+	},
+	"dependencies": {
+		"@nestjs/common": "8.1.2",
+		"@nestjs/core": "^8.1.2",
+		"discord.js": "13.2.0",
+		"reflect-metadata": "0.1.13",
+		"necord": "1.0.8-dev.1635724078.920c644",
+		"rimraf": "3.0.2",
+		"rxjs": "^7.2.0"
+	},
+	"devDependencies": {
+		"@types/node": "16.11.6",
+		"@typescript-eslint/eslint-plugin": "4.33.0",
+		"@typescript-eslint/parser": "4.33.0",
+		"discord.js": "13.2.0",
+		"eslint": "7.32.0",
+		"eslint-config-prettier": "8.3.0",
+		"eslint-plugin-prettier": "4.0.0",
+		"prettier": "2.4.1",
+		"typescript": "4.4.4"
+	}
+}
