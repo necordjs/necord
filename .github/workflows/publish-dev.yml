@@ -34,7 +34,7 @@ jobs:
 
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
-        run: npm deprecate necord@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
+        run: npm deprecate necord@"~$(jq --raw-output '.version' package.json)-dev" "no longer supported" || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
