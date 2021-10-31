@@ -1,4 +1,4 @@
-name: Bug report
+name: 🐛 Bug report
 description: Report incorrect or unexpected behavior of necord
 labels: [bug, need repro]
 body:
