@@ -1,6 +1,3 @@
-export * from './context.decorator';
-export * from './values.decorator';
-
 export * from './boolean-option.decorator';
 export * from './channel-option.decorator';
 export * from './integer-option.decorator';
