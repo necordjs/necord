@@ -14,8 +14,4 @@ export class NecordExecutionContext extends NecordArgumentsHost {
 	public getType<TContext extends string = NecordContextType>(): TContext {
 		return super.getType();
 	}
-
-	public getContext<T = any>(): T {
-		return this.getArgByIndex(0);
-	}
 }

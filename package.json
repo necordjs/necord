@@ -67,8 +67,18 @@
 		"@nestjs/common": "^8.0.0",
 		"@nestjs/core": "^8.0.0",
 		"discord.js": "^13.3.1",
+		"class-transformer": "*",
+		"class-validator": "*",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.2.0"
+	},
+	"peerDependenciesMeta": {
+		"class-validator": {
+			"optional": true
+		},
+		"class-transformer": {
+			"optional": true
+		}
 	},
 	"engines": {
 		"node": ">=16.6.0"

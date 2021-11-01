@@ -1,4 +1,6 @@
 export enum NecordParamType {
 	CONTEXT,
-	VALUES
+	VALUE,
+	VALUES,
+	OPTIONS
 }
