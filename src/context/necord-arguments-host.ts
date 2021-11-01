@@ -23,15 +23,11 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 		return this.getArgByIndex(0);
 	}
 
-	public getValue() {
+	public getValues(): string[] {
 		return this.getArgByIndex(1);
 	}
 
-	public getValues(): string[] {
-		return this.getArgByIndex(2);
-	}
-
 	public getOptions(): CommandInteractionOptionResolver {
-		return this.getArgByIndex(3);
+		return this.getArgByIndex(2);
 	}
 }
