@@ -1,6 +1,7 @@
 import { ParamsFactory } from '@nestjs/core/helpers/external-context-creator';
 import { ParamData } from '@nestjs/common';
 import { NecordParamType } from './necord-paramtype.enum';
+import { Interaction } from 'discord.js';
 
 export class NecordParamsFactory implements ParamsFactory {
 	public exchangeKeyForValue(type: number, data: ParamData, args: unknown): any {
@@ -8,11 +9,13 @@ export class NecordParamsFactory implements ParamsFactory {
 			return null;
 		}
 
-		const context = args[0];
+		const context = args[0] as Interaction;
 
 		switch (type as NecordParamType) {
 			case NecordParamType.CONTEXT:
 				return data && Array.isArray(context) ? context[data as string] : context;
+			case NecordParamType.VALUES:
+				return context.isSelectMenu() && context.values;
 			default:
 				return null;
 		}
