@@ -20,9 +20,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Project
-        run: npm run build
-
       - name: Deprecate versions
         run: 'npx @favware/npm-deprecate --name "*dev*" --package "necord"'
         env:
