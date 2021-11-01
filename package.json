@@ -50,7 +50,7 @@
 		"@types/node": "16.11.6",
 		"@typescript-eslint/eslint-plugin": "4.33.0",
 		"@typescript-eslint/parser": "4.33.0",
-		"discord.js": "13.3.0",
+		"discord.js": "13.3.1",
 		"eslint": "7.32.0",
 		"eslint-config-prettier": "8.3.0",
 		"eslint-plugin-prettier": "4.0.0",
@@ -66,7 +66,7 @@
 		"@discordjs/builders": "^0.7.0",
 		"@nestjs/common": "^8.0.0",
 		"@nestjs/core": "^8.0.0",
-		"discord.js": "^13.3.0",
+		"discord.js": "^13.3.1",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.2.0"
 	},

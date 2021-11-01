@@ -27,7 +27,7 @@ jobs:
 
       - name: Install dependencies
         if: steps.pre-release.outputs.release == 'true'
-        run: npm install
+        run: npm ci
 
       - name: Build Project
         run: npm run build
