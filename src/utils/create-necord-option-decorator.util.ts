@@ -10,7 +10,12 @@ export const createNecordOption = <V, T extends ToAPIApplicationCommandOptions>(
 	builder: T = null
 ) =>
 	createParamDecorator(
-		(data: unknown, context: ExecutionContext): V => fn(NecordExecutionContext.create(context).getOptions()),
+		(data: unknown, context: ExecutionContext): V => {
+			const ctx = NecordExecutionContext.create(context);
+			const interaction = ctx.getContext();
+
+			return fn(interaction.options);
+		},
 		[
 			(target, propertyKey, parameterIndex) => {
 				const options = Reflect.getOwnMetadata(OPTIONS_METADATA, target[propertyKey]) || [];
