@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { NecordExecutionContext } from '../context';
-import { CommandInteractionOptionResolver, ContextMenuInteraction } from 'discord.js';
+import { CommandInteractionOptionResolver } from 'discord.js';
 import { OPTIONS_METADATA } from '../necord.constants';
 import { ToAPIApplicationCommandOptions } from '@discordjs/builders';
 
@@ -10,12 +10,7 @@ export const createNecordOption = <V, T extends ToAPIApplicationCommandOptions>(
 	builder: T = null
 ) =>
 	createParamDecorator(
-		(data: unknown, context: ExecutionContext): V => {
-			const ctx = NecordExecutionContext.create(context);
-			const interaction = ctx.getContext<ContextMenuInteraction>();
-
-			return fn(interaction.options);
-		},
+		(data: unknown, context: ExecutionContext): V => fn(NecordExecutionContext.create(context).getOptions()),
 		[
 			(target, propertyKey, parameterIndex) => {
 				const options = Reflect.getOwnMetadata(OPTIONS_METADATA, target[propertyKey]) || [];
