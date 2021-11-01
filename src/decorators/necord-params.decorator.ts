@@ -11,4 +11,4 @@ export const Ctx = Context;
 
 export const Values = createNecordParamDecorator(NecordParamType.VALUES);
 
-export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS);
+export const Options = createNecordParamDecorator(NecordParamType.OPTIONS);
