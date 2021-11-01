@@ -17,7 +17,7 @@ export class NecordParamsFactory implements ParamsFactory {
 			case NecordParamType.VALUES:
 				return context.isSelectMenu() && context.values;
 			case NecordParamType.OPTIONS:
-				return context.isApplicationCommand() && context.options;
+				return context.isCommand() || context.isContextMenu() ? context.options : null;
 			default:
 				return null;
 		}
