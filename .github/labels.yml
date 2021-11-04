@@ -58,8 +58,6 @@
   color: 'e4f486'
 - name: 'semver:patch'
   color: 'e8be8b'
-- name: 'sharding'
-  color: '80c042'
 - name: 'tests'
   color: 'f06dff'
 - name: 'utility'
