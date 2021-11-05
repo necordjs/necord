@@ -9,7 +9,7 @@
     <a href='https://img.shields.io/npm/v/necord'><img src="https://img.shields.io/npm/v/necord" alt="NPM Version" /></a>
     <a href='https://img.shields.io/npm/l/necord'><img src="https://img.shields.io/npm/l/necord" alt="NPM License" /></a>
     <a href='https://img.shields.io/npm/dm/necord'><img src="https://img.shields.io/npm/dm/necord" alt="NPM Downloads" /></a>
-    <a href='https://img.shields.io/github/last-commit/Miko-Team/necord'><img src="https://img.shields.io/github/last-commit/Miko-Team/necord" alt="Last commt" /></a>
+    <a href='https://img.shields.io/github/last-commit/miko-org/necord'><img src="https://img.shields.io/github/last-commit/miko-org/necord" alt="Last commt" /></a>
 </p>
 
 ## About
@@ -31,7 +31,7 @@ If you want to dive fully into Necord check out the [documentation site](https:/
 
 ## Questions
 
-For questions and support please use the [Discussions page](https://github.com/Miko-Team/necord/discussions). The issue list of this repo is
+For questions and support please use the [Discussions page](https://github.com/miko-org/necord/discussions). The issue list of this repo is
 exclusively for bug reports and feature requests.
 
 ## Stay in touch
@@ -42,4 +42,4 @@ exclusively for bug reports and feature requests.
 
 ## License
 
-Necord is [MIT licensed](https://github.com/Miko-Team/necord/blob/main/LICENSE).
+Necord is [MIT licensed](https://github.com/miko-org/necord/blob/main/LICENSE).

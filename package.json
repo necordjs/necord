@@ -18,10 +18,10 @@
 	"homepage": "https://necord.miko.bot",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Miko-Team/necord"
+		"url": "https://github.com/miko-org/necord"
 	},
 	"bugs": {
-		"url": "https://github.com/Miko-Team/necord/issues"
+		"url": "https://github.com/miko-org/necord/issues"
 	},
 	"author": "Alexey Filippov <socket.someone@gmail.com>",
 	"scripts": {
