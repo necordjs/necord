@@ -44,12 +44,12 @@
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"devDependencies": {
-		"@commitlint/cli": "13.2.1",
-		"@commitlint/config-angular": "13.2.0",
+		"@commitlint/cli": "15.0.0",
+		"@commitlint/config-angular": "15.0.0",
 		"@favware/npm-deprecate": "^1.0.4",
-		"@nestjs/common": "^8.0.0",
-		"@nestjs/core": "^8.0.0",
-		"@types/node": "16.11.6",
+		"@nestjs/common": "8.2.3",
+		"@nestjs/core": "8.2.3",
+		"@types/node": "16.11.11",
 		"@typescript-eslint/eslint-plugin": "4.33.0",
 		"@typescript-eslint/parser": "4.33.0",
 		"discord.js": "13.3.1",
@@ -57,13 +57,13 @@
 		"eslint-config-prettier": "8.3.0",
 		"eslint-plugin-prettier": "4.0.0",
 		"husky": "7.0.4",
-		"lint-staged": "11.2.6",
-		"prettier": "2.4.1",
+		"lint-staged": "12.1.2",
+		"prettier": "2.5.0",
 		"reflect-metadata": "0.1.13",
 		"release-it": "^14.11.8",
 		"rimraf": "3.0.2",
 		"rxjs": "7.4.0",
-		"typescript": "4.4.4"
+		"typescript": "4.5.2"
 	},
 	"peerDependencies": {
 		"@nestjs/common": "^8.0.0",
@@ -71,14 +71,6 @@
 		"discord.js": "^13.3.1",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.2.0"
-	},
-	"peerDependenciesMeta": {
-		"class-validator": {
-			"optional": true
-		},
-		"class-transformer": {
-			"optional": true
-		}
 	},
 	"engines": {
 		"node": ">=16.6.0"
