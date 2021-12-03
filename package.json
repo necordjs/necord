@@ -1,7 +1,7 @@
 {
 	"license": "MIT",
 	"name": "necord",
-	"version": "2.0.0-dev",
+	"version": "2.0.0",
 	"description": "A Discord bot framework built on top of Discord.js and Nest.js for advanced and amazing bots.",
 	"keywords": [
 		"nest",
