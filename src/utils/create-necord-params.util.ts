@@ -1,29 +1,27 @@
-import 'reflect-metadata';
 import { NecordParamType } from '../context';
-import { assignMetadata, PipeTransform, Type } from '@nestjs/common';
+import { assignMetadata, ParamDecoratorEnhancer, PipeTransform, Type } from '@nestjs/common';
 import { PARAM_ARGS_METADATA } from '../necord.constants';
-import { isNil, isString } from '@nestjs/common/utils/shared.utils';
+import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
 
 export function createNecordParamDecorator(
-	type: NecordParamType
+	type: NecordParamType,
+	enhancers: ParamDecoratorEnhancer[] = []
 ): (...pipes: (Type<PipeTransform> | PipeTransform)[]) => ParameterDecorator {
 	return (...pipes: (Type<PipeTransform> | PipeTransform)[]) =>
-		(target, key, index) => {
-			const args = Reflect.getMetadata(PARAM_ARGS_METADATA, target.constructor, key) || {};
-			Reflect.defineMetadata(
-				PARAM_ARGS_METADATA,
-				assignMetadata(args, type, index, undefined, ...pipes),
-				target.constructor,
-				key
-			);
-		};
+		createNecordPipesParamDecorator(type, enhancers)(pipes);
 }
 
-export function createNecordPipesParamDecorator(type: NecordParamType) {
+export function createNecordPipesParamDecorator(type: NecordParamType, enhancers: ParamDecoratorEnhancer[] = []) {
 	return (data?: any, ...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
 		(target, key, index) => {
 			const args = Reflect.getMetadata(PARAM_ARGS_METADATA, target.constructor, key) || {};
-			const hasParamData = isNil(data) || isString(data);
+
+			const isPipe = (pipe: any) =>
+				pipe &&
+				((isFunction(pipe) && pipe.prototype && isFunction(pipe.prototype.transform)) ||
+					isFunction(pipe.transform));
+
+			const hasParamData = isNil(data) || !isPipe(data);
 			const paramData = hasParamData ? data : undefined;
 			const paramPipes = hasParamData ? pipes : [data, ...pipes];
 
@@ -33,5 +31,7 @@ export function createNecordPipesParamDecorator(type: NecordParamType) {
 				target.constructor,
 				key
 			);
+
+			enhancers.forEach(fn => fn(target, key, index));
 		};
 }

@@ -1,36 +1,41 @@
 import { Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { ApplicationCommandExecuteMetadata, ListenerMetadata } from '../interfaces';
+import { ApplicationCommandData, ApplicationCommandSubGroupData, ChatInputApplicationCommandData } from 'discord.js';
+import { ListenerMetadata, OptionMetadata, ComponentMetadata } from '../interfaces';
 import {
 	APPLICATION_COMMAND_METADATA,
 	GROUP_METADATA,
 	LISTENERS_METADATA,
-	OPTIONS_METADATA
+	MESSAGE_COMPONENT_METADATA,
+	OPTIONS_METADATA,
+	SUBGROUP_METADATA
 } from '../necord.constants';
-import { ApplicationCommandOptionData } from 'discord.js';
 
 @Injectable()
 export class MetadataAccessorService {
 	public constructor(private readonly reflector: Reflector) {}
 
-	public getListenerMetadata(target: Record<string, Function>, methodName: string): ListenerMetadata {
+	public getListenerMetadata(target: Record<string, any>, methodName: string): ListenerMetadata {
 		return this.reflector.get(LISTENERS_METADATA, target[methodName]);
 	}
 
-	public getCommandGroup(target: Record<string, Function>, methodName: string): string {
-		return this.reflector.getAllAndOverride(GROUP_METADATA, [target[methodName], target.constructor]);
+	public getMessageComponentMetadata(target: Record<string, any>, methodName: string): ComponentMetadata {
+		return this.reflector.get(MESSAGE_COMPONENT_METADATA, target[methodName]);
 	}
 
-	public getApplicationCommand(
-		target: Record<string, Function>,
-		methodName: string
-	): ApplicationCommandExecuteMetadata {
+	public getApplicationCommandMetadata(target: Record<string, any>, methodName: string): ApplicationCommandData {
 		return this.reflector.get(APPLICATION_COMMAND_METADATA, target[methodName]);
 	}
 
-	public getOptions(target: Record<string, Function>, methodName: string): Array<ApplicationCommandOptionData> {
-		const metadata = this.reflector.get(OPTIONS_METADATA, target[methodName]);
+	public getOptionsMetadata(target: Record<string, any>, methodName: string): Record<string, OptionMetadata> {
+		return this.reflector.get(OPTIONS_METADATA, target[methodName]) ?? {};
+	}
 
-		return metadata?.sort((a, b) => a.parameterIndex - b.parameterIndex);
+	public getCommandGroupMetadata(target: Record<string, any>, methodName: string): ChatInputApplicationCommandData {
+		return this.reflector.getAllAndOverride(GROUP_METADATA, [target[methodName], target.constructor]);
+	}
+
+	public getCommandSubGroupMetadata(target: Record<string, any>, methodName: string): ApplicationCommandSubGroupData {
+		return this.reflector.getAllAndOverride(SUBGROUP_METADATA, [target[methodName], target.constructor]);
 	}
 }

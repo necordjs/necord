@@ -2,8 +2,9 @@ import { ModuleMetadata, Type } from '@nestjs/common';
 import { ClientOptions as DiscordClientOptions } from 'discord.js';
 
 export interface NecordModuleOptions extends DiscordClientOptions {
-	ownersIDs?: string[];
 	token?: string;
+	validate?: boolean;
+	registerApplicationCommands?: boolean | string;
 }
 
 export interface NecordOptionsFactory {

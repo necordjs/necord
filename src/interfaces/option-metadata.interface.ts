@@ -1,15 +1,18 @@
-import { ChannelTypes } from 'discord.js/typings/enums';
+import {
+	ApplicationCommandOptionData,
+	ApplicationCommandSubCommandData,
+	ApplicationCommandSubGroupData,
+	CommandInteractionOptionResolver
+} from 'discord.js';
 
-export type OptionMetadata = {
-	name: string;
-	description?: string;
-	required?: boolean;
-};
+export type OptionData = Exclude<
+	ApplicationCommandOptionData,
+	ApplicationCommandSubGroupData | ApplicationCommandSubCommandData
+>;
 
-export type ChannelOptionMetadata = OptionMetadata & {
-	types: Exclude<ChannelTypes, ChannelTypes.DM | ChannelTypes.GROUP_DM>[];
-};
+export type OptionTransform = keyof CommandInteractionOptionResolver;
 
-export type PrimitiveOptionMetadata<V = string> = OptionMetadata & {
-	choices?: [string, V][];
+export type OptionMetadata<T extends OptionData['type'] = OptionData['type']> = OptionData & {
+	readonly type?: T;
+	methodName?: OptionTransform;
 };

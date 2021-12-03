@@ -1,40 +1,45 @@
 import { Inject, Injectable, Logger, OnApplicationBootstrap, OnApplicationShutdown } from '@nestjs/common';
-import { MODULE_OPTIONS } from './necord.constants';
 import { NecordModuleOptions } from './interfaces';
-import { Client as DiscordClient } from 'discord.js';
-import { OnDebug, OnError, OnWarn } from './decorators';
+import { ApplicationCommandData, BaseMessageComponent, Client } from 'discord.js';
+import { APPLICATION_COMMANDS, MESSAGE_COMPONENTS, MODULE_OPTIONS } from './providers';
+import { On } from './decorators';
 
 @Injectable()
-export class NecordClient extends DiscordClient implements OnApplicationBootstrap, OnApplicationShutdown {
+export class NecordClient extends Client implements OnApplicationBootstrap, OnApplicationShutdown {
 	private readonly logger = new Logger(NecordClient.name);
 
 	public constructor(
 		@Inject(MODULE_OPTIONS)
-		private readonly necordOptions: NecordModuleOptions
+		public readonly options: NecordModuleOptions,
+		@Inject(APPLICATION_COMMANDS)
+		public readonly applicationCommands: ApplicationCommandData[],
+		@Inject(MESSAGE_COMPONENTS)
+		public readonly messageComponents: BaseMessageComponent[]
 	) {
-		super(necordOptions);
+		super(options);
 	}
 
-	public onApplicationBootstrap() {
-		return this.login(this.necordOptions.token);
-	}
+	public onApplicationBootstrap = this.login.bind(this, this.options.token);
 
-	public onApplicationShutdown() {
-		return this.destroy();
-	}
+	public onApplicationShutdown = this.destroy.bind(this);
 
-	@OnDebug
-	public onDebug(message: string) {
-		this.logger.debug(message);
-	}
+	@On('ready')
+	private async onReadyRegistration() {
+		if (!this.options.registerApplicationCommands) {
+			return;
+		}
 
-	@OnWarn
-	public onWarn(message: string) {
-		this.logger.warn(message);
-	}
+		if (this.application.partial) {
+			await this.application.fetch();
+		}
 
-	@OnError
-	public onError(err: Error) {
-		this.logger.error(err.message, err.stack);
+		this.logger.log(`Started refreshing application commands.`);
+		await this.application.commands.set(
+			this.applicationCommands,
+			typeof this.options.registerApplicationCommands === 'string'
+				? this.options.registerApplicationCommands
+				: undefined
+		);
+		this.logger.log(`Successfully reloaded application commands.`);
 	}
 }

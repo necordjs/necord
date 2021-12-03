@@ -30,9 +30,6 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build Project
-        run: npm run build
-
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
         run: npm deprecate necord@"~$(jq --raw-output '.version' package.json)" "no longer supported" || true
@@ -43,6 +40,6 @@ jobs:
         if: steps.pre-release.outputs.release == 'true'
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(date +%s).$(git rev-parse --short HEAD)
-          npm publish --tag dev || true
+          npm run publish:dev || true
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -13,11 +13,13 @@ export class NecordParamsFactory implements ParamsFactory {
 
 		switch (type as NecordParamType) {
 			case NecordParamType.CONTEXT:
-				return data && Array.isArray(context) ? context[data as string] : context;
-			case NecordParamType.VALUES:
-				return context.isSelectMenu() && context.values;
+				return data ? context[data as string] : context;
 			case NecordParamType.OPTIONS:
-				return context.isApplicationCommand() ? context.options : null;
+				return context.isApplicationCommand() ? (!!data ? args[1][data] : args[1]) : null;
+			case NecordParamType.VALUES:
+				return context.isSelectMenu() ? context.values : null;
+			case NecordParamType.COMPONENT:
+				return context.isMessageComponent() ? context.component : null;
 			default:
 				return null;
 		}

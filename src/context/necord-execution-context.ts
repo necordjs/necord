@@ -1,6 +1,5 @@
 import { ContextType, ExecutionContext } from '@nestjs/common';
 import { NecordArgumentsHost } from './necord-arguments-host';
-import { CommandInteractionOptionResolver } from 'discord.js';
 
 export type NecordContextType = 'necord' | ContextType;
 
@@ -18,13 +17,5 @@ export class NecordExecutionContext extends NecordArgumentsHost {
 
 	public getContext<T = any>(): T {
 		return this.getArgByIndex(0);
-	}
-
-	public getValues(): string[] {
-		return this.getArgByIndex(1);
-	}
-
-	public getOptions(): CommandInteractionOptionResolver {
-		return this.getArgByIndex(2);
 	}
 }

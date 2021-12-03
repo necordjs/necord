@@ -1,27 +1,27 @@
 {
 	"license": "MIT",
 	"name": "necord",
-	"version": "1.1.0-dev",
+	"version": "2.0.0-dev",
 	"description": "A Discord bot framework built on top of Discord.js and Nest.js for advanced and amazing bots.",
 	"keywords": [
 		"nest",
 		"nestjs",
 		"nestjs-module",
 		"discord",
-		"discord",
+		"discordjs",
 		"discord bot",
 		"discord bot api",
 		"bot",
 		"bot api",
 		"bot framework"
 	],
-	"homepage": "https://necord.miko.bot",
+	"homepage": "https://github.com/SocketSomeone/necord/wiki",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/miko-org/necord"
+		"url": "https://github.com/SocketSomeone/necord"
 	},
 	"bugs": {
-		"url": "https://github.com/miko-org/necord/issues"
+		"url": "https://github.com/SocketSomeone/necord/issues"
 	},
 	"author": "Alexey Filippov <socket.someone@gmail.com>",
 	"scripts": {
@@ -29,9 +29,12 @@
 		"precommit": "lint-staged",
 		"prepublish:npm": "npm run build",
 		"publish:npm": "npm publish --access public",
+		"prepublish:dev": "npm run build",
+		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky install .github/husky",
 		"test": "",
-		"lint": "eslint --ignore-path .gitignore {integration,src}/**/*.ts"
+		"lint": "eslint --ignore-path .gitignore {integration,src}/**/*.ts",
+		"release": "release-it"
 	},
 	"lint-staged": {
 		"*.ts": [
@@ -43,7 +46,6 @@
 	"devDependencies": {
 		"@commitlint/cli": "13.2.1",
 		"@commitlint/config-angular": "13.2.0",
-		"@discordjs/builders": "0.8.1",
 		"@favware/npm-deprecate": "^1.0.4",
 		"@nestjs/common": "^8.0.0",
 		"@nestjs/core": "^8.0.0",
@@ -58,17 +60,15 @@
 		"lint-staged": "11.2.6",
 		"prettier": "2.4.1",
 		"reflect-metadata": "0.1.13",
+		"release-it": "^14.11.8",
 		"rimraf": "3.0.2",
 		"rxjs": "7.4.0",
 		"typescript": "4.4.4"
 	},
 	"peerDependencies": {
-		"@discordjs/builders": "^0.7.0",
 		"@nestjs/common": "^8.0.0",
 		"@nestjs/core": "^8.0.0",
 		"discord.js": "^13.3.1",
-		"class-transformer": "*",
-		"class-validator": "*",
 		"reflect-metadata": "^0.1.13",
 		"rxjs": "^7.2.0"
 	},
@@ -82,5 +82,6 @@
 	},
 	"engines": {
 		"node": ">=16.6.0"
-	}
+	},
+	"dependencies": {}
 }
