@@ -16,10 +16,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 16
-          cache: npm
+          cache: yarn
 
       - name: Install dependencies & Run Tests
-        run: npm cit
+        run: yarn install --frozen-lockfile
+
+      - name: Run Tests
+        run: yarn run test
 
       - name: Run ESlint
-        run: npm run lint
+        run: yarn lint
