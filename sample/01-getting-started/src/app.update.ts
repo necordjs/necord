@@ -42,7 +42,7 @@ export class AppUpdate {
 							.setLabel('Test button')
 							.setStyle(MessageButtonStyles.PRIMARY),
 						new MessageButton()
-							.setURL('https://necord.miko.bot')
+							.setURL('https://github.com/SocketSomeone/necord/wiki')
 							.setLabel('Documentation')
 							.setStyle(MessageButtonStyles.LINK)
 					),

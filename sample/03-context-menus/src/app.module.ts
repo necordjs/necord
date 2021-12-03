@@ -1,6 +1,5 @@
 import { NecordModule } from 'necord';
 import { Module } from '@nestjs/common';
-import { AppUpdate } from './app.update';
 import { Intents } from 'discord.js';
 import { AppCommands } from './app.commands';
 
@@ -8,9 +7,10 @@ import { AppCommands } from './app.commands';
 	imports: [
 		NecordModule.forRoot({
 			token: process.env.DISCORD_TOKEN,
+			registerApplicationCommands: process.env.DEV_GUILD,
 			intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES]
 		})
 	],
-	providers: [AppUpdate, AppCommands]
+	providers: [AppCommands]
 })
 export class AppModule {}

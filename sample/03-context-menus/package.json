@@ -18,7 +18,7 @@
 		"class-transformer": "^0.4.0",
 		"class-validator": "^0.13.1",
 		"discord.js": "13.2.0",
-		"necord": "1.0.8-dev.1635727471.c6e4c0d",
+		"necord": "2.0.0",
 		"reflect-metadata": "0.1.13",
 		"rimraf": "3.0.2",
 		"rxjs": "^7.2.0"
