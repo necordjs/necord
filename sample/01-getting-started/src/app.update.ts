@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Button, Context, NecordClient, On, OnReady, SelectMenu } from 'necord';
+import { Button, Context, NecordClient, On, SelectMenu } from 'necord';
 import {
 	ButtonInteraction,
 	Client,
@@ -17,7 +17,7 @@ export class AppUpdate {
 
 	public constructor(private readonly necordClient: NecordClient) {}
 
-	@OnReady
+	@On('ready')
 	public async onReady(@Context() client: Client) {
 		this.logger.log(`Bot logged in as ${client.user.username}`);
 	}
