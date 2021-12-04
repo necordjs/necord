@@ -2,8 +2,6 @@
   color: '7ef7ef'
 - name: 'bug'
   color: 'd73a4a'
-- name: 'caching'
-  color: '80c042'
 - name: 'chore'
   color: 'ffffff'
 - name: 'ci'
