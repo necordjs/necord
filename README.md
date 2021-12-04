@@ -27,7 +27,7 @@ This module provides fast and easy way for creating Discord bots and deep integr
 
 ## Getting started
 
-If you want to dive fully into Necord check out the [documentation site](https://necord.miko.bot).
+If you want to dive fully into Necord check out the [documentation site](https://github.com/SocketSomeone/necord/wiki).
 
 ## Questions
 
@@ -37,7 +37,7 @@ exclusively for bug reports and feature requests.
 ## Stay in touch
 
 * Author - [Alexey Filippov](https://t.me/socketsomeone)
-* Documentation - https://necord.miko.bot
+* Documentation - https://github.com/SocketSomeone/necord/wiki
 * Twitter - [@SocketSomeone](https://twitter.com/SocketSomeone)
 
 ## License
