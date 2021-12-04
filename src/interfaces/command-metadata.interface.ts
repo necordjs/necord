@@ -1,4 +1,7 @@
 import { ApplicationCommandData } from 'discord.js';
-import { MethodMetadata } from './method-metadata.interface';
 
-export type ApplicationCommandMetadata = ApplicationCommandData & MethodMetadata;
+export type ApplicationCommandMetadata = ApplicationCommandData & {
+	instance?: Record<string, any>;
+	prototype?: object;
+	method?: string;
+};

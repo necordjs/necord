@@ -2,37 +2,37 @@ import { DynamicModule, Module, Provider } from '@nestjs/common';
 import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { DiscoveryModule } from '@nestjs/core';
 import { NecordClient } from './necord-client';
+import { MODULE_OPTIONS } from './necord.constants';
 import {
-	CommandsExplorerService,
-	ListenersExplorerService,
-	MetadataAccessorService,
-	ComponentsExplorerService
+	CommandsService,
+	ComponentsService,
+	ExplorerService,
+	ListenersService,
+	MetadataAccessorService
 } from './services';
-import {
-	applicationCommandsProvider,
-	messageComponentsProvider,
-	createNecordModuleOptionsProvider,
-	MODULE_OPTIONS
-} from './providers';
 
 @Module({
 	imports: [DiscoveryModule],
 	providers: [
+		CommandsService,
+		ComponentsService,
+		ListenersService,
+		ExplorerService,
 		MetadataAccessorService,
-		CommandsExplorerService,
-		ComponentsExplorerService,
-		ListenersExplorerService,
-		NecordClient,
-		applicationCommandsProvider,
-		messageComponentsProvider
+		NecordClient
 	],
-	exports: [NecordClient, applicationCommandsProvider, messageComponentsProvider]
+	exports: [NecordClient]
 })
 export class NecordModule {
 	public static forRoot(options: NecordModuleOptions): DynamicModule {
 		return {
 			module: NecordModule,
-			providers: [createNecordModuleOptionsProvider(options)]
+			providers: [
+				{
+					provide: MODULE_OPTIONS,
+					useValue: options
+				}
+			]
 		};
 	}
 
