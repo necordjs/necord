@@ -1,5 +1,5 @@
 name: ❓ Questions and Support Request
-description: Question
+description: Ask the developer about the library
 labels: [question]
 body:
   - type: textarea
