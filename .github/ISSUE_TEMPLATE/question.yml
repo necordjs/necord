@@ -1,0 +1,11 @@
+name: ❓ Questions and Support Request
+description: Question
+labels: [question]
+body:
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: What is your question?
+      description: Please try to be as clear and concise as possible.
+    validations:
+      required: true
