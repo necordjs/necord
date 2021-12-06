@@ -1,5 +1,4 @@
 export * from './necord.module';
-export * from './necord-client';
 
 export * from './context';
 export * from './decorators';

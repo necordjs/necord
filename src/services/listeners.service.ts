@@ -1,15 +1,15 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ListenerMetadata } from '../interfaces';
 import { MetadataAccessorService } from './metadata-accessor.service';
-import { NecordClient } from '../necord-client';
 import { ExplorerService } from './explorer.service';
+import { Client } from 'discord.js';
 
 @Injectable()
 export class ListenersService implements OnModuleInit {
 	public constructor(
 		private readonly explorerService: ExplorerService<ListenerMetadata>,
 		private readonly metadataAccessor: MetadataAccessorService,
-		private readonly client: NecordClient
+		private readonly client: Client
 	) {}
 
 	public async onModuleInit() {

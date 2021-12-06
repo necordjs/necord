@@ -1,9 +1,8 @@
 import { ExplorerService } from './explorer.service';
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { MetadataAccessorService } from './metadata-accessor.service';
-import { NecordClient } from '../necord-client';
 import { ComponentMetadata } from '../interfaces';
-import { BaseMessageComponent, MessageComponentInteraction } from 'discord.js';
+import { BaseMessageComponent, Client, MessageComponentInteraction } from 'discord.js';
 
 @Injectable()
 export class ComponentsService implements OnModuleInit {
@@ -12,7 +11,7 @@ export class ComponentsService implements OnModuleInit {
 	public constructor(
 		private readonly explorerService: ExplorerService<ComponentMetadata>,
 		private readonly metadataAccessor: MetadataAccessorService,
-		private readonly client: NecordClient
+		private readonly client: Client
 	) {}
 
 	public onModuleInit() {

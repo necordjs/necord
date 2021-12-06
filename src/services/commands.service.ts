@@ -1,29 +1,32 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { ExplorerService } from './explorer.service';
-import { ApplicationCommandMetadata, OptionMetadata } from '../interfaces';
+import { ApplicationCommandMetadata, NecordModuleOptions, OptionMetadata } from '../interfaces';
 import { MetadataAccessorService } from './metadata-accessor.service';
-import { NecordClient } from '../necord-client';
 import {
 	ApplicationCommandData,
 	ApplicationCommandSubCommandData,
 	ApplicationCommandSubGroupData,
-	ChatInputApplicationCommandData
+	ChatInputApplicationCommandData,
+	Client
 } from 'discord.js';
 import { ApplicationCommandOptionTypes, ApplicationCommandTypes } from 'discord.js/typings/enums';
 import { On } from '../decorators';
+import { NECORD_MODULE_OPTIONS } from '../necord.constants';
 
 type TransformFn = (name: string, required: boolean) => any;
 
 @Injectable()
 export class CommandsService implements OnModuleInit {
-	private readonly logger = new Logger(NecordClient.name);
+	private readonly logger = new Logger(CommandsService.name);
 
 	private readonly commands: ApplicationCommandData[] = [];
 
 	public constructor(
 		private readonly explorerService: ExplorerService<ApplicationCommandMetadata>,
 		private readonly metadataAccessor: MetadataAccessorService,
-		private readonly client: NecordClient
+		private readonly client: Client,
+		@Inject(NECORD_MODULE_OPTIONS)
+		private readonly options: NecordModuleOptions
 	) {}
 
 	public onModuleInit() {
@@ -84,7 +87,7 @@ export class CommandsService implements OnModuleInit {
 
 	@On('ready')
 	private async onReadyRegistration() {
-		if (!this.client.options.registerApplicationCommands) {
+		if (!this.options.registerApplicationCommands) {
 			return;
 		}
 
@@ -95,8 +98,8 @@ export class CommandsService implements OnModuleInit {
 		this.logger.log(`Started refreshing application commands.`);
 		await this.client.application.commands.set(
 			this.commands,
-			typeof this.client.options.registerApplicationCommands === 'string'
-				? this.client.options.registerApplicationCommands
+			typeof this.options.registerApplicationCommands === 'string'
+				? this.options.registerApplicationCommands
 				: undefined
 		);
 		this.logger.log(`Successfully reloaded application commands.`);
