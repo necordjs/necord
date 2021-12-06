@@ -32,7 +32,7 @@
   color: '80c042'
 - name: 'priority:high'
   color: 'fc1423'
-- name: 'question (please use Discussions instead)'
+- name: 'question'
   color: 'd876e3'
 - name: 'refactor'
   color: '1d637f'

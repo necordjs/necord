@@ -9,7 +9,7 @@
     <a href='https://img.shields.io/npm/v/necord'><img src="https://img.shields.io/npm/v/necord" alt="NPM Version" /></a>
     <a href='https://img.shields.io/npm/l/necord'><img src="https://img.shields.io/npm/l/necord" alt="NPM License" /></a>
     <a href='https://img.shields.io/npm/dm/necord'><img src="https://img.shields.io/npm/dm/necord" alt="NPM Downloads" /></a>
-    <a href='https://img.shields.io/github/last-commit/SocketSomeone/necord'><img src="https://img.shields.io/github/last-commit/SocketSomeone/necord" alt="Last commt" /></a>
+    <a href='https://img.shields.io/github/last-commit/SocketSomeone/necord'><img src="https://img.shields.io/github/last-commit/SocketSomeone/necord" alt="Last commit" /></a>
 </p>
 
 ## About
@@ -20,26 +20,82 @@ This module provides fast and easy way for creating Discord bots and deep integr
 
 **Features**
 
-- Simple. Easy to use.
+- Simple. Flexible. Easy to use.
 - Ability to create custom decorators.
 - Interact with Discord (Slash Commands, Context Menus, Message Components, Listeners).
 - Full support of NestJS guards, interceptors, filters and pipes!
 
-## Getting started
+For questions and support please use
+the [Issues](https://github.com/SocketSomeone/necord/issues/new?assignees=&labels=question&template=question.yml).
 
-If you want to dive fully into Necord check out the [documentation site](https://github.com/SocketSomeone/necord/wiki).
+## Installation
 
-## Questions
+**Node.js 16.6.0 or newer is required.**
 
-For questions and support please use the [Discussions page](https://github.com/SocketSomeone/necord/discussions). The issue list of this repo is
-exclusively for bug reports and feature requests.
+```bash
+$ npm i necord discord.js
+$ yarn add necord discord.js
+$ pnpm add necord discord.js
+```
+
+## Usage
+
+Once the installation process is complete, we can import the `NecordModule` into the root `AppModule`:
+
+```typescript
+import { NecordModule } from 'necord';
+import { Module } from '@nestjs/common';
+import { Intents } from 'discord.js';
+
+@Module({
+    imports: [
+        NecordModule.forRoot({
+            token: 'DISCORD_BOT_TOKEN',
+            intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.DIRECT_MESSAGES]
+        })
+    ],
+    providers: []
+})
+export class AppModule {
+}
+```
+
+Then create `app.update.ts` file and add `On`/`Once` decorators for handling Discord API events:
+
+```typescript
+import { Injectable, Logger } from '@nestjs/common';
+import { Context, On, Once } from 'necord';
+
+@Injectable()
+export class AppUpdate {
+    private readonly logger = new Logger(AppUpdate.name);
+
+    @Once('ready')
+    public onReady(@Context() client: Client) {
+        this.logger.log(`Bot logged in as ${client.user.username}`);
+    }
+
+    @On('warn')
+    public onWarn(@Context() message: string) {
+        this.logger.warn(message);
+    }
+}
+```
+
+Whenever you need to handle any event data, use the `Context` decorator.
+
+If you want to fully dive into Necord check out these resources:
+
+* [Necord Wiki](https://github.com/SocketSomeone/necord/wiki) - Official documentation of Necord
+* [Nest JS](https://docs.nestjs.com) - A progressive framework for creating well-architectured applications.
+* [Discord JS](https://discord.js.org) - The most powerful library for creating bots,
+* [Discord API](https://discord.com/developers/docs) - Official documentation of Discord API.
 
 ## Stay in touch
 
 * Author - [Alexey Filippov](https://t.me/socketsomeone)
-* Documentation - https://github.com/SocketSomeone/necord/wiki
 * Twitter - [@SocketSomeone](https://twitter.com/SocketSomeone)
 
 ## License
 
-Necord is [MIT licensed](https://github.com/SocketSomeone/necord/blob/main/LICENSE).
+[MIT](https://github.com/SocketSomeone/necord/blob/master/LICENSE) © [Alexey Filippov](https://github.com/SocketSomeone)
