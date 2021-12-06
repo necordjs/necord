@@ -86,9 +86,9 @@ Whenever you need to handle any event data, use the `Context` decorator.
 
 If you want to fully dive into Necord check out these resources:
 
-* [Necord Wiki](https://github.com/SocketSomeone/necord/wiki) - Official documentation of Necord
+* [Necord Wiki](https://github.com/SocketSomeone/necord/wiki) - Official documentation of Necord.
 * [Nest JS](https://docs.nestjs.com) - A progressive framework for creating well-architectured applications.
-* [Discord JS](https://discord.js.org) - The most powerful library for creating bots,
+* [Discord JS](https://discord.js.org) - The most powerful library for creating bots.
 * [Discord API](https://discord.com/developers/docs) - Official documentation of Discord API.
 
 ## Stay in touch
