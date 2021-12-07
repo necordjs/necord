@@ -3,8 +3,9 @@
 </p>
 
 <p align="center">
-    A Discord bot framework built on top of  <a href="https://discord.js.org/#/" target="_blank">Discord.js</a> and <a href="https://nestjs.com/" target="_blank">Nest.js</a> for advanced and amazing bots.
+    A module for creating Discord bots using  <a href="https://nestjs.com/" target="_blank">NestJS</a>, based on <a href="https://discord.js.org/#/" target="_blank">Discord.js</a>.
 </p>
+
 <p align="center">
     <a href='https://img.shields.io/npm/v/necord'><img src="https://img.shields.io/npm/v/necord" alt="NPM Version" /></a>
     <a href='https://img.shields.io/npm/l/necord'><img src="https://img.shields.io/npm/l/necord" alt="NPM License" /></a>
