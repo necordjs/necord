@@ -1,5 +1,13 @@
 import { Client } from 'discord.js';
-import { DynamicModule, Inject, Module, OnApplicationBootstrap, OnApplicationShutdown, Provider } from '@nestjs/common';
+import {
+	DynamicModule,
+	Global,
+	Inject,
+	Module,
+	OnApplicationBootstrap,
+	OnApplicationShutdown,
+	Provider
+} from '@nestjs/common';
 import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { DiscoveryModule } from '@nestjs/core';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
@@ -11,6 +19,7 @@ import {
 	MetadataAccessorService
 } from './services';
 
+@Global()
 @Module({
 	imports: [DiscoveryModule],
 	providers: [CommandsService, ComponentsService, ListenersService, ExplorerService, MetadataAccessorService]
@@ -23,6 +32,7 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 	) {}
 
 	public onApplicationBootstrap() {
+		console.log(this.client);
 		return this.client.login(this.options.token);
 	}
 
