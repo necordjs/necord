@@ -95,8 +95,6 @@ export class CommandsService implements OnModuleInit {
 			await this.client.application.fetch();
 		}
 
-		console.log(this.commands);
-
 		this.logger.log(`Started refreshing application commands.`);
 		await this.client.application.commands.set(
 			this.commands,
