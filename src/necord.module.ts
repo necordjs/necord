@@ -32,7 +32,6 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 	) {}
 
 	public onApplicationBootstrap() {
-		console.log(this.client);
 		return this.client.login(this.options.token);
 	}
 

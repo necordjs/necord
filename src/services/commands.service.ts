@@ -29,7 +29,7 @@ export class CommandsService implements OnModuleInit {
 		private readonly options: NecordModuleOptions
 	) {}
 
-	public onModuleInit() {
+	public async onModuleInit() {
 		const commands = this.explorerService.explore((instance, prototype, method) => {
 			const command = this.metadataAccessor.getApplicationCommandMetadata(instance, method);
 
@@ -43,7 +43,7 @@ export class CommandsService implements OnModuleInit {
 			};
 		});
 
-		for (const { instance, prototype, method, ...command } of commands) {
+		commands.forEach(({ instance, prototype, method, ...command }) => {
 			const options = this.metadataAccessor.getOptionsMetadata(instance, method);
 			let group = this.metadataAccessor.getCommandGroupMetadata(instance, method);
 			let subGroup = this.metadataAccessor.getCommandSubGroupMetadata(instance, method);
@@ -82,7 +82,7 @@ export class CommandsService implements OnModuleInit {
 			}
 
 			!cachedGroup && this.commands.push(group);
-		}
+		});
 	}
 
 	@On('ready')
@@ -94,6 +94,8 @@ export class CommandsService implements OnModuleInit {
 		if (this.client.application.partial) {
 			await this.client.application.fetch();
 		}
+
+		console.log(this.commands);
 
 		this.logger.log(`Started refreshing application commands.`);
 		await this.client.application.commands.set(
