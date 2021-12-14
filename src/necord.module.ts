@@ -1,4 +1,3 @@
-import { Client } from 'discord.js';
 import {
 	DynamicModule,
 	Global,
@@ -8,8 +7,9 @@ import {
 	OnApplicationShutdown,
 	Provider
 } from '@nestjs/common';
-import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
+import { Client } from 'discord.js';
 import { DiscoveryModule } from '@nestjs/core';
+import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import {
 	CommandsService,
@@ -18,11 +18,19 @@ import {
 	ListenersService,
 	MetadataAccessorService
 } from './services';
+import { NecordUpdate } from './necord.update';
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [CommandsService, ComponentsService, ListenersService, ExplorerService, MetadataAccessorService]
+	providers: [
+		CommandsService,
+		ComponentsService,
+		ListenersService,
+		ExplorerService,
+		MetadataAccessorService,
+		NecordUpdate
+	]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(
