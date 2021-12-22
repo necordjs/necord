@@ -113,7 +113,7 @@ export class CommandsService implements OnModuleInit {
 			'interactionCreate',
 			interaction =>
 				interaction.isContextMenu() &&
-				interaction.targetType === command.type &&
+				interaction.targetType === (command.type === ApplicationCommandTypes.USER ? 'USER' : 'MESSAGE') &&
 				interaction.commandName === command.name &&
 				execute(
 					interaction,
