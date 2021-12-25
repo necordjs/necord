@@ -3,6 +3,7 @@ import { Injectable, OnModuleInit } from '@nestjs/common';
 import { MetadataAccessorService } from './metadata-accessor.service';
 import { ComponentMetadata } from '../interfaces';
 import { BaseMessageComponent, Client, MessageComponentInteraction } from 'discord.js';
+import { filter, fromEvent, mergeMap, of } from 'rxjs';
 
 @Injectable()
 export class ComponentsService implements OnModuleInit {
@@ -14,7 +15,7 @@ export class ComponentsService implements OnModuleInit {
 		private readonly client: Client
 	) {}
 
-	public onModuleInit() {
+	public async onModuleInit() {
 		const components = this.explorerService.explore((instance, prototype, method) =>
 			this.metadataAccessor.getMessageComponentMetadata(instance, method)
 		);

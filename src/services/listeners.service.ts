@@ -18,7 +18,7 @@ export class ListenersService implements OnModuleInit {
 		);
 
 		for (const listener of listeners) {
-			this.client[listener.type](listener.event, (...args) => listener.execute(args));
+			this.client[listener.type](listener.event, (...args) => listener.execute(args.length > 1 ? args : args[0]));
 		}
 	}
 }
