@@ -5,11 +5,9 @@
 	"scripts": {
 		"build": "rimraf -rf dist && tsc -p tsconfig.json",
 		"prepublish:npm": "npm run build",
-		"publish:npm": "npm publish --access public",
+		"publish:npm": "release-it",
 		"prepublish:dev": "npm run build",
 		"publish:dev": "npm publish --access public --tag dev",
-		"prepublish:release": "npm run build",
-		"publish:release": "release-it",
 		"prepare": "husky install .github/husky",
 		"test": "echo add tests",
 		"format": "prettier --write \"src/**/*.ts\"",
