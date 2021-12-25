@@ -1,7 +1,7 @@
 {
 	"name": "necord",
 	"description": "A module for creating Discord bots using NestJS, based on Discord.js.",
-	"version": "3.0.5",
+	"version": "3.0.4",
 	"scripts": {
 		"build": "rimraf -rf dist && tsc -p tsconfig.json",
 		"prepublish:npm": "npm run build",
@@ -51,7 +51,7 @@
 		"@types/node": "17.0.4",
 		"@typescript-eslint/eslint-plugin": "4.33.0",
 		"@typescript-eslint/parser": "4.33.0",
-		"discord.js": "13.4.0",
+		"discord.js": "13.3.1",
 		"eslint": "7.32.0",
 		"eslint-config-prettier": "8.3.0",
 		"eslint-plugin-prettier": "4.0.0",
