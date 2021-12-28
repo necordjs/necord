@@ -27,8 +27,7 @@ export class CommandsService implements OnModuleInit {
 		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions
-	) {
-	}
+	) {}
 
 	public async onModuleInit() {
 		const commands = this.explorerService.explore((instance, prototype, method) => {
@@ -119,9 +118,9 @@ export class CommandsService implements OnModuleInit {
 					interaction,
 					interaction.targetType === 'USER'
 						? {
-							user: interaction.options.getUser('user'),
-							member: interaction.options.getMember('user')
-						}
+								user: interaction.options.getUser('user'),
+								member: interaction.options.getMember('user')
+						  }
 						: { message: interaction.options.getMessage('message') }
 				)
 		);
