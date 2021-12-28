@@ -27,7 +27,8 @@ export class CommandsService implements OnModuleInit {
 		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions
-	) {}
+	) {
+	}
 
 	public async onModuleInit() {
 		const commands = this.explorerService.explore((instance, prototype, method) => {
@@ -43,7 +44,7 @@ export class CommandsService implements OnModuleInit {
 			};
 		});
 
-		commands.forEach(({ instance, prototype, method, ...command }) => {
+		for (const { instance, prototype, method, ...command } of commands) {
 			const options = this.metadataAccessor.getOptionsMetadata(instance, method);
 			let group = this.metadataAccessor.getCommandGroupMetadata(instance, method);
 			let subGroup = this.metadataAccessor.getCommandSubGroupMetadata(instance, method);
@@ -51,7 +52,7 @@ export class CommandsService implements OnModuleInit {
 			if (command.type !== ApplicationCommandTypes.CHAT_INPUT) {
 				this.commands.push(command);
 				this.registerContextMenuHandler(command as any, command.execute);
-				return;
+				continue;
 			} else if (!group && subGroup) {
 				subGroup = undefined;
 			}
@@ -61,7 +62,7 @@ export class CommandsService implements OnModuleInit {
 
 			if (!group && !subGroup) {
 				this.commands.push(command);
-				return;
+				continue;
 			}
 
 			const cachedGroup = this.commands.find(
@@ -71,7 +72,6 @@ export class CommandsService implements OnModuleInit {
 
 			if (!subGroup) {
 				group.options.push(command as unknown as ApplicationCommandSubCommandData);
-				return;
 			} else {
 				const cachedSubGroup = group.options.find(
 					s => s.type === ApplicationCommandOptionTypes.SUB_COMMAND_GROUP && s.name === subGroup?.name
@@ -82,7 +82,7 @@ export class CommandsService implements OnModuleInit {
 			}
 
 			!cachedGroup && this.commands.push(group);
-		});
+		}
 	}
 
 	@On('ready')
@@ -119,9 +119,9 @@ export class CommandsService implements OnModuleInit {
 					interaction,
 					interaction.targetType === 'USER'
 						? {
-								user: interaction.options.getUser('user'),
-								member: interaction.options.getMember('user')
-						  }
+							user: interaction.options.getUser('user'),
+							member: interaction.options.getMember('user')
+						}
 						: { message: interaction.options.getMessage('message') }
 				)
 		);
