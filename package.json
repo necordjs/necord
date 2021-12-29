@@ -42,7 +42,7 @@
 	],
 	"dependencies": {},
 	"devDependencies": {
-		"@commitlint/cli": "16.0.0",
+		"@commitlint/cli": "16.0.1",
 		"@commitlint/config-angular": "16.0.0",
 		"@favware/npm-deprecate": "1.0.4",
 		"@nestjs/common": "8.2.4",
@@ -59,7 +59,7 @@
 		"reflect-metadata": "0.1.13",
 		"release-it": "14.11.8",
 		"rimraf": "3.0.2",
-		"rxjs": "7.4.0",
+		"rxjs": "7.5.1",
 		"typescript": "4.5.4"
 	},
 	"peerDependencies": {
