@@ -72,8 +72,6 @@ export class NecordRegistry {
 
 		slashCommands.forEach(slashCommand => recursive(slashCommand));
 
-		console.log(this.slashCommands.keys());
-
 		this.applicationCommands.push(...slashCommands);
 	}
 
