@@ -9,37 +9,37 @@ import {
 } from '@nestjs/common';
 import { Client } from 'discord.js';
 import { DiscoveryModule } from '@nestjs/core';
-import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
-import {
-	CommandsService,
-	ComponentsService,
-	ExplorerService,
-	ListenersService,
-	MetadataAccessorService
-} from './services';
-import { NecordUpdate } from './necord.update';
+import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
+import { NecordRegistry } from './necord-registry';
+import { NecordExplorer } from './necord-explorer';
+import * as Updates from './updates';
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [
-		CommandsService,
-		ComponentsService,
-		ListenersService,
-		ExplorerService,
-		MetadataAccessorService,
-		NecordUpdate
-	]
+	providers: [NecordExplorer, NecordRegistry, ...Object.values(Updates)],
+	exports: [NecordRegistry]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
-		private readonly client: Client
+		private readonly client: Client,
+		private readonly explorer: NecordExplorer,
+		private readonly registry: NecordRegistry
 	) {}
 
-	public onApplicationBootstrap() {
+	public async onApplicationBootstrap() {
+		const { listeners, components, contextMenus, slashCommands, simpleCommands } =
+			this.explorer.explore();
+
+		this.registry.registerListeners(listeners);
+		this.registry.addSimpleCommands(simpleCommands);
+		this.registry.addMessageComponents(components);
+		this.registry.addContextMenus(contextMenus);
+		this.registry.addSlashCommands(slashCommands);
+
 		return this.client.login(this.options.token);
 	}
 
@@ -106,7 +106,8 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 
 		return {
 			provide: NECORD_MODULE_OPTIONS,
-			useFactory: async (optionsFactory: NecordOptionsFactory) => await optionsFactory.createNecordOptions(),
+			useFactory: async (optionsFactory: NecordOptionsFactory) =>
+				await optionsFactory.createNecordOptions(),
 			inject: [options.useExisting || options.useClass]
 		};
 	}

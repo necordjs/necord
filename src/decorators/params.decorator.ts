@@ -1,12 +1,8 @@
 import { NecordParamType } from '../context';
 import { OPTIONS_METADATA } from '../necord.constants';
-import { createNecordParamDecorator, createNecordPipesParamDecorator } from '../utils';
+import { createNecordParamDecorator, createNecordPipesParamDecorator } from './params.util';
 
-export const Context = createNecordPipesParamDecorator(NecordParamType.CONTEXT);
-
-export const Component = createNecordParamDecorator(NecordParamType.COMPONENT);
-
-export const Values = createNecordParamDecorator(NecordParamType.VALUES);
+export const Context = createNecordParamDecorator(NecordParamType.CONTEXT);
 
 export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, [
 	(target, propertyKey, parameterIndex) => {

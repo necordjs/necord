@@ -11,7 +11,10 @@ export function createNecordParamDecorator(
 		createNecordPipesParamDecorator(type, enhancers)(pipes);
 }
 
-export function createNecordPipesParamDecorator(type: NecordParamType, enhancers: ParamDecoratorEnhancer[] = []) {
+export function createNecordPipesParamDecorator(
+	type: NecordParamType,
+	enhancers: ParamDecoratorEnhancer[] = []
+) {
 	return (data?: any, ...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator =>
 		(target, key, index) => {
 			const args = Reflect.getMetadata(PARAM_ARGS_METADATA, target.constructor, key) || {};

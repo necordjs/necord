@@ -1,5 +1,7 @@
-export * from './necord.module';
-
 export * from './context';
 export * from './decorators';
-export * from './services';
+export * from './exceptions';
+export * from './interfaces';
+
+export * from './necord.module';
+export * from './necord-registry';

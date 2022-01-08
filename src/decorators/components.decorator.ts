@@ -1,6 +1,12 @@
-import { MessageComponentTypes } from 'discord.js/typings/enums';
-import { createNecordComponentDecorator } from '../utils';
+import { SetMetadata } from '@nestjs/common';
+import { ComponentMetadata } from '../interfaces';
+import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 
-export const Button = createNecordComponentDecorator(MessageComponentTypes.BUTTON);
+const createNecordComponentDecorator =
+	(type: ComponentMetadata['type']) =>
+	(customId: string): MethodDecorator =>
+		SetMetadata<string, ComponentMetadata>(MESSAGE_COMPONENT_METADATA, { type, customId });
 
-export const SelectMenu = createNecordComponentDecorator(MessageComponentTypes.SELECT_MENU);
+export const Button = createNecordComponentDecorator('BUTTON');
+
+export const SelectMenu = createNecordComponentDecorator('SELECT_MENU');

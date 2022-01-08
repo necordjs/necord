@@ -4,6 +4,8 @@ import { NecordContextType } from './necord-execution-context';
 
 export interface INecordArgumentsHost extends ArgumentsHost {
 	getContext<T = any>(): T;
+
+	getOptions<T = any>(): T;
 }
 
 export class NecordArgumentsHost extends ExecutionContextHost implements INecordArgumentsHost {
@@ -20,5 +22,9 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 
 	public getContext<T = any>(): T {
 		return this.getArgByIndex(0);
+	}
+
+	public getOptions<T = any>(): T {
+		return this.getArgByIndex(1);
 	}
 }

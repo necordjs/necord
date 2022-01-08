@@ -4,5 +4,5 @@
 	"singleQuote": true,
 	"arrowParens": "avoid",
 	"endOfLine": "auto",
-	"printWidth": 120
+	"printWidth": 100
 }
