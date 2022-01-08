@@ -37,6 +37,4 @@ export class AutoRegisterUpdate {
 		await this.client.application.commands.set(this.registry.getApplicationCommands(), guild);
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
-
-	private async registerPermissions() {}
 }
