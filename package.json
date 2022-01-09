@@ -9,7 +9,6 @@
 		"prepublish:dev": "npm run build",
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky install .github/husky",
-		"test": "echo add tests",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"lint": "eslint --ignore-path .gitignore {integration,src}/**/*.ts"
 	},
