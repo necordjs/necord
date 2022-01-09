@@ -1,63 +1,31 @@
-import { ApplicationCommandOptionTypes } from 'discord.js/typings/enums';
-import { OptionMetadata } from '../interfaces';
+import { CommandOptionData, DistributiveOmit, OptionMetadata } from '../interfaces';
 import { OPTIONS_METADATA } from '../necord.constants';
 
-export const BooleanOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.BOOLEAN,
-	'getBoolean'
-);
+export const BooleanOption = createNecordOptionDecorator('BOOLEAN', 'getBoolean');
 
-export const IntegerOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.INTEGER,
-	'getInteger'
-);
+export const IntegerOption = createNecordOptionDecorator('INTEGER', 'getInteger');
 
-export const NumberOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.NUMBER,
-	'getNumber'
-);
+export const NumberOption = createNecordOptionDecorator('NUMBER', 'getNumber');
 
-export const StringOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.STRING,
-	'getString'
-);
+export const StringOption = createNecordOptionDecorator('STRING', 'getString');
 
-export const UserOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.USER,
-	'getUser'
-);
+export const UserOption = createNecordOptionDecorator('USER', 'getUser');
 
-export const MemberOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.USER,
-	'getMember'
-);
+export const MemberOption = createNecordOptionDecorator('USER', 'getMember');
 
-export const ChannelOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.USER,
-	'getChannel'
-);
+export const ChannelOption = createNecordOptionDecorator('CHANNEL', 'getChannel');
 
-export const RoleOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.ROLE,
-	'getRole'
-);
+export const RoleOption = createNecordOptionDecorator('ROLE', 'getRole');
 
-export const MentionableOption = createNecordOptionDecorator(
-	ApplicationCommandOptionTypes.MENTIONABLE,
-	'getMentionable'
-);
+export const MentionableOption = createNecordOptionDecorator('MENTIONABLE', 'getMentionable');
 
-function createNecordOptionDecorator<
-	T extends OptionMetadata['type'],
-	C extends OptionMetadata<T> = OptionMetadata<T>
->(
+function createNecordOptionDecorator<T extends CommandOptionData['type']>(
 	type: T,
 	methodName: OptionMetadata['methodName']
-): (data: Omit<C, 'type' | 'methodName'>) => PropertyDecorator {
-	return (data: C): PropertyDecorator =>
+) {
+	return (data: DistributiveOmit<OptionMetadata<T>, 'type' | 'methodName'>): PropertyDecorator =>
 		(target: object, propertyKey: string) => {
-			const options: Record<string, C> =
-				Reflect.getMetadata(OPTIONS_METADATA, target.constructor) ?? {};
+			const options = Reflect.getMetadata(OPTIONS_METADATA, target.constructor) ?? {};
 
 			options[propertyKey] = {
 				...data,
