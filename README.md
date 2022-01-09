@@ -72,6 +72,9 @@ import { Client } from 'discord.js';
 export class AppUpdate {
     private readonly logger = new Logger(AppUpdate.name);
 
+    public constructor(private readonly client: Client) {
+    }
+    
     @Once('ready')
     public onReady(@Context() [client]: ContextOf<'ready'>) {
         this.logger.log(`Bot logged in as ${client.user.username}`);
