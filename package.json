@@ -10,7 +10,7 @@
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky install .github/husky",
 		"format": "prettier --write \"src/**/*.ts\"",
-		"lint": "eslint --ignore-path .gitignore {integration,src}/**/*.ts"
+		"lint": "eslint --ignore-path .gitignore src/**/*.ts"
 	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
