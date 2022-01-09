@@ -1305,10 +1305,10 @@ discord-api-types@^0.26.0:
   resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.26.0.tgz#0134c6ee919035f2075ac1af9cdc0898b8dae71d"
   integrity sha512-bnUltSHpQLzTVZTMjm+iNgVhAbtm5oAKHrhtiPaZoxprbm1UtuCZCsG0yXM61NamWfeSz7xnLvgFc50YzVJ5cQ==
 
-discord.js@13.5.0:
-  version "13.5.0"
-  resolved "https://registry.npmjs.org/discord.js/-/discord.js-13.5.0.tgz#f9ca9e629f2de0fb138e8c916fa93e40d70631f5"
-  integrity sha512-K+ZcB0f+wA1ZzDhz3hlaAi4Ap7jSvVEUZ+U29T4DMoiNNUv22F4vu1byrOq8GyyLLDFiZ3iSudea0MvSHu3fQA==
+discord.js@13.5.1:
+  version "13.5.1"
+  resolved "https://registry.npmjs.org/discord.js/-/discord.js-13.5.1.tgz#c0af11c7bfdcf6ac3f6bf28c7d96855c0c6a8997"
+  integrity sha512-ejEG5MXzB0eda9Nt+VzqgdvDWVO5U/GynGzq6DRPLaCH1yyn2YRU9J+vCMl77pWA1rzYGX+b/9RI31x0wt3qXA==
   dependencies:
     "@discordjs/builders" "^0.11.0"
     "@discordjs/collection" "^0.4.0"
