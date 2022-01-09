@@ -1,15 +1,11 @@
-import {
-	ApplicationCommandSubCommand,
-	ApplicationCommandSubCommandData,
-	ApplicationCommandSubGroupData,
-	Collection
-} from 'discord.js';
+import { Collection } from 'discord.js';
 import { Injectable, Type } from '@nestjs/common';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { NecordContextType, NecordParamsFactory } from './context';
+import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 import {
 	ComponentMetadata,
 	ContextMenuMetadata,
@@ -28,7 +24,6 @@ import {
 	SIMPLE_COMMAND_METADATA,
 	SLASH_COMMAND_METADATA
 } from './necord.constants';
-import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 
 @Injectable()
 export class NecordExplorer {
@@ -99,7 +94,7 @@ export class NecordExplorer {
 	}
 
 	private flatMap<T>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
-		return this.wrappers.flatMap(callback).filter(x => Boolean(x));
+		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
 	public filterProvider<T>({ instance }: InstanceWrapper, metadataKey: string): T | undefined {

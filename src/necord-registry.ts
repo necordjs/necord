@@ -1,3 +1,4 @@
+import { ApplicationCommandData, Client, Collection } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 import {
 	ComponentMetadata,
@@ -6,13 +7,6 @@ import {
 	SimpleCommandMetadata,
 	SlashCommandMetadata
 } from './interfaces';
-import {
-	ApplicationCommandData,
-	ChatInputApplicationCommandData,
-	Client,
-	Collection
-} from 'discord.js';
-import { ApplicationCommandTypes } from 'discord.js/typings/enums';
 
 @Injectable()
 export class NecordRegistry {
@@ -62,7 +56,7 @@ export class NecordRegistry {
 	}
 
 	public addSlashCommands(slashCommands: SlashCommandMetadata[]) {
-		const recursive = (command: ChatInputApplicationCommandData, tree = [command.name]) => {
+		const recursive = (command: SlashCommandMetadata, tree = [command.name]) => {
 			const options = command.options ?? [];
 
 			options.every(option => option.type !== 1 && option.type !== 2)
@@ -80,12 +74,7 @@ export class NecordRegistry {
 	}
 
 	public getContextMenu(type: 'USER' | 'MESSAGE', name: string) {
-		return this.contextMenus.get(
-			NecordRegistry.GENERATE_KEY(
-				type === 'USER' ? ApplicationCommandTypes.USER : ApplicationCommandTypes.MESSAGE,
-				name
-			)
-		);
+		return this.contextMenus.get(NecordRegistry.GENERATE_KEY(type, name));
 	}
 
 	public getSlashCommand(...args: string[]) {
