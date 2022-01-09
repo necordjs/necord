@@ -1,12 +1,12 @@
-import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Context, On } from '../decorators';
-import { ContextOf, NecordModuleOptions, SimpleCommandMetadata } from '../interfaces';
+import { ContextOf, NecordModuleOptions } from '../interfaces';
 import { NECORD_MODULE_OPTIONS } from '../necord.constants';
 import { Message } from 'discord.js';
 import { NecordRegistry } from '../necord-registry';
 
 @Injectable()
-export class SimpleCommandsUpdate {
+export class TextCommandsUpdate {
 	private readonly prefix: string | Function;
 
 	public constructor(
@@ -31,7 +31,7 @@ export class SimpleCommandsUpdate {
 
 		if (!cmd) return;
 
-		return this.registry.getSimpleCommand(cmd)?.metadata.execute([message], args);
+		return this.registry.getTextCommand(cmd)?.metadata.execute([message], args);
 	}
 
 	private async getMessagePrefix(message: Message) {

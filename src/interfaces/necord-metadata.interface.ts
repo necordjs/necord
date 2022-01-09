@@ -1,8 +1,4 @@
 import {
-	ApplicationCommandChannelOption,
-	ApplicationCommandChoicesOption,
-	ApplicationCommandData,
-	ApplicationCommandNonOptions,
 	ApplicationCommandOptionChoice,
 	ApplicationCommandOptionData,
 	ApplicationCommandSubCommandData,
@@ -45,7 +41,7 @@ export interface ComponentMetadata extends BaseMetadata {
 	customId: string;
 }
 
-export interface SimpleCommandMetadata extends BaseMetadata {
+export interface TextCommandMetadata extends BaseMetadata {
 	name: string;
 	description?: string;
 }

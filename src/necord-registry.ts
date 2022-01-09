@@ -4,7 +4,7 @@ import {
 	ComponentMetadata,
 	ContextMenuMetadata,
 	ListenerMetadata,
-	SimpleCommandMetadata,
+	TextCommandMetadata,
 	SlashCommandMetadata
 } from './interfaces';
 
@@ -12,7 +12,7 @@ import {
 export class NecordRegistry {
 	private static readonly GENERATE_KEY = (...args: any[]) => args.map(String).join(':');
 
-	private readonly simpleCommands = new Collection<string, SimpleCommandMetadata>();
+	private readonly textCommands = new Collection<string, TextCommandMetadata>();
 
 	private readonly slashCommands = new Collection<string, SlashCommandMetadata>();
 
@@ -32,16 +32,16 @@ export class NecordRegistry {
 		});
 	}
 
-	public addSimpleCommands(simpleCommands: SimpleCommandMetadata[]) {
-		simpleCommands.forEach(command => this.simpleCommands.set(command.name, command));
+	public addTextCommands(textCommands: TextCommandMetadata[]) {
+		textCommands.forEach(command => this.textCommands.set(command.name, command));
 	}
 
-	public getSimpleCommands() {
-		return [...this.simpleCommands.values()];
+	public getTextCommands() {
+		return [...this.textCommands.values()];
 	}
 
-	public getSimpleCommand(name: string) {
-		return this.simpleCommands.get(name);
+	public getTextCommand(name: string) {
+		return this.textCommands.get(name);
 	}
 
 	public addContextMenus(contextMenus: ContextMenuMetadata[]) {

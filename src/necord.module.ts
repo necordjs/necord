@@ -31,11 +31,11 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 	) {}
 
 	public async onApplicationBootstrap() {
-		const { listeners, components, contextMenus, slashCommands, simpleCommands } =
+		const { listeners, components, contextMenus, slashCommands, textCommands } =
 			this.explorer.explore();
 
 		this.registry.registerListeners(listeners);
-		this.registry.addSimpleCommands(simpleCommands);
+		this.registry.addTextCommands(textCommands);
 		this.registry.addMessageComponents(components);
 		this.registry.addContextMenus(contextMenus);
 		this.registry.addSlashCommands(slashCommands);

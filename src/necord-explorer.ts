@@ -10,7 +10,7 @@ import {
 	ComponentMetadata,
 	ContextMenuMetadata,
 	ListenerMetadata,
-	SimpleCommandMetadata,
+	TextCommandMetadata,
 	SlashCommandMetadata
 } from './interfaces';
 import {
@@ -21,7 +21,7 @@ import {
 	MESSAGE_COMPONENT_METADATA,
 	OPTIONS_METADATA,
 	PARAM_ARGS_METADATA,
-	SIMPLE_COMMAND_METADATA,
+	TEXT_COMMAND_METADATA,
 	SLASH_COMMAND_METADATA
 } from './necord.constants';
 
@@ -52,8 +52,8 @@ export class NecordExplorer {
 			this.filterProperties(wrapper, MESSAGE_COMPONENT_METADATA)
 		);
 
-		const simpleCommands = this.flatMap<SimpleCommandMetadata>(wrapper =>
-			this.filterProperties(wrapper, SIMPLE_COMMAND_METADATA)
+		const textCommands = this.flatMap<TextCommandMetadata>(wrapper =>
+			this.filterProperties(wrapper, TEXT_COMMAND_METADATA)
 		);
 
 		const contextMenus = this.flatMap<ContextMenuMetadata>(wrapper =>
@@ -89,7 +89,7 @@ export class NecordExplorer {
 			components,
 			contextMenus,
 			slashCommands,
-			simpleCommands
+			textCommands
 		};
 	}
 
