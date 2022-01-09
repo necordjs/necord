@@ -41,8 +41,4 @@ export class AutocompleteUpdate {
 
 		return interaction.respond(options);
 	}
-
-	protected getKey(metadata: any): string {
-		return '';
-	}
 }

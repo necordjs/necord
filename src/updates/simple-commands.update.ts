@@ -7,11 +7,15 @@ import { NecordRegistry } from '../necord-registry';
 
 @Injectable()
 export class SimpleCommandsUpdate {
+	private readonly prefix: string | Function;
+
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
 		private readonly registry: NecordRegistry
-	) {}
+	) {
+		this.prefix = this.options.prefix ?? '!';
+	}
 
 	@On('messageCreate')
 	private async onMessageCreate(@Context() [message]: ContextOf<'messageCreate'>) {
@@ -22,8 +26,8 @@ export class SimpleCommandsUpdate {
 
 		if (!prefix || !content.startsWith(prefix)) return;
 
-		const args = message.content.substring(prefix.length).split(/ +/g);
-		const cmd = args.shift()?.toLowerCase();
+		const args = content.substring(prefix.length).split(/ +/g);
+		const cmd = args.shift();
 
 		if (!cmd) return;
 
@@ -31,8 +35,6 @@ export class SimpleCommandsUpdate {
 	}
 
 	private async getMessagePrefix(message: Message) {
-		return typeof this.options.prefix !== 'function'
-			? this.options.prefix
-			: await this.options.prefix(message);
+		return typeof this.prefix !== 'function' ? this.prefix : await this.prefix(message);
 	}
 }

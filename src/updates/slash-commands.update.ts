@@ -21,9 +21,10 @@ export class SlashCommandsUpdate {
 			...[rootCommand, groupCommand, subCommand].filter(Boolean)
 		);
 
-		if (!command) return;
-
-		return command.metadata.execute([interaction], this.transformOptions(command, interaction));
+		return command?.metadata.execute(
+			[interaction],
+			this.transformOptions(command, interaction)
+		);
 	}
 
 	private transformOptions(command: SlashCommandMetadata, interaction: CommandInteraction) {
