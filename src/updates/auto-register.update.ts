@@ -18,7 +18,7 @@ export class AutoRegisterUpdate {
 
 	@Once('ready')
 	public async onReady(@Context() [client]: ContextOf<'ready'>) {
-		if (!this.options.registerCommands) {
+		if (!this.options.initApplicationCommands) {
 			return;
 		}
 
@@ -30,11 +30,13 @@ export class AutoRegisterUpdate {
 	}
 
 	private async registerCommands() {
-		const { registerCommands } = this.options;
-		const guild = typeof registerCommands === 'string' ? registerCommands : undefined;
+		const { initApplicationCommands } = this.options;
 
 		this.logger.log(`Started refreshing application commands.`);
-		await this.client.application.commands.set(this.registry.getApplicationCommands(), guild);
+		await this.client.application.commands.set(
+			this.registry.getApplicationCommands(),
+			typeof initApplicationCommands === 'string' ? initApplicationCommands : undefined
+		);
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
 }
