@@ -4,6 +4,7 @@
 integration
 sample
 src
+test
 .commitlintrc.json
 .editorconfig
 .eslintrc

@@ -1,4 +1,4 @@
-import { Client, CommandInteraction } from 'discord.js';
+import { CommandInteraction } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { Context, On, Once } from './decorators';
 import { NecordRegistry } from './necord-registry';
@@ -11,10 +11,7 @@ import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 export class NecordInteractionUpdate {
 	private readonly logger = new Logger(NecordInteractionUpdate.name);
 
-	public constructor(
-		private readonly client: Client,
-		private readonly registry: NecordRegistry
-	) {}
+	public constructor(private readonly registry: NecordRegistry) {}
 
 	@Once('ready')
 	private async onReady(@Context() [client]: ContextOf<'ready'>) {
@@ -35,9 +32,7 @@ export class NecordInteractionUpdate {
 
 		this.logger.log(`Started refreshing application commands.`);
 		await Promise.all(
-			[...commands.entries()].map(([key, cmds]) =>
-				this.client.application.commands.set(cmds, key)
-			)
+			[...commands.entries()].map(([key, cmds]) => client.application.commands.set(cmds, key))
 		);
 		this.logger.log(`Successfully reloaded application commands.`);
 	}

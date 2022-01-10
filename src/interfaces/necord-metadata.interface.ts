@@ -22,8 +22,8 @@ export interface BaseMetadata {
 	metadata?: {
 		[key: string]: any;
 
-		host: Module;
-		class: Type;
+		host?: Module;
+		class?: Type;
 		handler?: Function;
 		execute?: Function;
 

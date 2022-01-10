@@ -57,11 +57,7 @@ export class NecordExplorer {
 		);
 
 		const appCommands = this.flatMap<ApplicationCommandMetadata>(wrapper => {
-			const commandGroup = this.filterProvider<SlashCommandMetadata>(
-				wrapper,
-				GROUP_METADATA,
-				[GUILDS_METADATA]
-			);
+			const commandGroup = this.filterProvider<SlashCommandMetadata>(wrapper, GROUP_METADATA);
 
 			const subGroups = new Collection<string, any>();
 			const subCommands = new Collection<string, any>();
@@ -80,7 +76,6 @@ export class NecordExplorer {
 
 				if (!commandGroup || command.type !== 1) {
 					commands.set(command.name, command);
-					continue;
 				}
 
 				const subGroup = command.metadata[GROUP_METADATA];
@@ -91,11 +86,14 @@ export class NecordExplorer {
 			}
 
 			if (commandGroup) {
+				commandGroup.metadata = this.extractOptionalMetadata(
+					[GUILDS_METADATA],
+					wrapper.instance.constructor
+				);
 				commandGroup.options = [...subGroups.values(), ...subCommands.values()];
-				return [...commands.values()].concat(commandGroup);
 			}
 
-			return [...commands.values()];
+			return [...commands.values()].concat(commandGroup);
 		});
 
 		return {
@@ -110,22 +108,8 @@ export class NecordExplorer {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	public filterProvider<T = any>(
-		{ instance, host }: InstanceWrapper,
-		metadataKey: string,
-		optionalMetadataKeys: string[] = []
-	): T | undefined {
-		const item = this.extractMetadata(metadataKey, instance.constructor);
-
-		if (!item) return;
-
-		return Object.assign(item, {
-			metadata: {
-				host,
-				class: instance.constructor,
-				...this.extractOptionalMetadata(optionalMetadataKeys, instance.constructor)
-			}
-		});
+	public filterProvider<T = any>(wrapper: InstanceWrapper, metadataKey: string): T | undefined {
+		return this.reflector.get(metadataKey, wrapper.instance.constructor);
 	}
 
 	public filterProperties(
@@ -136,7 +120,7 @@ export class NecordExplorer {
 		const prototype = Object.getPrototypeOf(instance);
 
 		return this.metadataScanner.scanFromPrototype(instance, prototype, name => {
-			const item = this.extractMetadata(metadataKey, instance[name]);
+			const item = this.reflector.get(metadataKey, instance[name]);
 
 			if (!item) return;
 
@@ -152,15 +136,8 @@ export class NecordExplorer {
 		});
 	}
 
-	private extractMetadata(metadataKey: string, target: Function | Type) {
-		return this.reflector.get(metadataKey, target);
-	}
-
-	private extractOptionalMetadata(metadataKeys: string[], target: Function | Type) {
-		return metadataKeys.reduce((acc, metadataKey) => {
-			acc[metadataKey] = this.extractMetadata(metadataKey, target);
-			return acc;
-		}, {});
+	private extractOptionalMetadata(keys: string[], target: Type | Function) {
+		return keys.reduce((acc, key) => ({ ...acc, [key]: this.reflector.get(key, target) }), {});
 	}
 
 	private createContextCallback<T extends Record<string, any>>(
