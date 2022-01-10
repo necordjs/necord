@@ -1,11 +1,12 @@
-import { ApplicationCommandData, Client, Collection } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 import {
+	ApplicationCommandMetadata,
 	ComponentMetadata,
 	ContextMenuMetadata,
 	ListenerMetadata,
-	TextCommandMetadata,
-	SlashCommandMetadata
+	SlashCommandMetadata,
+	TextCommandMetadata
 } from './interfaces';
 
 @Injectable()
@@ -14,13 +15,11 @@ export class NecordRegistry {
 
 	private readonly textCommands = new Collection<string, TextCommandMetadata>();
 
-	private readonly slashCommands = new Collection<string, SlashCommandMetadata>();
-
-	private readonly contextMenus = new Collection<string, ContextMenuMetadata>();
-
 	private readonly messageComponents = new Collection<string, ComponentMetadata>();
 
-	private readonly applicationCommands: ApplicationCommandData[] = [];
+	private readonly applicationCommands = new Collection<string, ApplicationCommandMetadata>();
+
+	private readonly applicationCommandsData: ApplicationCommandMetadata[] = [];
 
 	public constructor(private readonly client: Client) {}
 
@@ -44,41 +43,30 @@ export class NecordRegistry {
 		return this.textCommands.get(name);
 	}
 
-	public addContextMenus(contextMenus: ContextMenuMetadata[]) {
-		contextMenus.forEach(contextMenu =>
-			this.contextMenus.set(
-				NecordRegistry.GENERATE_KEY(contextMenu.type, contextMenu.name),
-				contextMenu
-			)
-		);
-
-		this.applicationCommands.push(...contextMenus);
-	}
-
-	public addSlashCommands(slashCommands: SlashCommandMetadata[]) {
-		const recursive = (command: SlashCommandMetadata, tree = [command.name]) => {
-			const options = command.options ?? [];
+	public addApplicationCommands(appCommands: ApplicationCommandMetadata[]) {
+		const recursive = (command: ApplicationCommandMetadata, tree) => {
+			const options = 'options' in command ? command.options : [];
 
 			options.every(option => option.type !== 1 && option.type !== 2)
-				? this.slashCommands.set(NecordRegistry.GENERATE_KEY(...tree), command)
+				? this.applicationCommands.set(NecordRegistry.GENERATE_KEY(...tree), command)
 				: options.map((command: any) => recursive(command, tree.concat(command.name)));
 		};
 
-		slashCommands.forEach(slashCommand => recursive(slashCommand));
+		appCommands.forEach(command => recursive(command, [command.type, command.name]));
 
-		this.applicationCommands.push(...slashCommands);
+		this.applicationCommandsData.push(...appCommands);
 	}
 
 	public getApplicationCommands() {
-		return this.applicationCommands;
+		return this.applicationCommandsData;
 	}
 
-	public getContextMenu(type: 'USER' | 'MESSAGE', name: string) {
-		return this.contextMenus.get(NecordRegistry.GENERATE_KEY(type, name));
+	public getContextMenu(type: 'USER' | 'MESSAGE', name: string): ContextMenuMetadata {
+		return this.applicationCommands.get(NecordRegistry.GENERATE_KEY(type, name)) as any;
 	}
 
-	public getSlashCommand(...args: string[]) {
-		return this.slashCommands.get(NecordRegistry.GENERATE_KEY(...args));
+	public getSlashCommand(...args: string[]): SlashCommandMetadata {
+		return this.applicationCommands.get(NecordRegistry.GENERATE_KEY(1, ...args)) as any;
 	}
 
 	public addMessageComponents(messageComponents: ComponentMetadata[]) {

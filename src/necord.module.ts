@@ -13,12 +13,13 @@ import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { NecordRegistry } from './necord-registry';
 import { NecordExplorer } from './necord-explorer';
-import * as Updates from './updates';
+import { NecordInteractionUpdate } from './necord-interaction.update';
+import { NecordUpdate } from './necord.update';
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [NecordExplorer, NecordRegistry, ...Object.values(Updates)],
+	providers: [NecordExplorer, NecordRegistry, NecordUpdate, NecordInteractionUpdate],
 	exports: [NecordRegistry]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
@@ -31,14 +32,12 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 	) {}
 
 	public async onApplicationBootstrap() {
-		const { listeners, components, contextMenus, slashCommands, textCommands } =
-			this.explorer.explore();
+		const { listeners, components, appCommands, textCommands } = this.explorer.explore();
 
 		this.registry.registerListeners(listeners);
 		this.registry.addTextCommands(textCommands);
 		this.registry.addMessageComponents(components);
-		this.registry.addContextMenus(contextMenus);
-		this.registry.addSlashCommands(slashCommands);
+		this.registry.addApplicationCommands(appCommands);
 
 		return this.client.login(this.options.token);
 	}

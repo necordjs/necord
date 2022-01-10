@@ -7,22 +7,22 @@ import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-cr
 import { NecordContextType, NecordParamsFactory } from './context';
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 import {
+	ApplicationCommandMetadata,
 	ComponentMetadata,
-	ContextMenuMetadata,
 	ListenerMetadata,
-	TextCommandMetadata,
-	SlashCommandMetadata
+	SlashCommandMetadata,
+	TextCommandMetadata
 } from './interfaces';
 import {
+	APPLICATION_COMMAND_METADATA,
 	AUTOCOMPLETE_METADATA,
-	CONTEXT_MENU_METADATA,
 	GROUP_METADATA,
+	GUILDS_METADATA,
 	LISTENERS_METADATA,
 	MESSAGE_COMPONENT_METADATA,
 	OPTIONS_METADATA,
 	PARAM_ARGS_METADATA,
-	TEXT_COMMAND_METADATA,
-	SLASH_COMMAND_METADATA
+	TEXT_COMMAND_METADATA
 } from './necord.constants';
 
 @Injectable()
@@ -56,49 +56,76 @@ export class NecordExplorer {
 			this.filterProperties(wrapper, TEXT_COMMAND_METADATA)
 		);
 
-		const contextMenus = this.flatMap<ContextMenuMetadata>(wrapper =>
-			this.filterProperties(wrapper, CONTEXT_MENU_METADATA)
-		);
+		const appCommands = this.flatMap<ApplicationCommandMetadata>(wrapper => {
+			const commandGroup = this.filterProvider<SlashCommandMetadata>(
+				wrapper,
+				GROUP_METADATA,
+				[GUILDS_METADATA]
+			);
 
-		const slashCommands = this.flatMap<SlashCommandMetadata>(wrapper => {
-			const commandGroup = this.filterProvider<SlashCommandMetadata>(wrapper, GROUP_METADATA);
 			const subGroups = new Collection<string, any>();
 			const subCommands = new Collection<string, any>();
+			const commands = new Collection<string, any>();
 
-			const metadataKey = SLASH_COMMAND_METADATA;
-			const optionalKeys = [GROUP_METADATA, OPTIONS_METADATA, AUTOCOMPLETE_METADATA];
+			const metadataKey = APPLICATION_COMMAND_METADATA;
+			const optionalKeys = [
+				GROUP_METADATA,
+				OPTIONS_METADATA,
+				AUTOCOMPLETE_METADATA,
+				GUILDS_METADATA
+			];
 
 			for (const command of this.filterProperties(wrapper, metadataKey, optionalKeys)) {
 				command.options = Object.values(command.metadata[OPTIONS_METADATA] ?? []);
+
+				if (!commandGroup || command.type !== 1) {
+					commands.set(command.name, command);
+					continue;
+				}
+
 				const subGroup = command.metadata[GROUP_METADATA];
 
-				commandGroup && subGroup
+				subGroup
 					? subGroups.ensure(subGroup.name, () => subGroup).options.push(command)
 					: subCommands.set(command.name, command);
 			}
 
 			if (commandGroup) {
 				commandGroup.options = [...subGroups.values(), ...subCommands.values()];
+				return [...commands.values()].concat(commandGroup);
 			}
 
-			return !commandGroup ? [...subCommands.values()] : [commandGroup];
+			return [...commands.values()];
 		});
 
 		return {
 			listeners,
 			components,
-			contextMenus,
-			slashCommands,
+			appCommands,
 			textCommands
 		};
 	}
 
-	private flatMap<T>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
+	private flatMap<T = any>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	public filterProvider<T>({ instance }: InstanceWrapper, metadataKey: string): T | undefined {
-		return this.extractMetadata(metadataKey, instance.constructor);
+	public filterProvider<T = any>(
+		{ instance, host }: InstanceWrapper,
+		metadataKey: string,
+		optionalMetadataKeys: string[] = []
+	): T | undefined {
+		const item = this.extractMetadata(metadataKey, instance.constructor);
+
+		if (!item) return;
+
+		return Object.assign(item, {
+			metadata: {
+				host,
+				class: instance.constructor,
+				...this.extractOptionalMetadata(optionalMetadataKeys, instance.constructor)
+			}
+		});
 	}
 
 	public filterProperties(

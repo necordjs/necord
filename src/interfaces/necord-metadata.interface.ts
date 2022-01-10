@@ -1,4 +1,5 @@
 import {
+	ApplicationCommandData,
 	ApplicationCommandOptionChoice,
 	ApplicationCommandOptionData,
 	ApplicationCommandSubCommandData,
@@ -50,6 +51,8 @@ export type ContextMenuMetadata = (UserApplicationCommandData | MessageApplicati
 	BaseMetadata;
 
 export type SlashCommandMetadata = ChatInputApplicationCommandData & BaseMetadata;
+
+export type ApplicationCommandMetadata = ApplicationCommandData & BaseMetadata;
 
 export type CommandOptionData = Exclude<
 	ApplicationCommandOptionData,
