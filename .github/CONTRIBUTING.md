@@ -19,6 +19,5 @@ To get ready to work on the codebase, please do the following:
 A high level overview of tools used:
 
 - [TypeScript](https://www.typescriptlang.org/) as the development language
-- [Jest](https://jestjs.io/) for unit testing
 - [Eslint](https://eslint.org/) for code-style
 - [Prettier](https://prettier.io/) for code formatting
