@@ -25,6 +25,13 @@ import {
 	TEXT_COMMAND_METADATA
 } from './necord.constants';
 
+type OptionMetadata =
+	| string
+	| {
+			key: string;
+			fn: (key: string, targets: any[]) => unknown;
+	  };
+
 @Injectable()
 export class NecordExplorer {
 	private readonly necordParamsFactory = new NecordParamsFactory();
@@ -64,11 +71,14 @@ export class NecordExplorer {
 			const commands = new Collection<string, any>();
 
 			const metadataKey = APPLICATION_COMMAND_METADATA;
-			const optionalKeys = [
+			const optionalKeys: OptionMetadata[] = [
 				GROUP_METADATA,
 				OPTIONS_METADATA,
 				AUTOCOMPLETE_METADATA,
-				GUILDS_METADATA
+				{
+					key: GUILDS_METADATA,
+					fn: (key, targets) => this.reflector.getAllAndOverride(key, targets)
+				}
 			];
 
 			for (const command of this.filterProperties(wrapper, metadataKey, optionalKeys)) {
@@ -115,7 +125,7 @@ export class NecordExplorer {
 	public filterProperties(
 		{ instance, host }: InstanceWrapper,
 		metadataKey: string,
-		optionalMetadataKeys: string[] = []
+		optionalMetadataKeys: OptionMetadata[] = []
 	) {
 		const prototype = Object.getPrototypeOf(instance);
 
@@ -130,14 +140,29 @@ export class NecordExplorer {
 					class: instance.constructor,
 					handler: prototype[name],
 					execute: this.createContextCallback(instance, prototype, name),
-					...this.extractOptionalMetadata(optionalMetadataKeys, instance[name])
+					...this.extractOptionalMetadata(optionalMetadataKeys, instance, name)
 				}
 			});
 		});
 	}
 
-	private extractOptionalMetadata(keys: string[], target: Type | Function) {
-		return keys.reduce((acc, key) => ({ ...acc, [key]: this.reflector.get(key, target) }), {});
+	private extractOptionalMetadata(
+		keys: OptionMetadata[],
+		instance: Record<string, any>,
+		propertyKey?: string
+	) {
+		const defaultTarget = propertyKey ? instance[propertyKey] : instance.constructor;
+		const defaultTargets = [instance[propertyKey], instance.constructor].filter(Boolean);
+
+		return keys.reduce((acc, option) => {
+			const isOptionString = typeof option === 'string';
+			const key = isOptionString ? option : option.key;
+			const value = isOptionString
+				? this.reflector.get(key, defaultTarget)
+				: option.fn(key, defaultTargets);
+
+			return { ...acc, [key]: value };
+		}, {});
 	}
 
 	private createContextCallback<T extends Record<string, any>>(

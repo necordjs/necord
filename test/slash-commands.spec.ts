@@ -1,9 +1,10 @@
 import * as assert from 'node:assert';
-import { createApplication } from './utils.spec';
+import { createApplication, DevGuild } from './utils.spec';
 import { Ctx, NecordRegistry, Opts, SlashCommand, SlashCommandMetadata, SlashGroup } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
+@DevGuild
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
 	@SlashGroup('string', 'Test Sub Group')

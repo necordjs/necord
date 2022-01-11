@@ -1,16 +1,8 @@
 import * as assert from 'node:assert';
 import { Injectable } from '@nestjs/common';
 import { CommandInteraction } from 'discord.js';
-import {
-	Autocomplete,
-	Ctx,
-	Guilds,
-	NecordRegistry,
-	Opts,
-	SlashCommand,
-	TransformOptions
-} from '../src';
-import { createApplication } from './utils.spec';
+import { Autocomplete, Ctx, NecordRegistry, Opts, SlashCommand, TransformOptions } from '../src';
+import { createApplication, DevGuild } from './utils.spec';
 import { Style, ThemeDto } from './dto/theme.dto';
 import { AUTOCOMPLETE_METADATA } from '../src/necord.constants';
 
@@ -29,9 +21,9 @@ class ThemeAutocomplete implements TransformOptions {
 	}
 }
 
+@DevGuild
 @Injectable()
 export class AutocompleteSpec {
-	@Guilds([process.env.DISCORD_TEST_GUILD])
 	@Autocomplete(ThemeAutocomplete)
 	@SlashCommand('theme', 'Select new theme style')
 	public theme(@Ctx() [interaction]: [CommandInteraction], @Opts() { style }: ThemeDto) {

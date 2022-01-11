@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { TextCommand, Ctx, ContextOf, Opts, NecordRegistry } from '../src';
+import { ContextOf, Ctx, NecordRegistry, Opts, TextCommand } from '../src';
 import { createApplication } from './utils.spec';
 import * as assert from 'node:assert';
 

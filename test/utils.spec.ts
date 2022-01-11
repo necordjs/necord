@@ -1,7 +1,9 @@
 import { NestFactory } from '@nestjs/core';
 import { Module, Provider, Type } from '@nestjs/common';
-import { NecordModule } from '../src';
+import { Guilds, NecordModule } from '../src';
 import { Intents } from 'discord.js';
+
+export const DevGuild: ClassDecorator & MethodDecorator = Guilds([process.env.DISCORD_TEST_GUILD]);
 
 export const createApplication = (...providers: (Type | Provider)[]) => {
 	@Module({
