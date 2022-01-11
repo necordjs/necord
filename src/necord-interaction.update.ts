@@ -19,7 +19,7 @@ export class NecordInteractionUpdate {
 			await client.application.fetch();
 		}
 
-		const commands = new Map();
+		const commands = new Map([[undefined, []]]);
 
 		for (const command of this.registry.getApplicationCommands()) {
 			const guilds = command.metadata[GUILDS_METADATA] ?? [undefined];
