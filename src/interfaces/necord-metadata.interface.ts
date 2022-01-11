@@ -11,7 +11,6 @@ import {
 	MessageComponentType,
 	UserApplicationCommandData
 } from 'discord.js';
-import { OPTIONS_METADATA } from '../necord.constants';
 import { NecordEvents } from './necord-events.interface';
 import { Module } from '@nestjs/core/injector/module';
 import { Type } from '@nestjs/common';
@@ -26,8 +25,6 @@ export interface BaseMetadata {
 		class?: Type;
 		handler?: Function;
 		execute?: Function;
-
-		[OPTIONS_METADATA]?: Record<string, OptionMetadata>;
 	};
 }
 

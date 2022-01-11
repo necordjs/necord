@@ -2,7 +2,7 @@ import { CommandInteraction } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { Context, On, Once } from './decorators';
 import { NecordRegistry } from './necord-registry';
-import { ContextOf, SlashCommandMetadata, TransformOptions } from './interfaces';
+import { ContextOf, OptionMetadata, SlashCommandMetadata, TransformOptions } from './interfaces';
 import { AUTOCOMPLETE_METADATA, GUILDS_METADATA, OPTIONS_METADATA } from './necord.constants';
 import { ModuleRef } from '@nestjs/core';
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
@@ -99,7 +99,8 @@ export class NecordInteractionUpdate {
 	}
 
 	private transformOptions(command: SlashCommandMetadata, interaction: CommandInteraction) {
-		const rawOptions = command.metadata[OPTIONS_METADATA] ?? {};
+		const rawOptions: Record<string, OptionMetadata> = command.metadata[OPTIONS_METADATA] ?? {};
+
 		return Object.entries(rawOptions).reduce((acc, [parameter, option]) => {
 			acc[parameter] = interaction.options[option.methodName].call(
 				interaction.options,
