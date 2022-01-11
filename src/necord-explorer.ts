@@ -1,5 +1,5 @@
 import { Collection } from 'discord.js';
-import { Injectable, Type } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
@@ -67,8 +67,8 @@ export class NecordExplorer {
 			const commandGroup = this.filterProvider<SlashCommandMetadata>(wrapper, GROUP_METADATA);
 
 			const subGroups = new Collection<string, any>();
-			const subCommands = new Collection<string, any>();
-			const commands = new Collection<string, any>();
+			const subCommands = [];
+			const commands = [];
 
 			const metadataKey = APPLICATION_COMMAND_METADATA;
 			const optionalKeys: OptionMetadata[] = [
@@ -85,25 +85,26 @@ export class NecordExplorer {
 				command.options = Object.values(command.metadata[OPTIONS_METADATA] ?? []);
 
 				if (!commandGroup || command.type !== 1) {
-					commands.set(command.name, command);
+					commands.push(command);
 				}
 
 				const subGroup = command.metadata[GROUP_METADATA];
 
 				subGroup
 					? subGroups.ensure(subGroup.name, () => subGroup).options.push(command)
-					: subCommands.set(command.name, command);
+					: subCommands.push(command);
 			}
 
 			if (commandGroup) {
 				commandGroup.metadata = this.extractOptionalMetadata(
 					[GUILDS_METADATA],
-					wrapper.instance.constructor
+					wrapper.instance
 				);
-				commandGroup.options = [...subGroups.values(), ...subCommands.values()];
+
+				commandGroup.options = [...subGroups.values(), ...subCommands];
 			}
 
-			return [...commands.values()].concat(commandGroup);
+			return commands.concat(commandGroup);
 		});
 
 		return {

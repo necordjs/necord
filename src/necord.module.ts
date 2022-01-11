@@ -19,7 +19,7 @@ import { NecordUpdate } from './necord.update';
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [NecordExplorer, NecordRegistry, NecordUpdate, NecordInteractionUpdate],
+	providers: [NecordExplorer, NecordUpdate, NecordInteractionUpdate, NecordRegistry],
 	exports: [NecordRegistry]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
