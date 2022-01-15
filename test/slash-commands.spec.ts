@@ -3,13 +3,17 @@ import { createApplication, DevGuild } from './utils.spec';
 import { Ctx, NecordRegistry, Opts, SlashCommand, SlashCommandMetadata, SlashGroup } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
+import { ValidationPipe } from '@nestjs/common';
 
 @DevGuild
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
 	@SlashGroup('string', 'Test Sub Group')
 	@SlashCommand('length', 'Get length of your text')
-	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
+	public onLength(
+		@Ctx() [interaction]: [CommandInteraction],
+		@Opts(new ValidationPipe({ validateCustomDecorators: true })) { text }: LengthDto
+	) {
 		return interaction.reply({
 			content: 'Your message length - ' + text.length
 		});
