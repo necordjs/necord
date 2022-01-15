@@ -3110,7 +3110,7 @@ release-it@14.12.1:
     os-name "4.0.1"
     parse-json "5.2.0"
     semver "7.3.5"
-    shelljs "0.8.4"
+    shelljs "0.8.5"
     update-notifier "5.1.0"
     url-join "4.0.1"
     uuid "8.3.2"
