@@ -1,10 +1,9 @@
 import * as assert from 'node:assert';
 import { Injectable } from '@nestjs/common';
 import { Ctx, MessageCommand, NecordRegistry, Opts, UserCommand } from '../src';
-import { createApplication, DevGuild } from './utils.spec';
+import { createApplication } from './utils.spec';
 import { ContextMenuInteraction, Message, MessageEmbed, User } from 'discord.js';
 
-@DevGuild
 @Injectable()
 export class ContextMenuSpec {
 	@UserCommand('Get user avatar')

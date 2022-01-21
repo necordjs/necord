@@ -1,9 +1,20 @@
 import { CommandInteraction } from 'discord.js';
-import { Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Context, On, Once } from './decorators';
 import { NecordRegistry } from './necord-registry';
-import { ContextOf, OptionMetadata, SlashCommandMetadata, TransformOptions } from './interfaces';
-import { AUTOCOMPLETE_METADATA, GUILDS_METADATA, OPTIONS_METADATA } from './necord.constants';
+import {
+	ContextOf,
+	NecordModuleOptions,
+	OptionMetadata,
+	SlashCommandMetadata,
+	TransformOptions
+} from './interfaces';
+import {
+	AUTOCOMPLETE_METADATA,
+	GUILDS_METADATA,
+	NECORD_MODULE_OPTIONS,
+	OPTIONS_METADATA
+} from './necord.constants';
 import { ModuleRef } from '@nestjs/core';
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 
@@ -11,7 +22,11 @@ import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 export class NecordInteractionUpdate {
 	private readonly logger = new Logger(NecordInteractionUpdate.name);
 
-	public constructor(private readonly registry: NecordRegistry) {}
+	public constructor(
+		private readonly registry: NecordRegistry,
+		@Inject(NECORD_MODULE_OPTIONS)
+		private readonly options: NecordModuleOptions
+	) {}
 
 	@Once('ready')
 	private async onReady(@Context() [client]: ContextOf<'ready'>) {
@@ -22,7 +37,7 @@ export class NecordInteractionUpdate {
 		const commands = new Map([[undefined, []]]);
 
 		for (const command of this.registry.getApplicationCommands()) {
-			const guilds = command.metadata[GUILDS_METADATA] ?? [undefined];
+			const guilds = command.metadata[GUILDS_METADATA] ?? [].concat(this.options.development);
 
 			for (const guild of guilds) {
 				const cmds = commands.get(guild) ?? [];

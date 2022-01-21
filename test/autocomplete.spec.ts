@@ -2,7 +2,7 @@ import * as assert from 'node:assert';
 import { Injectable } from '@nestjs/common';
 import { CommandInteraction } from 'discord.js';
 import { Autocomplete, Ctx, NecordRegistry, Opts, SlashCommand, TransformOptions } from '../src';
-import { createApplication, DevGuild } from './utils.spec';
+import { createApplication } from './utils.spec';
 import { Style, ThemeDto } from './dto/theme.dto';
 import { AUTOCOMPLETE_METADATA } from '../src/necord.constants';
 
@@ -21,7 +21,6 @@ class ThemeAutocomplete implements TransformOptions {
 	}
 }
 
-@DevGuild
 @Injectable()
 export class AutocompleteSpec {
 	@Autocomplete(ThemeAutocomplete)
