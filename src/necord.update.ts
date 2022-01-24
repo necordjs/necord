@@ -20,7 +20,7 @@ export class NecordUpdate {
 
 	@On('messageCreate')
 	private async onMessageCreate(@Context() [message]: ContextOf<'messageCreate'>) {
-		if (!message || !message.content?.length) return;
+		if (!message || !message.content?.length || message.webhookId || message.author.bot) return;
 
 		const content = message.content.toLowerCase();
 		const prefix = typeof this.prefix !== 'function' ? this.prefix : await this.prefix(message);
