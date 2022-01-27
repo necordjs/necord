@@ -18,7 +18,6 @@ import {
 	PERMISSIONS_METADATA
 } from './necord.constants';
 import { ModuleRef } from '@nestjs/core';
-import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 
 @Injectable()
 export class NecordInteractionUpdate {
@@ -117,7 +116,7 @@ export class NecordInteractionUpdate {
 			if (!command) return;
 
 			if (interaction.isCommand()) {
-				return command?.metadata.execute(
+				return command.metadata.execute(
 					[interaction],
 					this.transformOptions(command, interaction)
 				);
@@ -129,11 +128,24 @@ export class NecordInteractionUpdate {
 
 			if (!module || !autocompleteMetadata || !moduleRef) return;
 
-			const autocomplete: TransformOptions = await moduleRef
-				.resolve(autocompleteMetadata, STATIC_CONTEXT, { strict: true })
-				.catch(() => moduleRef.create(autocompleteMetadata));
+			const getAutocomplete = async (): Promise<TransformOptions> => {
+				const provider = module.getProviderByKey(autocompleteMetadata);
 
-			const options = await autocomplete?.transformOptions(
+				if (provider) {
+					return provider.instance;
+				}
+
+				module.addProvider({
+					provide: autocompleteMetadata,
+					useValue: await moduleRef.create(autocompleteMetadata)
+				});
+
+				return getAutocomplete();
+			};
+
+			let autocomplete: TransformOptions = await getAutocomplete();
+
+			const options = await autocomplete.transformOptions(
 				interaction,
 				interaction.options.getFocused(true)
 			);
