@@ -1,10 +1,12 @@
 import {
 	ClientEvents,
+	CommandInteraction,
 	DMChannel,
 	Guild,
 	GuildFeatures,
 	GuildMember,
 	Message,
+	MessageContextMenuInteraction,
 	NonThreadGuildBasedChannel,
 	PartialMessage,
 	PermissionOverwriteManager,
@@ -14,12 +16,19 @@ import {
 	Role,
 	ThreadChannel,
 	User,
+	UserContextMenuInteraction,
 	UserFlags,
 	VoiceBasedChannel,
 	VoiceChannel
 } from 'discord.js';
 
 export interface NecordEvents extends ClientEvents {
+	// Necord
+	textCommand: [Message];
+	slashCommand: [CommandInteraction];
+	messageContext: [MessageContextMenuInteraction];
+	userContext: [UserContextMenuInteraction];
+
 	// ChannelUpdate
 	guildChannelPermissionsUpdate: [
 		channel: DMChannel | NonThreadGuildBasedChannel,
