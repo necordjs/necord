@@ -3,6 +3,7 @@ import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Context, On, Once } from './decorators';
 import { NecordRegistry } from './necord-registry';
 import {
+	ApplicationCommandMetadata,
 	ContextOf,
 	NecordModuleOptions,
 	OptionMetadata,
@@ -13,7 +14,8 @@ import {
 	AUTOCOMPLETE_METADATA,
 	GUILDS_METADATA,
 	NECORD_MODULE_OPTIONS,
-	OPTIONS_METADATA
+	OPTIONS_METADATA,
+	PERMISSIONS_METADATA
 } from './necord.constants';
 import { ModuleRef } from '@nestjs/core';
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
@@ -34,21 +36,48 @@ export class NecordInteractionUpdate {
 			await client.application.fetch();
 		}
 
-		const commands = new Map([[undefined, []]]);
+		const clientCommands = client.application.commands;
+		const commandsByGuildMap = new Map<string, ApplicationCommandMetadata[]>([[undefined, []]]);
 
 		for (const command of this.registry.getApplicationCommands()) {
 			const guilds = command.metadata[GUILDS_METADATA] ?? [].concat(this.options.development);
 
 			for (const guild of guilds) {
-				const cmds = commands.get(guild) ?? [];
-				commands.set(guild, cmds.concat(command));
+				const visitedCommands = commandsByGuildMap.get(guild) ?? [];
+				commandsByGuildMap.set(guild, visitedCommands.concat(command));
 			}
 		}
 
 		this.logger.log(`Started refreshing application commands.`);
-		await Promise.all(
-			[...commands.entries()].map(([key, cmds]) => client.application.commands.set(cmds, key))
-		);
+		for (const [guild, commands] of commandsByGuildMap.entries()) {
+			const registeredCommands = await clientCommands.set(commands, guild);
+
+			const fullPermissions = commands.map(command => {
+				const applicationCommand = registeredCommands.find(x => x.name === command.name);
+
+				return {
+					id: applicationCommand.id,
+					permissions: command.metadata[PERMISSIONS_METADATA]
+				};
+			});
+
+			if (guild) {
+				await clientCommands.permissions.set({
+					guild,
+					fullPermissions
+				});
+
+				continue;
+			}
+
+			for (const perm of fullPermissions) {
+				await clientCommands.permissions.set({
+					guild,
+					command: perm.id,
+					permissions: perm.permissions
+				});
+			}
+		}
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
 

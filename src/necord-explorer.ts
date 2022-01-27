@@ -22,6 +22,7 @@ import {
 	MESSAGE_COMPONENT_METADATA,
 	OPTIONS_METADATA,
 	PARAM_ARGS_METADATA,
+	PERMISSIONS_METADATA,
 	TEXT_COMMAND_METADATA
 } from './necord.constants';
 
@@ -78,6 +79,10 @@ export class NecordExplorer {
 				{
 					key: GUILDS_METADATA,
 					fn: (key, targets) => this.reflector.getAllAndOverride(key, targets)
+				},
+				{
+					key: PERMISSIONS_METADATA,
+					fn: (key, targets) => this.reflector.getAllAndMerge(key, targets)
 				}
 			];
 
@@ -97,7 +102,7 @@ export class NecordExplorer {
 
 			if (commandGroup) {
 				commandGroup.metadata = this.extractOptionalMetadata(
-					[GUILDS_METADATA],
+					[GUILDS_METADATA, PERMISSIONS_METADATA],
 					wrapper.instance
 				);
 
