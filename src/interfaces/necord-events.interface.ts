@@ -26,8 +26,8 @@ export interface NecordEvents extends ClientEvents {
 	// Necord
 	textCommand: [Message];
 	slashCommand: [CommandInteraction];
-	messageContext: [MessageContextMenuInteraction];
-	userContext: [UserContextMenuInteraction];
+	messageContextCommand: [MessageContextMenuInteraction];
+	userContextCommand: [UserContextMenuInteraction];
 
 	// ChannelUpdate
 	guildChannelPermissionsUpdate: [
