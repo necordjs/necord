@@ -5,3 +5,4 @@ export * from './guilds.decorator';
 export * from './listeners.decorator';
 export * from './options.decorator';
 export * from './params.decorator';
+export * from './permissions.decorator';
