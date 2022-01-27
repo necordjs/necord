@@ -543,10 +543,15 @@
     "@types/node" "*"
     form-data "^3.0.0"
 
-"@types/node@*", "@types/node@17.0.10":
+"@types/node@*":
   version "17.0.10"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.10.tgz#616f16e9d3a2a3d618136b1be244315d95bd7cab"
   integrity sha512-S/3xB4KzyFxYGCppyDt68yzBU9ysL88lSdIah4D6cptdcltc4NCPCAMc0+PCpg/lLIyC7IPvj2Z52OJWeIUkog==
+
+"@types/node@17.0.12":
+  version "17.0.12"
+  resolved "https://registry.npmjs.org/@types/node/-/node-17.0.12.tgz#f7aa331b27f08244888c47b7df126184bc2339c5"
+  integrity sha512-4YpbAsnJXWYK/fpTVFlMIcUIho2AYCi4wg5aNPrG1ng7fn/1/RZfCIpRCiBX+12RVa34RluilnvCqD+g3KiSiA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.1"
@@ -1263,14 +1268,6 @@ depd@^1.1.2:
   resolved "https://registry.npmjs.org/depd/-/depd-1.1.2.tgz#9bcd52e14c097763e749b274c4346ed2e560b5a9"
   integrity sha1-m81S4UwJd2PnSbJ0xDRu0uVgtak=
 
-deprecated-obj@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/deprecated-obj/-/deprecated-obj-2.0.0.tgz#e6ba93a3989f6ed18d685e7d99fb8d469b4beffc"
-  integrity sha512-CkdywZC2rJ8RGh+y3MM1fw1EJ4oO/oNExGbRFv0AQoMS+faTd3nO7slYjkj/6t8OnIMUE+wxh6G97YHhK1ytrw==
-  dependencies:
-    flat "^5.0.2"
-    lodash "^4.17.20"
-
 deprecation@^2.0.0, deprecation@^2.3.1:
   version "2.3.1"
   resolved "https://registry.npmjs.org/deprecation/-/deprecation-2.3.1.tgz#6368cbdb40abf3373b525ac87e4a260c3a700919"
@@ -1649,11 +1646,6 @@ flat-cache@^3.0.4:
   dependencies:
     flatted "^3.1.0"
     rimraf "^3.0.2"
-
-flat@^5.0.2:
-  version "5.0.2"
-  resolved "https://registry.npmjs.org/flat/-/flat-5.0.2.tgz#8ca6fe332069ffa9d324c327198c598259ceb241"
-  integrity sha512-b6suED+5/3rTpUBdG1gupIl8MPFCAMA0QXwmljLhvCUKcUvdE4gWky9zpuGCcXHOsz4J9wPGNWq6OKpmIzz3hQ==
 
 flatted@^3.1.0:
   version "3.2.4"
@@ -2358,7 +2350,7 @@ lodash.truncate@^4.4.2:
   resolved "https://registry.npmjs.org/lodash.truncate/-/lodash.truncate-4.4.2.tgz#5a350da0b1113b837ecfffd5812cbe58d6eae193"
   integrity sha1-WjUNoLERO4N+z//VgSy+WNbq4ZM=
 
-lodash@4.17.21, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21:
+lodash@4.17.21, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.21:
   version "4.17.21"
   resolved "https://registry.npmjs.org/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -3077,10 +3069,10 @@ registry-url@^5.0.0:
   dependencies:
     rc "^1.2.8"
 
-release-it@14.12.3:
-  version "14.12.3"
-  resolved "https://registry.yarnpkg.com/release-it/-/release-it-14.12.3.tgz#634c91796eba38c7113c095e1dff218b0e4542e7"
-  integrity sha512-qek7ml9WaxpXSjLpU4UGCF9nWpDgOODL1gZTuydafs1HdQPAeYOd2od8I8lUL4NlEKW2TirDhH4aFTVIpP3/cQ==
+release-it@14.12.4:
+  version "14.12.4"
+  resolved "https://registry.npmjs.org/release-it/-/release-it-14.12.4.tgz#0fd13de85e382323c634a0697a601437e042123a"
+  integrity sha512-lqf9PMsj7ycCqFHGag8Uv7cE1hNsKa+yKUMe+Fkh9fdOfxu2F01On+YUefRCP0DuQthmr/WyLCYdrjThMEkWFQ==
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "18.12.0"
@@ -3088,7 +3080,6 @@ release-it@14.12.3:
     chalk "4.1.2"
     cosmiconfig "7.0.1"
     debug "4.3.3"
-    deprecated-obj "2.0.0"
     execa "5.1.1"
     form-data "4.0.0"
     git-url-parse "11.6.0"
@@ -3520,7 +3511,7 @@ ts-mixer@^6.0.0:
   resolved "https://registry.npmjs.org/ts-mixer/-/ts-mixer-6.0.0.tgz#4e631d3a36e3fa9521b973b132e8353bc7267f9f"
   integrity sha512-nXIb1fvdY5CBSrDIblLn73NW0qRDk5yJ0Sk1qPBF560OdJfQp9jhl+0tzcY09OZ9U+6GpeoI9RjwoIKFIoB9MQ==
 
-ts-node@^10.4.0:
+ts-node@10.4.0, ts-node@^10.4.0:
   version "10.4.0"
   resolved "https://registry.npmjs.org/ts-node/-/ts-node-10.4.0.tgz#680f88945885f4e6cf450e7f0d6223dd404895f7"
   integrity sha512-g0FlPvvCXSIO1JDF6S232P5jPYqBkRL9qly81ZgAOSU7rwI0stphCgd2kLiCrU9DjQCrJMWEqcNSjQL02s6d8A==
