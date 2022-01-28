@@ -51,10 +51,8 @@ bootstrap();
 
 Install **Necord** using the following commands in your OS terminal:
 
-```bash
+```bash npm2yarn
 $ npm i necord discord.js
-$ yarn add necord discord.js
-$ pnpm add necord discord.js
 ```
 
 ### Module Configuration
@@ -70,7 +68,7 @@ enviroment.
 
 :::note
 
-`development` key will only be apply to commands with no `@Guilds` decorator: If a command already has a guild registered, this will _not_
+`Development` key will only be apply to commands with no `@Guilds` decorator: If a command already has a guild registered, this will _not_
 replace it.
 
 :::
@@ -168,6 +166,6 @@ If all goes well, you should see something like this:
 
 You can run the following command at your OS command prompt to start the application listening Discord API events:
 
-```bash
+```bash npm2yarn
 $ npm run start
 ```

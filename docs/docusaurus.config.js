@@ -22,10 +22,15 @@ const config = {
 			/** @type {import("@docusaurus/preset-classic").Options} */
 			{
 				docs: {
+					sidebarPath: require.resolve('./sidebars.js'),
+					editUrl: 'https://github.com/SocketSomeone/necord/tree/master/docs',
 					path: 'content',
 					routeBasePath: '/',
-					sidebarPath: require.resolve('./sidebars.js'),
-					editUrl: 'https://github.com/SocketSomeone/necord/tree/master/docs'
+					showLastUpdateAuthor: true,
+					showLastUpdateTime: true,
+					remarkPlugins: [
+						[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
+					]
 				},
 				blog: false,
 				theme: {
@@ -36,28 +41,40 @@ const config = {
 	],
 
 	themeConfig:
-		/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
+	/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
 		{
+			announcementBar: {
+				content:
+					'⭐️ If you like Necord, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/SocketSomeone/necord">GitHub</a>! ⭐️',
+			},
 			navbar: {
-				title: 'Necord Documentation',
+				title: 'NECORD',
 				logo: {
 					alt: 'Nest.JS Logo',
 					src: 'https://nestjs.com/img/logo-small.svg'
 				},
 				items: [
 					{
-						href: 'https://github.com/SocketSomeone/necord',
-						label: 'GitHub',
-						position: 'right'
+						href: 'https://www.npmjs.com/package/necord',
+						position: 'right',
+						className: 'header-npm-link',
+						'aria-label': 'NPM',
 					},
 					{
-						href: 'https://www.npmjs.com/package/necord',
-						label: 'NPM',
-						position: 'right'
+						href: 'https://github.com/SocketSomeone/necord',
+						position: 'right',
+						className: 'header-github-link',
+						'aria-label': 'GitHub repository',
 					}
 				]
 			},
+			colorMode: {
+				defaultMode: 'light',
+				disableSwitch: false,
+				respectPrefersColorScheme: true,
+			},
 			hideableSidebar: true,
+			footer: {},
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme

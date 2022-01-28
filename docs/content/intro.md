@@ -43,10 +43,8 @@ the [Issues](https://github.com/SocketSomeone/necord/issues/new?assignees=&label
 
 **Node.js 16.6.0 or newer is required.**
 
-```bash
+```bash npm2yarn
 $ npm i necord discord.js
-$ yarn add necord discord.js
-$ pnpm add necord discord.js
 ```
 
 ## Usage
