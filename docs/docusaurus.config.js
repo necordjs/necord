@@ -50,7 +50,6 @@ const config = {
 					'⭐️ If you like Necord, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/SocketSomeone/necord">GitHub</a>! ⭐️',
 			},
 			navbar: {
-				hideOnScroll: true,
 				title: 'NECORD',
 				logo: {
 					alt: 'Nest.JS Logo',
