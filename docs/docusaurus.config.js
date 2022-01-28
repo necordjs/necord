@@ -44,11 +44,13 @@ const config = {
 	themeConfig:
 	/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
 		{
+			// TODO: Algolia
 			announcementBar: {
 				content:
 					'⭐️ If you like Necord, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/SocketSomeone/necord">GitHub</a>! ⭐️',
 			},
 			navbar: {
+				hideOnScroll: true,
 				title: 'NECORD',
 				logo: {
 					alt: 'Nest.JS Logo',
@@ -74,8 +76,9 @@ const config = {
 				disableSwitch: false,
 				respectPrefersColorScheme: true,
 			},
-			hideableSidebar: true,
-			footer: {},
+			footer: {
+				copyright: `Copyright © 2021 - ${new Date().getFullYear()} • Built by <a target="_blank" href="https://github.com/SocketSomeone">Alexey Filippov</a> and <a target="_blank" href="https://github.com/SocketSomeone/necord/graphs/contributors">Others</a> with 💖`
+			},
 			prism: {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme
