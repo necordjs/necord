@@ -3,7 +3,8 @@ import { ParamsFactory } from '@nestjs/core/helpers/external-context-creator';
 
 export enum NecordParamType {
 	CONTEXT,
-	OPTIONS
+	OPTIONS,
+	INFO
 }
 
 export class NecordParamsFactory implements ParamsFactory {
@@ -14,7 +15,9 @@ export class NecordParamsFactory implements ParamsFactory {
 			case NecordParamType.CONTEXT:
 				return args[0];
 			case NecordParamType.OPTIONS:
-				return data ? args[1][data] : args[1];
+				return data && args[1] ? args[1][data] : args[1];
+			case NecordParamType.INFO:
+				return args[2];
 			default:
 				return null;
 		}

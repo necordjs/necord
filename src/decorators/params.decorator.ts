@@ -13,6 +13,8 @@ export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, 
 	}
 ]);
 
+export const Info = createNecordPipesParamDecorator(NecordParamType.INFO);
+
 export const Ctx = Context;
 
 export const Opts = Options;
