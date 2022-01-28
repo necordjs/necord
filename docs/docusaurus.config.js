@@ -49,6 +49,11 @@ const config = {
 						href: 'https://github.com/SocketSomeone/necord',
 						label: 'GitHub',
 						position: 'right'
+					},
+					{
+						href: 'https://www.npmjs.com/package/necord',
+						label: 'NPM',
+						position: 'right'
 					}
 				]
 			},
