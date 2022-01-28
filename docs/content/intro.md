@@ -72,9 +72,9 @@ export class AppModule {
 Then create `app.update.ts` file and add `On`/`Once` decorators for handling Discord API events:
 
 ```typescript
-import {Injectable, Logger} from '@nestjs/common';
-import {Context, On, Once, ContextOf} from 'necord';
-import {Client} from 'discord.js';
+import { Injectable, Logger } from '@nestjs/common';
+import { Context, On, Once, ContextOf } from 'necord';
+import { Client } from 'discord.js';
 
 @Injectable()
 export class AppUpdate {
