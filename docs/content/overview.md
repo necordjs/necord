@@ -52,7 +52,7 @@ bootstrap();
 Install **Necord** using the following commands in your OS terminal:
 
 ```bash npm2yarn
-$ npm i necord discord.js
+$ npm install necord discord.js
 ```
 
 ### Module Configuration
