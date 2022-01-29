@@ -35,7 +35,7 @@ const config = {
 				blog: false,
 				pages: false,
 				theme: {
-					customCss: require.resolve('./styles/custom.css')
+					customCss: require.resolve('./styles/custom.scss')
 				}
 			}
 		]
@@ -82,7 +82,8 @@ const config = {
 				theme: lightCodeTheme,
 				darkTheme: darkCodeTheme
 			}
-		}
+		},
+	plugins: ['docusaurus-plugin-sass']
 };
 
 module.exports = config;

@@ -16,10 +16,10 @@
 
 	--ifm-color-primary-light: hsl(var(--site-primary-hue-saturation-light) 54%);
 	--ifm-color-primary-lighter: hsl(
-		var(--site-primary-hue-saturation-light) 62%
+			var(--site-primary-hue-saturation-light) 62%
 	);
 	--ifm-color-primary-lightest: hsl(
-		var(--site-primary-hue-saturation-light) 73%
+			var(--site-primary-hue-saturation-light) 73%
 	);
 
 	--ifm-color-feedback-background: #fff;
@@ -39,10 +39,10 @@ html[data-theme='dark'] {
 
 	--ifm-color-primary-light: hsl(var(--site-primary-hue-saturation-light) 54%);
 	--ifm-color-primary-lighter: hsl(
-		var(--site-primary-hue-saturation-light) 62%
+			var(--site-primary-hue-saturation-light) 62%
 	);
 	--ifm-color-primary-lightest: hsl(
-		var(--site-primary-hue-saturation-light) 73%
+			var(--site-primary-hue-saturation-light) 73%
 	);
 	--site-color-feedback-background: #f0f8ff;
 	--site-color-favorite-background: #1d1e1e;
@@ -92,4 +92,14 @@ html[data-theme='dark'] .header-github-link::before {
 html[data-theme='dark'] .header-npm-link::before {
 	background: url("https://cdn.worldvectorlogo.com/logos/npm-2.svg") no-repeat;
 	background-size: 24px 24px;
+}
+
+html[data-theme='dark'] [role=banner] {
+	background-color: #242526;
+	color: var(--site-color-feedback-background);
+
+
+	.close {
+		color: var(--ifm-color-white) !important;
+	}
 }
