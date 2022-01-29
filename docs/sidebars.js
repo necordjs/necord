@@ -23,7 +23,7 @@ const sidebars = {
 			items: [
 				{
 					type: 'link',
-					label: 'Contributing',
+					label: 'Contribution guide',
 					href: 'https://github.com/SocketSomeone/necord/blob/master/.github/CONTRIBUTING.md/',
 				},
 				{
