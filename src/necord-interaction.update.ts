@@ -1,5 +1,5 @@
 import { CommandInteraction } from 'discord.js';
-import { Inject, Injectable, Logger } from '@nestjs/common';
+import { Inject, Injectable, Logger, Type } from '@nestjs/common';
 import { Context, On, Once } from './decorators';
 import { NecordRegistry } from './necord-registry';
 import {
@@ -127,34 +127,39 @@ export class NecordInteractionUpdate {
 			}
 
 			const module = command.metadata.host;
-			const autocompleteMetadata = command.metadata[AUTOCOMPLETE_METADATA];
+			const instances = command.metadata[AUTOCOMPLETE_METADATA];
 			const { instance: moduleRef } = module.getProviderByKey<ModuleRef>(ModuleRef);
 
-			if (!module || !autocompleteMetadata || !moduleRef) return;
+			if (!module || !instances || !moduleRef) return;
 
-			const getAutocomplete = async (): Promise<TransformOptions> => {
-				const provider = module.getProviderByKey(autocompleteMetadata);
+			const getAutocomplete = async (instance: Type): Promise<TransformOptions> => {
+				const provider = module.getProviderByKey(instance);
 
 				if (provider) {
 					return provider.instance;
 				}
 
 				module.addProvider({
-					provide: autocompleteMetadata,
-					useValue: await moduleRef.create(autocompleteMetadata)
+					provide: instance,
+					useValue: await moduleRef.create(instance)
 				});
 
-				return getAutocomplete();
+				return getAutocomplete(instance);
 			};
 
-			let autocomplete: TransformOptions = await getAutocomplete();
+			for (const instance of instances) {
+				const autocomplete = await getAutocomplete(instance);
+				const options = await autocomplete?.transformOptions(
+					interaction,
+					interaction.options.getFocused(true)
+				);
 
-			const options = await autocomplete.transformOptions(
-				interaction,
-				interaction.options.getFocused(true)
-			);
+				if (!options || !Array.isArray(options)) continue;
 
-			return interaction.respond(options ?? []);
+				return interaction.respond(options);
+			}
+
+			return interaction.respond([]);
 		}
 	}
 
