@@ -56,7 +56,7 @@ export class NecordInteractionUpdate {
 
 				return {
 					id: applicationCommand.id,
-					permissions: command.metadata[PERMISSIONS_METADATA]
+					permissions: command.metadata[PERMISSIONS_METADATA] ?? []
 				};
 			});
 
