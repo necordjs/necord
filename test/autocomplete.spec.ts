@@ -40,7 +40,7 @@ const bootstrap = async () => {
 
 	assert.notStrictEqual(command, undefined);
 	assert.strictEqual(registry.getApplicationCommands().length, 1);
-	assert.strictEqual(command.metadata[AUTOCOMPLETE_METADATA], ThemeAutocomplete);
+	assert.deepEqual(command.metadata[AUTOCOMPLETE_METADATA], [ThemeAutocomplete]);
 };
 
 bootstrap();
