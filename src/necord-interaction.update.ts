@@ -87,7 +87,8 @@ export class NecordInteractionUpdate {
 				.getMessageComponent(interaction.componentType, interaction.customId)
 				?.metadata.execute(
 					[interaction],
-					interaction.isSelectMenu() ? interaction.values : undefined
+					interaction.isSelectMenu() ? interaction.values : undefined,
+					{ type: 'messageComponent' }
 				);
 		}
 
@@ -101,7 +102,9 @@ export class NecordInteractionUpdate {
 
 			return this.registry
 				.getContextMenu(interaction.targetType, interaction.commandName)
-				?.metadata.execute([interaction], options);
+				?.metadata.execute([interaction], options, {
+					type: 'contextMenu'
+				});
 		}
 
 		if (interaction.isCommand() || interaction.isAutocomplete()) {
@@ -118,7 +121,8 @@ export class NecordInteractionUpdate {
 			if (interaction.isCommand()) {
 				return command.metadata.execute(
 					[interaction],
-					this.transformOptions(command, interaction)
+					this.transformOptions(command, interaction),
+					{ type: 'slashCommands' }
 				);
 			}
 

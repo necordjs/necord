@@ -6,6 +6,8 @@ export interface INecordArgumentsHost extends ArgumentsHost {
 	getContext<T = any>(): T;
 
 	getOptions<T = any>(): T;
+
+	getInfo<T = any>(): T;
 }
 
 export class NecordArgumentsHost extends ExecutionContextHost implements INecordArgumentsHost {
@@ -26,5 +28,9 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 
 	public getOptions<T = any>(): T {
 		return this.getArgByIndex(1);
+	}
+
+	public getInfo<T = any>(): T {
+		return this.getArgByIndex(2);
 	}
 }

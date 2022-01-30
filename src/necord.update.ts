@@ -32,7 +32,9 @@ export class NecordUpdate {
 
 		if (!cmd) return;
 
-		return this.registry.getTextCommand(cmd)?.metadata.execute([message], args);
+		return this.registry
+			.getTextCommand(cmd)
+			?.metadata.execute([message], args, { type: 'textCommand' });
 	}
 
 	private emit<K extends keyof NecordEvents>(event: K, ...args: NecordEvents[K]) {

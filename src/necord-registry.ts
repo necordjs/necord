@@ -26,7 +26,7 @@ export class NecordRegistry {
 	public registerListeners(listeners: ListenerMetadata[]) {
 		listeners.forEach(listener => {
 			this.client[listener.type]<any>(listener.event, (...args) =>
-				listener.metadata.execute(args)
+				listener.metadata.execute(args, null, { type: 'event' })
 			);
 		});
 	}
