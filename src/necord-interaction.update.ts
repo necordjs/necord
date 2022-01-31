@@ -18,6 +18,7 @@ import {
 	PERMISSIONS_METADATA
 } from './necord.constants';
 import { ModuleRef } from '@nestjs/core';
+import { NecordInfoType } from './context';
 
 @Injectable()
 export class NecordInteractionUpdate {
@@ -88,7 +89,7 @@ export class NecordInteractionUpdate {
 				?.metadata.execute(
 					[interaction],
 					interaction.isSelectMenu() ? interaction.values : undefined,
-					{ type: 'messageComponent' }
+					{ type: NecordInfoType.MESSAGE_COMPONENT }
 				);
 		}
 
@@ -103,7 +104,7 @@ export class NecordInteractionUpdate {
 			return this.registry
 				.getContextMenu(interaction.targetType, interaction.commandName)
 				?.metadata.execute([interaction], options, {
-					type: 'contextMenu'
+					type: NecordInfoType.CONTEXT_MENU
 				});
 		}
 
@@ -122,7 +123,7 @@ export class NecordInteractionUpdate {
 				return command.metadata.execute(
 					[interaction],
 					this.transformOptions(command, interaction),
-					{ type: 'slashCommands' }
+					{ type: NecordInfoType.SLASH_COMMANDS }
 				);
 			}
 

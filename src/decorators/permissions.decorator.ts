@@ -1,7 +1,5 @@
-import { ApplicationCommandPermissionData, ApplicationCommandPermissionType } from 'discord.js';
-import { SetMetadata } from '@nestjs/common';
-import { LISTENERS_METADATA, PERMISSIONS_METADATA } from '../necord.constants';
-import { ListenerMetadata, NecordEvents } from '../interfaces';
+import { ApplicationCommandPermissionData } from 'discord.js';
+import { PERMISSIONS_METADATA } from '../necord.constants';
 
 export const Permissions = createNecordPermissionsDecorator();
 

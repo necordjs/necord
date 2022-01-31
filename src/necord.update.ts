@@ -4,6 +4,7 @@ import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
 import { ContextOf, NecordEvents, NecordModuleOptions } from './interfaces';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import { NecordRegistry } from './necord-registry';
+import { NecordInfoType } from "./context";
 
 @Injectable()
 export class NecordUpdate {
@@ -34,7 +35,7 @@ export class NecordUpdate {
 
 		return this.registry
 			.getTextCommand(cmd)
-			?.metadata.execute([message], args, { type: 'textCommand' });
+			?.metadata.execute([message], args, { type: NecordInfoType.TEXT_COMMAND });
 	}
 
 	private emit<K extends keyof NecordEvents>(event: K, ...args: NecordEvents[K]) {
