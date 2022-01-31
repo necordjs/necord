@@ -4,7 +4,7 @@ import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
 import { ContextOf, NecordEvents, NecordModuleOptions } from './interfaces';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import { NecordRegistry } from './necord-registry';
-import { NecordInfoType } from "./context";
+import { NecordInfoType } from './context';
 
 @Injectable()
 export class NecordUpdate {

@@ -8,7 +8,7 @@ import {
 	SlashCommandMetadata,
 	TextCommandMetadata
 } from './interfaces';
-import { NecordInfoType } from "./context";
+import { NecordInfoType } from './context';
 
 @Injectable()
 export class NecordRegistry {
