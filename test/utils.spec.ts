@@ -8,7 +8,8 @@ export const createApplication = (...providers: (Type | Provider)[]) => {
 		imports: [
 			NecordModule.forRoot({
 				token: process.env.DISCORD_TOKEN,
-				intents: Object.values(Intents.FLAGS).reduce((acc, val) => acc | val, 0)
+				intents: Object.values(Intents.FLAGS).reduce((acc, val) => acc | val, 0),
+				development: [process.env.DISCORD_TEST_GUILD]
 			})
 		],
 		providers

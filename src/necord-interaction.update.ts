@@ -54,31 +54,15 @@ export class NecordInteractionUpdate {
 		for (const [guild, commands] of commandsByGuildMap.entries()) {
 			const registeredCommands = await clientCommands.set(commands, guild);
 
-			const fullPermissions = commands.map(command => {
-				const applicationCommand = registeredCommands.find(x => x.name === command.name);
+			if (!guild) continue;
 
-				return {
-					id: applicationCommand.id,
-					permissions: command.metadata[PERMISSIONS_METADATA] ?? []
-				};
+			await clientCommands.permissions.set({
+				guild,
+				fullPermissions: commands.map(command => ({
+					id: registeredCommands.find(x => x.name === command.name).id,
+					permissions: command.metadata[PERMISSIONS_METADATA]
+				}))
 			});
-
-			if (guild) {
-				await clientCommands.permissions.set({
-					guild,
-					fullPermissions
-				});
-
-				continue;
-			}
-
-			for (const perm of fullPermissions) {
-				await clientCommands.permissions.set({
-					guild,
-					command: perm.id,
-					permissions: perm.permissions
-				});
-			}
 		}
 		this.logger.log(`Successfully reloaded application commands.`);
 	}

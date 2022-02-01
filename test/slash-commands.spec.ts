@@ -1,9 +1,21 @@
 import * as assert from 'node:assert';
 import { createApplication } from './utils.spec';
-import { Ctx, NecordRegistry, Opts, SlashCommand, SlashCommandMetadata, SlashGroup } from '../src';
+import {
+	Ctx,
+	NecordRegistry,
+	Opts,
+	SlashCommand,
+	SlashCommandMetadata,
+	SlashGroup,
+	UserPermissions
+} from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
+@UserPermissions({
+	id: '235413185639874561',
+	permission: false
+})
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
 	@SlashGroup('string', 'Test Sub Group')
