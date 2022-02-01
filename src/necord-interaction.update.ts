@@ -40,9 +40,11 @@ export class NecordInteractionUpdate {
 		const commandsByGuildMap = new Map<string, ApplicationCommandMetadata[]>([[undefined, []]]);
 
 		for (const command of this.registry.getApplicationCommands()) {
-			const guilds = command.metadata[GUILDS_METADATA] ?? [].concat(this.options.development);
+			const defaultGuild = Array.isArray(this.options.development)
+				? this.options.development
+				: [undefined];
 
-			for (const guild of guilds) {
+			for (const guild of command.metadata[GUILDS_METADATA] ?? defaultGuild) {
 				const visitedCommands = commandsByGuildMap.get(guild) ?? [];
 				commandsByGuildMap.set(guild, visitedCommands.concat(command));
 			}
