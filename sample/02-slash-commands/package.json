@@ -15,7 +15,7 @@
 	"dependencies": {
 		"@nestjs/common": "8.2.6",
 		"@nestjs/core": "8.2.6",
-		"discord.js": "13.3.1",
+		"discord.js": "13.6.0",
 		"reflect-metadata": "0.1.13",
 		"necord": "2.0.1",
 		"rimraf": "3.0.2",
