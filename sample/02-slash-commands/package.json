@@ -13,8 +13,8 @@
 		"lint": "eslint src/**/*.ts --fix"
 	},
 	"dependencies": {
-		"@nestjs/common": "8.1.2",
-		"@nestjs/core": "8.1.2",
+		"@nestjs/common": "8.2.6",
+		"@nestjs/core": "8.2.6",
 		"discord.js": "13.3.1",
 		"reflect-metadata": "0.1.13",
 		"necord": "2.0.1",
