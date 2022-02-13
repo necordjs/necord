@@ -91,6 +91,7 @@ export class NecordExplorer {
 
 				if (!commandGroup || command.type !== 1) {
 					commands.push(command);
+					continue;
 				}
 
 				const subGroup = command.metadata[GROUP_METADATA];
