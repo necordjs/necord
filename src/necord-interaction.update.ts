@@ -60,7 +60,7 @@ export class NecordInteractionUpdate {
 				guild,
 				fullPermissions: commands.map(command => ({
 					id: registeredCommands.find(x => x.name === command.name).id,
-					permissions: command.metadata[PERMISSIONS_METADATA]
+					permissions: command.metadata[PERMISSIONS_METADATA] ?? []
 				}))
 			});
 		}
