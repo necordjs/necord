@@ -28,9 +28,7 @@ const config = {
 					routeBasePath: '/',
 					showLastUpdateAuthor: true,
 					showLastUpdateTime: true,
-					remarkPlugins: [
-						[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}],
-					]
+					remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]]
 				},
 				blog: false,
 				pages: false,
@@ -42,12 +40,16 @@ const config = {
 	],
 
 	themeConfig:
-	/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
+		/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
 		{
-			// TODO: Algolia
+			algolia: {
+				appId: 'U7YH0EPYI9',
+				apiKey: '6b8c0630dbf63af6f351f0bd3a72836b',
+				indexName: 'necord'
+			},
 			announcementBar: {
 				content:
-					'⭐️ If you like Necord, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/SocketSomeone/necord">GitHub</a>! ⭐️',
+					'⭐️ If you like Necord, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/SocketSomeone/necord">GitHub</a>! ⭐️'
 			},
 			navbar: {
 				logo: {
@@ -59,20 +61,20 @@ const config = {
 						href: 'https://www.npmjs.com/package/necord',
 						position: 'right',
 						className: 'header-npm-link',
-						'aria-label': 'NPM',
+						'aria-label': 'NPM'
 					},
 					{
 						href: 'https://github.com/SocketSomeone/necord',
 						position: 'right',
 						className: 'header-github-link',
-						'aria-label': 'GitHub repository',
+						'aria-label': 'GitHub repository'
 					}
 				]
 			},
 			colorMode: {
 				defaultMode: 'light',
 				disableSwitch: false,
-				respectPrefersColorScheme: true,
+				respectPrefersColorScheme: true
 			},
 			footer: {
 				copyright: `Copyright © 2021 - ${new Date().getFullYear()} • Built by <a target="_blank" href="https://github.com/SocketSomeone">Alexey Filippov</a> and <a target="_blank" href="https://github.com/SocketSomeone/necord/graphs/contributors">Others</a> with 💖`
