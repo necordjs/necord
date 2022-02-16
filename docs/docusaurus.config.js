@@ -15,12 +15,12 @@ const config = {
 	favicon: 'img/favicon.ico',
 	organizationName: 'SocketSomeone', // Usually your GitHub org/user name.
 	projectName: 'necord', // Usually your repo name.
-	titleDelimiter: '-',
 	presets: [
 		[
 			'classic',
 			/** @type {import("@docusaurus/preset-classic").Options} */
 			{
+				debug: process.env.NODE_ENV !== 'production',
 				docs: {
 					sidebarPath: require.resolve('./sidebars.js'),
 					editUrl: 'https://github.com/SocketSomeone/necord/tree/master/docs',
@@ -28,7 +28,7 @@ const config = {
 					routeBasePath: '/',
 					showLastUpdateAuthor: true,
 					showLastUpdateTime: true,
-					remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), { sync: true }]]
+					remarkPlugins: [[require('@docusaurus/remark-plugin-npm2yarn'), {sync: true}]]
 				},
 				blog: false,
 				pages: false,
@@ -38,13 +38,17 @@ const config = {
 				sitemap: {
 					changefreq: 'weekly',
 					priority: 0.5,
+				},
+				gtag: {
+					trackingID: 'G-46VBZHXG63',
+					anonymizeIP: false
 				}
 			}
 		]
 	],
 
 	themeConfig:
-		/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
+	/** @type {import("@docusaurus/preset-classic").ThemeConfig} */
 		{
 			algolia: {
 				appId: 'U7YH0EPYI9',
@@ -55,6 +59,10 @@ const config = {
 				content:
 					'⭐️ If you like Necord, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/SocketSomeone/necord">GitHub</a>! ⭐️'
 			},
+			metadata: [{
+				name: 'keywords',
+				content: 'discord, discord-bot, framework, necord, github, open-source'
+			}],
 			navbar: {
 				logo: {
 					alt: 'Necord Logo',

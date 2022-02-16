@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://necord.org/sitemap.xml
+Sitemap: https://www.necord.org/sitemap.xml
