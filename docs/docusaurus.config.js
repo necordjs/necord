@@ -44,7 +44,7 @@ const config = {
 		{
 			algolia: {
 				appId: 'U7YH0EPYI9',
-				apiKey: '6b8c0630dbf63af6f351f0bd3a72836b',
+				apiKey: 'c41976c1ed280e75acc3e9efd4aaaf00',
 				indexName: 'necord'
 			},
 			announcementBar: {
