@@ -11,7 +11,6 @@ import {
 	MessageComponentType,
 	UserApplicationCommandData
 } from 'discord.js';
-import { NecordEvents } from './necord-events.interface';
 import { Module } from '@nestjs/core/injector/module';
 import { Type } from '@nestjs/common';
 
@@ -28,10 +27,9 @@ export interface BaseMetadata {
 	};
 }
 
-export interface ListenerMetadata<T extends keyof NecordEvents = keyof NecordEvents>
-	extends BaseMetadata {
+export interface ListenerMetadata extends BaseMetadata {
 	type: 'once' | 'on';
-	event: T;
+	event: string;
 }
 
 export interface ComponentMetadata extends BaseMetadata {

@@ -1,12 +1,9 @@
 import {
-	ClientEvents,
-	CommandInteraction,
 	DMChannel,
 	Guild,
 	GuildFeatures,
 	GuildMember,
 	Message,
-	MessageContextMenuInteraction,
 	NonThreadGuildBasedChannel,
 	PartialMessage,
 	PermissionOverwriteManager,
@@ -16,19 +13,15 @@ import {
 	Role,
 	ThreadChannel,
 	User,
-	UserContextMenuInteraction,
 	UserFlags,
 	VoiceBasedChannel,
 	VoiceChannel
 } from 'discord.js';
+import { ContextOf } from '../../interfaces';
 
-export interface NecordEvents extends ClientEvents {
-	// Necord
-	textCommand: [Message];
-	slashCommand: [CommandInteraction];
-	messageContextCommand: [MessageContextMenuInteraction];
-	userContextCommand: [UserContextMenuInteraction];
+export type CustomContextOf<K extends keyof CustomEvents> = ContextOf<K, CustomEvents>;
 
+export interface CustomEvents {
 	// ChannelUpdate
 	guildChannelPermissionsUpdate: [
 		channel: DMChannel | NonThreadGuildBasedChannel,
@@ -127,5 +120,3 @@ export interface NecordEvents extends ClientEvents {
 	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
 	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
 }
-
-export type ContextOf<K extends keyof NecordEvents, E extends NecordEvents = NecordEvents> = E[K];
