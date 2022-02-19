@@ -16,11 +16,27 @@ import { NecordExplorer } from './necord-explorer';
 import { NecordInteractionUpdate } from './necord-interaction.update';
 import { NecordUpdate } from './necord.update';
 
+const clientProvider: Provider<Client> = {
+	provide: Client,
+	useFactory: (options: NecordModuleOptions) => new Client(options),
+	inject: [NECORD_MODULE_OPTIONS]
+};
+
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [NecordExplorer, NecordUpdate, NecordInteractionUpdate, NecordRegistry],
-	exports: [NecordRegistry]
+	providers: [
+		NecordExplorer,
+		NecordUpdate,
+		NecordInteractionUpdate,
+		NecordRegistry,
+		clientProvider
+	],
+	exports: [
+		NecordRegistry,
+		clientProvider,
+		{ provide: NECORD_MODULE_OPTIONS, useExisting: NECORD_MODULE_OPTIONS }
+	]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(
@@ -47,36 +63,24 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 	}
 
 	public static forRoot(options: NecordModuleOptions): DynamicModule {
-		const ClientProvider: Provider<Client> = {
-			provide: Client,
-			useValue: new Client(options)
-		};
-
 		return {
 			module: NecordModule,
 			providers: [
 				{
 					provide: NECORD_MODULE_OPTIONS,
 					useValue: options
-				},
-				ClientProvider
+				}
 			],
-			exports: [ClientProvider]
+			exports: []
 		};
 	}
 
 	public static forRootAsync(options: NecordModuleAsyncOptions): DynamicModule {
-		const ClientFactoryProvider: Provider<Client> = {
-			provide: Client,
-			useFactory: (options: NecordModuleOptions) => new Client(options),
-			inject: [NECORD_MODULE_OPTIONS]
-		};
-
 		return {
 			module: NecordModule,
 			imports: options.imports,
-			providers: this.createAsyncProviders(options).concat(ClientFactoryProvider),
-			exports: [ClientFactoryProvider]
+			providers: this.createAsyncProviders(options),
+			exports: []
 		};
 	}
 
