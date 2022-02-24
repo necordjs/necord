@@ -13,7 +13,6 @@ import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { NecordRegistry } from './necord-registry';
 import { NecordExplorer } from './necord-explorer';
-import { NecordInteractionUpdate } from './necord-interaction.update';
 import { NecordUpdate } from './necord.update';
 
 const clientProvider: Provider<Client> = {
@@ -25,18 +24,8 @@ const clientProvider: Provider<Client> = {
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [
-		NecordExplorer,
-		NecordUpdate,
-		NecordInteractionUpdate,
-		NecordRegistry,
-		clientProvider
-	],
-	exports: [
-		NecordRegistry,
-		clientProvider,
-		{ provide: NECORD_MODULE_OPTIONS, useExisting: NECORD_MODULE_OPTIONS }
-	]
+	providers: [NecordExplorer, NecordUpdate, NecordUpdate, NecordRegistry, clientProvider],
+	exports: [NecordRegistry, clientProvider]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(

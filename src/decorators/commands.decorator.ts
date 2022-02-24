@@ -1,11 +1,7 @@
 import { ApplicationCommandOptionTypes, ApplicationCommandTypes } from 'discord.js/typings/enums';
-import {
-	GROUP_METADATA,
-	TEXT_COMMAND_METADATA,
-	APPLICATION_COMMAND_METADATA
-} from '../necord.constants';
+import { APPLICATION_COMMAND_METADATA, GROUP_METADATA } from '../necord.constants';
 import { SetMetadata } from '@nestjs/common';
-import { TextCommandMetadata, SlashCommandMetadata, ContextMenuMetadata } from '../interfaces';
+import { ContextMenuMetadata, SlashCommandMetadata } from '../interfaces';
 
 export const SlashGroup =
 	(
@@ -36,12 +32,6 @@ export const SlashCommand = (
 		description,
 		defaultPermission,
 		options: []
-	});
-
-export const TextCommand = (name: string, description?: string) =>
-	SetMetadata<string, TextCommandMetadata>(TEXT_COMMAND_METADATA, {
-		name,
-		description
 	});
 
 const createNecordContextMenu =

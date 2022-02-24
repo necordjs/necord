@@ -141,15 +141,17 @@ export class NecordExplorer {
 
 			if (!item) return;
 
-			return Object.assign(item, {
-				metadata: {
-					host,
-					class: instance.constructor,
-					handler: prototype[name],
-					execute: this.createContextCallback(instance, prototype, name),
-					...this.extractOptionalMetadata(optionalMetadataKeys, instance, name)
-				}
-			});
+			return Object.freeze(
+				Object.assign(item, {
+					metadata: {
+						host,
+						class: instance.constructor,
+						handler: prototype[name],
+						execute: this.createContextCallback(instance, prototype, name),
+						...this.extractOptionalMetadata(optionalMetadataKeys, instance, name)
+					}
+				})
+			);
 		});
 	}
 
