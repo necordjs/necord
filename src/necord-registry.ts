@@ -62,7 +62,6 @@ export class NecordRegistry {
 		return this.applicationCommandsData;
 	}
 
-
 	public getContextMenu(type: 'USER' | 'MESSAGE', name: string): ContextMenuMetadata {
 		return this.applicationCommands.get(NecordRegistry.GENERATE_KEY(type, name)) as any;
 	}
