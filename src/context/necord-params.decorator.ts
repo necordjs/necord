@@ -23,7 +23,7 @@ export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, 
 		}
 
 		Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
-		console.log(options)
+		console.log(options);
 	}
 ]);
 

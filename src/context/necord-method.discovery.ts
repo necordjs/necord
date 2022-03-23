@@ -1,13 +1,9 @@
-import {
-	DiscoveredClassWithMeta,
-	DiscoveredMethod,
-	DiscoveredMethodWithMeta
-} from '@golevelup/nestjs-discovery';
+import { DiscoveredMethod, DiscoveredMethodWithMeta } from '@golevelup/nestjs-discovery';
 import { createNecordContext } from './necord-context-creator';
 import { ComponentDiscovery } from '../components';
 import { Reflector } from '@nestjs/core';
 import { ListenerDiscovery } from '../listeners';
-import { SlashCommandDiscovery, ContextMenuDiscovery } from "../commands";
+import { ContextMenuDiscovery, SlashCommandDiscovery } from '../commands';
 
 export enum NecordMethodDiscoveryType {
 	LISTENER,
