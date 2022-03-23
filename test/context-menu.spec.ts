@@ -1,6 +1,5 @@
-import * as assert from 'node:assert';
 import { Injectable } from '@nestjs/common';
-import { Ctx, MessageCommand, NecordRegistry, Opts, UserCommand } from '../src';
+import { Ctx, MessageCommand, Opts, UserCommand } from '../src';
 import { createApplication } from './utils.spec';
 import { ContextMenuInteraction, Message, MessageEmbed, User } from 'discord.js';
 
@@ -28,11 +27,6 @@ export class ContextMenuSpec {
 
 const bootstrap = async () => {
 	const app = await createApplication(ContextMenuSpec);
-	const registry = app.get(NecordRegistry);
-
-	assert.notStrictEqual(registry.getContextMenu('USER', 'Get user avatar'), undefined);
-	assert.notStrictEqual(registry.getContextMenu('MESSAGE', 'Copy message content'), undefined);
-	assert.strictEqual(registry.getApplicationCommands().length, 2);
 };
 
 bootstrap();

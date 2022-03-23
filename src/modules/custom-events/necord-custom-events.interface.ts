@@ -17,7 +17,7 @@ import {
 	VoiceBasedChannel,
 	VoiceChannel
 } from 'discord.js';
-import { ContextOf } from '../../interfaces';
+import { ContextOf } from '../../context';
 
 export type CustomContextOf<K extends keyof CustomEvents> = ContextOf<K, CustomEvents>;
 

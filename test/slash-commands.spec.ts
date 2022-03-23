@@ -1,16 +1,7 @@
-import * as assert from 'node:assert';
 import { createApplication } from './utils.spec';
-import {
-	Ctx,
-	NecordRegistry,
-	Opts,
-	SlashCommand,
-	SlashCommandMetadata,
-	SlashGroup,
-	UserPermissions
-} from '../src';
+import { Ctx, Opts, SlashCommand, SlashGroup, UserPermissions } from '../src';
 import { CommandInteraction } from 'discord.js';
-import { LengthDto } from './dto/length.dto';
+import { LengthDto, TestDto } from './dto/length.dto';
 
 @UserPermissions({
 	id: '235413185639874561',
@@ -27,7 +18,7 @@ export class SlashCommandsSpec {
 	}
 
 	@SlashCommand('ping', 'Ping-pong command')
-	public onPing(@Ctx() [interaction]: [CommandInteraction]) {
+	public onPing(@Ctx() [interaction]: [CommandInteraction], @Opts() x: TestDto) {
 		return interaction.reply({
 			content: 'Pong!'
 		});
@@ -36,35 +27,6 @@ export class SlashCommandsSpec {
 
 const bootstrap = async () => {
 	const app = await createApplication(SlashCommandsSpec);
-	const registry = app.get(NecordRegistry);
-
-	const group: SlashCommandMetadata = registry.getApplicationCommands()[0] as any;
-
-	assert.strictEqual(registry.getApplicationCommands().length, 1);
-	assert.strictEqual(group.type, 1);
-	assert.strictEqual(group.name, 'utils');
-	assert.strictEqual(group.description, 'Test group');
-	assert.strictEqual(group.options.length, 2);
-
-	const [subGroup, subCommand] = group.options;
-
-	if (subGroup.type === 2) {
-		assert.strictEqual(subGroup.type, 2);
-		assert.strictEqual(subGroup.name, 'string');
-		assert.strictEqual(subGroup.description, 'Test Sub Group');
-		assert.strictEqual(subGroup.options.length, 1);
-		assert.notStrictEqual(
-			registry.getSlashCommand(group.name, subGroup.name, subGroup.options[0].name),
-			undefined
-		);
-	}
-
-	if (subCommand.type === 1) {
-		assert.strictEqual(subCommand.type, 1);
-		assert.strictEqual(subCommand.name, 'ping');
-		assert.strictEqual(subCommand.description, 'Ping-pong command');
-		assert.notStrictEqual(registry.getSlashCommand(group.name, subCommand.name), undefined);
-	}
 };
 
 bootstrap();

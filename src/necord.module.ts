@@ -8,12 +8,16 @@ import {
 	Provider
 } from '@nestjs/common';
 import { Client } from 'discord.js';
-import { DiscoveryModule } from '@nestjs/core';
-import { NECORD_MODULE_OPTIONS } from './necord.constants';
-import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
-import { NecordRegistry } from './necord-registry';
-import { NecordExplorer } from './necord-explorer';
-import { NecordUpdate } from './necord.update';
+import { necordContextCreator } from './context';
+import { ListenersModule } from './listeners';
+import { AutocompletesModule, CommandsModule } from './commands';
+import { ComponentsModule } from './components';
+import {
+	NECORD_MODULE_OPTIONS,
+	NecordModuleAsyncOptions,
+	NecordModuleOptions,
+	NecordOptionsFactory
+} from './necord-options';
 
 const clientProvider: Provider<Client> = {
 	provide: Client,
@@ -23,27 +27,18 @@ const clientProvider: Provider<Client> = {
 
 @Global()
 @Module({
-	imports: [DiscoveryModule],
-	providers: [NecordExplorer, NecordUpdate, NecordUpdate, NecordRegistry, clientProvider],
-	exports: [NecordRegistry, clientProvider]
+	imports: [AutocompletesModule, CommandsModule, ListenersModule, ComponentsModule],
+	providers: [clientProvider, necordContextCreator],
+	exports: [clientProvider]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
-		private readonly client: Client,
-		private readonly explorer: NecordExplorer,
-		private readonly registry: NecordRegistry
+		private readonly client: Client
 	) {}
 
 	public async onApplicationBootstrap() {
-		const { listeners, components, appCommands, textCommands } = this.explorer.explore();
-
-		this.registry.registerListeners(listeners);
-		this.registry.addTextCommands(textCommands);
-		this.registry.addMessageComponents(components);
-		this.registry.addApplicationCommands(appCommands);
-
 		return this.client.login(this.options.token);
 	}
 

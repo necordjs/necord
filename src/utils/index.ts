@@ -1,1 +1,1 @@
-export * from './create-necord-listener.util';
+export * from './create-map-provider.util';

@@ -1,8 +1,8 @@
+export * from './commands';
+export * from './components';
 export * from './context';
-export * from './decorators';
-export * from './exceptions';
-export * from './interfaces';
+export * from './listeners';
 export * from './modules';
 
 export * from './necord.module';
-export * from './necord-registry';
+export * from './necord-options';

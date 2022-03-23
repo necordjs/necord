@@ -1,10 +1,14 @@
 import { Injectable } from '@nestjs/common';
-import { ContextOf, Ctx, NecordRegistry, Opts, TextCommand } from '../src';
+import { ContextOf, Ctx, On, Opts, TextCommand } from '../src';
 import { createApplication } from './utils.spec';
-import * as assert from 'node:assert';
 
 @Injectable()
 class TextCommandsSpec {
+	@On('debug')
+	public onDebug(@Ctx() [message]) {
+		return console.debug(message);
+	}
+
 	@TextCommand('ping')
 	public onPing(@Ctx() [message]: ContextOf<'messageCreate'>) {
 		return message.reply('pong!');
@@ -18,11 +22,6 @@ class TextCommandsSpec {
 
 const bootstrap = async () => {
 	const app = await createApplication(TextCommandsSpec);
-	const registry = app.get(NecordRegistry);
-
-	assert.strictEqual(registry.getTextCommands().length, 2);
-	assert.notStrictEqual(registry.getTextCommand('ping'), undefined);
-	assert.notStrictEqual(registry.getTextCommand('length'), undefined);
 };
 
 bootstrap();
