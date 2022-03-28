@@ -48,7 +48,7 @@
 		"@commitlint/config-angular": "16.2.3",
 		"@favware/npm-deprecate": "1.0.4",
 		"@golevelup/nestjs-discovery": "3.0.0",
-		"@nestjs/common": "8.4.2",
+		"@nestjs/common": "8.4.3",
 		"@nestjs/core": "8.4.2",
 		"@types/node": "17.0.23",
 		"@typescript-eslint/eslint-plugin": "5.16.0",
