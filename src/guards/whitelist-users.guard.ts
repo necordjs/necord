@@ -3,7 +3,7 @@ import { Interaction, Snowflake } from 'discord.js';
 import { NecordExecutionContext } from '../context';
 
 @Injectable()
-export class IsUserGuard implements CanActivate {
+export class WhitelistUsersGuard implements CanActivate {
 	public constructor(private readonly users: Snowflake[]) {}
 
 	public canActivate(context: ExecutionContext): boolean | Promise<boolean> {
