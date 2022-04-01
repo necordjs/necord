@@ -12,7 +12,7 @@ export class HasRoleGuard implements CanActivate {
 
 		if (!(interaction instanceof Interaction)) return true;
 
-		if (!interaction.guild) return true;
+		if (!interaction.inGuild()) return true;
 
 		const member = await interaction.guild.members.fetch(interaction.user.id);
 

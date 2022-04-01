@@ -12,7 +12,7 @@ export class ClientPermissionsGuard implements CanActivate {
 
 		if (!(interaction instanceof Interaction)) return true;
 
-		if (!interaction.guild) return true;
+		if (!interaction.inGuild()) return true;
 
 		return interaction.guild.me.permissions.has(this.permissions);
 	}

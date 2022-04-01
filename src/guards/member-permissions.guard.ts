@@ -12,6 +12,8 @@ export class MemberPermissionsGuard implements CanActivate {
 
 		if (!(interaction instanceof Interaction)) return true;
 
+		if (!interaction.inGuild()) return true;
+
 		return interaction.memberPermissions.has(this.permissions);
 	}
 }
