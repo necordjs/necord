@@ -1,14 +1,14 @@
 import { Injectable } from '@nestjs/common';
 import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
-import { CustomEvents } from './necord-custom-events.interface';
-import { On } from '../../listeners';
-import { Context, ContextOf } from '../../context';
+import { On } from './index';
+import { Context, ContextOf } from '../context';
+import { NecordEvents } from './listener-events.interface';
 
 @Injectable()
-export class NecordCustomEventsUpdate {
+export class ListenerEventsUpdate {
 	public constructor(private readonly client: Client) {}
 
-	private emit<K extends keyof CustomEvents>(event: K, ...args: CustomEvents[K]) {
+	private emit<K extends keyof NecordEvents>(event: K, ...args: NecordEvents[K]) {
 		this.client.emit<any>(event, ...args);
 	}
 

@@ -1,0 +1,8 @@
+export enum CommandException {
+	GUILD_ONLY,
+	BOT_OWNER,
+	GUILD_OWNER,
+	MEMBER_PERMISSIONS,
+	BOT_PERMISSIONS,
+	COOLDOWN
+}
