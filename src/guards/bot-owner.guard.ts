@@ -1,10 +1,10 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { Interaction, Snowflake } from 'discord.js';
+import { Client, Interaction } from 'discord.js';
 import { NecordExecutionContext } from '../context';
 
 @Injectable()
-export class IsUserGuard implements CanActivate {
-	public constructor(private readonly users: Snowflake[]) {}
+export class BotOwnerGuard implements CanActivate {
+	public constructor(private readonly client: Client) {}
 
 	public canActivate(context: ExecutionContext): boolean | Promise<boolean> {
 		const necordContext = NecordExecutionContext.create(context);
@@ -12,6 +12,6 @@ export class IsUserGuard implements CanActivate {
 
 		if (!(interaction instanceof Interaction)) return true;
 
-		return this.users.includes(interaction.user.id);
+		return this.client.application.owner.id === interaction.user.id;
 	}
 }
