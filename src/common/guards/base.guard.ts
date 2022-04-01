@@ -14,7 +14,7 @@ export abstract class BaseGuard implements CanActivate {
 		const necordContext = NecordExecutionContext.create(context);
 		const [interaction] = necordContext.getContext<'interactionCreate'>();
 
-		if (!(interaction instanceof Interaction)) return true;
+		if (necordContext.getDiscovery().isListener()) return true;
 
 		if (!interaction.inGuild() && this.isGuildOnly)
 			throw new NecordException(CommandException.GUILD_ONLY);
