@@ -1,4 +1,5 @@
 import {
+	ClientEvents,
 	DMChannel,
 	Guild,
 	GuildFeatures,
@@ -17,11 +18,8 @@ import {
 	VoiceBasedChannel,
 	VoiceChannel
 } from 'discord.js';
-import { ContextOf } from '../../context';
 
-export type CustomContextOf<K extends keyof CustomEvents> = ContextOf<K, CustomEvents>;
-
-export interface CustomEvents {
+export interface NecordEvents extends ClientEvents {
 	// ChannelUpdate
 	guildChannelPermissionsUpdate: [
 		channel: DMChannel | NonThreadGuildBasedChannel,
