@@ -1,10 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Client, Interaction } from 'discord.js';
 import { NecordExecutionContext } from '../../context';
-import { NecordException } from '../exceptions';
 import { BaseGuard } from './base.guard';
 import { Observable } from 'rxjs';
-import { CommandException } from '../enums/command-exception.enum';
+import { CommandException, CommandExceptionType } from '../exceptions';
 
 @Injectable()
 export class BotOwnerGuard extends BaseGuard {
@@ -18,7 +17,7 @@ export class BotOwnerGuard extends BaseGuard {
 	): boolean | Promise<boolean> | Observable<boolean> {
 		if (this.client.application.owner.id === interaction.user.id) return true;
 
-		throw new NecordException(CommandException.BOT_OWNER);
+		throw new CommandException(CommandExceptionType.BOT_OWNER);
 	}
 }
 
@@ -34,6 +33,6 @@ export class GuildOwnerGuard extends BaseGuard {
 	): boolean | Promise<boolean> | Observable<boolean> {
 		if (interaction.guild.ownerId === interaction.user.id) return true;
 
-		throw new NecordException(CommandException.GUILD_OWNER);
+		throw new CommandException(CommandExceptionType.GUILD_OWNER);
 	}
 }

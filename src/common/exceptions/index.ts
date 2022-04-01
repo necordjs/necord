@@ -1,1 +1,1 @@
-export * from './necord.exception';
+export * from './command.exception';

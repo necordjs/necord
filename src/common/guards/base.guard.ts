@@ -2,8 +2,7 @@ import { CanActivate, ExecutionContext } from '@nestjs/common';
 import { NecordExecutionContext } from '../../context';
 import { Interaction } from 'discord.js';
 import { Observable } from 'rxjs';
-import { NecordException } from '../exceptions';
-import { CommandException } from '../enums/command-exception.enum';
+import { CommandException, CommandExceptionType } from "../exceptions";
 
 export abstract class BaseGuard implements CanActivate {
 	protected constructor(private readonly isGuildOnly: boolean = false) {}
@@ -17,7 +16,7 @@ export abstract class BaseGuard implements CanActivate {
 		if (necordContext.getDiscovery().isListener()) return true;
 
 		if (!interaction.inGuild() && this.isGuildOnly)
-			throw new NecordException(CommandException.GUILD_ONLY);
+			throw new CommandException(CommandExceptionType.GUILD_ONLY);
 
 		return this.checkPermissions(necordContext, interaction);
 	}

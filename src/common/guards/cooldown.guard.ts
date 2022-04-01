@@ -3,8 +3,7 @@ import { Collection, Interaction } from 'discord.js';
 import { NecordExecutionContext } from '../../context';
 import { BaseGuard } from './base.guard';
 import { Observable } from 'rxjs';
-import { CommandException } from '../enums/command-exception.enum';
-import { NecordException } from '../exceptions';
+import { CommandException, CommandExceptionType } from '../exceptions';
 
 export enum BucketType {
 	GUILD,
@@ -34,7 +33,7 @@ export class CooldownGuard extends BaseGuard {
 		const bucket = this.storage.ensure(bucketKey, () => now);
 
 		if (bucket > now) {
-			throw new NecordException(CommandException.COOLDOWN, {
+			throw new CommandException(CommandExceptionType.COOLDOWN, {
 				bucket
 			});
 		}
