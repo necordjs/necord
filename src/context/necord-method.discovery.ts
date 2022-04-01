@@ -4,6 +4,7 @@ import { ComponentDiscovery } from '../components';
 import { Reflector } from '@nestjs/core';
 import { ListenerDiscovery } from '../listeners';
 import { ContextMenuDiscovery, SlashCommandDiscovery } from '../commands';
+import { TextCommandDiscovery } from '../commands/text-commands/text-command.discovery';
 
 export enum NecordMethodDiscoveryType {
 	LISTENER,
@@ -65,6 +66,10 @@ export abstract class NecordMethodDiscovery<M> implements DiscoveredMethodWithMe
 
 	public isListener(): this is ListenerDiscovery {
 		return this.getType() === NecordMethodDiscoveryType.LISTENER;
+	}
+
+	public isTextCommand(): this is TextCommandDiscovery {
+		return this.getType() === NecordMethodDiscoveryType.TEXT_COMMAND;
 	}
 
 	public execute(context: any = [], options: any = undefined) {
