@@ -27,8 +27,12 @@ export class CommandsModule implements OnModuleInit {
 	private async syncCommands() {
 		const commands = await this.client.application.commands.set(
 			[
-				...[...this.contextMenus.values()].map(contextMenu => contextMenu.toJSON()) as any,
-				...[...this.slashCommands.values()].map(slashCommand => slashCommand.toJSON()) as any
+				...([...this.contextMenus.values()].map(contextMenu =>
+					contextMenu.toJSON()
+				) as any),
+				...([...this.slashCommands.values()].map(slashCommand =>
+					slashCommand.toJSON()
+				) as any)
 			],
 			'742715858157043793'
 		);

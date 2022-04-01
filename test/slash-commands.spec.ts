@@ -3,7 +3,7 @@ import { Ctx, Opts, SlashCommand, UserPermissions } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 import { UseGuards } from '@nestjs/common';
-import { CooldownGuard } from '../src/guards';
+import { CooldownGuard } from '../src/common';
 
 @UserPermissions({
 	id: '235413185639874561',
