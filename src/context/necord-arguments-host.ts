@@ -1,13 +1,16 @@
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
 import { ArgumentsHost } from '@nestjs/common';
 import { NecordContextType } from './necord-execution-context';
+import { NecordMethodDiscovery } from './necord-method.discovery';
+import { ContextOf } from './necord-context.interface';
+import { ClientEvents } from 'discord.js';
 
 export interface INecordArgumentsHost extends ArgumentsHost {
-	getContext<T = any>(): T;
+	getContext<T extends keyof ClientEvents>(): ContextOf<T>;
 
 	getOptions<T = any>(): T;
 
-	getDiscovery<T = any>(): T;
+	getDiscovery(): NecordMethodDiscovery<any>;
 }
 
 export class NecordArgumentsHost extends ExecutionContextHost implements INecordArgumentsHost {
@@ -22,7 +25,7 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 		return super.getType();
 	}
 
-	public getContext<T = any>(): T {
+	public getContext<T extends keyof ClientEvents>(): ContextOf<T> {
 		return this.getArgByIndex(0);
 	}
 
@@ -30,7 +33,7 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 		return this.getArgByIndex(1);
 	}
 
-	public getDiscovery<T = any>(): T {
+	public getDiscovery(): NecordMethodDiscovery<any> {
 		return this.getArgByIndex(2);
 	}
 }
