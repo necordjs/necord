@@ -18,7 +18,7 @@ export class ComponentDiscovery extends NecordMethodDiscovery<ComponentMeta> {
 	}
 
 	public getKey() {
-		return [this.meta.type, this.meta.customId].join(':');
+		return [this.meta.type, this.meta.customId].join(' ');
 	}
 
 	public override execute(interaction: MessageComponentInteraction): any {

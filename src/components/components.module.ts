@@ -4,6 +4,7 @@ import { Client } from 'discord.js';
 import { MESSAGE_COMPONENT_METADATA, MESSAGE_COMPONENTS } from './components.constants';
 import { ComponentDiscovery, ComponentMeta } from './component.discovery';
 import { ComponentsProvider } from './components.provider';
+import { TreeService } from '../common';
 
 @Module({
 	imports: [DiscoveryModule],
@@ -15,20 +16,24 @@ export class ComponentsModule implements OnModuleInit {
 		private readonly discoveryService: DiscoveryService,
 		private readonly client: Client,
 		@Inject(MESSAGE_COMPONENTS)
-		private readonly components: Map<string, ComponentDiscovery>
+		private readonly components: TreeService<ComponentDiscovery>
 	) {}
 
 	public async onModuleInit() {
 		await this.discoveryService
 			.providerMethodsWithMetaAtKey<ComponentMeta>(MESSAGE_COMPONENT_METADATA)
 			.then(methods => methods.map(m => new ComponentDiscovery(m)))
-			.then(discovered => discovered.map(d => this.components.set(d.getKey(), d)));
+			.then(discovered =>
+				discovered.forEach(d =>
+					this.components.add([d.getComponentType(), d.getCustomId()], d)
+				)
+			);
 
 		this.client.on('interactionCreate', interaction => {
 			if (!interaction.isMessageComponent()) return;
 
 			return this.components
-				.get([interaction.componentType, interaction.customId].join(':'))
+				.find([interaction.componentType, interaction.customId])
 				?.execute(interaction);
 		});
 	}

@@ -1,5 +1,8 @@
-import { createMapProviderUtil } from '../../utils';
+import { TreeService } from '../../common';
 
 export const CONTEXT_MENUS = 'necord:context_menus';
 
-export const ContextMenusProvider = createMapProviderUtil(CONTEXT_MENUS);
+export const ContextMenusProvider = {
+	provide: CONTEXT_MENUS,
+	useClass: TreeService
+};

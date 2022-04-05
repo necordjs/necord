@@ -18,10 +18,6 @@ export class ContextMenuDiscovery extends NecordMethodDiscovery<ContextMenuMeta>
 		return this.meta.name;
 	}
 
-	public getKey() {
-		return [this.meta.type, this.meta.name].join(':');
-	}
-
 	public override execute(interaction: ContextMenuInteraction): any {
 		const options =
 			'USER' === this.getContextType()

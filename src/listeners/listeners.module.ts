@@ -3,9 +3,11 @@ import { DiscoveryModule, DiscoveryService } from '@golevelup/nestjs-discovery';
 import { ListenerDiscovery, ListenerMeta } from './listener.discovery';
 import { Client } from 'discord.js';
 import { LISTENERS_METADATA } from './listeners.constants';
+import { ListenerEventsUpdate } from './listener-events.update';
 
 @Module({
-	imports: [DiscoveryModule]
+	imports: [DiscoveryModule],
+	providers: [ListenerEventsUpdate]
 })
 export class ListenersModule implements OnModuleInit {
 	public constructor(

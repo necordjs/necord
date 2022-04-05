@@ -1,19 +1,18 @@
-import { Inject, Module, OnModuleInit, Type } from '@nestjs/common';
-import { DiscoveryService } from '@golevelup/nestjs-discovery';
-import { AutocompleteInteraction, Client } from 'discord.js';
-import { AUTOCOMPLETE_METADATA } from './autocomplete.decorator';
-import { AutocompleteMeta, TransformOptions } from './autocomplete.interfaces';
+import { Global, Inject, Module, OnModuleInit } from '@nestjs/common';
+import { Client } from 'discord.js';
 import { SlashCommandDiscovery } from '../slash-command.discovery';
 import { SLASH_COMMANDS } from '../slash-commands.provider';
+import { TreeService } from '../../../common';
 import { ModuleRef } from '@nestjs/core';
 
+@Global()
 @Module({})
 export class AutocompletesModule implements OnModuleInit {
 	public constructor(
-		private readonly discoveryService: DiscoveryService,
 		private readonly client: Client,
 		@Inject(SLASH_COMMANDS)
-		private readonly slashCommands: Map<string, SlashCommandDiscovery>
+		private readonly slashCommands: TreeService<SlashCommandDiscovery>,
+		private readonly moduleRef: ModuleRef
 	) {}
 
 	public async onModuleInit() {
@@ -24,42 +23,24 @@ export class AutocompletesModule implements OnModuleInit {
 				i.commandName,
 				i.options.getSubcommandGroup(false),
 				i.options.getSubcommand(false)
-			]
-				.filter(Boolean)
-				.join(' ');
+			].filter(Boolean);
 
-			const command = this.slashCommands.get(commandName);
-			const instances = command.getAutocomplete();
-			const { instance: module } = command.getModule();
-			// const { instance: moduleRef } = module.getProviderByKey<ModuleRef>(ModuleRef);
-			//
-			// if (!module || !instances || !moduleRef) return;
-			//
-			// const getAutocomplete = async (instance: Type): Promise<TransformOptions> => {
-			// 	const provider = module.getProviderByKey(instance);
-			//
-			// 	if (provider) {
-			// 		return provider.instance;
-			// 	}
-			//
-			// 	module.addProvider({
-			// 		provide: instance,
-			// 		useValue: await moduleRef.create(instance)
-			// 	});
-			//
-			// 	return getAutocomplete(instance);
-			// };
-			//
-			// for (const instance of instances) {
-			// 	const autocomplete = await getAutocomplete(instance);
-			// 	const options = await autocomplete?.transformOptions(i, i.options.getFocused(true));
-			//
-			// 	if (!options || !Array.isArray(options)) continue;
-			//
-			// 	return i.respond(options);
-			// }
-			//
-			// return i.respond([]);
+			const command = this.slashCommands.find(commandName);
+
+			if (!command) return;
+
+			const autocompleteInstances = command.getAutocomplete() ?? [];
+
+			for (const instance of autocompleteInstances) {
+				const autocomplete = this.moduleRef.get(instance, { strict: false });
+				const options = await autocomplete?.transformOptions(i, i.options.getFocused(true));
+
+				if (!options || !Array.isArray(options)) continue;
+
+				return i.respond(options);
+			}
+
+			return i.respond([]);
 		});
 	}
 }

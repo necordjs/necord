@@ -7,9 +7,11 @@ export enum CommandExceptionType {
 	COOLDOWN
 }
 
-export class CommandException {
+export class CommandException extends Error {
 	public constructor(
 		public readonly exception: CommandExceptionType,
 		public readonly payload: Record<string, any> = {}
-	) {}
+	) {
+		super(`Command Exception with code: ${exception}`);
+	}
 }

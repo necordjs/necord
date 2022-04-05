@@ -10,19 +10,23 @@ export const Context = createNecordParamDecorator(NecordParamType.CONTEXT);
 
 export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, [
 	(target, propertyKey, parameterIndex) => {
-		const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-		let prototype = Reflect.getPrototypeOf(new paramTypes[parameterIndex]());
+		try {
+			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
+			let prototype = Reflect.getPrototypeOf(new paramTypes[parameterIndex]());
 
-		const options = {};
+			const options = {};
 
-		for (; prototype !== Object.prototype; prototype = Reflect.getPrototypeOf(prototype)) {
-			Object.getOwnPropertyNames(prototype)
-				.map(name => [name, Reflect.getMetadata(OPTIONS_METADATA, prototype, name)])
-				.filter(([, meta]) => !!meta)
-				.forEach(([name, meta]) => (options[name] = meta));
+			for (; prototype !== Object.prototype; prototype = Reflect.getPrototypeOf(prototype)) {
+				Object.getOwnPropertyNames(prototype)
+					.map(name => [name, Reflect.getMetadata(OPTIONS_METADATA, prototype, name)])
+					.filter(([, meta]) => !!meta)
+					.forEach(([name, meta]) => (options[name] = meta));
+			}
+
+			Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
+		} catch (err) {
+			// NO-OP
 		}
-
-		Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
 	}
 ]);
 

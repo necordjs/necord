@@ -69,41 +69,4 @@ export class NecordUpdate {
 	// 				{ type: NecordMethodDiscoveryType.SLASH_COMMAND }
 	// 			);
 	// 		}
-	//
-	// 		const module = command.metadata.host;
-	// 		const instances = command.metadata[AUTOCOMPLETE_METADATA];
-	// 		const { instance: moduleRef } = module.getProviderByKey<ModuleRef>(ModuleRef);
-	//
-	// 		if (!module || !instances || !moduleRef) return;
-	//
-	// 		const getAutocomplete = async (instance: Type): Promise<TransformOptions> => {
-	// 			const provider = module.getProviderByKey(instance);
-	//
-	// 			if (provider) {
-	// 				return provider.instance;
-	// 			}
-	//
-	// 			module.addProvider({
-	// 				provide: instance,
-	// 				useValue: await moduleRef.create(instance)
-	// 			});
-	//
-	// 			return getAutocomplete(instance);
-	// 		};
-	//
-	// 		for (const instance of instances) {
-	// 			const autocomplete = await getAutocomplete(instance);
-	// 			const options = await autocomplete?.transformOptions(
-	// 				interaction,
-	// 				interaction.options.getFocused(true)
-	// 			);
-	//
-	// 			if (!options || !Array.isArray(options)) continue;
-	//
-	// 			return interaction.respond(options);
-	// 		}
-	//
-	// 		return interaction.respond([]);
-	// 	}
-	// }
 }

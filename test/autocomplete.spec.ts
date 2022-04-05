@@ -31,7 +31,7 @@ export class AutocompleteSpec {
 }
 
 const bootstrap = async () => {
-	const app = await createApplication(AutocompleteSpec);
+	const app = await createApplication(AutocompleteSpec, ThemeAutocomplete);
 };
 
 bootstrap();

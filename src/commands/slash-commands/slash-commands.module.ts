@@ -4,6 +4,7 @@ import { SlashCommandDiscovery, SlashCommandMeta } from './slash-command.discove
 import { SLASH_COMMAND_METADATA } from '../commands.constants';
 import { Client } from 'discord.js';
 import { SLASH_COMMANDS, SlashCommandsProvider } from './slash-commands.provider';
+import { TreeService } from '../../common';
 
 @Global()
 @Module({
@@ -16,27 +17,42 @@ export class SlashCommandsModule implements OnModuleInit {
 		private readonly discoveryService: DiscoveryService,
 		private readonly client: Client,
 		@Inject(SLASH_COMMANDS)
-		private readonly slashCommands: Map<string, SlashCommandDiscovery>
+		private readonly slashCommands: TreeService<SlashCommandDiscovery>
 	) {}
 
 	public async onModuleInit() {
 		await this.discoveryService
 			.providerMethodsWithMetaAtKey<SlashCommandMeta>(SLASH_COMMAND_METADATA)
 			.then(methods => methods.map(m => new SlashCommandDiscovery(m)))
-			.then(discovered => discovered.forEach(d => this.slashCommands.set(d.getName(), d)));
+			.then(discovered =>
+				discovered.forEach(d => {
+					if (d.getGroup()) {
+						this.slashCommands.add([d.getGroup().name], d.getGroup());
+					}
+
+					if (d.getSubGroup()) {
+						this.slashCommands.add(
+							[d.getGroup().name, d.getSubGroup().name],
+							d.getSubGroup()
+						);
+					}
+
+					this.slashCommands.add(d.getName().split(' '), d);
+				})
+			);
 
 		this.client.on('interactionCreate', i => {
 			if (!i.isCommand()) return;
 
-			const commandName = [
-				i.commandName,
-				i.options.getSubcommandGroup(false),
-				i.options.getSubcommand(false)
-			]
-				.filter(Boolean)
-				.join(' ');
-
-			return this.slashCommands.get(commandName)?.execute(i);
+			return this.slashCommands
+				.find(
+					[
+						i.commandName,
+						i.options.getSubcommandGroup(false),
+						i.options.getSubcommand(false)
+					].filter(Boolean)
+				)
+				?.execute(i);
 		});
 	}
 }

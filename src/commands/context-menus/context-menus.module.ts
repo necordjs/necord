@@ -4,6 +4,7 @@ import { CONTEXT_MENUS, ContextMenusProvider } from './context-menus.provider';
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 import { CONTEXT_MENU_METADATA } from '../commands.constants';
 import { Client } from 'discord.js';
+import { TreeService } from '../../common';
 
 @Module({
 	imports: [DiscoveryModule],
@@ -15,20 +16,24 @@ export class ContextMenusModule implements OnModuleInit {
 		private readonly discoveryService: DiscoveryService,
 		private readonly client: Client,
 		@Inject(CONTEXT_MENUS)
-		private readonly contextMenus: Map<string, ContextMenuDiscovery>
+		private readonly contextMenus: TreeService<ContextMenuDiscovery>
 	) {}
 
 	public async onModuleInit() {
 		await this.discoveryService
 			.providerMethodsWithMetaAtKey<ContextMenuMeta>(CONTEXT_MENU_METADATA)
 			.then(methods => methods.map(m => new ContextMenuDiscovery(m)))
-			.then(discovered => discovered.forEach(d => this.contextMenus.set(d.getKey(), d)));
+			.then(discovered =>
+				discovered.forEach(d =>
+					this.contextMenus.add([d.getContextType().toString(), d.getName()], d)
+				)
+			);
 
 		return this.client.on('interactionCreate', interaction => {
 			if (!interaction.isContextMenu()) return;
 
 			return this.contextMenus
-				.get([interaction.targetType, interaction.commandName].join(':'))
+				.find([interaction.targetType, interaction.commandName])
 				?.execute(interaction);
 		});
 	}

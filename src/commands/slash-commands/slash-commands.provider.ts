@@ -1,5 +1,8 @@
-import { createMapProviderUtil } from '../../utils';
+import { TreeService } from '../../common';
 
 export const SLASH_COMMANDS = 'necord:slash_commands';
 
-export const SlashCommandsProvider = createMapProviderUtil(SLASH_COMMANDS);
+export const SlashCommandsProvider = {
+	provide: SLASH_COMMANDS,
+	useClass: TreeService
+};

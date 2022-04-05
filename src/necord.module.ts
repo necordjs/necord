@@ -29,7 +29,7 @@ const clientProvider: Provider<Client> = {
 @Module({
 	imports: [AutocompletesModule, CommandsModule, ListenersModule, ComponentsModule],
 	providers: [clientProvider, necordContextCreator],
-	exports: [clientProvider]
+	exports: [clientProvider, NECORD_MODULE_OPTIONS]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(
