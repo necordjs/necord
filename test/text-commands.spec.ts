@@ -1,14 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { ContextOf, Ctx, On, Opts, TextCommand } from '../src';
+import { ContextOf, Ctx, Opts, TextCommand } from '../src';
 import { createApplication } from './utils.spec';
 
 @Injectable()
 class TextCommandsSpec {
-	@On('debug')
-	public onDebug(@Ctx() [message]) {
-		return console.debug(message);
-	}
-
 	@TextCommand('ping')
 	public onPing(@Ctx() [message]: ContextOf<'messageCreate'>) {
 		return message.reply('pong!');

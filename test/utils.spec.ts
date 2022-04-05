@@ -1,14 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { Module, Provider, Type } from '@nestjs/common';
-import { NecordModule, TextCommandsModule } from '../src';
+import { NecordModule } from '../src';
 import { Intents } from 'discord.js';
 
 export const createApplication = (...providers: (Type | Provider)[]) => {
 	@Module({
 		imports: [
-			TextCommandsModule.forRoot({
-				prefix: '!'
-			}),
 			NecordModule.forRoot({
 				token: process.env.DISCORD_TOKEN,
 				intents: Object.values(Intents.FLAGS).reduce((acc, val) => acc | val, 0),
