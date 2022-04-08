@@ -1,5 +1,5 @@
-import { PERMISSIONS_METADATA } from '../slash-commands.constants';
 import { TypedPermissions } from './permissions.interface';
+import { PERMISSIONS_METADATA } from './permissions.constants';
 
 export function createNecordPermissionsDecorator<T>(type?: T) {
 	return (...permissions: TypedPermissions<T>): ClassDecorator & MethodDecorator =>

@@ -1,5 +1,5 @@
-import { OPTIONS_METADATA } from '../slash-commands.constants';
 import { CommandOptionData, DistributiveOmit, OptionMeta } from './options.interface';
+import { OPTIONS_METADATA } from './options.constants';
 
 export function createNecordOptionDecorator<T extends CommandOptionData['type']>(
 	type: T,

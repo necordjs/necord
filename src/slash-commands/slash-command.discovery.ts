@@ -1,18 +1,13 @@
 import { ChatInputApplicationCommandData, CommandInteraction } from 'discord.js';
-import { DiscoveredMethodWithMeta } from '@golevelup/nestjs-discovery';
-import { AUTOCOMPLETE_METADATA } from './autocompletes';
-import { OPTIONS_METADATA, SLASH_GROUP_METADATA } from './slash-commands.constants';
-import { OptionMeta } from './options';
 import { BaseDiscovery, DiscoveryType } from '../common';
+import { AUTOCOMPLETE_METADATA } from './autocompletes';
+import { SLASH_GROUP_METADATA } from './slash-commands.constants';
+import { OptionMeta, OPTIONS_METADATA } from './options';
 
 export type SlashCommandMeta = ChatInputApplicationCommandData;
 
 export class SlashCommandDiscovery extends BaseDiscovery<SlashCommandMeta> {
 	protected type = DiscoveryType.SLASH_COMMAND;
-
-	public constructor(discovery: DiscoveredMethodWithMeta<SlashCommandMeta>) {
-		super(discovery);
-	}
 
 	public getName() {
 		return [this.getGroup(), this.getSubGroup(), this.meta]

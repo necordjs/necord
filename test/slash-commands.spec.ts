@@ -1,15 +1,13 @@
 import { createApplication } from './utils.spec';
-import { Ctx, Opts, SlashCommand, SlashGroup, UserPermissions } from '../src';
+import { Cooldown, Ctx, Opts, SlashCommand, SlashGroup, UserPermissions } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
-import { UseGuards } from '@nestjs/common';
-import { CooldownGuard } from '../src';
 
 @UserPermissions({
 	id: '235413185639874561',
 	permission: false
 })
-@UseGuards(new CooldownGuard(15))
+@Cooldown(15)
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
 	@SlashGroup('string', 'Test Sub Group')
