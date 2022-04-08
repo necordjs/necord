@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from "@nestjs/common";
 import { Client, Interaction } from 'discord.js';
-import { NecordExecutionContext } from '../../context';
+import { NecordExecutionContext } from '../context';
 import { BaseGuard } from './base.guard';
 import { Observable } from 'rxjs';
 import { CommandException, CommandExceptionType } from '../exceptions';
@@ -36,3 +36,7 @@ export class GuildOwnerGuard extends BaseGuard {
 		throw new CommandException(CommandExceptionType.GUILD_OWNER);
 	}
 }
+
+export const BotOwner = () => UseGuards(BotOwnerGuard);
+
+export const GuildOwner = () => UseGuards(GuildOwnerGuard);

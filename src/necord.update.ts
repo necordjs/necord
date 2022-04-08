@@ -46,27 +46,4 @@ export class NecordUpdate {
 	// 	}
 	// 	this.logger.log(`Successfully reloaded application commands.`);
 	// }
-
-	// @On('interactionCreate')
-	// private async onInteractionCreate(@Context() [interaction]: ContextOf<'interactionCreate'>) {
-	//
-	//
-	// 	if (interaction.isCommand() || interaction.isAutocomplete()) {
-	// 		const rootCommand = interaction.commandName;
-	// 		const groupCommand = interaction.options.getSubcommandGroup(false);
-	// 		const subCommand = interaction.options.getSubcommand(false);
-	//
-	// 		const command = this.registry.getSlashCommand(
-	// 			...[rootCommand, groupCommand, subCommand].filter(Boolean)
-	// 		);
-	//
-	// 		if (!command) return;
-	//
-	// 		if (interaction.isCommand()) {
-	// 			return command.metadata.execute(
-	// 				[interaction],
-	// 				this.transformOptions(command, interaction),
-	// 				{ type: NecordMethodDiscoveryType.SLASH_COMMAND }
-	// 			);
-	// 		}
 }

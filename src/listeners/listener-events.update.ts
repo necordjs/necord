@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
-import { Context, ContextOf } from '../context';
+import { Context, ContextOf } from '../common';
 import { NecordEvents } from './listener-events.interface';
 import { On } from './listeners.decorator';
 

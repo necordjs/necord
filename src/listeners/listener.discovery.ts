@@ -1,10 +1,10 @@
-import { NecordMethodDiscovery, NecordMethodDiscoveryType } from '../context';
+import { BaseDiscovery, DiscoveryType } from '../common';
 
 export interface ListenerMeta {
 	type: 'once' | 'on';
 	event: string;
 }
 
-export class ListenerDiscovery extends NecordMethodDiscovery<ListenerMeta> {
-	protected type: NecordMethodDiscoveryType.LISTENER;
+export class ListenerDiscovery extends BaseDiscovery<ListenerMeta> {
+	protected type: DiscoveryType.LISTENER;
 }

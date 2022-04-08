@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext } from '@nestjs/common';
-import { NecordExecutionContext } from '../../context';
+import { NecordExecutionContext } from '../context';
 import { Interaction } from 'discord.js';
 import { Observable } from 'rxjs';
 import { CommandException, CommandExceptionType } from '../exceptions';

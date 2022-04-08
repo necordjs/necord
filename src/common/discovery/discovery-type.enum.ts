@@ -1,0 +1,7 @@
+export enum DiscoveryType {
+	LISTENER,
+	SLASH_COMMAND,
+	CONTEXT_MENU,
+	MESSAGE_COMPONENT,
+	TEXT_COMMAND
+}

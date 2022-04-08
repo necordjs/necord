@@ -1,7 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UseGuards } from '@nestjs/common';
 import { Interaction, PermissionResolvable } from 'discord.js';
 import { BaseGuard } from './base.guard';
-import { NecordExecutionContext } from '../../context';
+import { NecordExecutionContext } from '../context';
 import { Observable } from 'rxjs';
 import { CommandException, CommandExceptionType } from '../exceptions';
 
@@ -40,3 +40,9 @@ export class MemberPermissionsGuard extends BaseGuard {
 		});
 	}
 }
+
+export const MemberPermissions = (permissions: PermissionResolvable) =>
+	UseGuards(new MemberPermissionsGuard(permissions));
+
+export const BotPermissions = (permissions: PermissionResolvable) =>
+	UseGuards(new BotPermissionsGuard(permissions));

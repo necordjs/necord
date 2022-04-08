@@ -2,43 +2,64 @@ import {
 	DynamicModule,
 	Global,
 	Inject,
+	Logger,
 	Module,
 	OnApplicationBootstrap,
 	OnApplicationShutdown,
+	OnModuleInit,
 	Provider
 } from '@nestjs/common';
 import { Client } from 'discord.js';
-import { necordContextCreator } from './context';
+import { clientProvider, necordContextCreator, TreeService } from './common';
 import { ListenersModule } from './listeners';
-import { AutocompletesModule, CommandsModule } from './commands';
-import { ComponentsModule } from './components';
+import { MessageComponentsModule } from './message-components';
 import {
 	NECORD_MODULE_OPTIONS,
 	NecordModuleAsyncOptions,
 	NecordModuleOptions,
 	NecordOptionsFactory
 } from './necord-options';
-
-const clientProvider: Provider<Client> = {
-	provide: Client,
-	useFactory: (options: NecordModuleOptions) => new Client(options),
-	inject: [NECORD_MODULE_OPTIONS]
-};
+import { TextCommandsModule } from './text-commands';
+import { SLASH_COMMANDS, SlashCommandDiscovery, SlashCommandsModule } from './slash-commands';
+import { CONTEXT_MENUS, ContextMenuDiscovery, ContextMenusModule } from './context-menus';
 
 @Global()
 @Module({
-	imports: [AutocompletesModule, CommandsModule, ListenersModule, ComponentsModule],
+	imports: [
+		ListenersModule,
+		MessageComponentsModule,
+		ContextMenusModule,
+		SlashCommandsModule,
+		TextCommandsModule
+	],
 	providers: [clientProvider, necordContextCreator],
 	exports: [clientProvider, NECORD_MODULE_OPTIONS]
 })
-export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
+export class NecordModule implements OnModuleInit, OnApplicationBootstrap, OnApplicationShutdown {
+	private readonly logger = new Logger(NecordModule.name);
+
 	public constructor(
+		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
-		private readonly client: Client
+		@Inject(CONTEXT_MENUS)
+		private readonly contextMenus: TreeService<ContextMenuDiscovery>,
+		@Inject(SLASH_COMMANDS)
+		private readonly slashCommands: TreeService<SlashCommandDiscovery>
 	) {}
 
-	public async onApplicationBootstrap() {
+	public onModuleInit() {
+		return this.client.once('ready', async () => {
+			this.logger.log(`Started refreshing application commands.`);
+			await this.client.application.commands.set(
+				[...this.contextMenus.toJSON(), ...this.slashCommands.toJSON()],
+				'742715858157043793'
+			);
+			this.logger.log(`Successfully reloaded application commands.`);
+		});
+	}
+
+	public onApplicationBootstrap() {
 		return this.client.login(this.options.token);
 	}
 

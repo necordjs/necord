@@ -1,6 +1,6 @@
-import { Injectable, Optional } from '@nestjs/common';
+import { Injectable, Optional, UseGuards } from '@nestjs/common';
 import { Collection, Interaction } from 'discord.js';
-import { NecordExecutionContext } from '../../context';
+import { NecordExecutionContext } from '../context';
 import { BaseGuard } from './base.guard';
 import { Observable } from 'rxjs';
 import { CommandException, CommandExceptionType } from '../exceptions';
@@ -52,3 +52,6 @@ export class CooldownGuard extends BaseGuard {
 		}
 	}
 }
+
+export const Cooldown = (ttl: number, bucketType: BucketType = BucketType.USER) =>
+	UseGuards(new CooldownGuard(ttl, bucketType));
