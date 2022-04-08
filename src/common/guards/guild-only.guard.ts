@@ -1,4 +1,4 @@
-import { Injectable, UseGuards } from "@nestjs/common";
+import { Injectable, UseGuards } from '@nestjs/common';
 import { Interaction } from 'discord.js';
 import { NecordExecutionContext } from '../context';
 import { BaseGuard } from './base.guard';
