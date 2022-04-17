@@ -8,7 +8,9 @@ import {
 } from 'discord.js';
 import { ApplicationCommandOptionTypes } from 'discord.js/typings/enums';
 
-type ExcludeType<T extends { type: any }> = Omit<T, 'type'>;
+type ExcludeType<T extends any> = Omit<T, 'type'>;
+
+type ExcludeTypeAndAutocomplete<T extends any> = Omit<ExcludeType<T>, 'autocomplete'>;
 
 type ChoicesOptionsData = ExcludeType<ApplicationCommandChoicesData>;
 
@@ -24,7 +26,10 @@ export type BooleanOptionData = NonChoiceOptionsData;
 
 export type StringOptionData = ChoicesOptionsData | AutocompleteOptionsData;
 
-export type NumericOptionData = StringOptionData & ExcludeType<ApplicationCommandNumericOptionData>;
+export type NumericOptionData =
+	| ChoicesOptionsData
+	| AutocompleteOptionsData
+	| ExcludeTypeAndAutocomplete<ApplicationCommandNumericOptionData>;
 
 export type ChannelOptionData = ExcludeType<ApplicationCommandChannelOptionData>;
 
