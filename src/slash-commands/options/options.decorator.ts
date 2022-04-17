@@ -1,19 +1,38 @@
 import { createNecordOptionDecorator } from './options.util';
+import {
+	BooleanOptionData,
+	ChannelOptionData,
+	DiscordOptionData,
+	NumericOptionData,
+	StringOptionData
+} from './options.interface';
 
-export const BooleanOption = createNecordOptionDecorator('BOOLEAN', 'getBoolean');
+export const BooleanOption = createNecordOptionDecorator<BooleanOptionData>(
+	'BOOLEAN',
+	'getBoolean'
+);
 
-export const IntegerOption = createNecordOptionDecorator('INTEGER', 'getInteger');
+export const IntegerOption = createNecordOptionDecorator<NumericOptionData>(
+	'INTEGER',
+	'getInteger'
+);
 
-export const NumberOption = createNecordOptionDecorator('NUMBER', 'getNumber');
+export const NumberOption = createNecordOptionDecorator<NumericOptionData>('NUMBER', 'getNumber');
 
-export const StringOption = createNecordOptionDecorator('STRING', 'getString');
+export const StringOption = createNecordOptionDecorator<StringOptionData>('STRING', 'getString');
 
-export const UserOption = createNecordOptionDecorator('USER', 'getUser');
+export const ChannelOption = createNecordOptionDecorator<ChannelOptionData>(
+	'CHANNEL',
+	'getChannel'
+);
 
-export const MemberOption = createNecordOptionDecorator('USER', 'getMember');
+export const UserOption = createNecordOptionDecorator<DiscordOptionData>('USER', 'getUser');
 
-export const ChannelOption = createNecordOptionDecorator('CHANNEL', 'getChannel');
+export const MemberOption = createNecordOptionDecorator<DiscordOptionData>('USER', 'getMember');
 
-export const RoleOption = createNecordOptionDecorator('ROLE', 'getRole');
+export const RoleOption = createNecordOptionDecorator<DiscordOptionData>('ROLE', 'getRole');
 
-export const MentionableOption = createNecordOptionDecorator('MENTIONABLE', 'getMentionable');
+export const MentionableOption = createNecordOptionDecorator<DiscordOptionData>(
+	'MENTIONABLE',
+	'getMentionable'
+);
