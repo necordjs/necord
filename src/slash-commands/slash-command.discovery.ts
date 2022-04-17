@@ -40,7 +40,13 @@ export class SlashCommandDiscovery extends BaseDiscovery<SlashCommandMeta> {
 	public toJSON() {
 		return {
 			...this.meta,
-			options: Object.values(this.getOptions())
+			options: Object.values(this.getOptions()).sort((a, b) => {
+				if (b.index === a.index) return 0;
+				if (a.index === undefined) return 1;
+				if (b.index === undefined) return -1;
+
+				return a.index - b.index;
+			})
 		};
 	}
 }

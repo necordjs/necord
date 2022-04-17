@@ -22,18 +22,19 @@ type SharedOptionData<T> = T & {
 	index?: number;
 };
 
-export type BooleanOptionData = NonChoiceOptionsData;
+export type BooleanOptionData = SharedOptionData<NonChoiceOptionsData>;
 
-export type StringOptionData = ChoicesOptionsData | AutocompleteOptionsData;
+export type StringOptionData = SharedOptionData<ChoicesOptionsData | AutocompleteOptionsData>;
 
-export type NumericOptionData =
+export type NumericOptionData = SharedOptionData<
 	| ChoicesOptionsData
 	| AutocompleteOptionsData
-	| ExcludeTypeAndAutocomplete<ApplicationCommandNumericOptionData>;
+	| ExcludeTypeAndAutocomplete<ApplicationCommandNumericOptionData>
+>;
 
-export type ChannelOptionData = ExcludeType<ApplicationCommandChannelOptionData>;
+export type ChannelOptionData = SharedOptionData<ExcludeType<ApplicationCommandChannelOptionData>>;
 
-export type DiscordOptionData = NonChoiceOptionsData;
+export type DiscordOptionData = SharedOptionData<NonChoiceOptionsData>;
 
 export type CommandOptionData = SharedOptionData<
 	StringOptionData | NumericOptionData | ChannelOptionData | BooleanOptionData | DiscordOptionData
