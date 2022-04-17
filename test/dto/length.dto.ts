@@ -1,7 +1,7 @@
-import { NumberOption } from '../../src';
+import { StringOption } from '../../src';
 
 export class LengthDto {
-	@NumberOption({
+	@StringOption({
 		name: 'text',
 		description: 'Your text',
 		required: true
