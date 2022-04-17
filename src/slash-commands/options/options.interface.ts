@@ -15,7 +15,7 @@ export type CommandOptionData =
 	| ApplicationCommandNumericOptionData;
 
 export type OptionMeta<T = any> = CommandOptionData & {
-	type: T;
+	type?: T;
 	index?: number;
 	resolver?: keyof CommandInteractionOptionResolver;
 };

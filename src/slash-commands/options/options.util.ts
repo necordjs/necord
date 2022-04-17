@@ -5,7 +5,7 @@ export function createNecordOptionDecorator<T extends CommandOptionData['type']>
 	type: T,
 	methodName: OptionMeta['resolver']
 ) {
-	return (data: OptionMeta<T>): PropertyDecorator => {
+	return (data: Partial<OptionMeta<T>>): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
 			Reflect.defineProperty(target, propertyKey, { value: undefined });
 
