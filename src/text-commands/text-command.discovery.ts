@@ -2,6 +2,7 @@ import { BaseDiscovery, DiscoveryType } from '../common';
 
 export interface TextCommandMeta {
 	name: string;
+	description: string;
 }
 
 export class TextCommandDiscovery extends BaseDiscovery<TextCommandMeta> {
@@ -9,5 +10,9 @@ export class TextCommandDiscovery extends BaseDiscovery<TextCommandMeta> {
 
 	public getName() {
 		return this.meta.name;
+	}
+
+	public getDescription() {
+		return this.meta.description;
 	}
 }

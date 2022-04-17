@@ -3,7 +3,8 @@ import { TextCommandMeta } from './text-command.discovery';
 
 export const TEXT_COMMAND_METADATA = 'necord:text_command_meta';
 
-export const TextCommand = (name: string) =>
+export const TextCommand = (name: string, description: string) =>
 	SetMetadata<string, TextCommandMeta>(TEXT_COMMAND_METADATA, {
-		name
+		name,
+		description
 	});

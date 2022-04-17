@@ -1,10 +1,14 @@
 import { DiscoveredMethod, DiscoveredMethodWithMeta } from '@golevelup/nestjs-discovery';
 import { Reflector } from '@nestjs/core';
 import { createNecordContext } from '../context';
-import { IDiscovery } from './discovery.interface';
 import { DiscoveryType } from './discovery-type.enum';
+import { ContextMenuDiscovery } from '../../context-menus';
+import { SlashCommandDiscovery } from '../../slash-commands';
+import { MessageComponentDiscovery } from '../../message-components';
+import { ListenerDiscovery } from '../../listeners';
+import { TextCommandDiscovery } from '../../text-commands';
 
-export abstract class BaseDiscovery<M> implements IDiscovery<M> {
+export abstract class BaseDiscovery<M> implements DiscoveredMethodWithMeta<M> {
 	protected readonly reflector = new Reflector();
 
 	protected abstract type: DiscoveryType | any;
@@ -42,23 +46,23 @@ export abstract class BaseDiscovery<M> implements IDiscovery<M> {
 		return this.discoveredMethod.parentClass.parentModule;
 	}
 
-	public isContextMenu() {
+	public isContextMenu(): this is ContextMenuDiscovery {
 		return this.getType() === DiscoveryType.CONTEXT_MENU;
 	}
 
-	public isSlashCommand() {
+	public isSlashCommand(): this is SlashCommandDiscovery {
 		return this.getType() === DiscoveryType.SLASH_COMMAND;
 	}
 
-	public isMessageComponent() {
+	public isMessageComponent(): this is MessageComponentDiscovery {
 		return this.getType() === DiscoveryType.MESSAGE_COMPONENT;
 	}
 
-	public isListener() {
+	public isListener(): this is ListenerDiscovery {
 		return this.getType() === DiscoveryType.LISTENER;
 	}
 
-	public isTextCommand() {
+	public isTextCommand(): this is TextCommandDiscovery {
 		return this.getType() === DiscoveryType.TEXT_COMMAND;
 	}
 

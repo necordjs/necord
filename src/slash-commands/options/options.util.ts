@@ -1,11 +1,11 @@
-import { CommandOptionData, DistributiveOmit, OptionMeta } from './options.interface';
+import { CommandOptionData, OptionMeta } from './options.interface';
 import { OPTIONS_METADATA } from './options.constants';
 
 export function createNecordOptionDecorator<T extends CommandOptionData['type']>(
 	type: T,
-	methodName: OptionMeta['methodName']
+	methodName: OptionMeta['resolver']
 ) {
-	return (data: DistributiveOmit<OptionMeta<T>, 'type' | 'methodName'>): PropertyDecorator => {
+	return (data: OptionMeta<T>): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
 			Reflect.defineProperty(target, propertyKey, { value: undefined });
 

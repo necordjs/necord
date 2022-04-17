@@ -47,7 +47,7 @@ export class SlashCommandDiscovery extends BaseDiscovery<SlashCommandMeta> {
 
 function transformOptions(interaction: CommandInteraction, rawOptions: Record<string, OptionMeta>) {
 	return Object.entries(rawOptions).reduce((acc, [parameter, option]) => {
-		acc[parameter] = interaction.options[option.methodName].call(
+		acc[parameter] = interaction.options[option.resolver].call(
 			interaction.options,
 			option.name,
 			!!option.required

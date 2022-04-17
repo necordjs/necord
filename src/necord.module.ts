@@ -49,9 +49,13 @@ export class NecordModule implements OnModuleInit, OnApplicationBootstrap, OnApp
 	) {}
 
 	public onModuleInit() {
-		return this.client.once('ready', async () => {
+		return this.client.once('ready', async client => {
+			if (client.application.partial) {
+				await client.application.fetch();
+			}
+
 			this.logger.log(`Started refreshing application commands.`);
-			await this.client.application.commands.set(
+			await client.application.commands.set(
 				[...this.contextMenus.toJSON(), ...this.slashCommands.toJSON()],
 				'742715858157043793'
 			);

@@ -1,20 +1,21 @@
 import {
-	ApplicationCommandOptionData,
-	ApplicationCommandSubCommandData,
-	ApplicationCommandSubGroupData,
+	ApplicationCommandAutocompleteOption,
+	ApplicationCommandChannelOptionData,
+	ApplicationCommandChoicesData,
+	ApplicationCommandNonOptionsData,
+	ApplicationCommandNumericOptionData,
 	CommandInteractionOptionResolver
 } from 'discord.js';
 
-export type DistributiveOmit<T, K extends keyof any> = T extends any ? Omit<T, K> : never;
+export type CommandOptionData =
+	| ApplicationCommandChoicesData
+	| ApplicationCommandNonOptionsData
+	| ApplicationCommandChannelOptionData
+	| ApplicationCommandAutocompleteOption
+	| ApplicationCommandNumericOptionData;
 
-export type CommandOptionData = Exclude<
-	ApplicationCommandOptionData,
-	ApplicationCommandSubCommandData | ApplicationCommandSubGroupData
->;
-
-export type OptionMeta<T extends CommandOptionData['type'] = any> = Extract<
-	CommandOptionData & { type: T },
-	ApplicationCommandOptionData
-> & {
-	methodName?: keyof CommandInteractionOptionResolver;
+export type OptionMeta<T = any> = CommandOptionData & {
+	type: T;
+	index?: number;
+	resolver?: keyof CommandInteractionOptionResolver;
 };
