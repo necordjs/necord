@@ -18,6 +18,14 @@ export class SlashCommandsSpec {
 		});
 	}
 
+	@SlashGroup('string', 'Test Sub Group')
+	@SlashCommand('test', 'Get length of your text')
+	public onTest(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
+		return interaction.reply({
+			content: 'Your message length - ' + text.length
+		});
+	}
+
 	@SlashCommand('ping', 'Ping-pong command')
 	public onPing(@Ctx() [interaction]: [CommandInteraction]) {
 		return interaction.reply({

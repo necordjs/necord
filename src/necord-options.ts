@@ -6,7 +6,8 @@ export const NECORD_MODULE_OPTIONS = 'necord:module_options';
 export interface NecordModuleOptions extends DiscordClientOptions {
 	token: string;
 	prefix?: string | Function;
-	development?: [Snowflake, ...Snowflake[]] | false;
+	syncGlobal: boolean;
+	syncDevelopment: Snowflake[];
 }
 
 export interface NecordOptionsFactory {

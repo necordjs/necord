@@ -48,29 +48,6 @@ export class NecordModule implements OnModuleInit, OnApplicationBootstrap, OnApp
 		private readonly slashCommands: TreeService<SlashCommandDiscovery>
 	) {}
 
-	public onModuleInit() {
-		return this.client.once('ready', async client => {
-			if (client.application.partial) {
-				await client.application.fetch();
-			}
-
-			this.logger.log(`Started refreshing application commands.`);
-			await client.application.commands.set(
-				[...this.contextMenus.toJSON(), ...this.slashCommands.toJSON()],
-				'742715858157043793'
-			);
-			this.logger.log(`Successfully reloaded application commands.`);
-		});
-	}
-
-	public onApplicationBootstrap() {
-		return this.client.login(this.options.token);
-	}
-
-	public onApplicationShutdown(signal?: string) {
-		return this.client.destroy();
-	}
-
 	public static forRoot(options: NecordModuleOptions): DynamicModule {
 		return {
 			module: NecordModule,
@@ -122,5 +99,46 @@ export class NecordModule implements OnModuleInit, OnApplicationBootstrap, OnApp
 				await optionsFactory.createNecordOptions(),
 			inject: [options.useExisting || options.useClass]
 		};
+	}
+
+	public onApplicationBootstrap() {
+		return this.client.login(this.options.token);
+	}
+
+	public onApplicationShutdown(signal?: string) {
+		return this.client.destroy();
+	}
+
+	public onModuleInit() {
+		return this.client.once('ready', async () => {
+			if (this.client.application.partial) {
+				await this.client.application.fetch();
+			}
+
+			this.logger.log(`Started refreshing application commands.`);
+			await this.syncGlobalCommands();
+			await this.syncDevelopmentCommands();
+			this.logger.log(`Successfully reloaded application commands.`);
+		});
+	}
+
+	private syncGlobalCommands() {
+		if (!this.options.syncGlobal) return;
+
+		return this.client.application.commands.set([
+			...this.contextMenus.toJSON(),
+			...this.slashCommands.toJSON()
+		]);
+	}
+
+	private syncDevelopmentCommands() {
+		return Promise.all(
+			this.options.syncDevelopment.map(async guild => {
+				return this.client.application.commands.set(
+					[...this.contextMenus.toJSON(), ...this.slashCommands.toJSON()],
+					guild
+				);
+			})
+		);
 	}
 }

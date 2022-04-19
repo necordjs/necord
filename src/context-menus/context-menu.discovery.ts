@@ -19,15 +19,15 @@ export class ContextMenuDiscovery extends BaseDiscovery<ContextMenuMeta> {
 	}
 
 	public override execute(interaction: ContextMenuInteraction): any {
-		const options =
+		return super.execute(
+			[interaction],
 			'USER' === this.getContextType()
 				? {
 						user: interaction.options.getUser('user', false),
 						member: interaction.options.getMember('user', false)
 				  }
-				: { message: interaction.options.getMessage('message', false) };
-
-		return super.execute([interaction], options);
+				: { message: interaction.options.getMessage('message', false) }
+		);
 	}
 
 	public toJSON() {

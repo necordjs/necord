@@ -4,7 +4,7 @@ import { ApplicationCommandOptionTypes } from 'discord.js/typings/enums';
 
 export function createNecordOptionDecorator<T extends CommandOptionData>(
 	type: keyof typeof ApplicationCommandOptionTypes,
-	methodName: OptionMeta['resolver']
+	resolver: OptionMeta['resolver']
 ) {
 	return (data: T): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
@@ -15,7 +15,7 @@ export function createNecordOptionDecorator<T extends CommandOptionData>(
 				{
 					...data,
 					type,
-					methodName
+					resolver
 				},
 				target,
 				propertyKey
