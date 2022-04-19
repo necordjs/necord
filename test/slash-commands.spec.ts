@@ -1,12 +1,8 @@
 import { createApplication } from './utils.spec';
-import { Cooldown, Ctx, Opts, SlashCommand, SlashGroup, UserPermissions } from '../src';
+import { Cooldown, Ctx, Opts, SlashCommand, SlashGroup } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
-@UserPermissions({
-	id: '235413185639874561',
-	permission: false
-})
 @Cooldown(15)
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
