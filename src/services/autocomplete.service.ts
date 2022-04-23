@@ -1,12 +1,11 @@
-import { Global, Inject, Module, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 import { ModuleRef } from '@nestjs/core';
 import { SLASH_COMMANDS } from '../providers';
 import { TreeService } from './tree.service';
 import { SlashCommandDiscovery } from '../discovery';
 
-@Global()
-@Module({})
+@Injectable()
 export class AutocompleteService implements OnModuleInit {
 	public constructor(
 		private readonly client: Client,
@@ -16,7 +15,7 @@ export class AutocompleteService implements OnModuleInit {
 	) {}
 
 	public async onModuleInit() {
-		this.client.on('interactionCreate', async i => {
+		return this.client.on('interactionCreate', async i => {
 			if (!i.isAutocomplete()) return;
 
 			const commandName = [
