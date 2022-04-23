@@ -32,7 +32,7 @@ export class TreeService<T = any> {
 	private root = new Node<T>(null, null);
 
 	public add(path: string[] | string, value: any) {
-		path = Array.isArray(path) ? path : [path];
+		path = Array.isArray(path) ? path : path.split(' ');
 
 		for (let i = 0, node = this.root; i < path.length; i++) {
 			const part = path[i];

@@ -1,7 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
 import { TextCommandMeta } from './text-command.discovery';
-
-export const TEXT_COMMAND_METADATA = 'necord:text_command_meta';
+import { TEXT_COMMAND_METADATA } from '../necord.constants';
 
 export const TextCommand = (name: string, description: string) =>
 	SetMetadata<string, TextCommandMeta>(TEXT_COMMAND_METADATA, {

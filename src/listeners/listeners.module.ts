@@ -1,30 +1,24 @@
 import { Module, OnModuleInit } from '@nestjs/common';
-import { DiscoveryModule, DiscoveryService } from '@golevelup/nestjs-discovery';
-import { ListenerDiscovery, ListenerMeta } from './listener.discovery';
+import { ListenerDiscovery } from './listener.discovery';
 import { Client } from 'discord.js';
-import { LISTENERS_METADATA } from './listeners.constants';
-import { ListenerEventsUpdate } from './listener-events.update';
+import { ListenersUpdate } from './listeners.update';
+import { LISTENERS_METADATA } from '../necord.constants';
+import { ExplorerService } from '../common';
 
 @Module({
-	imports: [DiscoveryModule],
-	providers: [ListenerEventsUpdate]
+	providers: [ListenersUpdate]
 })
 export class ListenersModule implements OnModuleInit {
 	public constructor(
-		private readonly discoveryService: DiscoveryService,
-		private readonly client: Client
+		private readonly client: Client,
+		private readonly explorerService: ExplorerService
 	) {}
 
-	public onModuleInit() {
-		return this.discoveryService
-			.providerMethodsWithMetaAtKey<ListenerMeta>(LISTENERS_METADATA)
-			.then(methods => methods.map(m => new ListenerDiscovery(m)))
-			.then(listeners =>
-				listeners.forEach(listener =>
-					this.client[listener.meta.type](listener.meta.event, (...args) =>
-						listener.execute(args)
-					)
-				)
-			);
+	public async onModuleInit() {
+		return this.explorerService.explore(LISTENERS_METADATA, ListenerDiscovery, listener =>
+			this.client[listener.getListenerType()](listener.getEvent(), (...args) =>
+				listener.execute(args)
+			)
+		);
 	}
 }

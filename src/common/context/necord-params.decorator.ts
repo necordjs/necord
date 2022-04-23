@@ -2,7 +2,7 @@ import { NecordParamType } from './necord-params.factory';
 import { assignMetadata, ParamDecoratorEnhancer, PipeTransform, Type } from '@nestjs/common';
 import { isFunction, isNil } from '@nestjs/common/utils/shared.utils';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
-import { OPTIONS_METADATA } from '../../slash-commands';
+import { OPTIONS_METADATA } from '../../necord.constants';
 
 export const PARAM_ARGS_METADATA = ROUTE_ARGS_METADATA;
 

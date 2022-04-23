@@ -2,8 +2,8 @@ import { Global, Inject, Module, OnModuleInit } from '@nestjs/common';
 import { DiscoveryModule, DiscoveryService } from '@golevelup/nestjs-discovery';
 import { Client } from 'discord.js';
 import { TextCommandDiscovery, TextCommandMeta } from './text-command.discovery';
-import { NECORD_MODULE_OPTIONS, NecordModuleOptions } from '../necord-options';
-import { TEXT_COMMAND_METADATA } from './text-command.decorator';
+import { NECORD_MODULE_OPTIONS, NecordModuleOptions } from '../necord.options';
+import { TEXT_COMMAND_METADATA } from '../necord.constants';
 
 @Global()
 @Module({
@@ -29,7 +29,7 @@ export class TextCommandsModule implements OnModuleInit {
 			const content = message.content.toLowerCase();
 			const prefix =
 				typeof this.options.prefix !== 'function'
-					? this.options.prefix
+					? this.options.prefix ?? '!'
 					: await this.options.prefix(message);
 
 			if (!prefix || !content.startsWith(prefix)) return;

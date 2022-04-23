@@ -2,14 +2,15 @@ import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-hos
 import { ArgumentsHost } from '@nestjs/common';
 import { NecordContextType } from './necord-execution-context';
 import { ClientEvents } from 'discord.js';
-import { BaseDiscovery, ContextOf } from '../index';
+import { ContextOf } from '../../necord.utils';
+import { BaseDiscovery } from '../mixins';
 
 export interface INecordArgumentsHost extends ArgumentsHost {
 	getContext<T extends keyof ClientEvents>(): ContextOf<T>;
 
 	getOptions<T = any>(): T;
 
-	getDiscovery(): BaseDiscovery<any>;
+	getDiscovery(): BaseDiscovery;
 }
 
 export class NecordArgumentsHost extends ExecutionContextHost implements INecordArgumentsHost {
@@ -32,7 +33,7 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 		return this.getArgByIndex(1);
 	}
 
-	public getDiscovery(): BaseDiscovery<any> {
+	public getDiscovery(): BaseDiscovery {
 		return this.getArgByIndex(2);
 	}
 }

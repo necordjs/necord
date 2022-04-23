@@ -23,5 +23,3 @@ export class NecordParamsFactory implements ParamsFactory {
 		}
 	}
 }
-
-export const necordParamsFactory = new NecordParamsFactory();

@@ -1,6 +1,16 @@
-import { createNecordListenerDecorator } from './listeners.util';
-import { NecordEvents } from './listener-events.interface';
+import { ListenerMeta } from './listener.discovery';
+import { SetMetadata } from '@nestjs/common';
+import { LISTENERS_METADATA } from '../necord.constants';
+import { NecordEvents } from '../necord.utils';
 
-export const On = createNecordListenerDecorator<keyof NecordEvents, NecordEvents>('on');
+export const createNecordListenerDecorator =
+	<K extends keyof E, E = NecordEvents>(type: ListenerMeta['type']) =>
+	(event: K): MethodDecorator =>
+		SetMetadata<string, ListenerMeta>(LISTENERS_METADATA, {
+			type,
+			event
+		});
 
-export const Once = createNecordListenerDecorator<keyof NecordEvents, NecordEvents>('once');
+export const On = createNecordListenerDecorator('on');
+
+export const Once = createNecordListenerDecorator('once');
