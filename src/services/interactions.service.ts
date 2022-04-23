@@ -31,29 +31,29 @@ export class InteractionsService implements OnModuleInit {
 				root => root.children
 			);
 
-			const commandsByGuildMap = new Map<string, Array<Node<InteractionDiscovery>>>([
-				[undefined, []]
-			]);
+			const commandsByGuildMap = new Map<string, Array<Node<InteractionDiscovery>>>([[, []]]);
 
 			for (const node of nodes) {
-				const command = node.value;
+				const commandGuilds = node.value.getGuilds();
 				const defaultGuild = Array.isArray(this.options.development)
 					? this.options.development
 					: [undefined];
 
-				for (const guild of command.getGuilds() ?? defaultGuild) {
+				for (const guild of commandGuilds.size ? commandGuilds : defaultGuild) {
 					const visitedCommands = commandsByGuildMap.get(guild) ?? [];
 					commandsByGuildMap.set(guild, visitedCommands.concat(node));
 				}
 			}
 
 			this.logger.log(`Started refreshing application commands.`);
-			for (const [guild, commands] of [...commandsByGuildMap.entries()]) {
-				await clientCommands.set(
-					commands.flatMap(command => command.toJSON()),
-					guild
-				);
-			}
+			await Promise.all(
+				[...commandsByGuildMap.entries()].map(([guild, commands]) =>
+					clientCommands.set(
+						commands.flatMap(command => command.toJSON()),
+						guild
+					)
+				)
+			);
 			this.logger.log(`Successfully reloaded application commands.`);
 		});
 	}
