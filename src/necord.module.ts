@@ -1,3 +1,4 @@
+import { Client } from 'discord.js';
 import {
 	DynamicModule,
 	Global,
@@ -7,24 +8,40 @@ import {
 	OnApplicationShutdown,
 	Provider
 } from '@nestjs/common';
-import { Client } from 'discord.js';
-import { clientProvider, ExplorerService, NecordContextCreator } from './common';
-import { ListenersModule } from './listeners';
 import {
-	NECORD_MODULE_OPTIONS,
-	NecordModuleAsyncOptions,
-	NecordModuleOptions,
-	NecordOptionsFactory
-} from './necord.options';
-import { TextCommandsModule } from './text-commands';
-import { InteractionsModule } from './interactions';
-import { ComponentsModule } from './components';
+	AutocompleteService,
+	ComponentsService,
+	ContextMenusService,
+	ExplorerService,
+	InteractionsService,
+	ListenersService,
+	SlashCommandsService,
+	TextCommandsService
+} from './services';
+import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
+import { ClientProvider, ContextMenusProvider, SlashCommandsProvider } from './providers';
+import { NECORD_MODULE_OPTIONS } from './necord.constants';
+import { DiscoveryModule } from '@golevelup/nestjs-discovery';
+import { NecordContextCreator } from './context';
 
 @Global()
 @Module({
-	imports: [ListenersModule, InteractionsModule, ComponentsModule, TextCommandsModule],
-	providers: [clientProvider, NecordContextCreator, ExplorerService],
-	exports: [clientProvider, NECORD_MODULE_OPTIONS, ExplorerService]
+	imports: [DiscoveryModule],
+	providers: [
+		ClientProvider,
+		ContextMenusProvider,
+		SlashCommandsProvider,
+		NecordContextCreator,
+		ExplorerService,
+		ListenersService,
+		TextCommandsService,
+		ComponentsService,
+		AutocompleteService,
+		SlashCommandsService,
+		ContextMenusService,
+		InteractionsService
+	],
+	exports: [ClientProvider]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public constructor(

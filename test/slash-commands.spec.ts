@@ -24,7 +24,7 @@ export class SlashCommandsSpec {
 }
 
 const bootstrap = async () => {
-	const app = await createApplication(SlashCommandsSpec);
+	const app = await createApplication(SlashCommandsSpec, SlashCommandsSpec);
 };
 
 bootstrap();
