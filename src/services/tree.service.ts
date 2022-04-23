@@ -58,7 +58,7 @@ export class TreeService<T = any> {
 
 		for (let i = 0, node = this.root; i < path.length; i++) {
 			const part = path[i];
-			let child = node.children.find(n => n.key === part);
+			const child = node.children.find(n => n.key === part);
 
 			if (!child) {
 				return;

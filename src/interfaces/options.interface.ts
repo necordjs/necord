@@ -8,9 +8,9 @@ import {
 } from 'discord.js';
 import { ApplicationCommandOptionTypes } from 'discord.js/typings/enums';
 
-type ExcludeType<T extends any> = Omit<T, 'type'>;
+type ExcludeType<T> = Omit<T, 'type'>;
 
-type ExcludeTypeAndAutocomplete<T extends any> = Omit<ExcludeType<T>, 'autocomplete'>;
+type ExcludeTypeAndAutocomplete<T> = Omit<ExcludeType<T>, 'autocomplete'>;
 
 type ChoicesOptionsData = ExcludeType<ApplicationCommandChoicesData>;
 
