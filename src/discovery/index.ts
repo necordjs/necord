@@ -1,5 +1,3 @@
-export * from './mixins';
-
 export * from './component.discovery';
 export * from './listener.discovery';
 export * from './context-menu.discovery';
