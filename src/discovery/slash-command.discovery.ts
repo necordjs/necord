@@ -4,12 +4,7 @@ import {
 	CommandInteraction,
 	Snowflake
 } from 'discord.js';
-import {
-	AUTOCOMPLETE_METADATA,
-	GUILDS_METADATA,
-	OPTIONS_METADATA,
-	SLASH_GROUP_METADATA
-} from '../necord.constants';
+import { AUTOCOMPLETE_METADATA, GUILDS_METADATA, OPTIONS_METADATA } from '../necord.constants';
 import { InteractionDiscovery } from './interaction.discovery';
 import { mix } from 'ts-mixer';
 import { ClassDiscoveryMixin, DiscoveryType, MethodDiscoveryMixin } from './mixins';
@@ -25,19 +20,11 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 	protected override type = DiscoveryType.SLASH_COMMAND;
 
 	public getName() {
-		return [this.getGroup(), this.getSubGroup(), this.meta]
-			.map(x => x?.name)
-			.filter(Boolean)
-			.join(' ')
-			.toLowerCase();
+		return this.meta.name;
 	}
 
-	public getGroup() {
-		return this.reflector.get(SLASH_GROUP_METADATA, this.getClass());
-	}
-
-	public getSubGroup() {
-		return this.reflector.get(SLASH_GROUP_METADATA, this.getHandler());
+	public getDescription() {
+		return this.meta.description;
 	}
 
 	public getGuilds(): Set<Snowflake> {
@@ -55,7 +42,7 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 	}
 
 	public execute(interaction: CommandInteraction): any {
-		return this._execute([interaction], transformOptions(interaction, this.getOptions()));
+		return this._execute([interaction], this.transformOptions(interaction));
 	}
 
 	public override toJSON() {
@@ -70,17 +57,17 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 			})
 		};
 	}
-}
 
-function transformOptions(interaction: CommandInteraction, rawOptions: Record<string, OptionMeta>) {
-	return Object.entries(rawOptions).reduce((acc, [parameter, option]) => {
-		acc[parameter] = interaction.options[option.resolver].call(
-			interaction.options,
-			option.name,
-			!!option.required
-		);
-		return acc;
-	}, {});
+	private transformOptions(interaction: CommandInteraction) {
+		return Object.entries(this.getOptions()).reduce((acc, [parameter, option]) => {
+			acc[parameter] = interaction.options[option.resolver].call(
+				interaction.options,
+				option.name,
+				!!option.required
+			);
+			return acc;
+		}, {});
+	}
 }
 
 export interface SlashCommandGroupDiscovery

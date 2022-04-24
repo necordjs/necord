@@ -1,5 +1,5 @@
 import { createApplication } from './utils.spec';
-import { Cooldown, Ctx, Guilds, Locals, Opts, SlashCommand, SlashGroup } from '../src';
+import { Cooldown, Ctx, Guilds, Opts, SlashCommand, SlashGroup } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
@@ -9,12 +9,7 @@ import { LengthDto } from './dto/length.dto';
 export class SlashCommandsSpec {
 	@SlashGroup('string', 'Test Sub Group')
 	@SlashCommand('length', 'Get length of your text')
-	public onLength(
-		@Ctx() [interaction]: [CommandInteraction],
-		@Opts() { text }: LengthDto,
-		@Locals() locals
-	) {
-		console.log(locals);
+	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
 		return interaction.reply({
 			content: 'Your message length - ' + text.length
 		});
@@ -29,7 +24,7 @@ export class SlashCommandsSpec {
 }
 
 const bootstrap = async () => {
-	const app = await createApplication(SlashCommandsSpec, SlashCommandsSpec);
+	const app = await createApplication(SlashCommandsSpec);
 };
 
 bootstrap();

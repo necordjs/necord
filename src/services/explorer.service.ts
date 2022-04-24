@@ -1,10 +1,13 @@
 import { Injectable, Type } from '@nestjs/common';
 import { DiscoveryService } from '@golevelup/nestjs-discovery';
 import { BaseDiscovery } from '../discovery';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
-export class ExplorerService {
-	public constructor(private readonly discoveryService: DiscoveryService) {}
+export class ExplorerService extends Reflector {
+	public constructor(private readonly discoveryService: DiscoveryService) {
+		super();
+	}
 
 	public explore<T, U extends BaseDiscovery>(
 		key: string,

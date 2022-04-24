@@ -6,7 +6,7 @@ import {
 } from '../discovery';
 import { Client } from 'discord.js';
 import { SLASH_COMMANDS } from '../providers';
-import { SLASH_COMMAND_METADATA } from '../necord.constants';
+import { SLASH_COMMAND_METADATA, SLASH_GROUP_METADATA } from '../necord.constants';
 import { TreeService } from './tree.service';
 import { ExplorerService } from './explorer.service';
 
@@ -24,27 +24,37 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 			SLASH_COMMAND_METADATA,
 			SlashCommandDiscovery,
 			command => {
-				if (command.getGroup()) {
-					this.slashCommands.add(
-						[command.getGroup().name],
-						new SlashCommandGroupDiscovery({
-							discoveredClass: command.discoveredMethod.parentClass,
-							meta: command.getGroup()
-						})
-					);
+				const [groupMeta, subGroupMeta] = this.explorerService.getAll(
+					SLASH_GROUP_METADATA,
+					[command.getClass(), command.getHandler()]
+				);
 
-					if (command.getSubGroup()) {
-						this.slashCommands.add(
-							[command.getGroup().name, command.getSubGroup().name],
-							new SlashCommandSubGroupDiscovery({
-								discoveredMethod: command.discoveredMethod,
-								meta: command.getSubGroup()
-							})
-						);
-					}
-				}
+				const commandPath = [groupMeta, subGroupMeta, command.meta]
+					.map(x => x?.name)
+					.filter(Boolean)
+					.map(c => c.toLowerCase());
 
-				this.slashCommands.add(command.getName(), command);
+				this.slashCommands.add(commandPath, command);
+
+				if (!groupMeta) return;
+
+				this.slashCommands.add(
+					commandPath.slice(0, 1),
+					new SlashCommandGroupDiscovery({
+						discoveredClass: command.discoveredMethod.parentClass,
+						meta: groupMeta
+					})
+				);
+
+				if (!subGroupMeta) return;
+
+				this.slashCommands.add(
+					commandPath.slice(0, 2),
+					new SlashCommandSubGroupDiscovery({
+						discoveredMethod: command.discoveredMethod,
+						meta: subGroupMeta
+					})
+				);
 			}
 		);
 	}
