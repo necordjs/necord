@@ -22,7 +22,7 @@ export class ComponentDiscovery extends BaseDiscovery {
 	}
 
 	public execute(interaction: MessageComponentInteraction): any {
-		return this._execute([interaction], null, this);
+		return this._execute([interaction]);
 	}
 
 	public override toJSON(): Record<string, any> {

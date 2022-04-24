@@ -29,10 +29,11 @@ export class MethodDiscoveryMixin<M> implements DiscoveredMethodWithMeta<M> {
 			);
 		}
 
-		return this.contextExecute;
+		return (context: any = [], options: any = undefined) =>
+			this.contextExecute(context, options, this, {});
 	}
 
 	public execute(context: any = [], options: any = undefined) {
-		return this._execute(context, options, this);
+		return this._execute(context, options);
 	}
 }

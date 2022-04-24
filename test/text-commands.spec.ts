@@ -1,14 +1,9 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Context, ContextOf, Ctx, On, Opts, TextCommand } from '../src';
+import { Injectable } from '@nestjs/common';
+import { ContextOf, Ctx, Opts, TextCommand } from '../src';
 import { createApplication } from './utils.spec';
 
 @Injectable()
 class TextCommandsSpec {
-	@On('debug')
-	public onDebug(@Context() [message]: ContextOf<'debug'>) {
-		Logger.debug(message);
-	}
-
 	@TextCommand('ping', 'ping-pong')
 	public onPing(@Ctx() [message]: ContextOf<'messageCreate'>) {
 		return message.reply('pong!');

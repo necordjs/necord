@@ -39,8 +39,7 @@ export class ContextMenuDiscovery extends InteractionDiscovery {
 						user: interaction.options.getUser('user', false),
 						member: interaction.options.getMember('user', false)
 				  }
-				: { message: interaction.options.getMessage('message', false) },
-			this
+				: { message: interaction.options.getMessage('message', false) }
 		);
 	}
 

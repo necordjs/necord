@@ -55,7 +55,7 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 	}
 
 	public execute(interaction: CommandInteraction): any {
-		return this._execute([interaction], transformOptions(interaction, this.getOptions()), this);
+		return this._execute([interaction], transformOptions(interaction, this.getOptions()));
 	}
 
 	public override toJSON() {
