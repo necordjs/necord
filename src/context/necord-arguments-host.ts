@@ -2,7 +2,7 @@ import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-hos
 import { ArgumentsHost } from '@nestjs/common';
 import { NecordContextType } from './necord-execution-context';
 import { ClientEvents } from 'discord.js';
-import { BaseDiscovery } from '../discovery';
+import { BaseDiscovery } from '../discovery/mixins';
 import { ContextOf } from '../interfaces';
 
 export interface INecordArgumentsHost extends ArgumentsHost {
