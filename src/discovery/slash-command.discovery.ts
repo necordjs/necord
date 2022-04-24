@@ -37,8 +37,18 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 		return this.reflector.get(AUTOCOMPLETE_METADATA, this.getHandler()) ?? [];
 	}
 
-	public getOptions(): Record<string, OptionMeta> {
+	public getRawOptions(): Record<string, OptionMeta> {
 		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
+	}
+
+	public getOptions(): OptionMeta[] {
+		return Object.values(this.getRawOptions()).sort((a, b) => {
+			if (b.index === a.index) return 0;
+			if (a.index === undefined) return 1;
+			if (b.index === undefined) return -1;
+
+			return a.index - b.index;
+		});
 	}
 
 	public execute(interaction: CommandInteraction): any {
@@ -48,18 +58,12 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 	public override toJSON() {
 		return {
 			...this.meta,
-			options: Object.values(this.getOptions()).sort((a, b) => {
-				if (b.index === a.index) return 0;
-				if (a.index === undefined) return 1;
-				if (b.index === undefined) return -1;
-
-				return a.index - b.index;
-			})
+			options: this.getOptions()
 		};
 	}
 
 	private transformOptions(interaction: CommandInteraction) {
-		return Object.entries(this.getOptions()).reduce((acc, [parameter, option]) => {
+		return Object.entries(this.getRawOptions()).reduce((acc, [parameter, option]) => {
 			acc[parameter] = interaction.options[option.resolver].call(
 				interaction.options,
 				option.name,
