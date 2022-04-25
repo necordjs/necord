@@ -46,7 +46,11 @@ export function createNecordOptionDecorator<T extends CommandOptionData>(
 ) {
 	return (data: T): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
-			Reflect.defineProperty(target, propertyKey, { value: undefined });
+			Reflect.defineProperty(target, propertyKey, {
+				value: undefined,
+				writable: true,
+				configurable: true
+			});
 
 			Reflect.defineMetadata(
 				OPTIONS_METADATA,
