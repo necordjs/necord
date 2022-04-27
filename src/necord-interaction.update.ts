@@ -14,8 +14,7 @@ import {
 	AUTOCOMPLETE_METADATA,
 	GUILDS_METADATA,
 	NECORD_MODULE_OPTIONS,
-	OPTIONS_METADATA,
-	PERMISSIONS_METADATA
+	OPTIONS_METADATA
 } from './necord.constants';
 import { ModuleRef } from '@nestjs/core';
 import { NecordInfoType } from './context';
@@ -51,19 +50,11 @@ export class NecordInteractionUpdate {
 		}
 
 		this.logger.log(`Started refreshing application commands.`);
-		for (const [guild, commands] of commandsByGuildMap.entries()) {
-			const registeredCommands = await clientCommands.set(commands, guild);
-
-			if (!guild) continue;
-
-			await clientCommands.permissions.set({
-				guild,
-				fullPermissions: commands.map(command => ({
-					id: registeredCommands.find(x => x.name === command.name).id,
-					permissions: command.metadata[PERMISSIONS_METADATA] ?? []
-				}))
-			});
-		}
+		await Promise.all(
+			[...commandsByGuildMap.entries()].map(([guild, commands]) =>
+				clientCommands.set(commands, guild)
+			)
+		);
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
 
