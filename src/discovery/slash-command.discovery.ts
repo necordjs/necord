@@ -1,13 +1,25 @@
+import { mix } from 'ts-mixer';
 import {
 	ApplicationCommandSubCommandData,
 	ChatInputApplicationCommandData,
 	CommandInteraction,
+	Permissions,
 	Snowflake
 } from 'discord.js';
-import { AUTOCOMPLETE_METADATA, GUILDS_METADATA, OPTIONS_METADATA } from '../necord.constants';
-import { InteractionDiscovery } from './interaction.discovery';
-import { mix } from 'ts-mixer';
-import { ClassDiscoveryMixin, DiscoveryType, MethodDiscoveryMixin } from './mixins';
+import {
+	AUTOCOMPLETE_METADATA,
+	DM_PERMISSIONS_METADATA,
+	GUILDS_METADATA,
+	MEMBER_PERMISSIONS_METADATA,
+	OPTIONS_METADATA
+} from '../necord.constants';
+import {
+	BaseDiscovery,
+	ClassDiscoveryMixin,
+	CommandDiscovery,
+	DiscoveryType,
+	MethodDiscoveryMixin
+} from './mixins';
 import { AutocompleteMeta } from '../decorators';
 import { OptionMeta } from '../interfaces';
 
@@ -16,7 +28,7 @@ export type SlashCommandMeta = ChatInputApplicationCommandData;
 export interface SlashCommandDiscovery extends MethodDiscoveryMixin<SlashCommandMeta> {}
 
 @mix(MethodDiscoveryMixin)
-export class SlashCommandDiscovery extends InteractionDiscovery {
+export class SlashCommandDiscovery extends CommandDiscovery {
 	protected override type = DiscoveryType.SLASH_COMMAND;
 
 	public getName() {
@@ -31,6 +43,20 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 		return new Set(
 			this.reflector.getAllAndMerge(GUILDS_METADATA, [this.getHandler(), this.getClass()])
 		);
+	}
+
+	public getDmPermissions(): boolean {
+		return this.reflector.getAllAndOverride(DM_PERMISSIONS_METADATA, [
+			this.getHandler(),
+			this.getClass()
+		]);
+	}
+
+	public getMemberPermissions(): Permissions {
+		return this.reflector.getAllAndOverride(MEMBER_PERMISSIONS_METADATA, [
+			this.getHandler(),
+			this.getClass()
+		]);
 	}
 
 	public getAutocomplete(): AutocompleteMeta {
@@ -58,6 +84,8 @@ export class SlashCommandDiscovery extends InteractionDiscovery {
 	public override toJSON() {
 		return {
 			...this.meta,
+			default_member_permissions: this.getMemberPermissions()?.valueOf().toString(),
+			dm_permission: this.getDmPermissions(),
 			options: this.getOptions()
 		};
 	}
@@ -78,15 +106,27 @@ export interface SlashCommandGroupDiscovery
 	extends ClassDiscoveryMixin<ApplicationCommandSubCommandData> {}
 
 @mix(ClassDiscoveryMixin)
-export class SlashCommandGroupDiscovery extends InteractionDiscovery {
+export class SlashCommandGroupDiscovery extends CommandDiscovery {
 	protected override type: DiscoveryType;
 
 	public override getGuilds(): Set<Snowflake> {
-		return new Set(this.reflector.getAllAndMerge(GUILDS_METADATA, [this.getClass()]));
+		return new Set(this.reflector.get(GUILDS_METADATA, this.getClass()));
+	}
+
+	public getDmPermissions(): boolean {
+		return this.reflector.get(DM_PERMISSIONS_METADATA, this.getClass());
+	}
+
+	public getMemberPermissions(): Permissions {
+		return this.reflector.get(MEMBER_PERMISSIONS_METADATA, this.getClass());
 	}
 
 	public override toJSON(): Record<string, any> {
-		return this.meta;
+		return {
+			...this.meta,
+			default_member_permissions: this.getMemberPermissions()?.valueOf().toString(),
+			dm_permission: this.getDmPermissions()
+		};
 	}
 }
 
@@ -94,14 +134,8 @@ export interface SlashCommandSubGroupDiscovery
 	extends MethodDiscoveryMixin<ApplicationCommandSubCommandData> {}
 
 @mix(MethodDiscoveryMixin)
-export class SlashCommandSubGroupDiscovery extends InteractionDiscovery {
+export class SlashCommandSubGroupDiscovery extends BaseDiscovery {
 	protected override type: DiscoveryType;
-
-	public override getGuilds(): Set<Snowflake> {
-		return new Set(
-			this.reflector.getAllAndMerge(GUILDS_METADATA, [this.getHandler(), this.getClass()])
-		);
-	}
 
 	public override toJSON(): Record<string, any> {
 		return this.meta;

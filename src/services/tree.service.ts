@@ -18,7 +18,7 @@ export class Node<T extends Record<string, any>> {
 			return this.children.map(node => node.toJSON());
 		}
 
-		const value = JSON.parse(JSON.stringify(this.value));
+		const value = this.value.toJSON();
 		const options = this.children.length
 			? this.children?.map(node => node.toJSON())
 			: value.options;

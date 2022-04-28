@@ -1,0 +1,10 @@
+import { Permissions, Snowflake } from 'discord.js';
+import { BaseDiscovery } from './base.discovery';
+
+export abstract class CommandDiscovery extends BaseDiscovery {
+	public abstract getGuilds(): Set<Snowflake>;
+
+	public abstract getMemberPermissions(): Permissions;
+
+	public abstract getDmPermissions(): boolean;
+}

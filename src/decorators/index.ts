@@ -9,3 +9,4 @@ export * from './slash-commands.decorator';
 export * from './autocomplete.decorator';
 export * from './options.decorator';
 export * from './guilds.decorator';
+export * from './permissions.decorator';

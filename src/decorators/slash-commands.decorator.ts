@@ -4,11 +4,7 @@ import { SlashCommandMeta } from '../discovery';
 import { SLASH_COMMAND_METADATA, SLASH_GROUP_METADATA } from '../necord.constants';
 
 export const SlashGroup =
-	(
-		name: string,
-		description: string,
-		defaultPermission = true
-	): MethodDecorator & ClassDecorator =>
+	(name: string, description: string): MethodDecorator & ClassDecorator =>
 	(target, propertyKey?, descriptor?) => {
 		SetMetadata(SLASH_GROUP_METADATA, {
 			type: !propertyKey
@@ -16,20 +12,14 @@ export const SlashGroup =
 				: ApplicationCommandOptionTypes.SUB_COMMAND_GROUP,
 			name,
 			description,
-			defaultPermission,
 			options: []
 		})(target, propertyKey, descriptor);
 	};
 
-export const SlashCommand = (
-	name: string,
-	description: string,
-	defaultPermission = true
-): MethodDecorator =>
+export const SlashCommand = (name: string, description: string): MethodDecorator =>
 	SetMetadata<string, SlashCommandMeta>(SLASH_COMMAND_METADATA, {
 		type: ApplicationCommandTypes.CHAT_INPUT,
 		name,
 		description,
-		defaultPermission,
 		options: []
 	});

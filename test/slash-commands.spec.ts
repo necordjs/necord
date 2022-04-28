@@ -1,12 +1,23 @@
 import { createApplication } from './utils.spec';
-import { Cooldown, Ctx, Guilds, Opts, SlashCommand, SlashGroup } from '../src';
+import {
+	AdminOnly,
+	Ctx,
+	GuildOnly,
+	Guilds,
+	MemberPermissions,
+	Opts,
+	SlashCommand,
+	SlashGroup
+} from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
+@AdminOnly
+@GuildOnly
 @Guilds('742715858157043793')
-@Cooldown(15)
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
+	@MemberPermissions('0')
 	@SlashGroup('string', 'Test Sub Group')
 	@SlashCommand('length', 'Get length of your text')
 	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
@@ -23,8 +34,19 @@ export class SlashCommandsSpec {
 	}
 }
 
+@MemberPermissions('0')
+@GuildOnly
+export class SlashCommandsSpec1 {
+	@SlashCommand('ping', 'Ping-pong command')
+	public onPing(@Ctx() [interaction]: [CommandInteraction]) {
+		return interaction.reply({
+			content: 'Pong!'
+		});
+	}
+}
+
 const bootstrap = async () => {
-	const app = await createApplication(SlashCommandsSpec);
+	const app = await createApplication(SlashCommandsSpec, SlashCommandsSpec1);
 };
 
 bootstrap();

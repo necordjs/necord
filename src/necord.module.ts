@@ -13,7 +13,7 @@ import {
 	ComponentsService,
 	ContextMenusService,
 	ExplorerService,
-	InteractionsService,
+	CommandsService,
 	ListenersService,
 	SlashCommandsService,
 	TextCommandsService
@@ -39,7 +39,7 @@ import { NecordContextCreator } from './context';
 		AutocompleteService,
 		SlashCommandsService,
 		ContextMenusService,
-		InteractionsService
+		CommandsService
 	],
 	exports: [ClientProvider]
 })

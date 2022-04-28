@@ -1,23 +1,23 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
 import { CONTEXT_MENUS, SLASH_COMMANDS } from '../providers';
 import { Client } from 'discord.js';
-import { InteractionDiscovery } from '../discovery';
-import { TreeService, Node } from './tree.service';
+import { CommandDiscovery } from '../discovery';
+import { Node, TreeService } from './tree.service';
 import { NECORD_MODULE_OPTIONS } from '../necord.constants';
 import { NecordModuleOptions } from '../interfaces';
 
 @Injectable()
-export class InteractionsService implements OnModuleInit {
-	private readonly logger = new Logger(InteractionsService.name);
+export class CommandsService implements OnModuleInit {
+	private readonly logger = new Logger(CommandsService.name);
 
 	public constructor(
 		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
 		@Inject(CONTEXT_MENUS)
-		private readonly contextMenus: TreeService<InteractionDiscovery>,
+		private readonly contextMenus: TreeService<CommandDiscovery>,
 		@Inject(SLASH_COMMANDS)
-		private readonly slashCommands: TreeService<InteractionDiscovery>
+		private readonly slashCommands: TreeService<CommandDiscovery>
 	) {}
 
 	public onModuleInit() {
@@ -31,7 +31,9 @@ export class InteractionsService implements OnModuleInit {
 				root => root.children
 			);
 
-			const commandsByGuildMap = new Map<string, Array<Node<InteractionDiscovery>>>([[, []]]);
+			const commandsByGuildMap = new Map<string, Array<Node<CommandDiscovery>>>([
+				[undefined, []]
+			]);
 
 			for (const node of nodes) {
 				const commandGuilds = node.value.getGuilds();
@@ -46,14 +48,12 @@ export class InteractionsService implements OnModuleInit {
 			}
 
 			this.logger.log(`Started refreshing application commands.`);
-			await Promise.all(
-				[...commandsByGuildMap.entries()].map(([guild, commands]) =>
-					clientCommands.set(
-						commands.flatMap(command => command.toJSON()),
-						guild
-					)
-				)
-			);
+			for (const [guild, commands] of commandsByGuildMap) {
+				await clientCommands.set(
+					commands.flatMap(command => command.toJSON()),
+					guild
+				);
+			}
 			this.logger.log(`Successfully reloaded application commands.`);
 		});
 	}

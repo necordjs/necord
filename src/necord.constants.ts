@@ -10,3 +10,6 @@ export const MESSAGE_COMPONENT_METADATA = 'necord:message_component_meta';
 export const AUTOCOMPLETE_METADATA = 'necord:autocomplete_metadata';
 export const OPTIONS_METADATA = 'necord:options_meta';
 export const GUILDS_METADATA = 'necord:guilds_meta';
+
+export const MEMBER_PERMISSIONS_METADATA = 'necord:member_permissions_meta';
+export const DM_PERMISSIONS_METADATA = 'necord:dm_permissions_meta';

@@ -1,20 +1,24 @@
 import {
 	ContextMenuInteraction,
 	MessageApplicationCommandData,
+	Permissions,
 	Snowflake,
 	UserApplicationCommandData
 } from 'discord.js';
 import { mix } from 'ts-mixer';
-import { GUILDS_METADATA } from '../necord.constants';
-import { InteractionDiscovery } from './interaction.discovery';
-import { DiscoveryType, MethodDiscoveryMixin } from './mixins';
+import {
+	DM_PERMISSIONS_METADATA,
+	GUILDS_METADATA,
+	MEMBER_PERMISSIONS_METADATA
+} from '../necord.constants';
+import { DiscoveryType, MethodDiscoveryMixin, CommandDiscovery } from './mixins';
 
 export type ContextMenuMeta = UserApplicationCommandData | MessageApplicationCommandData;
 
 export interface ContextMenuDiscovery extends MethodDiscoveryMixin<ContextMenuMeta> {}
 
 @mix(MethodDiscoveryMixin)
-export class ContextMenuDiscovery extends InteractionDiscovery {
+export class ContextMenuDiscovery extends CommandDiscovery {
 	protected override type = DiscoveryType.CONTEXT_MENU;
 
 	public getContextType() {
@@ -23,6 +27,20 @@ export class ContextMenuDiscovery extends InteractionDiscovery {
 
 	public getName() {
 		return this.meta.name;
+	}
+
+	public getDmPermissions(): boolean {
+		return this.reflector.getAllAndOverride(DM_PERMISSIONS_METADATA, [
+			this.getHandler(),
+			this.getClass()
+		]);
+	}
+
+	public getMemberPermissions(): Permissions {
+		return this.reflector.getAllAndOverride(MEMBER_PERMISSIONS_METADATA, [
+			this.getHandler(),
+			this.getClass()
+		]);
 	}
 
 	public override getGuilds(): Set<Snowflake> {
