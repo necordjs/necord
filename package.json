@@ -50,7 +50,7 @@
 		"@golevelup/nestjs-discovery": "3.0.0",
 		"@nestjs/common": "8.4.4",
 		"@nestjs/core": "8.4.4",
-		"@types/node": "17.0.29",
+		"@types/node": "17.0.30",
 		"@typescript-eslint/eslint-plugin": "5.21.0",
 		"@typescript-eslint/parser": "5.21.0",
 		"discord.js": "13.6.0",
