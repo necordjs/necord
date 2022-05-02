@@ -55,10 +55,7 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 			);
 		}
 
-		if (
-			oldChannel.type === 'GUILD_TEXT' &&
-			(oldChannel as TextChannel).topic !== (newChannel as TextChannel).topic
-		) {
+		if (oldChannel.isText() && newChannel.isText() && oldChannel.topic !== newChannel.topic) {
 			this.emit(
 				'guildChannelTopicUpdate',
 				newChannel,

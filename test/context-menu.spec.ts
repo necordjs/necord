@@ -1,24 +1,31 @@
 import { Injectable } from '@nestjs/common';
-import { Ctx, MessageCommand, Opts, UserCommand } from '../src';
+import {
+	Ctx,
+	MessageCommand,
+	MessageCommandContext,
+	Opts,
+	UserCommand,
+	UserCommandContext
+} from '../src';
 import { createApplication } from './utils.spec';
-import { ContextMenuInteraction, Message, MessageEmbed, User } from 'discord.js';
+import { EmbedBuilder, Message, User } from 'discord.js';
 
 @Injectable()
 export class ContextMenuSpec {
 	@UserCommand('Get user avatar')
-	public getUserAvatar(@Ctx() [interaction]: [ContextMenuInteraction], @Opts('user') user: User) {
+	public getUserAvatar(@Ctx() [interaction]: UserCommandContext, @Opts('user') user: User) {
 		return interaction.reply({
 			embeds: [
-				new MessageEmbed()
+				new EmbedBuilder()
 					.setTitle(`Avatar ${user.username}`)
-					.setImage(user.displayAvatarURL({ size: 4096, dynamic: true }))
+					.setImage(user.displayAvatarURL({ size: 4096 }))
 			]
 		});
 	}
 
 	@MessageCommand('Copy message content')
 	public copyMessageContent(
-		@Ctx() [interaction]: [ContextMenuInteraction],
+		@Ctx() [interaction]: MessageCommandContext,
 		@Opts('message') msg: Message
 	) {
 		return interaction.reply({ content: msg.content });

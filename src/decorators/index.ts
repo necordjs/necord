@@ -5,6 +5,7 @@ export * from './listeners.decorator';
 export * from './text-command.decorator';
 export * from './context-menus.decorator';
 export * from './slash-commands.decorator';
+export * from './modal.decorator';
 
 export * from './autocomplete.decorator';
 export * from './options.decorator';

@@ -1,4 +1,5 @@
-import { StringOption } from '../../src';
+import { AttachmentOption, StringOption } from '../../src';
+import { Attachment } from 'discord.js';
 
 export class LengthDto {
 	@StringOption({
@@ -7,4 +8,10 @@ export class LengthDto {
 		required: true
 	})
 	public readonly text: string;
+
+	@AttachmentOption({
+		name: 'dick',
+		description: 'You dick picture'
+	})
+	public readonly pic: Attachment;
 }

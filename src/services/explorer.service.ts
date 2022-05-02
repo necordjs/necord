@@ -1,6 +1,6 @@
 import { Injectable, Type } from '@nestjs/common';
 import { DiscoveryService } from '@golevelup/nestjs-discovery';
-import { BaseDiscovery } from '../discovery/mixins';
+import { BaseDiscovery } from '../discovery';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()

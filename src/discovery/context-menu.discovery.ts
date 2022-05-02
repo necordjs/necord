@@ -1,7 +1,8 @@
 import {
-	ContextMenuInteraction,
+	ApplicationCommandType,
+	ContextMenuCommandInteraction,
 	MessageApplicationCommandData,
-	Permissions,
+	PermissionsBitField,
 	Snowflake,
 	UserApplicationCommandData
 } from 'discord.js';
@@ -11,7 +12,7 @@ import {
 	GUILDS_METADATA,
 	MEMBER_PERMISSIONS_METADATA
 } from '../necord.constants';
-import { DiscoveryType, MethodDiscoveryMixin, CommandDiscovery } from './mixins';
+import { CommandDiscovery, DiscoveryType, MethodDiscoveryMixin } from './mixins';
 
 export type ContextMenuMeta = UserApplicationCommandData | MessageApplicationCommandData;
 
@@ -36,7 +37,7 @@ export class ContextMenuDiscovery extends CommandDiscovery {
 		]);
 	}
 
-	public getMemberPermissions(): Permissions {
+	public getMemberPermissions(): PermissionsBitField {
 		return this.reflector.getAllAndOverride(MEMBER_PERMISSIONS_METADATA, [
 			this.getHandler(),
 			this.getClass()
@@ -49,13 +50,13 @@ export class ContextMenuDiscovery extends CommandDiscovery {
 		);
 	}
 
-	public execute(interaction: ContextMenuInteraction): any {
+	public execute(interaction: ContextMenuCommandInteraction): any {
 		return this._execute(
 			[interaction],
-			'USER' === this.getContextType()
+			ApplicationCommandType.User === this.getContextType()
 				? {
 						user: interaction.options.getUser('user', false),
-						member: interaction.options.getMember('user', false)
+						member: interaction.options.getMember('user')
 				  }
 				: { message: interaction.options.getMessage('message', false) }
 		);

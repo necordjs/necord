@@ -4,30 +4,34 @@ import {
 	CommandInteraction,
 	DMChannel,
 	Guild,
-	GuildFeatures,
+	GuildFeature,
 	GuildMember,
+	GuildPremiumTier,
 	Message,
-	MessageContextMenuInteraction,
+	MessageContextMenuCommandInteraction,
+	ModalSubmitInteraction,
 	NonThreadGuildBasedChannel,
 	PartialMessage,
 	PermissionOverwriteManager,
-	Permissions,
-	PremiumTier,
+	PermissionsBitField,
 	PresenceStatus,
 	Role,
 	SelectMenuInteraction,
 	ThreadChannel,
 	User,
-	UserFlags,
+	UserContextMenuCommandInteraction,
+	UserFlagsBitField,
 	VoiceBasedChannel,
 	VoiceChannel
 } from 'discord.js';
 
 export type SlashCommandContext = [CommandInteraction];
 
-export type MessageCommandContext = [MessageContextMenuInteraction];
+export type MessageCommandContext = [MessageContextMenuCommandInteraction];
 
-export type UserCommandContext = [MessageContextMenuInteraction];
+export type UserCommandContext = [UserContextMenuCommandInteraction];
+
+export type ModalContext = [ModalSubmitInteraction];
 
 export type ButtonContext = [ButtonInteraction];
 
@@ -60,14 +64,18 @@ export interface NecordEvents extends ClientEvents {
 	guildMemberAvatarRemove: [member: GuildMember, oldAvatarURL: string];
 
 	// GuildUpdate
-	guildBoostLevelUp: [guild: Guild, oldPremiumTier: PremiumTier, newPremiumTier: PremiumTier];
+	guildBoostLevelUp: [
+		guild: Guild,
+		oldPremiumTier: GuildPremiumTier,
+		newPremiumTier: GuildPremiumTier
+	];
 	guildBoostLevelDown: [oldGuild: Guild, newGuild: Guild];
 	guildBannerAdd: [guild: Guild, bannerURL: string];
 	guildAfkChannelAdd: [guild: Guild, afkChannel: VoiceChannel];
 	guildVanityURLAdd: [guild: Guild, vanityURLCode: string];
 	guildVanityURLUpdate: [guild: Guild, oldVanityURLCode: string, newVanityURLCode: string];
 	guildVanityURLRemove: [guild: Guild, vanityURLCode: string];
-	guildFeaturesUpdate: [guild: Guild, oldFeatures: GuildFeatures[], newFeatures: GuildFeatures[]];
+	guildFeaturesUpdate: [guild: Guild, oldFeatures: GuildFeature[], newFeatures: GuildFeature[]];
 	guildAcronymUpdate: [oldGuild: Guild, newGuild: Guild];
 	guildOwnerUpdate: [oldGuild: Guild, newGuild: Guild];
 	guildPartnerAdd: [guild: Guild];
@@ -91,8 +99,8 @@ export interface NecordEvents extends ClientEvents {
 	rolePositionUpdate: [role: Role, oldPosition: number, newPosition: number];
 	rolePermissionsUpdate: [
 		role: Role,
-		oldPermissions: Readonly<Permissions>,
-		newPermissions: Readonly<Permissions>
+		oldPermissions: Readonly<PermissionsBitField>,
+		newPermissions: Readonly<PermissionsBitField>
 	];
 	roleIconAdd: [role: Role, iconURL: string];
 	roleIconUpdate: [role: Role, oldIconURL: string, newIconURL: string];
@@ -117,7 +125,11 @@ export interface NecordEvents extends ClientEvents {
 	userAvatarUpdate: [user: User, oldAvatar: string, newAvatar: string];
 	userUsernameUpdate: [user: User, oldUsername: string, newUsername: string];
 	userDiscriminatorUpdate: [user: User, oldDiscriminator: string, newDiscriminator: string];
-	userFlagsUpdate: [user: User, oldFlags: Readonly<UserFlags>, newFlags: Readonly<UserFlags>];
+	userFlagsUpdate: [
+		user: User,
+		oldFlags: Readonly<UserFlagsBitField>,
+		newFlags: Readonly<UserFlagsBitField>
+	];
 
 	// Voice State Update
 	voiceChannelJoin: [member: GuildMember, channel: VoiceBasedChannel];

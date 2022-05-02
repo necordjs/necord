@@ -1,50 +1,77 @@
-import {
-	BooleanOptionData,
-	ChannelOptionData,
-	CommandOptionData,
-	DiscordOptionData,
-	NumericOptionData,
-	OptionMeta,
-	StringOptionData
-} from '../interfaces';
-import { ApplicationCommandOptionTypes } from 'discord.js/typings/enums';
+import { OptionMeta } from '../interfaces';
 import { OPTIONS_METADATA } from '../necord.constants';
+import { ApplicationCommandOptionType } from 'discord.js';
+import {
+	APIApplicationCommandAttachmentOption,
+	APIApplicationCommandBooleanOption,
+	APIApplicationCommandChannelOption,
+	APIApplicationCommandIntegerOption,
+	APIApplicationCommandMentionableOption,
+	APIApplicationCommandNumberOption,
+	APIApplicationCommandRoleOption,
+	APIApplicationCommandStringOption,
+	APIApplicationCommandUserOption
+} from 'discord-api-types/v10';
+import { DistributiveOmit } from 'discord-api-types/utils/internals';
+import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
 
-export const BooleanOption = createNecordOptionDecorator<BooleanOptionData>(
-	'BOOLEAN',
+export const BooleanOption = createNecordOptionDecorator<APIApplicationCommandBooleanOption>(
+	ApplicationCommandOptionType.Boolean,
 	'getBoolean'
 );
 
-export const IntegerOption = createNecordOptionDecorator<NumericOptionData>(
-	'INTEGER',
+export const IntegerOption = createNecordOptionDecorator<APIApplicationCommandIntegerOption>(
+	ApplicationCommandOptionType.Integer,
 	'getInteger'
 );
 
-export const NumberOption = createNecordOptionDecorator<NumericOptionData>('NUMBER', 'getNumber');
+export const NumberOption = createNecordOptionDecorator<APIApplicationCommandNumberOption>(
+	ApplicationCommandOptionType.Number,
+	'getNumber'
+);
 
-export const StringOption = createNecordOptionDecorator<StringOptionData>('STRING', 'getString');
+export const StringOption = createNecordOptionDecorator<APIApplicationCommandStringOption>(
+	ApplicationCommandOptionType.String,
+	'getString'
+);
 
-export const ChannelOption = createNecordOptionDecorator<ChannelOptionData>(
-	'CHANNEL',
+export const ChannelOption = createNecordOptionDecorator<APIApplicationCommandChannelOption>(
+	ApplicationCommandOptionType.Channel,
 	'getChannel'
 );
 
-export const UserOption = createNecordOptionDecorator<DiscordOptionData>('USER', 'getUser');
-
-export const MemberOption = createNecordOptionDecorator<DiscordOptionData>('USER', 'getMember');
-
-export const RoleOption = createNecordOptionDecorator<DiscordOptionData>('ROLE', 'getRole');
-
-export const MentionableOption = createNecordOptionDecorator<DiscordOptionData>(
-	'MENTIONABLE',
-	'getMentionable'
+export const UserOption = createNecordOptionDecorator<APIApplicationCommandUserOption>(
+	ApplicationCommandOptionType.User,
+	'getUser'
 );
 
-export function createNecordOptionDecorator<T extends CommandOptionData>(
-	type: keyof typeof ApplicationCommandOptionTypes,
+export const MemberOption = createNecordOptionDecorator<APIApplicationCommandUserOption>(
+	ApplicationCommandOptionType.User,
+	'getMember'
+);
+
+export const RoleOption = createNecordOptionDecorator<APIApplicationCommandRoleOption>(
+	ApplicationCommandOptionType.Role,
+	'getRole'
+);
+
+export const MentionableOption =
+	createNecordOptionDecorator<APIApplicationCommandMentionableOption>(
+		ApplicationCommandOptionType.Mentionable,
+		'getMentionable'
+	);
+
+export const AttachmentOption = createNecordOptionDecorator<APIApplicationCommandAttachmentOption>(
+	ApplicationCommandOptionType.Attachment,
+	'getAttachment'
+);
+
+export function createNecordOptionDecorator<T extends APIApplicationCommandOptionBase<any>>(
+	type: ApplicationCommandOptionType,
 	resolver: OptionMeta['resolver']
 ) {
-	return (data: T): PropertyDecorator => {
+	// @ts-ignore
+	return (data: DistributiveOmit<T, 'type'>): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
 			Reflect.defineProperty(target, propertyKey, {
 				value: undefined,

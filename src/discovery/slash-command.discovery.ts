@@ -3,7 +3,7 @@ import {
 	ApplicationCommandSubCommandData,
 	ChatInputApplicationCommandData,
 	CommandInteraction,
-	Permissions,
+	PermissionsBitField,
 	Snowflake
 } from 'discord.js';
 import {
@@ -52,7 +52,7 @@ export class SlashCommandDiscovery extends CommandDiscovery {
 		]);
 	}
 
-	public getMemberPermissions(): Permissions {
+	public getMemberPermissions(): PermissionsBitField {
 		return this.reflector.getAllAndOverride(MEMBER_PERMISSIONS_METADATA, [
 			this.getHandler(),
 			this.getClass()
@@ -117,7 +117,7 @@ export class SlashCommandGroupDiscovery extends CommandDiscovery {
 		return this.reflector.get(DM_PERMISSIONS_METADATA, this.getClass());
 	}
 
-	public getMemberPermissions(): Permissions {
+	public getMemberPermissions(): PermissionsBitField {
 		return this.reflector.get(MEMBER_PERMISSIONS_METADATA, this.getClass());
 	}
 

@@ -19,20 +19,21 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		return this.explorerService.explore(
 			CONTEXT_MENU_METADATA,
 			ContextMenuDiscovery,
-			contextMenu =>
+			contextMenu => {
 				this.contextMenus.add(
-					[contextMenu.getContextType().toString(), contextMenu.getName()],
+					[contextMenu.getContextType().toString().concat(':', contextMenu.getName())],
 					contextMenu
-				)
+				);
+			}
 		);
 	}
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
-			if (!interaction.isContextMenu()) return;
+			if (!interaction.isContextMenuCommand()) return;
 
 			return this.contextMenus
-				.find([interaction.targetType, interaction.commandName])
+				.find([interaction.commandType.toString().concat(':', interaction.commandName)])
 				?.execute(interaction);
 		});
 	}

@@ -1,9 +1,9 @@
-import { MessageComponentInteraction, MessageComponentType } from 'discord.js';
-import { mix } from 'ts-mixer';
+import { ComponentType, MessageComponentInteraction, MessageComponentType } from 'discord.js';
 import { BaseDiscovery, DiscoveryType, MethodDiscoveryMixin } from './mixins';
+import { mix } from 'ts-mixer';
 
 export interface ComponentMeta {
-	type: Exclude<MessageComponentType, 'ACTION_ROW'>;
+	type: Exclude<MessageComponentType, ComponentType.ActionRow>;
 	customId: string;
 }
 

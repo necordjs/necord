@@ -2,15 +2,16 @@ import { createParamDecorator, ExecutionContext, SetMetadata } from '@nestjs/com
 import { ComponentMeta } from '../discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 import { NecordExecutionContext } from '../context';
+import { ComponentType } from 'discord.js';
 
 const createNecordComponentDecorator =
 	(type: ComponentMeta['type']) =>
 	(customId: string): MethodDecorator =>
 		SetMetadata<string, ComponentMeta>(MESSAGE_COMPONENT_METADATA, { type, customId });
 
-export const Button = createNecordComponentDecorator('BUTTON');
+export const Button = createNecordComponentDecorator(ComponentType.Button);
 
-export const SelectMenu = createNecordComponentDecorator('SELECT_MENU');
+export const SelectMenu = createNecordComponentDecorator(ComponentType.SelectMenu);
 
 export const Component = createParamDecorator((_, ctx: ExecutionContext) => {
 	const necordContext = NecordExecutionContext.create(ctx);

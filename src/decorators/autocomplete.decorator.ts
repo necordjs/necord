@@ -1,12 +1,12 @@
 import { SetMetadata, Type } from '@nestjs/common';
-import { ApplicationCommandOptionChoice, AutocompleteInteraction } from 'discord.js';
+import { ApplicationCommandOptionChoiceData, AutocompleteInteraction } from 'discord.js';
 import { AUTOCOMPLETE_METADATA } from '../necord.constants';
 
 export interface TransformOptions {
 	transformOptions(
 		interaction: AutocompleteInteraction,
-		focused: ApplicationCommandOptionChoice
-	): ApplicationCommandOptionChoice[] | Promise<ApplicationCommandOptionChoice[]>;
+		focused: ApplicationCommandOptionChoiceData
+	): ApplicationCommandOptionChoiceData[] | Promise<ApplicationCommandOptionChoiceData[]>;
 }
 
 export type AutocompleteMeta = Type<TransformOptions>[];

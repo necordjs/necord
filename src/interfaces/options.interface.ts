@@ -4,9 +4,9 @@ import {
 	ApplicationCommandChoicesData,
 	ApplicationCommandNonOptionsData,
 	ApplicationCommandNumericOptionData,
+	ApplicationCommandOptionType,
 	CommandInteractionOptionResolver
 } from 'discord.js';
-import { ApplicationCommandOptionTypes } from 'discord.js/typings/enums';
 
 type ExcludeType<T> = Omit<T, 'type'>;
 
@@ -41,6 +41,6 @@ export type CommandOptionData = SharedOptionData<
 >;
 
 export type OptionMeta = CommandOptionData & {
-	type?: keyof typeof ApplicationCommandOptionTypes;
+	type?: ApplicationCommandOptionType;
 	resolver?: keyof CommandInteractionOptionResolver;
 };

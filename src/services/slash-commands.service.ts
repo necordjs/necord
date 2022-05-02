@@ -61,7 +61,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', i => {
-			if (!i.isCommand()) return;
+			if (!i.isChatInputCommand()) return;
 
 			const name = [
 				i.commandName,

@@ -16,7 +16,8 @@ import {
 	CommandsService,
 	ListenersService,
 	SlashCommandsService,
-	TextCommandsService
+	TextCommandsService,
+	ModalsService
 } from './services';
 import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
 import { ClientProvider, ContextMenusProvider, SlashCommandsProvider } from './providers';
@@ -39,7 +40,8 @@ import { NecordContextCreator } from './context';
 		AutocompleteService,
 		SlashCommandsService,
 		ContextMenusService,
-		CommandsService
+		CommandsService,
+		ModalsService
 	],
 	exports: [ClientProvider]
 })

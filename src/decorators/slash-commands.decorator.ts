@@ -1,15 +1,15 @@
-import { ApplicationCommandOptionTypes, ApplicationCommandTypes } from 'discord.js/typings/enums';
 import { SetMetadata } from '@nestjs/common';
 import { SlashCommandMeta } from '../discovery';
 import { SLASH_COMMAND_METADATA, SLASH_GROUP_METADATA } from '../necord.constants';
+import { ApplicationCommandOptionType, ApplicationCommandType } from 'discord.js';
 
 export const SlashGroup =
 	(name: string, description: string): MethodDecorator & ClassDecorator =>
 	(target, propertyKey?, descriptor?) => {
 		SetMetadata(SLASH_GROUP_METADATA, {
 			type: !propertyKey
-				? ApplicationCommandTypes.CHAT_INPUT
-				: ApplicationCommandOptionTypes.SUB_COMMAND_GROUP,
+				? ApplicationCommandType.ChatInput
+				: ApplicationCommandOptionType.SubcommandGroup,
 			name,
 			description,
 			options: []
@@ -18,7 +18,7 @@ export const SlashGroup =
 
 export const SlashCommand = (name: string, description: string): MethodDecorator =>
 	SetMetadata<string, SlashCommandMeta>(SLASH_COMMAND_METADATA, {
-		type: ApplicationCommandTypes.CHAT_INPUT,
+		type: ApplicationCommandType.ChatInput,
 		name,
 		description,
 		options: []
