@@ -17,7 +17,6 @@ import { LengthDto } from './dto/length.dto';
 @Guilds('742715858157043793')
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
-	@MemberPermissions('0')
 	@SlashGroup('string', 'Test Sub Group')
 	@SlashCommand('length', 'Get length of your text')
 	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
@@ -34,19 +33,8 @@ export class SlashCommandsSpec {
 	}
 }
 
-@MemberPermissions('0')
-@GuildOnly
-export class SlashCommandsSpec1 {
-	@SlashCommand('ping', 'Ping-pong command')
-	public onPing(@Ctx() [interaction]: [CommandInteraction]) {
-		return interaction.reply({
-			content: 'Pong!'
-		});
-	}
-}
-
 const bootstrap = async () => {
-	const app = await createApplication(SlashCommandsSpec, SlashCommandsSpec1);
+	const app = await createApplication(SlashCommandsSpec);
 };
 
 bootstrap();
