@@ -2163,7 +2163,7 @@ discord-api-types@^0.31.1:
   resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.31.2.tgz#8d131e25340bd695815af3bb77128a6993c1b516"
   integrity sha512-gpzXTvFVg7AjKVVJFH0oJGC0q0tO34iJGSHZNz9u3aqLxlD6LfxEs9wWVVikJqn9gra940oUTaPFizCkRDcEiA==
 
-discord.js@14.0.0-dev.1651493371-4ba0f56:
+discord.js@dev:
   version "14.0.0-dev.1651493371-4ba0f56"
   resolved "https://registry.npmjs.org/discord.js/-/discord.js-14.0.0-dev.1651493371-4ba0f56.tgz#008f585e6e52c383ab03bee9d7882a43d89a8cbd"
   integrity sha512-BTrhiEdZ5tKKQqzsx3nDalRE5fM7X4XQu8WOJEX9ELNgvdBZ6YUBE+Yp1H0cDX3OyvKuqK8ELtjJo+O0GhG09Q==
