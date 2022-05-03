@@ -10,7 +10,8 @@
 		"experimentalDecorators": true,
 		"target": "es6",
 		"sourceMap": false,
-		"outDir": "./dist"
+		"outDir": "./dist",
+		"skipLibCheck": true
 	},
 	"include": [
 		"src/**/*"

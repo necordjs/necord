@@ -12,8 +12,8 @@ import {
 	APIApplicationCommandStringOption,
 	APIApplicationCommandUserOption
 } from 'discord-api-types/v10';
-import { DistributiveOmit } from 'discord-api-types/utils/internals';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
+import { DistributiveOmit } from 'discord-api-types/utils/internals';
 
 export const BooleanOption = createNecordOptionDecorator<APIApplicationCommandBooleanOption>(
 	ApplicationCommandOptionType.Boolean,
@@ -70,6 +70,7 @@ export function createNecordOptionDecorator<T extends APIApplicationCommandOptio
 	type: ApplicationCommandOptionType,
 	resolver: OptionMeta['resolver']
 ) {
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 	// @ts-ignore
 	return (data: DistributiveOmit<T, 'type'>): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
