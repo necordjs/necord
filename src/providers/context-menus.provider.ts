@@ -1,6 +1,5 @@
 import { TreeService } from '../services/tree.service';
-
-export const CONTEXT_MENUS = 'necord:context_menus';
+import { CONTEXT_MENUS } from '../necord.constants';
 
 export const ContextMenusProvider = {
 	provide: CONTEXT_MENUS,

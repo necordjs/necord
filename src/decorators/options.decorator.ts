@@ -1,4 +1,3 @@
-import { OptionMeta } from '../interfaces';
 import { OPTIONS_METADATA } from '../necord.constants';
 import { ApplicationCommandOptionType } from 'discord.js';
 import {
@@ -14,6 +13,7 @@ import {
 } from 'discord-api-types/v10';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
 import { DistributiveOmit } from 'discord-api-types/utils/internals';
+import { OptionMeta } from '../discovery';
 
 export const BooleanOption = createNecordOptionDecorator<APIApplicationCommandBooleanOption>(
 	ApplicationCommandOptionType.Boolean,

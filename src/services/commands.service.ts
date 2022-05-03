@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { CONTEXT_MENUS, SLASH_COMMANDS } from '../providers';
+import { CONTEXT_MENUS, SLASH_COMMANDS } from '../necord.constants';
 import { Client } from 'discord.js';
 import { CommandDiscovery } from '../discovery';
 import { Node, TreeService } from './tree.service';

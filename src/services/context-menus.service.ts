@@ -1,8 +1,7 @@
 import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { CONTEXT_MENUS } from '../providers';
 import { ContextMenuDiscovery } from '../discovery';
 import { Client } from 'discord.js';
-import { CONTEXT_MENU_METADATA } from '../necord.constants';
+import { CONTEXT_MENU_METADATA, CONTEXT_MENUS } from '../necord.constants';
 import { TreeService } from './tree.service';
 import { ExplorerService } from './explorer.service';
 

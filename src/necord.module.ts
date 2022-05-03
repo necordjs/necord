@@ -8,19 +8,9 @@ import {
 	OnApplicationShutdown,
 	Provider
 } from '@nestjs/common';
-import {
-	AutocompleteService,
-	ComponentsService,
-	ContextMenusService,
-	ExplorerService,
-	CommandsService,
-	ListenersService,
-	SlashCommandsService,
-	TextCommandsService,
-	ModalsService
-} from './services';
+import * as Providers from './providers';
+import * as Services from './services';
 import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
-import { ClientProvider, ContextMenusProvider, SlashCommandsProvider } from './providers';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { NecordContextCreator } from './context';
@@ -28,30 +18,10 @@ import { NecordContextCreator } from './context';
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [
-		ClientProvider,
-		ContextMenusProvider,
-		SlashCommandsProvider,
-		NecordContextCreator,
-		ExplorerService,
-		ListenersService,
-		TextCommandsService,
-		ComponentsService,
-		AutocompleteService,
-		SlashCommandsService,
-		ContextMenusService,
-		CommandsService,
-		ModalsService
-	],
-	exports: [ClientProvider]
+	providers: [NecordContextCreator, ...Object.values(Providers), ...Object.values(Services)],
+	exports: Object.values(Providers)
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
-	public constructor(
-		private readonly client: Client,
-		@Inject(NECORD_MODULE_OPTIONS)
-		private readonly options: NecordModuleOptions
-	) {}
-
 	public static forRoot(options: NecordModuleOptions): DynamicModule {
 		return {
 			module: NecordModule,
@@ -104,6 +74,12 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 			inject: [options.useExisting || options.useClass]
 		};
 	}
+
+	public constructor(
+		private readonly client: Client,
+		@Inject(NECORD_MODULE_OPTIONS)
+		private readonly options: NecordModuleOptions
+	) {}
 
 	public onApplicationBootstrap() {
 		return this.client.login(this.options.token);

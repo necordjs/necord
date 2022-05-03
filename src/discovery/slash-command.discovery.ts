@@ -3,6 +3,7 @@ import {
 	ApplicationCommandSubCommandData,
 	ChatInputApplicationCommandData,
 	CommandInteraction,
+	CommandInteractionOptionResolver,
 	PermissionsBitField,
 	Snowflake
 } from 'discord.js';
@@ -21,9 +22,13 @@ import {
 	MethodDiscoveryMixin
 } from './mixins';
 import { AutocompleteMeta } from '../decorators';
-import { OptionMeta } from '../interfaces';
+import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
 
 export type SlashCommandMeta = ChatInputApplicationCommandData;
+
+export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
+	resolver?: keyof CommandInteractionOptionResolver;
+}
 
 export interface SlashCommandDiscovery extends MethodDiscoveryMixin<SlashCommandMeta> {}
 
@@ -68,13 +73,7 @@ export class SlashCommandDiscovery extends CommandDiscovery {
 	}
 
 	public getOptions(): OptionMeta[] {
-		return Object.values(this.getRawOptions()).sort((a, b) => {
-			if (b.index === a.index) return 0;
-			if (a.index === undefined) return 1;
-			if (b.index === undefined) return -1;
-
-			return a.index - b.index;
-		});
+		return Object.values(this.getRawOptions());
 	}
 
 	public execute(interaction: CommandInteraction): any {

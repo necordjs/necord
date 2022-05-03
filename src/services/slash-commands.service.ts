@@ -5,8 +5,7 @@ import {
 	SlashCommandSubGroupDiscovery
 } from '../discovery';
 import { Client } from 'discord.js';
-import { SLASH_COMMANDS } from '../providers';
-import { SLASH_COMMAND_METADATA, SLASH_GROUP_METADATA } from '../necord.constants';
+import { SLASH_COMMAND_METADATA, SLASH_COMMANDS, SLASH_GROUP_METADATA } from '../necord.constants';
 import { TreeService } from './tree.service';
 import { ExplorerService } from './explorer.service';
 

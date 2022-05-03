@@ -14,3 +14,6 @@ export const GUILDS_METADATA = 'necord:guilds_meta';
 
 export const MEMBER_PERMISSIONS_METADATA = 'necord:member_permissions_meta';
 export const DM_PERMISSIONS_METADATA = 'necord:dm_permissions_meta';
+
+export const SLASH_COMMANDS = 'necord:slash_commands';
+export const CONTEXT_MENUS = 'necord:context_menus';

@@ -1,7 +1,7 @@
 import { Inject, Injectable, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 import { ModuleRef } from '@nestjs/core';
-import { SLASH_COMMANDS } from '../providers';
+import { SLASH_COMMANDS } from '../necord.constants';
 import { TreeService } from './tree.service';
 import { SlashCommandDiscovery } from '../discovery';
 
