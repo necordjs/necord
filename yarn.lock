@@ -2165,9 +2165,9 @@ discord-api-types@^0.31.1:
   integrity sha512-gpzXTvFVg7AjKVVJFH0oJGC0q0tO34iJGSHZNz9u3aqLxlD6LfxEs9wWVVikJqn9gra940oUTaPFizCkRDcEiA==
 
 discord.js@dev:
-  version "14.0.0-dev.1651493371-4ba0f56"
-  resolved "https://registry.npmjs.org/discord.js/-/discord.js-14.0.0-dev.1651493371-4ba0f56.tgz#008f585e6e52c383ab03bee9d7882a43d89a8cbd"
-  integrity sha512-BTrhiEdZ5tKKQqzsx3nDalRE5fM7X4XQu8WOJEX9ELNgvdBZ6YUBE+Yp1H0cDX3OyvKuqK8ELtjJo+O0GhG09Q==
+  version "14.0.0-dev.1652400693-aed687b"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.0.0-dev.1652400693-aed687b.tgz#fdeb5c8d9f4c4e8839a42f5ea82d0b697581b6b8"
+  integrity sha512-PRw6J+zlQxCRCl/aousUb7Kjh00LqBP1fTfxM0rIYOJf+QTHGEKUrSnjuK9+YhPoaE6tWh7D9M/obV72irRDog==
   dependencies:
     "@discordjs/builders" "^0.14.0-dev"
     "@discordjs/collection" "^0.7.0-dev"
@@ -2178,7 +2178,7 @@ discord.js@dev:
     fast-deep-equal "^3.1.3"
     lodash.snakecase "^4.1.1"
     tslib "^2.3.1"
-    undici "^4.16.0"
+    undici "^5.2.0"
     ws "^8.5.0"
 
 doctrine@^3.0.0:
@@ -5647,10 +5647,10 @@ unbox-primitive@^1.0.1:
     has-symbols "^1.0.3"
     which-boxed-primitive "^1.0.2"
 
-undici@^4.16.0:
-  version "4.16.0"
-  resolved "https://registry.npmjs.org/undici/-/undici-4.16.0.tgz#469bb87b3b918818d3d7843d91a1d08da357d5ff"
-  integrity sha512-tkZSECUYi+/T1i4u+4+lwZmQgLXd4BLGlrc7KZPcLIW7Jpq99+Xpc30ONv7nS6F5UNOxp/HBZSSL9MafUrvJbw==
+undici@^5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-5.2.0.tgz#18c5bd59f8f1b1ed8dcc9dca2f754c44ec994059"
+  integrity sha512-XY6+NS3WH9b3TKOHeNz2CjR+qrVz/k4fO9g3etPpLozRvULoQmZ1+dk9JbIz40ehn27xzFk4jYVU2MU3Nle62A==
 
 unique-filename@^1.1.1:
   version "1.1.1"
