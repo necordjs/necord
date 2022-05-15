@@ -47,7 +47,7 @@
 		"@golevelup/nestjs-discovery": "3.0.0"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "16.2.4",
+		"@commitlint/cli": "16.3.0",
 		"@commitlint/config-angular": "16.3.0",
 		"@favware/npm-deprecate": "1.0.4",
 		"@nestjs/common": "8.4.5",
