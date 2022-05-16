@@ -1,10 +1,10 @@
 <div align="center">
    <h1>
-       <a href="#"><img src="https://necord.org/img/logo.png"></a>
+       <a href="#"><img src="https://necord.org/img/logo.png" alt ="Necord Logo"></a>
    </h1>
    🤖 A module for creating <b><a href="https://discord.com/">Discord</a> bots</b> using <a href="https://nestjs.com">NestJS</a>, based on <a href="https://discord.js.org/">Discord.js</a>
    <br/><br/>
-   <a href="https://necord.org">Documentation ✨</a> &emsp; <a href="https://github.com/SocketSomeone/necord">Source code 🪡</a> &emsp; <a href="https://github.com/necordjs/samples">Examples 🛠️</a> &emsp; <a href="https://www.npmjs.com/package/necord">NPM 🚀</a>
+   <a href="https://necord.org">Documentation ✨</a> &emsp; <a href="https://github.com/necordjs/necord">Source code 🪡</a> &emsp; <a href="https://github.com/necordjs/samples">Examples 🛠️</a> &emsp; <a href="https://www.npmjs.com/package/necord">NPM 🚀</a>
 </div>
 
 
@@ -24,7 +24,7 @@ This module provides fast and easy way for creating Discord bots and deep integr
 - Full support of NestJS guards, interceptors, filters and pipes!
 
 For questions and support please use
-the [Issues](https://github.com/SocketSomeone/necord/issues/new?assignees=&labels=question&template=question.yml).
+the [Issues](https://github.com/necordjs/necord/issues/new?assignees=&labels=question&template=question.yml).
 
 ## Installation
 
@@ -100,4 +100,4 @@ If you want to fully dive into Necord check out these resources:
 
 ## License
 
-[MIT](https://github.com/SocketSomeone/necord/blob/master/LICENSE) © [Alexey Filippov](https://github.com/SocketSomeone)
+[MIT](https://github.com/necordjs/necord/blob/master/LICENSE) © [Alexey Filippov](https://github.com/SocketSomeone)
