@@ -14,7 +14,6 @@ import { LengthDto } from './dto/length.dto';
 
 @AdminOnly
 @GuildOnly
-@Guilds('742715858157043793')
 @SlashGroup('utils', 'Test group')
 export class SlashCommandsSpec {
 	@SlashGroup('string', 'Test Sub Group')
