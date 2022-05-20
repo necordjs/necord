@@ -1,5 +1,6 @@
 import {
-	ApplicationCommandData, ApplicationCommandOptionChoiceData,
+	ApplicationCommandData,
+	ApplicationCommandOptionChoiceData,
 	ApplicationCommandOptionData,
 	ApplicationCommandSubCommandData,
 	ApplicationCommandSubGroupData,
@@ -9,7 +10,7 @@ import {
 	MessageApplicationCommandData,
 	MessageComponentType,
 	UserApplicationCommandData
-} from "discord.js";
+} from 'discord.js';
 import { NecordEvents } from './necord-events.interface';
 import { Module } from '@nestjs/core/injector/module';
 import { Type } from '@nestjs/common';

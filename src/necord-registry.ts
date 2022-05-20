@@ -1,18 +1,19 @@
-import { Client, Collection } from "discord.js";
-import { Injectable } from "@nestjs/common";
+import { Client, Collection } from 'discord.js';
+import { Injectable } from '@nestjs/common';
 import {
 	ApplicationCommandMetadata,
 	ComponentMetadata,
 	ContextMenuMetadata,
-	ListenerMetadata, ModalMetadata,
+	ListenerMetadata,
+	ModalMetadata,
 	SlashCommandMetadata,
 	TextCommandMetadata
-} from "./interfaces";
-import { NecordInfoType } from "./context";
+} from './interfaces';
+import { NecordInfoType } from './context';
 
 @Injectable()
 export class NecordRegistry {
-	private static readonly GENERATE_KEY = (...args: any[]) => args.map(String).join(":");
+	private static readonly GENERATE_KEY = (...args: any[]) => args.map(String).join(':');
 
 	private readonly textCommands = new Collection<string, TextCommandMetadata>();
 
@@ -24,8 +25,7 @@ export class NecordRegistry {
 
 	private readonly modals = new Collection<string, ModalMetadata>();
 
-	public constructor(private readonly client: Client) {
-	}
+	public constructor(private readonly client: Client) {}
 
 	public registerListeners(listeners: ListenerMetadata[]) {
 		listeners.forEach(listener => {
@@ -53,7 +53,7 @@ export class NecordRegistry {
 
 	public addApplicationCommands(appCommands: ApplicationCommandMetadata[]) {
 		const recursive = (command: ApplicationCommandMetadata, tree) => {
-			const options = "options" in command ? command.options : [];
+			const options = 'options' in command ? command.options : [];
 
 			options.every(option => option.type !== 1 && option.type !== 2)
 				? this.applicationCommands.set(NecordRegistry.GENERATE_KEY(...tree), command)
@@ -69,7 +69,7 @@ export class NecordRegistry {
 		return this.applicationCommandsData;
 	}
 
-	public getContextMenu(type: "USER" | "MESSAGE", name: string): ContextMenuMetadata {
+	public getContextMenu(type: 'USER' | 'MESSAGE', name: string): ContextMenuMetadata {
 		return this.applicationCommands.get(NecordRegistry.GENERATE_KEY(type, name)) as any;
 	}
 
@@ -90,16 +90,16 @@ export class NecordRegistry {
 		return [...this.messageComponents.values()];
 	}
 
-	public getMessageComponent(componentType: ComponentMetadata["type"], customId: string) {
+	public getMessageComponent(componentType: ComponentMetadata['type'], customId: string) {
 		return this.messageComponents.get(NecordRegistry.GENERATE_KEY(componentType, customId));
 	}
 
 	public getButton(customId: string) {
-		return this.getMessageComponent("BUTTON", customId);
+		return this.getMessageComponent('BUTTON', customId);
 	}
 
 	public getSelectMenu(customId: string) {
-		return this.getMessageComponent("SELECT_MENU", customId);
+		return this.getMessageComponent('SELECT_MENU', customId);
 	}
 
 	public getModal(customId: string) {
