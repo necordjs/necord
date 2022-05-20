@@ -1,6 +1,5 @@
 import {
-	ApplicationCommandData,
-	ApplicationCommandOptionChoice,
+	ApplicationCommandData, ApplicationCommandOptionChoiceData,
 	ApplicationCommandOptionData,
 	ApplicationCommandSubCommandData,
 	ApplicationCommandSubGroupData,
@@ -10,7 +9,7 @@ import {
 	MessageApplicationCommandData,
 	MessageComponentType,
 	UserApplicationCommandData
-} from 'discord.js';
+} from "discord.js";
 import { NecordEvents } from './necord-events.interface';
 import { Module } from '@nestjs/core/injector/module';
 import { Type } from '@nestjs/common';
@@ -36,6 +35,10 @@ export interface ListenerMetadata<T extends keyof NecordEvents = keyof NecordEve
 
 export interface ComponentMetadata extends BaseMetadata {
 	type: Exclude<MessageComponentType, 'ACTION_ROW'>;
+	customId: string;
+}
+
+export interface ModalMetadata extends BaseMetadata {
 	customId: string;
 }
 
@@ -66,6 +69,6 @@ export type OptionMetadata<T extends CommandOptionData['type'] = any> = Extract<
 export interface TransformOptions {
 	transformOptions(
 		interaction: AutocompleteInteraction,
-		focused: ApplicationCommandOptionChoice
-	): ApplicationCommandOptionChoice[] | Promise<ApplicationCommandOptionChoice[]>;
+		focused: ApplicationCommandOptionChoiceData
+	): ApplicationCommandOptionChoiceData[] | Promise<ApplicationCommandOptionChoiceData[]>;
 }

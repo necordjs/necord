@@ -6,15 +6,15 @@ import {
 	OnApplicationBootstrap,
 	OnApplicationShutdown,
 	Provider
-} from '@nestjs/common';
-import { Client } from 'discord.js';
-import { DiscoveryModule } from '@nestjs/core';
-import { NECORD_MODULE_OPTIONS } from './necord.constants';
-import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
-import { NecordRegistry } from './necord-registry';
-import { NecordExplorer } from './necord-explorer';
-import { NecordInteractionUpdate } from './necord-interaction.update';
-import { NecordUpdate } from './necord.update';
+} from "@nestjs/common";
+import { Client } from "discord.js";
+import { DiscoveryModule } from "@nestjs/core";
+import { NECORD_MODULE_OPTIONS } from "./necord.constants";
+import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from "./interfaces";
+import { NecordRegistry } from "./necord-registry";
+import { NecordExplorer } from "./necord-explorer";
+import { NecordInteractionUpdate } from "./necord-interaction.update";
+import { NecordUpdate } from "./necord.update";
 
 @Global()
 @Module({
@@ -29,15 +29,17 @@ export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdo
 		private readonly client: Client,
 		private readonly explorer: NecordExplorer,
 		private readonly registry: NecordRegistry
-	) {}
+	) {
+	}
 
 	public async onApplicationBootstrap() {
-		const { listeners, components, appCommands, textCommands } = this.explorer.explore();
+		const { listeners, components, appCommands, textCommands, modals } = this.explorer.explore();
 
 		this.registry.registerListeners(listeners);
 		this.registry.addTextCommands(textCommands);
 		this.registry.addMessageComponents(components);
 		this.registry.addApplicationCommands(appCommands);
+		this.registry.addModals(modals);
 
 		return this.client.login(this.options.token);
 	}

@@ -19,6 +19,8 @@ export const RoleOption = createNecordOptionDecorator('ROLE', 'getRole');
 
 export const MentionableOption = createNecordOptionDecorator('MENTIONABLE', 'getMentionable');
 
+export const AttachmentOption = createNecordOptionDecorator('ATTACHMENT', 'getAttachment')
+
 function createNecordOptionDecorator<T extends CommandOptionData['type']>(
 	type: T,
 	methodName: OptionMetadata['methodName']

@@ -1,36 +1,36 @@
-import { Collection } from 'discord.js';
-import { Injectable } from '@nestjs/common';
-import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
-import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
-import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
-import { NecordContextType, NecordParamsFactory } from './context';
-import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
+import { Collection } from "discord.js";
+import { Injectable } from "@nestjs/common";
+import { ParamMetadata } from "@nestjs/core/helpers/interfaces";
+import { InstanceWrapper } from "@nestjs/core/injector/instance-wrapper";
+import { DiscoveryService, MetadataScanner, Reflector } from "@nestjs/core";
+import { ExternalContextCreator } from "@nestjs/core/helpers/external-context-creator";
+import { NecordContextType, NecordParamsFactory } from "./context";
+import { STATIC_CONTEXT } from "@nestjs/core/injector/constants";
 import {
 	ApplicationCommandMetadata,
 	ComponentMetadata,
-	ListenerMetadata,
+	ListenerMetadata, ModalMetadata,
 	SlashCommandMetadata,
 	TextCommandMetadata
-} from './interfaces';
+} from "./interfaces";
 import {
 	APPLICATION_COMMAND_METADATA,
 	AUTOCOMPLETE_METADATA,
 	GROUP_METADATA,
 	GUILDS_METADATA,
 	LISTENERS_METADATA,
-	MESSAGE_COMPONENT_METADATA,
+	MESSAGE_COMPONENT_METADATA, MODALS_METADATA,
 	OPTIONS_METADATA,
 	PARAM_ARGS_METADATA,
 	TEXT_COMMAND_METADATA
-} from './necord.constants';
+} from "./necord.constants";
 
 type OptionMetadata =
 	| string
 	| {
-			key: string;
-			fn: (key: string, targets: any[]) => unknown;
-	  };
+	key: string;
+	fn: (key: string, targets: any[]) => unknown;
+};
 
 @Injectable()
 export class NecordExplorer {
@@ -48,7 +48,8 @@ export class NecordExplorer {
 		private readonly externalContextCreator: ExternalContextCreator,
 		private readonly metadataScanner: MetadataScanner,
 		private readonly reflector: Reflector
-	) {}
+	) {
+	}
 
 	public explore() {
 		const listeners = this.flatMap<ListenerMetadata>(wrapper =>
@@ -61,6 +62,10 @@ export class NecordExplorer {
 
 		const textCommands = this.flatMap<TextCommandMetadata>(wrapper =>
 			this.filterProperties(wrapper, TEXT_COMMAND_METADATA)
+		);
+
+		const modals = this.flatMap<ModalMetadata>(wrapper =>
+			this.filterProperties(wrapper, MODALS_METADATA)
 		);
 
 		const appCommands = this.flatMap<ApplicationCommandMetadata>(wrapper => {
@@ -110,6 +115,7 @@ export class NecordExplorer {
 
 		return {
 			listeners,
+			modals,
 			components,
 			appCommands,
 			textCommands
@@ -157,7 +163,7 @@ export class NecordExplorer {
 		const defaultTargets = [instance[propertyKey], instance.constructor].filter(Boolean);
 
 		return keys.reduce((acc, option) => {
-			const isOptionString = typeof option === 'string';
+			const isOptionString = typeof option === "string";
 			const key = isOptionString ? option : option.key;
 			const value = isOptionString
 				? this.reflector.get(key, defaultTarget)
@@ -181,7 +187,7 @@ export class NecordExplorer {
 			STATIC_CONTEXT,
 			undefined,
 			{ guards: true, filters: true, interceptors: true },
-			'necord'
+			"necord"
 		);
 	}
 }

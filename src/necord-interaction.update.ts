@@ -1,7 +1,7 @@
-import { CommandInteraction } from 'discord.js';
-import { Inject, Injectable, Logger, Type } from '@nestjs/common';
-import { Context, On, Once } from './decorators';
-import { NecordRegistry } from './necord-registry';
+import { CommandInteraction } from "discord.js";
+import { Inject, Injectable, Logger, Type } from "@nestjs/common";
+import { Context, On, Once } from "./decorators";
+import { NecordRegistry } from "./necord-registry";
 import {
 	ApplicationCommandMetadata,
 	ContextOf,
@@ -9,15 +9,15 @@ import {
 	OptionMetadata,
 	SlashCommandMetadata,
 	TransformOptions
-} from './interfaces';
+} from "./interfaces";
 import {
 	AUTOCOMPLETE_METADATA,
 	GUILDS_METADATA,
 	NECORD_MODULE_OPTIONS,
 	OPTIONS_METADATA
-} from './necord.constants';
-import { ModuleRef } from '@nestjs/core';
-import { NecordInfoType } from './context';
+} from "./necord.constants";
+import { ModuleRef } from "@nestjs/core";
+import { NecordInfoType } from "./context";
 
 @Injectable()
 export class NecordInteractionUpdate {
@@ -27,10 +27,11 @@ export class NecordInteractionUpdate {
 		private readonly registry: NecordRegistry,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions
-	) {}
+	) {
+	}
 
-	@Once('ready')
-	private async onReady(@Context() [client]: ContextOf<'ready'>) {
+	@Once("ready")
+	private async onReady(@Context() [client]: ContextOf<"ready">) {
 		if (client.application.partial) {
 			await client.application.fetch();
 		}
@@ -58,8 +59,12 @@ export class NecordInteractionUpdate {
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
 
-	@On('interactionCreate')
-	private async onInteractionCreate(@Context() [interaction]: ContextOf<'interactionCreate'>) {
+	@On("interactionCreate")
+	private async onInteractionCreate(@Context() [interaction]: ContextOf<"interactionCreate">) {
+		if (interaction.isModalSubmit()) {
+			return this.registry.getModal(interaction.customId)?.metadata.execute(interaction, null, { type: NecordInfoType.MODAL });
+		}
+
 		if (interaction.isMessageComponent()) {
 			return this.registry
 				.getMessageComponent(interaction.componentType, interaction.customId)
@@ -73,10 +78,10 @@ export class NecordInteractionUpdate {
 		if (interaction.isContextMenu()) {
 			const options = interaction.isUserContextMenu()
 				? {
-						user: interaction.options.getUser('user', false),
-						member: interaction.options.getMember('user', false)
-				  }
-				: { message: interaction.options.getMessage('message', false) };
+					user: interaction.options.getUser("user", false),
+					member: interaction.options.getMember("user", false)
+				}
+				: { message: interaction.options.getMessage("message", false) };
 
 			return this.registry
 				.getContextMenu(interaction.targetType, interaction.commandName)
