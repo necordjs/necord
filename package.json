@@ -34,10 +34,10 @@
 	"homepage": "https://necord.org",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/SocketSomeone/necord"
+		"url": "https://github.com/necordjs/necord"
 	},
 	"bugs": {
-		"url": "https://github.com/SocketSomeone/necord/issues"
+		"url": "https://github.com/necordjs/necord/issues"
 	},
 	"author": "Alexey Filippov <socket.someone@gmail.com>",
 	"contributors": [

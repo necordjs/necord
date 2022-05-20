@@ -1,17 +1,14 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+<div align="center">
+   <h1>
+       <a href="#"><img src="https://necord.org/img/logo.png" alt ="Necord Logo"></a>
+   </h1>
+   🤖 A module for creating <b><a href="https://discord.com/">Discord</a> bots</b> using <a href="https://nestjs.com">NestJS</a>, based on <a href="https://discord.js.org/">Discord.js</a>
+   <br/><br/>
+   <a href="https://necord.org">Documentation ✨</a> &emsp; <a href="https://github.com/necordjs/necord">Source code 🪡</a> &emsp; <a href="https://github.com/necordjs/samples">Examples 🛠️</a> &emsp; <a href="https://www.npmjs.com/package/necord">NPM 🚀</a>
+</div>
 
-<p align="center">
-    A module for creating Discord bots using  <a href="https://nestjs.com/" target="_blank">NestJS</a>, based on <a href="https://discord.js.org/#/" target="_blank">Discord.js</a>.
-</p>
 
-<p align="center">
-    <a href='https://img.shields.io/npm/v/necord'><img src="https://img.shields.io/npm/v/necord" alt="NPM Version" /></a>
-    <a href='https://img.shields.io/npm/l/necord'><img src="https://img.shields.io/npm/l/necord" alt="NPM License" /></a>
-    <a href='https://img.shields.io/npm/dm/necord'><img src="https://img.shields.io/npm/dm/necord" alt="NPM Downloads" /></a>
-    <a href='https://img.shields.io/github/last-commit/SocketSomeone/necord'><img src="https://img.shields.io/github/last-commit/SocketSomeone/necord" alt="Last commit" /></a>
-</p>
+
 
 ## About
 
@@ -27,7 +24,7 @@ This module provides fast and easy way for creating Discord bots and deep integr
 - Full support of NestJS guards, interceptors, filters and pipes!
 
 For questions and support please use
-the [Issues](https://github.com/SocketSomeone/necord/issues/new?assignees=&labels=question&template=question.yml).
+the [Issues](https://github.com/necordjs/necord/issues/new?assignees=&labels=question&template=question.yml).
 
 ## Installation
 
@@ -91,7 +88,7 @@ Whenever you need to handle any event data, use the `Context` decorator.
 
 If you want to fully dive into Necord check out these resources:
 
-* [Necord Wiki](https://github.com/SocketSomeone/necord/wiki) - Official documentation of Necord.
+* [Necord Wiki](https://necord.org) - Official documentation of Necord.
 * [Nest JS](https://docs.nestjs.com) - A progressive framework for creating well-architectured applications.
 * [Discord JS](https://discord.js.org) - The most powerful library for creating bots.
 * [Discord API](https://discord.com/developers/docs) - Official documentation of Discord API.
@@ -103,4 +100,4 @@ If you want to fully dive into Necord check out these resources:
 
 ## License
 
-[MIT](https://github.com/SocketSomeone/necord/blob/master/LICENSE) © [Alexey Filippov](https://github.com/SocketSomeone)
+[MIT](https://github.com/necordjs/necord/blob/master/LICENSE) © [Alexey Filippov](https://github.com/SocketSomeone)
