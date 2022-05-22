@@ -16,7 +16,7 @@ export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, 
 				Object.getOwnPropertyNames(prototype)
 					.map(name => [name, Reflect.getMetadata(OPTIONS_METADATA, prototype, name)])
 					.filter(([, meta]) => !!meta)
-					.forEach(([name, meta]) => (options[name] = meta));
+					.forEach(([name, meta]) => (options[name] ??= meta));
 			}
 
 			Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);

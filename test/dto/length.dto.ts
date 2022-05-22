@@ -8,10 +8,4 @@ export class LengthDto {
 		required: true
 	})
 	public readonly text: string;
-
-	@AttachmentOption({
-		name: 'dick',
-		description: 'You dick picture'
-	})
-	public readonly pic: Attachment;
 }
