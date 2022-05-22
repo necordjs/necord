@@ -27,14 +27,21 @@ function createNecordOptionDecorator<T extends CommandOptionData['type']>(
 ) {
 	return (data: DistributiveOmit<OptionMetadata<T>, 'type' | 'methodName'>): PropertyDecorator =>
 		(target: object, propertyKey: string) => {
-			const options = Reflect.getMetadata(OPTIONS_METADATA, target.constructor) ?? {};
+			Reflect.defineProperty(target, propertyKey, {
+				value: undefined,
+				writable: true,
+				configurable: true
+			});
 
-			options[propertyKey] = {
-				...data,
-				type,
-				methodName
-			};
-
-			Reflect.defineMetadata(OPTIONS_METADATA, options, target.constructor);
+			Reflect.defineMetadata(
+				OPTIONS_METADATA,
+				{
+					...data,
+					type,
+					methodName
+				},
+				target,
+				propertyKey
+			);
 		};
 }
