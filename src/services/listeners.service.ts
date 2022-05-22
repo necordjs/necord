@@ -1,9 +1,9 @@
-import { Injectable, OnApplicationBootstrap, OnModuleInit } from "@nestjs/common";
-import { ListenerDiscovery } from "../discovery";
-import { Client, GuildChannel, Role, TextChannel } from "discord.js";
-import { LISTENERS_METADATA } from "../necord.constants";
-import { ExplorerService } from "./explorer.service";
-import { ContextOf, NecordEvents } from "../interfaces";
+import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { ListenerDiscovery } from '../discovery';
+import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
+import { LISTENERS_METADATA } from '../necord.constants';
+import { ExplorerService } from './explorer.service';
+import { ContextOf, NecordEvents } from '../interfaces';
 
 @Injectable()
 export class ListenersService implements OnModuleInit, OnApplicationBootstrap {

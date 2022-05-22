@@ -1,7 +1,7 @@
 import { SetMetadata } from "@nestjs/common";
 import { SlashCommandMeta } from "../discovery";
 import { SLASH_COMMAND_METADATA, SLASH_GROUP_METADATA } from "../necord.constants";
-import { ApplicationCommandOptionType, ApplicationCommandType, ApplicationCommandData } from "discord.js";
+import { ApplicationCommandOptionType, ApplicationCommandType } from "discord.js";
 
 export const SlashGroup =
 	(name: string, description: string): MethodDecorator & ClassDecorator =>
@@ -24,6 +24,4 @@ export const SlashCommand = (name: string, description: string): MethodDecorator
 		options: []
 	});
 
-
 // export const createSubcommandGroupDecorator: ClassDecorator = () => true;
-
