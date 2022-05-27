@@ -8,7 +8,12 @@ export const createApplication = (...providers: (Type | Provider)[]) => {
 		imports: [
 			NecordModule.forRoot({
 				token: process.env.DISCORD_TOKEN,
-				intents: new IntentsBitField(['Guilds', 'DirectMessageReactions', 'GuildMembers']),
+				intents: new IntentsBitField([
+					'Guilds',
+					'DirectMessages',
+					'GuildMembers',
+					'GuildMessages'
+				]),
 				development: [process.env.DISCORD_TEST_GUILD]
 			})
 		],
