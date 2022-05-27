@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { Module, Provider, Type } from '@nestjs/common';
+import { Module, Provider } from '@nestjs/common';
 import { NecordModule } from '../src';
 import { IntentsBitField } from 'discord.js';
 
-export const createApplication = (...providers: (Type | Provider)[]) => {
+export const createApplication = (...providers: Provider[]) => {
 	@Module({
 		imports: [
 			NecordModule.forRoot({
