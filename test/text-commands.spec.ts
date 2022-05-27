@@ -4,12 +4,12 @@ import { createApplication } from './utils.spec';
 
 @Injectable()
 class TextCommandsSpec {
-	@TextCommand('ping', 'ping-pong')
+	@TextCommand({ name: 'ping',  description: 'ping-pong' })
 	public onPing(@Ctx() [message]: ContextOf<'messageCreate'>) {
 		return message.reply('pong!');
 	}
 
-	@TextCommand('length', 'length')
+	@TextCommand({ name: 'length', description: 'length of message' })
 	public onLength(@Ctx() [message]: ContextOf<'messageCreate'>, @Opts() args: string[]) {
 		return message.reply('Your message length - ' + args.join(' ').length);
 	}
