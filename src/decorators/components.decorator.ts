@@ -4,11 +4,6 @@ import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 import { NecordExecutionContext } from '../context';
 import { ComponentType } from 'discord.js';
 
-const createNecordComponentDecorator =
-	(type: ComponentMeta['type']) =>
-	(customId: string): MethodDecorator =>
-		SetMetadata<string, ComponentMeta>(MESSAGE_COMPONENT_METADATA, { type, customId });
-
 export const Button = createNecordComponentDecorator(ComponentType.Button);
 
 export const SelectMenu = createNecordComponentDecorator(ComponentType.SelectMenu);
@@ -26,3 +21,8 @@ export const Values = createParamDecorator((_, ctx: ExecutionContext) => {
 
 	return interaction.isSelectMenu() ? interaction.values : [];
 });
+
+function createNecordComponentDecorator(type: ComponentMeta['type']) {
+	return (customId: string): MethodDecorator =>
+		SetMetadata<string, ComponentMeta>(MESSAGE_COMPONENT_METADATA, { type, customId });
+}
