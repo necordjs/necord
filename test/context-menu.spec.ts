@@ -12,7 +12,7 @@ import { EmbedBuilder, Message, User } from 'discord.js';
 
 @Injectable()
 export class ContextMenuSpec {
-	@UserCommand('Get user avatar')
+	@UserCommand({ name: 'Get user avatar' })
 	public getUserAvatar(@Ctx() [interaction]: UserCommandContext, @Opts('user') user: User) {
 		return interaction.reply({
 			embeds: [
@@ -23,7 +23,7 @@ export class ContextMenuSpec {
 		});
 	}
 
-	@MessageCommand('Copy message content')
+	@MessageCommand({ name: 'Copy message content' })
 	public copyMessageContent(
 		@Ctx() [interaction]: MessageCommandContext,
 		@Opts('message') msg: Message

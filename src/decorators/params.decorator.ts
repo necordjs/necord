@@ -1,10 +1,10 @@
-import { createNecordParamDecorator, createNecordPipesParamDecorator } from './param.utils';
+import { createNecordPipesParamDecorator } from './param.utils';
 import { NecordParamType } from '../context';
 import { OPTIONS_METADATA } from '../necord.constants';
 
 export const Context = createNecordPipesParamDecorator(NecordParamType.CONTEXT);
 
-export const Options = createNecordParamDecorator(NecordParamType.OPTIONS, [
+export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, [
 	(target, propertyKey, parameterIndex) => {
 		try {
 			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);

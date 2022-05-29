@@ -1,10 +1,8 @@
 import {
 	ApplicationCommandType,
 	ContextMenuCommandInteraction,
-	MessageApplicationCommandData,
 	PermissionsBitField,
-	Snowflake,
-	UserApplicationCommandData
+	Snowflake
 } from 'discord.js';
 import { mix } from 'ts-mixer';
 import {
@@ -13,10 +11,10 @@ import {
 	MEMBER_PERMISSIONS_METADATA
 } from '../necord.constants';
 import { CommandDiscovery, DiscoveryType, MethodDiscoveryMixin } from './mixins';
+import { RESTPostAPIContextMenuApplicationCommandsJSONBody } from 'discord-api-types/v10';
 
-export type ContextMenuMeta = UserApplicationCommandData | MessageApplicationCommandData;
-
-export interface ContextMenuDiscovery extends MethodDiscoveryMixin<ContextMenuMeta> {}
+export interface ContextMenuDiscovery
+	extends MethodDiscoveryMixin<RESTPostAPIContextMenuApplicationCommandsJSONBody> {}
 
 @mix(MethodDiscoveryMixin)
 export class ContextMenuDiscovery extends CommandDiscovery {
@@ -62,7 +60,7 @@ export class ContextMenuDiscovery extends CommandDiscovery {
 		);
 	}
 
-	public override toJSON() {
+	public override toJSON(): RESTPostAPIContextMenuApplicationCommandsJSONBody {
 		return this.meta;
 	}
 }
