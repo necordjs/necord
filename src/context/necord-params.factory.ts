@@ -13,8 +13,6 @@ export class NecordParamsFactory implements ParamsFactory {
 				return data && args[1] ? args[1][data] : args[1];
 			case NecordParamType.DISCOVERY:
 				return args[2];
-			case NecordParamType.LOCALS:
-				return data ? args[3][data] : args[3];
 			default:
 				return null;
 		}

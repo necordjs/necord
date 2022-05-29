@@ -30,7 +30,7 @@ export class MethodDiscoveryMixin<M> implements DiscoveredMethodWithMeta<M> {
 		}
 
 		return (context: any = [], options: any = undefined) =>
-			this.contextExecute(context, options, this, {});
+			this.contextExecute(context, options, this);
 	}
 
 	public execute(context: any = [], options: any = undefined) {

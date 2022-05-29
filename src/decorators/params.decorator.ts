@@ -28,8 +28,6 @@ export const Options = createNecordPipesParamDecorator(NecordParamType.OPTIONS, 
 
 export const Discovery = createNecordPipesParamDecorator(NecordParamType.DISCOVERY);
 
-export const Locals = createNecordPipesParamDecorator(NecordParamType.LOCALS);
-
 export const Ctx = Context;
 
 export const Opts = Options;

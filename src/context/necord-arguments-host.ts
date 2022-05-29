@@ -11,8 +11,6 @@ export interface INecordArgumentsHost extends ArgumentsHost {
 	getOptions<T = any>(): T;
 
 	getDiscovery(): BaseDiscovery;
-
-	getLocals<T extends Record<string, any>>(): T;
 }
 
 export class NecordArgumentsHost extends ExecutionContextHost implements INecordArgumentsHost {
@@ -37,9 +35,5 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 
 	public getDiscovery(): BaseDiscovery {
 		return this.getArgByIndex(2);
-	}
-
-	public getLocals<T extends Record<string, any>>(): T {
-		return this.getArgByIndex(3);
 	}
 }
