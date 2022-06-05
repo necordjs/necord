@@ -3,9 +3,9 @@ name: Continuous Integration
 on:
   push:
     branches: [ master ]
-    paths-ignore: [ 'docs/**', '.github/**', 'sample/**' ]
+    paths-ignore: ['.github/**']
   pull_request:
-    paths-ignore: [ 'docs/**', '.github/**', 'sample/**' ]
+    paths-ignore: ['.github/**']
 
 jobs:
   build:
