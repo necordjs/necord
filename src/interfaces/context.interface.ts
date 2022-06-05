@@ -27,6 +27,8 @@ import {
 
 export type SlashCommandContext = [CommandInteraction];
 
+export type TextCommandContext = [Message];
+
 export type MessageCommandContext = [MessageContextMenuCommandInteraction];
 
 export type UserCommandContext = [UserContextMenuCommandInteraction];

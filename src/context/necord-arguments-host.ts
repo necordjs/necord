@@ -8,8 +8,6 @@ import { ContextOf } from '../interfaces';
 export interface INecordArgumentsHost extends ArgumentsHost {
 	getContext<T extends keyof ClientEvents>(): ContextOf<T>;
 
-	getOptions<T = any>(): T;
-
 	getDiscovery(): BaseDiscovery;
 }
 
@@ -25,15 +23,13 @@ export class NecordArgumentsHost extends ExecutionContextHost implements INecord
 		return super.getType();
 	}
 
+	public getContext<T extends keyof ClientEvents>(): ContextOf<T>;
+	public getContext<T>(): T;
 	public getContext<T extends keyof ClientEvents>(): ContextOf<T> {
 		return this.getArgByIndex(0);
 	}
 
-	public getOptions<T = any>(): T {
-		return this.getArgByIndex(1);
-	}
-
 	public getDiscovery(): BaseDiscovery {
-		return this.getArgByIndex(2);
+		return this.getArgByIndex(1);
 	}
 }

@@ -8,18 +8,42 @@ import {
 	OnApplicationShutdown,
 	Provider
 } from '@nestjs/common';
-import * as Providers from './providers';
-import * as Services from './services';
-import { NecordModuleAsyncOptions, NecordModuleOptions, NecordOptionsFactory } from './interfaces';
+import {
+	NecordModuleAsyncOptions,
+	NecordModuleOptions,
+	NecordOptionsFactory
+} from './necord-options.interface';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
 import { DiscoveryModule } from '@golevelup/nestjs-discovery';
 import { NecordContextCreator } from './context';
+import { TextCommandsService } from './text-commands';
+import { ModalsService } from './modals';
+import { MessageComponentsService } from './message-components';
+import { ContextMenusProvider, ContextMenusService } from './context-menus';
+import { NecordClientProvider } from './necord-client.provider';
+import { ListenersService } from './listeners';
+import { SlashCommandsProvider, SlashCommandsService } from './slash-commands';
+import { CommandsService } from './commands.service';
+import { NecordExplorerService } from './necord-explorer.service';
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: [NecordContextCreator, ...Object.values(Providers), ...Object.values(Services)],
-	exports: Object.values(Providers)
+	providers: [
+		NecordContextCreator,
+		NecordClientProvider,
+		CommandsService,
+		NecordExplorerService,
+		TextCommandsService,
+		ModalsService,
+		MessageComponentsService,
+		ContextMenusService,
+		ContextMenusProvider,
+		ListenersService,
+		SlashCommandsService,
+		SlashCommandsProvider
+	],
+	exports: [NecordClientProvider]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public static forRoot(options: NecordModuleOptions): DynamicModule {

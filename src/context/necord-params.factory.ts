@@ -9,10 +9,8 @@ export class NecordParamsFactory implements ParamsFactory {
 		switch (type as NecordParamType) {
 			case NecordParamType.CONTEXT:
 				return args[0];
-			case NecordParamType.OPTIONS:
-				return data && args[1] ? args[1][data] : args[1];
 			case NecordParamType.DISCOVERY:
-				return args[2];
+				return args[1];
 			default:
 				return null;
 		}

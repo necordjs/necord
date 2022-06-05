@@ -7,9 +7,7 @@ export const SLASH_COMMAND_METADATA = 'necord:slash_command_meta';
 export const SLASH_GROUP_METADATA = 'necord:slash_group_meta';
 export const MESSAGE_COMPONENT_METADATA = 'necord:message_component_meta';
 export const MODAL_METADATA = 'necord:modal_meta';
-export const SLASH_COMMANDS = 'necord:slash_commands_meta';
-export const SLASH_SUBCOMMANDS = 'necord:slash_subcommands_meta';
-export const CONTEXT_MENUS = 'necord:context_menus_meta';
+export const SLASH_SUBCOMMANDS_METADATA = 'necord:slash_subcommands_meta';
 
 export const AUTOCOMPLETE_METADATA = 'necord:autocomplete_meta';
 export const OPTIONS_METADATA = 'necord:options_meta';
@@ -17,3 +15,6 @@ export const GUILDS_METADATA = 'necord:guilds_meta';
 
 export const MEMBER_PERMISSIONS_METADATA = 'necord:member_permissions_meta';
 export const DM_PERMISSIONS_METADATA = 'necord:dm_permissions_meta';
+
+export const SLASH_COMMANDS = 'necord:slash_commands_provider';
+export const CONTEXT_MENUS = 'necord:context_menus_provider';
