@@ -1,7 +1,6 @@
 export * from './context';
 export * from './decorators';
 export * from './discovery';
-export * from './interfaces';
 
 export * from './context-menus';
 export * from './listeners';

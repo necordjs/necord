@@ -1,45 +1,23 @@
 import {
-	ButtonInteraction,
 	ClientEvents,
-	CommandInteraction,
 	DMChannel,
 	Guild,
 	GuildFeature,
 	GuildMember,
 	GuildPremiumTier,
 	Message,
-	MessageContextMenuCommandInteraction,
-	ModalSubmitInteraction,
 	NonThreadGuildBasedChannel,
 	PartialMessage,
 	PermissionOverwriteManager,
 	PermissionsBitField,
 	PresenceStatus,
 	Role,
-	SelectMenuInteraction,
 	ThreadChannel,
 	User,
-	UserContextMenuCommandInteraction,
 	UserFlagsBitField,
 	VoiceBasedChannel,
 	VoiceChannel
 } from 'discord.js';
-
-export type SlashCommandContext = [CommandInteraction];
-
-export type TextCommandContext = [Message];
-
-export type MessageCommandContext = [MessageContextMenuCommandInteraction];
-
-export type UserCommandContext = [UserContextMenuCommandInteraction];
-
-export type ModalContext = [ModalSubmitInteraction];
-
-export type ButtonContext = [ButtonInteraction];
-
-export type SelectMenuContext = [SelectMenuInteraction];
-
-export type ContextOf<K extends keyof E, E = NecordEvents> = E[K];
 
 export interface NecordEvents extends ClientEvents {
 	// ChannelUpdate

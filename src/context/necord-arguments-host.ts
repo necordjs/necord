@@ -3,7 +3,7 @@ import { ArgumentsHost } from '@nestjs/common';
 import { NecordContextType } from './necord-execution-context';
 import { ClientEvents } from 'discord.js';
 import { BaseDiscovery } from '../discovery';
-import { ContextOf } from '../interfaces';
+import { ContextOf } from './necord-context.interface';
 
 export interface INecordArgumentsHost extends ArgumentsHost {
 	getContext<T extends keyof ClientEvents>(): ContextOf<T>;

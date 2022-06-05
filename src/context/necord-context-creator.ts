@@ -6,6 +6,7 @@ import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 import { NecordParamsFactory } from './necord-params.factory';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 
+// TODO: REMOVE THIS SHIT o_O
 export let createNecordContext: <T extends Record<string, any>>(
 	instance: T,
 	prototype: any,
