@@ -103,6 +103,10 @@ export class SlashCommandGroupDiscovery extends CommandDiscovery {
 		return this.reflector.get(MEMBER_PERMISSIONS_METADATA, this.getClass());
 	}
 
+	public isSlashCommand(): this is SlashCommandDiscovery {
+		return true;
+	}
+
 	public override toJSON(): Record<string, any> {
 		return {
 			...this.meta,
@@ -117,6 +121,10 @@ export interface SlashCommandSubGroupDiscovery
 
 @mix(MethodDiscoveryMixin)
 export class SlashCommandSubGroupDiscovery extends BaseDiscovery {
+	public isSlashCommand(): this is SlashCommandDiscovery {
+		return true;
+	}
+
 	public override toJSON(): Record<string, any> {
 		return this.meta;
 	}
