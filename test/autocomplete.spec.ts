@@ -28,10 +28,14 @@ export class AutocompleteSpec {
 			content: `You selected **${style}** style`
 		});
 	}
+
+	@Autocomplete(ThemeAutocomplete)
+	@SlashCommand('themezxc', 'Select new theme style')
+	public themezxc(@Ctx() [interaction]: [CommandInteraction], @Opts() { style }: ThemeDto) {
+		return interaction.reply({
+			content: `You selected **${style}** style`
+		});
+	}
 }
 
-const bootstrap = async () => {
-	const app = await createApplication(AutocompleteSpec, ThemeAutocomplete);
-};
-
-bootstrap();
+createApplication(AutocompleteSpec, ThemeAutocomplete);

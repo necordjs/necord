@@ -36,8 +36,4 @@ export class ContextMenuSpec {
 	}
 }
 
-const bootstrap = async () => {
-	const app = await createApplication(ContextMenuSpec);
-};
-
-bootstrap();
+createApplication(ContextMenuSpec);

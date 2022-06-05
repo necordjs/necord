@@ -1,14 +1,5 @@
 import { createApplication } from './utils.spec';
-import {
-	AdminOnly,
-	Ctx,
-	GuildOnly,
-	Guilds,
-	MemberPermissions,
-	Opts,
-	SlashCommand,
-	SlashGroup
-} from '../src';
+import { AdminOnly, Ctx, GuildOnly, Opts, SlashCommand, SlashGroup } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
@@ -32,8 +23,4 @@ export class SlashCommandsSpec {
 	}
 }
 
-const bootstrap = async () => {
-	const app = await createApplication(SlashCommandsSpec);
-};
-
-bootstrap();
+createApplication(SlashCommandsSpec);

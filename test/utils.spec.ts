@@ -12,8 +12,10 @@ export const createApplication = (...providers: Provider[]) => {
 					'Guilds',
 					'DirectMessages',
 					'GuildMembers',
-					'GuildMessages'
+					'GuildMessages',
+					'MessageContent'
 				]),
+				prefix: '!',
 				development: [process.env.DISCORD_TEST_GUILD]
 			})
 		],
