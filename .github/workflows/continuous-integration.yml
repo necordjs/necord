@@ -26,3 +26,6 @@ jobs:
 
       - name: Run ESlint
         run: yarn lint
+
+      - name: Run Build
+        run: yarn build
