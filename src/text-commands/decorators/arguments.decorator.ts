@@ -1,6 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { NecordExecutionContext } from '../../context';
-import { TextCommandContext } from '../../interfaces';
+import { NecordExecutionContext, TextCommandContext } from '../../context';
 
 export const Arguments = createParamDecorator((_, context: ExecutionContext) => {
 	const necordContext = NecordExecutionContext.create(context);

@@ -1,6 +1,5 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { NecordExecutionContext } from '../../context';
-import { SlashCommandContext } from '../../interfaces';
+import { NecordExecutionContext, SlashCommandContext } from '../../context';
 import { OPTIONS_METADATA } from '../../necord.constants';
 
 export const Options = createParamDecorator(

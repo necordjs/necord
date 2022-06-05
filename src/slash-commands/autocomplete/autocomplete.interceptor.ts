@@ -1,7 +1,6 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import { NecordExecutionContext } from '../../context';
-import { SlashCommandContext } from '../../interfaces';
+import { NecordExecutionContext, SlashCommandContext } from '../../context';
 import { ModuleRef, Reflector } from '@nestjs/core';
 import { AUTOCOMPLETE_METADATA } from '../../necord.constants';
 import { AutocompleteMeta } from './autocomplete.decorator';

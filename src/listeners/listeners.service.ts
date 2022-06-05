@@ -3,7 +3,8 @@ import { ListenerDiscovery } from './listener.discovery';
 import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
 import { LISTENERS_METADATA } from '../necord.constants';
 import { NecordExplorerService } from '../necord-explorer.service';
-import { ContextOf, NecordEvents } from '../interfaces';
+import { NecordEvents } from './listener.interface';
+import { ContextOf } from '../context';
 
 @Injectable()
 export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
