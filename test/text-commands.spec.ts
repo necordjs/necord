@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Arguments, ContextOf, Ctx, Discovery, TextCommand, TextCommandDiscovery } from '../src';
+import { Arguments, ContextOf, Ctx, TextCommand } from '../src';
 import { createApplication } from './utils.spec';
 
 @Injectable()
@@ -10,12 +10,7 @@ class TextCommandsSpec {
 	}
 
 	@TextCommand({ name: 'length', description: 'length of message' })
-	public onLength(
-		@Ctx() [message]: ContextOf<'messageCreate'>,
-		@Arguments() args: string[],
-		@Discovery() discovery: TextCommandDiscovery
-	) {
-		console.log(discovery, discovery.isTextCommand());
+	public onLength(@Ctx() [message]: ContextOf<'messageCreate'>, @Arguments() args: string[]) {
 		return message.reply('Your message length - ' + args.join(' ').length);
 	}
 }
