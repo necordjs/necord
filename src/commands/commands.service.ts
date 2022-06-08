@@ -1,10 +1,10 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { CONTEXT_MENUS, SLASH_COMMANDS } from './necord.constants';
+import { CONTEXT_MENUS, SLASH_COMMANDS } from '../necord.constants';
 import { Client } from 'discord.js';
-import { CommandDiscovery } from './discovery';
-import { Node, TreeService } from './tree.service';
-import { NECORD_MODULE_OPTIONS } from './necord.constants';
-import { NecordModuleOptions } from './necord-options.interface';
+import { CommandDiscovery } from '../discovery';
+import { Node, TreeService } from '../tree.service';
+import { NECORD_MODULE_OPTIONS } from '../necord.constants';
+import { NecordModuleOptions } from '../necord-options.interface';
 
 @Injectable()
 export class CommandsService implements OnModuleInit {

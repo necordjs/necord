@@ -1,6 +1,5 @@
 import { Reflector } from '@nestjs/core';
-import { ContextMenuDiscovery } from '../../context-menus';
-import { SlashCommandDiscovery } from '../../slash-commands';
+import { ContextMenuDiscovery, SlashCommandDiscovery } from '../../commands';
 import { MessageComponentDiscovery } from '../../message-components';
 import { ListenerDiscovery } from '../../listeners';
 import { TextCommandDiscovery } from '../../text-commands';

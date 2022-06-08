@@ -1,6 +1,6 @@
 import { applyDecorators, SetMetadata, Type, UseInterceptors } from '@nestjs/common';
 import { ApplicationCommandOptionChoiceData, AutocompleteInteraction } from 'discord.js';
-import { AUTOCOMPLETE_METADATA } from '../../necord.constants';
+import { AUTOCOMPLETE_METADATA } from '../../../necord.constants';
 import { AutocompleteInterceptor } from './autocomplete.interceptor';
 
 export interface TransformOptions {

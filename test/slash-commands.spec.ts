@@ -5,17 +5,17 @@ import { LengthDto } from './dto/length.dto';
 
 @AdminOnly
 @GuildOnly
-@SlashGroup('utils', 'Test group')
+@SlashGroup({ name: 'utils', description: 'Test group' })
 export class SlashCommandsSpec {
-	@SlashGroup('string', 'Test Sub Group')
-	@SlashCommand('length', 'Get length of your text')
+	@SlashGroup({ name: 'string', description: 'Test Sub Group' })
+	@SlashCommand({ name: 'length', description: 'Get length of your text' })
 	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
 		return interaction.reply({
 			content: 'Your message length - ' + text.length
 		});
 	}
 
-	@SlashCommand('ping', 'Ping-pong command')
+	@SlashCommand({ name: 'ping', description: 'Ping-pong command' })
 	public onPing(@Ctx() [interaction]: [CommandInteraction]) {
 		return interaction.reply({
 			content: 'Pong!'

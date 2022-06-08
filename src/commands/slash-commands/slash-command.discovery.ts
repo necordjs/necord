@@ -1,28 +1,33 @@
 import { mix } from 'ts-mixer';
 import {
+	ApplicationCommandOptionType,
 	ApplicationCommandSubCommandData,
+	ApplicationCommandType,
 	AutocompleteInteraction,
-	ChatInputApplicationCommandData,
 	CommandInteraction,
 	CommandInteractionOptionResolver,
 	PermissionsBitField,
 	Snowflake
 } from 'discord.js';
+import { GUILDS_METADATA, OPTIONS_METADATA } from '../../necord.constants';
 import {
-	DM_PERMISSIONS_METADATA,
-	GUILDS_METADATA,
-	MEMBER_PERMISSIONS_METADATA,
-	OPTIONS_METADATA
-} from '../necord.constants';
-import {
+	BaseApplicationCommandMeta,
 	BaseDiscovery,
 	ClassDiscoveryMixin,
 	CommandDiscovery,
 	MethodDiscoveryMixin
-} from '../discovery';
+} from '../../discovery';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
+import { LocalizationMap } from 'discord-api-types/v10';
 
-export type SlashCommandMeta = ChatInputApplicationCommandData;
+export interface SlashCommandMeta extends BaseApplicationCommandMeta {
+	type:
+		| ApplicationCommandType.ChatInput
+		| ApplicationCommandOptionType.SubcommandGroup
+		| ApplicationCommandOptionType.Subcommand;
+	description: string;
+	descriptionLocalizations?: LocalizationMap;
+}
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
 	resolver?: keyof CommandInteractionOptionResolver;
@@ -46,20 +51,6 @@ export class SlashCommandDiscovery extends CommandDiscovery {
 		);
 	}
 
-	public getDmPermissions(): boolean {
-		return this.reflector.getAllAndOverride(DM_PERMISSIONS_METADATA, [
-			this.getHandler(),
-			this.getClass()
-		]);
-	}
-
-	public getMemberPermissions(): PermissionsBitField {
-		return this.reflector.getAllAndOverride(MEMBER_PERMISSIONS_METADATA, [
-			this.getHandler(),
-			this.getClass()
-		]);
-	}
-
 	public getRawOptions(): Record<string, OptionMeta> {
 		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
 	}
@@ -79,8 +70,9 @@ export class SlashCommandDiscovery extends CommandDiscovery {
 	public override toJSON() {
 		return {
 			...this.meta,
-			default_member_permissions: this.getMemberPermissions()?.valueOf().toString(),
-			dm_permission: this.getDmPermissions(),
+			default_member_permissions: new PermissionsBitField(
+				this.meta.default_member_permissions
+			).bitfield.toString(),
 			options: this.getOptions()
 		};
 	}
@@ -95,24 +87,12 @@ export class SlashCommandGroupDiscovery extends CommandDiscovery {
 		return new Set(this.reflector.get(GUILDS_METADATA, this.getClass()));
 	}
 
-	public getDmPermissions(): boolean {
-		return this.reflector.get(DM_PERMISSIONS_METADATA, this.getClass());
-	}
-
-	public getMemberPermissions(): PermissionsBitField {
-		return this.reflector.get(MEMBER_PERMISSIONS_METADATA, this.getClass());
-	}
-
 	public isSlashCommand(): this is SlashCommandDiscovery {
 		return true;
 	}
 
 	public override toJSON(): Record<string, any> {
-		return {
-			...this.meta,
-			default_member_permissions: this.getMemberPermissions()?.valueOf().toString(),
-			dm_permission: this.getDmPermissions()
-		};
+		return this.meta;
 	}
 }
 

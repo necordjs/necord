@@ -22,16 +22,8 @@ class ThemeAutocomplete implements TransformOptions {
 @Injectable()
 export class AutocompleteSpec {
 	@Autocomplete(ThemeAutocomplete)
-	@SlashCommand('theme', 'Select new theme style')
+	@SlashCommand({ name: 'theme', description: 'Select new theme style' })
 	public theme(@Ctx() [interaction]: [CommandInteraction], @Opts() { style }: ThemeDto) {
-		return interaction.reply({
-			content: `You selected **${style}** style`
-		});
-	}
-
-	@Autocomplete(ThemeAutocomplete)
-	@SlashCommand('themezxc', 'Select new theme style')
-	public themezxc(@Ctx() [interaction]: [CommandInteraction], @Opts() { style }: ThemeDto) {
 		return interaction.reply({
 			content: `You selected **${style}** style`
 		});

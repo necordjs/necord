@@ -18,7 +18,7 @@ export class ContextMenuSpec {
 		});
 	}
 
-	@SlashCommand('modal', 'test modal')
+	@SlashCommand({ name: 'modal', description: 'test modal' })
 	public showModal(@Ctx() [interaction]: SlashCommandContext) {
 		return interaction.showModal(
 			new ModalBuilder()

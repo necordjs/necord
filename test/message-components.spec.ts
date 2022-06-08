@@ -14,7 +14,7 @@ import { createApplication } from './utils.spec';
 
 @Injectable()
 export class MessageComponentsSpec {
-	@SlashCommand('button', 'Creates button component.')
+	@SlashCommand({ name: 'button', description: 'Creates button component.' })
 	public async createButton(@Context() [interaction]: SlashCommandContext) {
 		return interaction.reply({
 			content: `Button`,
@@ -29,7 +29,7 @@ export class MessageComponentsSpec {
 		});
 	}
 
-	@SlashCommand('select-menu', 'Creates select menu component.')
+	@SlashCommand({ name: 'select-menu', description: 'Creates select menu component.' })
 	public async createSelectMenu(@Context() [interaction]: SlashCommandContext) {
 		return interaction.reply({
 			content: `Select Menu`,

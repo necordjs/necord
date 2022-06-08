@@ -13,8 +13,5 @@ export const AUTOCOMPLETE_METADATA = 'necord:autocomplete_meta';
 export const OPTIONS_METADATA = 'necord:options_meta';
 export const GUILDS_METADATA = 'necord:guilds_meta';
 
-export const MEMBER_PERMISSIONS_METADATA = 'necord:member_permissions_meta';
-export const DM_PERMISSIONS_METADATA = 'necord:dm_permissions_meta';
-
 export const SLASH_COMMANDS = 'necord:slash_commands_provider';
 export const CONTEXT_MENUS = 'necord:context_menus_provider';

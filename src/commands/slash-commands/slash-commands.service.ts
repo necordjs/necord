@@ -5,9 +5,13 @@ import {
 	SlashCommandSubGroupDiscovery
 } from './slash-command.discovery';
 import { Client } from 'discord.js';
-import { SLASH_COMMAND_METADATA, SLASH_COMMANDS, SLASH_GROUP_METADATA } from '../necord.constants';
-import { TreeService } from '../tree.service';
-import { NecordExplorerService } from '../necord-explorer.service';
+import {
+	SLASH_COMMAND_METADATA,
+	SLASH_COMMANDS,
+	SLASH_GROUP_METADATA
+} from '../../necord.constants';
+import { TreeService } from '../../tree.service';
+import { NecordExplorerService } from '../../necord-explorer.service';
 
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {

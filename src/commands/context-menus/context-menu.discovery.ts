@@ -1,33 +1,21 @@
 import {
 	ApplicationCommandType,
 	ContextMenuCommandInteraction,
-	PermissionResolvable,
 	PermissionsBitField,
 	Snowflake
 } from 'discord.js';
 import { mix } from 'ts-mixer';
+import { GUILDS_METADATA } from '../../necord.constants';
 import {
-	DM_PERMISSIONS_METADATA,
-	GUILDS_METADATA,
-	MEMBER_PERMISSIONS_METADATA
-} from '../necord.constants';
-import { CommandDiscovery, MethodDiscoveryMixin } from '../discovery';
-import {
-	LocalizationMap,
-	RESTPostAPIContextMenuApplicationCommandsJSONBody
-} from 'discord-api-types/v10';
+	BaseApplicationCommandMeta,
+	CommandDiscovery,
+	MethodDiscoveryMixin
+} from '../../discovery';
+import { RESTPostAPIContextMenuApplicationCommandsJSONBody } from 'discord-api-types/v10';
 
-export type ContextMenuMeta = {
+export interface ContextMenuMeta extends BaseApplicationCommandMeta {
 	type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
-	name: string;
-	name_localizations?: LocalizationMap;
-	dm_permission?: boolean;
-	default_member_permissions?: PermissionResolvable;
-	/**
-	 * @deprecated Use `dm_permission` and/or `default_member_permissions` instead
-	 */
-	default_permission?: boolean;
-};
+}
 
 export interface ContextMenuDiscovery extends MethodDiscoveryMixin<ContextMenuMeta> {}
 
@@ -39,20 +27,6 @@ export class ContextMenuDiscovery extends CommandDiscovery {
 
 	public getName() {
 		return this.meta.name;
-	}
-
-	public getDmPermissions(): boolean {
-		return this.reflector.getAllAndOverride(DM_PERMISSIONS_METADATA, [
-			this.getHandler(),
-			this.getClass()
-		]);
-	}
-
-	public getMemberPermissions(): PermissionsBitField {
-		return this.reflector.getAllAndOverride(MEMBER_PERMISSIONS_METADATA, [
-			this.getHandler(),
-			this.getClass()
-		]);
 	}
 
 	public override getGuilds(): Set<Snowflake> {

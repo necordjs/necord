@@ -19,12 +19,16 @@ import { NecordContextCreator } from './context';
 import { TextCommandsService } from './text-commands';
 import { ModalsService } from './modals';
 import { MessageComponentsService } from './message-components';
-import { ContextMenusProvider, ContextMenusService } from './context-menus';
 import { NecordClientProvider } from './necord-client.provider';
 import { ListenersService } from './listeners';
-import { SlashCommandsProvider, SlashCommandsService } from './slash-commands';
-import { CommandsService } from './commands.service';
 import { NecordExplorerService } from './necord-explorer.service';
+import {
+	CommandsService,
+	ContextMenusProvider,
+	ContextMenusService,
+	SlashCommandsProvider,
+	SlashCommandsService
+} from './commands';
 
 @Global()
 @Module({
