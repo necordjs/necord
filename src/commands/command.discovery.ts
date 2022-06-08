@@ -7,6 +7,10 @@ export interface BaseApplicationCommandMeta {
 	name_localizations?: LocalizationMap;
 	dm_permission?: boolean;
 	default_member_permissions?: PermissionResolvable;
+
+	// The functionality not released yet https://github.com/discord/discord-api-docs/pull/4965
+	// nsfw?: boolean;
+
 	/**
 	 * @deprecated Use `dm_permission` and/or `default_member_permissions` instead
 	 */
