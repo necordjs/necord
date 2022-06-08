@@ -26,7 +26,7 @@ export interface SlashCommandMeta extends BaseApplicationCommandMeta {
 		| ApplicationCommandOptionType.SubcommandGroup
 		| ApplicationCommandOptionType.Subcommand;
 	description: string;
-	descriptionLocalizations?: LocalizationMap;
+	description_localizations?: LocalizationMap;
 }
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
