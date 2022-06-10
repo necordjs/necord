@@ -20,6 +20,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 			SLASH_COMMAND_METADATA,
 			command => this.slashCommands.set(command.getName(), command)
 		);
+		// TODO: Slash command group
 	}
 
 	public onApplicationBootstrap() {

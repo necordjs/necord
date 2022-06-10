@@ -1,8 +1,7 @@
-import { Injectable, Type } from '@nestjs/common';
-import { NecordBaseDiscovery } from './context';
+import { Injectable } from '@nestjs/common';
+import { NecordBaseDiscovery, NecordContextType, NecordParamsFactory } from './context';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { NecordContextType, NecordParamsFactory } from './context';
 import { ExternalContextCreator } from '@nestjs/core/helpers/external-context-creator';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
@@ -27,16 +26,17 @@ export class NecordExplorerService extends Reflector {
 		super();
 	}
 
+	// TODO: Remove fn parameter
 	public exploreProviders<T, U extends NecordBaseDiscovery>(
 		metadataKey: string,
-		clazz: Type<U>,
 		fn: (discovery: U) => void
 	) {
 		return this.flatMap(wrapper => this.filterProvider(wrapper, metadataKey))
 			.filter(Boolean)
-			.forEach(provider => fn(new clazz(provider.meta, provider.discovery)));
+			.forEach(provider => fn(provider));
 	}
 
+	// TODO: Remove fn parameter
 	public exploreMethods<T extends NecordBaseDiscovery>(
 		metadataKey: string,
 		fn: (discovery: T) => void
@@ -50,8 +50,19 @@ export class NecordExplorerService extends Reflector {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	private filterProvider<T = any>(wrapper: InstanceWrapper, metadataKey: string): T | undefined {
-		return this.get(metadataKey, wrapper.instance.constructor);
+	private filterProvider<T = any>(
+		{ instance }: InstanceWrapper,
+		metadataKey: string
+	): T | undefined {
+		const item = this.get(metadataKey, instance.constructor);
+
+		if (!item) return;
+
+		item.setDiscoveryMeta({
+			class: instance.class
+		});
+
+		return item;
 	}
 
 	private filterProperties({ instance }: InstanceWrapper, metadataKey: string) {

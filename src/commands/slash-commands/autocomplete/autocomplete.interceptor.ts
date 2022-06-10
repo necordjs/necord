@@ -5,6 +5,7 @@ import { ModuleRef, Reflector } from '@nestjs/core';
 import { AUTOCOMPLETE_METADATA } from '../../../necord.constants';
 import { AutocompleteMeta } from './autocomplete.decorator';
 
+// TODO: Make Service instead Interceptor
 @Injectable()
 export class AutocompleteInterceptor implements NestInterceptor {
 	public constructor(
