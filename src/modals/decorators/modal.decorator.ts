@@ -1,6 +1,6 @@
 import { SetMetadata } from '@nestjs/common';
-import { ModalMeta } from '../modal.discovery';
+import { ModalDiscovery } from '../modal.discovery';
 import { MODAL_METADATA } from '../../necord.constants';
 
 export const Modal = (customId: string): MethodDecorator =>
-	SetMetadata<string, ModalMeta>(MODAL_METADATA, { customId });
+	SetMetadata<string, ModalDiscovery>(MODAL_METADATA, new ModalDiscovery({ customId }));

@@ -1,15 +1,11 @@
-import { mix } from 'ts-mixer';
-import { BaseDiscovery, MethodDiscoveryMixin } from '../discovery';
+import { NecordBaseDiscovery } from '../context';
 
 export interface ListenerMeta {
 	type: 'once' | 'on';
 	event: string | symbol | number;
 }
 
-export interface ListenerDiscovery extends MethodDiscoveryMixin<ListenerMeta> {}
-
-@mix(MethodDiscoveryMixin)
-export class ListenerDiscovery extends BaseDiscovery {
+export class ListenerDiscovery extends NecordBaseDiscovery<ListenerMeta> {
 	public getListenerType() {
 		return this.meta.type;
 	}

@@ -4,23 +4,15 @@ import {
 	PermissionsBitField,
 	Snowflake
 } from 'discord.js';
-import { mix } from 'ts-mixer';
 import { GUILDS_METADATA } from '../../necord.constants';
-import {
-	BaseApplicationCommandMeta,
-	CommandDiscovery,
-	MethodDiscoveryMixin
-} from '../../discovery';
 import { RESTPostAPIContextMenuApplicationCommandsJSONBody } from 'discord-api-types/v10';
+import { BaseApplicationCommandMeta, CommandDiscovery } from '../command.discovery';
 
 export interface ContextMenuMeta extends BaseApplicationCommandMeta {
 	type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
 }
 
-export interface ContextMenuDiscovery extends MethodDiscoveryMixin<ContextMenuMeta> {}
-
-@mix(MethodDiscoveryMixin)
-export class ContextMenuDiscovery extends CommandDiscovery {
+export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	public getContextType() {
 		return this.meta.type;
 	}
@@ -40,7 +32,7 @@ export class ContextMenuDiscovery extends CommandDiscovery {
 	}
 
 	public execute(interaction: ContextMenuCommandInteraction): any {
-		return this._execute(
+		return super.execute(
 			[interaction]
 			// ApplicationCommandType.User === this.getContextType()
 			// 	? {

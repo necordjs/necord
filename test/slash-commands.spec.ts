@@ -1,11 +1,12 @@
 import { createApplication } from './utils.spec';
-import { Ctx, Opts, SlashCommand, SlashGroup } from '../src';
+import { createCommandGroup, Ctx, Opts, SlashCommand } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
-@SlashGroup({ name: 'utils', description: 'Test group' })
+const UtilsCommands = createCommandGroup({ name: 'utils', description: 'Test group' });
+
+@UtilsCommands()
 export class SlashCommandsSpec {
-	@SlashGroup({ name: 'string', description: 'Test Sub Group' })
 	@SlashCommand({ name: 'length', description: 'Get length of your text' })
 	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
 		return interaction.reply({

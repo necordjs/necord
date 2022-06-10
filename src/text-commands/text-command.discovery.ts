@@ -1,15 +1,11 @@
-import { mix } from 'ts-mixer';
-import { BaseDiscovery, MethodDiscoveryMixin } from '../discovery';
+import { NecordBaseDiscovery } from '../context';
 
 export interface TextCommandMeta {
 	name: string;
 	description: string;
 }
 
-export interface TextCommandDiscovery extends MethodDiscoveryMixin<TextCommandMeta> {}
-
-@mix(MethodDiscoveryMixin)
-export class TextCommandDiscovery extends BaseDiscovery {
+export class TextCommandDiscovery extends NecordBaseDiscovery<TextCommandMeta> {
 	public getName() {
 		return this.meta.name;
 	}

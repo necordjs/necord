@@ -17,9 +17,8 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 	) {}
 
 	public onModuleInit() {
-		return this.explorerService.explore(
+		return this.explorerService.exploreMethods<TextCommandDiscovery>(
 			TEXT_COMMAND_METADATA,
-			TextCommandDiscovery,
 			textCommand => this.textCommands.set(textCommand.getName(), textCommand)
 		);
 	}

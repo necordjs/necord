@@ -14,10 +14,12 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 	) {}
 
 	public onModuleInit() {
-		return this.explorerService.explore(LISTENERS_METADATA, ListenerDiscovery, listener =>
-			this.client[listener.getListenerType()](listener.getEvent(), (...args) =>
-				listener.execute(args)
-			)
+		return this.explorerService.exploreMethods<ListenerDiscovery>(
+			LISTENERS_METADATA,
+			listener =>
+				this.client[listener.getListenerType()](listener.getEvent(), (...args) =>
+					listener.execute(args)
+				)
 		);
 	}
 

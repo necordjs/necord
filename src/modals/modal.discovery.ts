@@ -1,21 +1,17 @@
-import { mix } from 'ts-mixer';
-import { BaseDiscovery, MethodDiscoveryMixin } from '../discovery';
+import { NecordBaseDiscovery } from '../context';
 import { ModalSubmitInteraction } from 'discord.js';
 
 export interface ModalMeta {
 	customId: string;
 }
 
-export interface ModalDiscovery extends MethodDiscoveryMixin<ModalMeta> {}
-
-@mix(MethodDiscoveryMixin)
-export class ModalDiscovery extends BaseDiscovery {
+export class ModalDiscovery extends NecordBaseDiscovery<ModalMeta> {
 	public getCustomId() {
 		return this.meta.customId;
 	}
 
 	public execute(interaction: ModalSubmitInteraction) {
-		return this._execute([interaction]);
+		return super.execute([interaction]);
 	}
 
 	public isModal(): this is ModalDiscovery {

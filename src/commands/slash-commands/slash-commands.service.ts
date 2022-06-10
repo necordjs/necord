@@ -1,64 +1,24 @@
-import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import {
-	SlashCommandDiscovery,
-	SlashCommandGroupDiscovery,
-	SlashCommandSubGroupDiscovery
-} from './slash-command.discovery';
+import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { SlashCommandDiscovery } from './slash-command.discovery';
 import { Client } from 'discord.js';
-import {
-	SLASH_COMMAND_METADATA,
-	SLASH_COMMANDS,
-	SLASH_GROUP_METADATA
-} from '../../necord.constants';
-import { TreeService } from '../../tree.service';
+import { SLASH_COMMAND_METADATA } from '../../necord.constants';
 import { NecordExplorerService } from '../../necord-explorer.service';
+import { CommandDiscovery } from '../command.discovery';
 
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
+	private readonly slashCommands = new Map<string, SlashCommandDiscovery>();
+
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService,
-		@Inject(SLASH_COMMANDS)
-		private readonly slashCommands: TreeService<SlashCommandDiscovery>
+		private readonly explorerService: NecordExplorerService
 	) {}
 
 	public async onModuleInit() {
-		return this.explorerService.explore(
+		// Normal Commands
+		this.explorerService.exploreMethods<SlashCommandDiscovery>(
 			SLASH_COMMAND_METADATA,
-			SlashCommandDiscovery,
-			command => {
-				const [groupMeta, subGroupMeta] = this.explorerService.getAll(
-					SLASH_GROUP_METADATA,
-					[command.getClass(), command.getHandler()]
-				);
-
-				const commandPath = [groupMeta, subGroupMeta, command.meta]
-					.map(x => x?.name)
-					.filter(Boolean)
-					.map(c => c.toLowerCase());
-
-				this.slashCommands.add(commandPath, command);
-
-				if (!groupMeta) return;
-
-				this.slashCommands.add(
-					commandPath.slice(0, 1),
-					new SlashCommandGroupDiscovery({
-						discoveredClass: command.discoveredMethod.parentClass,
-						meta: groupMeta
-					})
-				);
-
-				if (!subGroupMeta) return;
-
-				this.slashCommands.add(
-					commandPath.slice(0, 2),
-					new SlashCommandSubGroupDiscovery({
-						discoveredMethod: command.discoveredMethod,
-						meta: subGroupMeta
-					})
-				);
-			}
+			command => this.slashCommands.set(command.getName(), command)
 		);
 	}
 
@@ -70,9 +30,15 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 				i.commandName,
 				i.options.getSubcommandGroup(false),
 				i.options.getSubcommand(false)
-			].filter(Boolean);
+			]
+				.filter(Boolean)
+				.join('');
 
-			return this.slashCommands.find(name)?.execute(i);
+			return this.slashCommands.get(name)?.execute(i);
 		});
+	}
+
+	public getCommands(): CommandDiscovery[] {
+		return [...this.slashCommands.values()];
 	}
 }

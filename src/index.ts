@@ -1,8 +1,5 @@
-export * from './context';
-export * from './decorators';
-export * from './discovery';
-
 export * from './commands';
+export * from './context';
 export * from './listeners';
 export * from './message-components';
 export * from './modals';

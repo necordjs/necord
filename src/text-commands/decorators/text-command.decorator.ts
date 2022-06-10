@@ -1,6 +1,9 @@
-import { TextCommandMeta } from '../text-command.discovery';
-import { SetMetadata } from '@nestjs/common';
+import { TextCommandDiscovery, TextCommandMeta } from '../text-command.discovery';
 import { TEXT_COMMAND_METADATA } from '../../necord.constants';
+import { SetMetadata } from '@nestjs/common';
 
 export const TextCommand = (options: TextCommandMeta): MethodDecorator =>
-	SetMetadata<string, TextCommandMeta>(TEXT_COMMAND_METADATA, options);
+	SetMetadata<string, TextCommandDiscovery>(
+		TEXT_COMMAND_METADATA,
+		new TextCommandDiscovery(options)
+	);

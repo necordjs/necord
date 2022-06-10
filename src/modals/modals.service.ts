@@ -14,7 +14,7 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	) {}
 
 	public onModuleInit() {
-		return this.explorerService.explore(MODAL_METADATA, ModalDiscovery, discovery =>
+		return this.explorerService.exploreMethods<ModalDiscovery>(MODAL_METADATA, discovery =>
 			this.modals.set(discovery.getCustomId(), discovery)
 		);
 	}

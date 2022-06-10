@@ -1,7 +1,5 @@
-import { mix } from 'ts-mixer';
 import {
 	ApplicationCommandOptionType,
-	ApplicationCommandSubCommandData,
 	ApplicationCommandType,
 	AutocompleteInteraction,
 	CommandInteraction,
@@ -10,15 +8,9 @@ import {
 	Snowflake
 } from 'discord.js';
 import { GUILDS_METADATA, OPTIONS_METADATA } from '../../necord.constants';
-import {
-	BaseApplicationCommandMeta,
-	BaseDiscovery,
-	ClassDiscoveryMixin,
-	CommandDiscovery,
-	MethodDiscoveryMixin
-} from '../../discovery';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
 import { LocalizationMap } from 'discord-api-types/v10';
+import { BaseApplicationCommandMeta, CommandDiscovery } from '../command.discovery';
 
 export interface SlashCommandMeta extends BaseApplicationCommandMeta {
 	type:
@@ -33,10 +25,9 @@ export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
 	resolver?: keyof CommandInteractionOptionResolver;
 }
 
-export interface SlashCommandDiscovery extends MethodDiscoveryMixin<SlashCommandMeta> {}
+export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
+	private readonly subcommands = new Map<string, SlashCommandDiscovery>();
 
-@mix(MethodDiscoveryMixin)
-export class SlashCommandDiscovery extends CommandDiscovery {
 	public getName() {
 		return this.meta.name;
 	}
@@ -56,11 +47,15 @@ export class SlashCommandDiscovery extends CommandDiscovery {
 	}
 
 	public getOptions(): OptionMeta[] {
+		if (this.subcommands.size >= 1) {
+			return [...this.subcommands.values()].map(subcommand => subcommand.toJSON());
+		}
+
 		return Object.values(this.getRawOptions());
 	}
 
 	public execute(interaction: CommandInteraction | AutocompleteInteraction): any {
-		return this._execute([interaction]);
+		return super.execute([interaction]);
 	}
 
 	public isSlashCommand(): this is SlashCommandDiscovery {
@@ -75,37 +70,5 @@ export class SlashCommandDiscovery extends CommandDiscovery {
 			).bitfield.toString(),
 			options: this.getOptions()
 		};
-	}
-}
-
-export interface SlashCommandGroupDiscovery
-	extends ClassDiscoveryMixin<ApplicationCommandSubCommandData> {}
-
-@mix(ClassDiscoveryMixin)
-export class SlashCommandGroupDiscovery extends CommandDiscovery {
-	public override getGuilds(): Set<Snowflake> {
-		return new Set(this.reflector.get(GUILDS_METADATA, this.getClass()));
-	}
-
-	public isSlashCommand(): this is SlashCommandDiscovery {
-		return true;
-	}
-
-	public override toJSON(): Record<string, any> {
-		return this.meta;
-	}
-}
-
-export interface SlashCommandSubGroupDiscovery
-	extends MethodDiscoveryMixin<ApplicationCommandSubCommandData> {}
-
-@mix(MethodDiscoveryMixin)
-export class SlashCommandSubGroupDiscovery extends BaseDiscovery {
-	public isSlashCommand(): this is SlashCommandDiscovery {
-		return true;
-	}
-
-	public override toJSON(): Record<string, any> {
-		return this.meta;
 	}
 }

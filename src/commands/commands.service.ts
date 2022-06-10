@@ -1,10 +1,10 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { CONTEXT_MENUS, SLASH_COMMANDS } from '../necord.constants';
-import { Client } from 'discord.js';
-import { CommandDiscovery } from '../discovery';
-import { Node, TreeService } from '../tree.service';
 import { NECORD_MODULE_OPTIONS } from '../necord.constants';
+import { Client } from 'discord.js';
 import { NecordModuleOptions } from '../necord-options.interface';
+import { ContextMenusService } from './context-menus';
+import { CommandDiscovery } from './command.discovery';
+import { SlashCommandsService } from './slash-commands';
 
 @Injectable()
 export class CommandsService implements OnModuleInit {
@@ -14,10 +14,8 @@ export class CommandsService implements OnModuleInit {
 		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
-		@Inject(CONTEXT_MENUS)
-		private readonly contextMenus: TreeService<CommandDiscovery>,
-		@Inject(SLASH_COMMANDS)
-		private readonly slashCommands: TreeService<CommandDiscovery>
+		private readonly contextMenusService: ContextMenusService,
+		private readonly slashCommandsService: SlashCommandsService
 	) {}
 
 	public onModuleInit() {
@@ -27,23 +25,22 @@ export class CommandsService implements OnModuleInit {
 			}
 
 			const clientCommands = client.application.commands;
-			const nodes = [this.contextMenus.getRoot(), this.slashCommands.getRoot()].flatMap(
-				root => root.children
-			);
+			const commands = [
+				...this.contextMenusService.getCommands(),
+				...this.slashCommandsService.getCommands()
+			];
 
-			const commandsByGuildMap = new Map<string, Array<Node<CommandDiscovery>>>([
-				[undefined, []]
-			]);
+			const commandsByGuildMap = new Map<string, Array<CommandDiscovery>>([[undefined, []]]);
 
-			for (const node of nodes) {
-				const commandGuilds = node.value.getGuilds();
+			for (const command of commands) {
+				const commandGuilds = command.getGuilds();
 				const defaultGuild = Array.isArray(this.options.development)
 					? this.options.development
 					: [undefined];
 
 				for (const guild of commandGuilds.size ? commandGuilds : defaultGuild) {
 					const visitedCommands = commandsByGuildMap.get(guild) ?? [];
-					commandsByGuildMap.set(guild, visitedCommands.concat(node));
+					commandsByGuildMap.set(guild, visitedCommands.concat(command));
 				}
 			}
 

@@ -18,16 +18,13 @@ export function createOptionDecorator<T extends APIApplicationCommandOptionBase<
 				configurable: true
 			});
 
-			Reflect.defineMetadata(
-				OPTIONS_METADATA,
-				{
-					...data,
-					type,
-					resolver
-				},
-				target,
-				propertyKey
-			);
+			const meta: OptionMeta = {
+				...data,
+				type,
+				resolver
+			};
+
+			Reflect.defineMetadata(OPTIONS_METADATA, meta, target, propertyKey);
 		};
 	};
 }

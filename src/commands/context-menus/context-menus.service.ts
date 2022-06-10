@@ -1,29 +1,27 @@
-import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { ContextMenuDiscovery } from './context-menu.discovery';
 import { Client } from 'discord.js';
-import { CONTEXT_MENU_METADATA, CONTEXT_MENUS } from '../../necord.constants';
-import { TreeService } from '../../tree.service';
+import { CONTEXT_MENU_METADATA } from '../../necord.constants';
 import { NecordExplorerService } from '../../necord-explorer.service';
+import { CommandDiscovery } from '../command.discovery';
 
 @Injectable()
 export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap {
+	private readonly contextMenus = new Map<string, ContextMenuDiscovery>();
+
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService,
-		@Inject(CONTEXT_MENUS)
-		private readonly contextMenus: TreeService<ContextMenuDiscovery>
+		private readonly explorerService: NecordExplorerService
 	) {}
 
 	public onModuleInit() {
-		return this.explorerService.explore(
+		return this.explorerService.exploreMethods<ContextMenuDiscovery>(
 			CONTEXT_MENU_METADATA,
-			ContextMenuDiscovery,
-			contextMenu => {
-				this.contextMenus.add(
-					[contextMenu.getContextType().toString().concat(':', contextMenu.getName())],
+			contextMenu =>
+				this.contextMenus.set(
+					contextMenu.getContextType().toString().concat(':', contextMenu.getName()),
 					contextMenu
-				);
-			}
+				)
 		);
 	}
 
@@ -32,8 +30,12 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 			if (!interaction.isContextMenuCommand()) return;
 
 			return this.contextMenus
-				.find([interaction.commandType.toString().concat(':', interaction.commandName)])
+				.get(interaction.commandType.toString().concat(':', interaction.commandName))
 				?.execute(interaction);
 		});
+	}
+
+	public getCommands(): CommandDiscovery[] {
+		return [...this.contextMenus.values()];
 	}
 }

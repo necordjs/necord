@@ -14,27 +14,19 @@ import {
 	NecordOptionsFactory
 } from './necord-options.interface';
 import { NECORD_MODULE_OPTIONS } from './necord.constants';
-import { DiscoveryModule } from '@golevelup/nestjs-discovery';
-import { NecordContextCreator } from './context';
 import { TextCommandsService } from './text-commands';
 import { ModalsService } from './modals';
 import { MessageComponentsService } from './message-components';
 import { NecordClientProvider } from './necord-client.provider';
 import { ListenersService } from './listeners';
 import { NecordExplorerService } from './necord-explorer.service';
-import {
-	CommandsService,
-	ContextMenusProvider,
-	ContextMenusService,
-	SlashCommandsProvider,
-	SlashCommandsService
-} from './commands';
+import { CommandsService, ContextMenusService, SlashCommandsService } from './commands';
+import { DiscoveryModule } from '@nestjs/core';
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
 	providers: [
-		NecordContextCreator,
 		NecordClientProvider,
 		CommandsService,
 		NecordExplorerService,
@@ -42,10 +34,8 @@ import {
 		ModalsService,
 		MessageComponentsService,
 		ContextMenusService,
-		ContextMenusProvider,
 		ListenersService,
-		SlashCommandsService,
-		SlashCommandsProvider
+		SlashCommandsService
 	],
 	exports: [NecordClientProvider]
 })

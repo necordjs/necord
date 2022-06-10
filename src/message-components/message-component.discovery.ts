@@ -1,16 +1,12 @@
 import { ComponentType, MessageComponentInteraction, MessageComponentType } from 'discord.js';
-import { BaseDiscovery, MethodDiscoveryMixin } from '../discovery';
-import { mix } from 'ts-mixer';
+import { NecordBaseDiscovery } from '../context';
 
 export interface MessageComponentMeta {
 	type: Exclude<MessageComponentType, ComponentType.ActionRow>;
 	customId: string;
 }
 
-export interface MessageComponentDiscovery extends MethodDiscoveryMixin<MessageComponentMeta> {}
-
-@mix(MethodDiscoveryMixin)
-export class MessageComponentDiscovery extends BaseDiscovery {
+export class MessageComponentDiscovery extends NecordBaseDiscovery<MessageComponentMeta> {
 	public getComponentType() {
 		return this.meta.type;
 	}
@@ -20,7 +16,7 @@ export class MessageComponentDiscovery extends BaseDiscovery {
 	}
 
 	public execute(interaction: MessageComponentInteraction): any {
-		return this._execute([interaction]);
+		return super.execute([interaction]);
 	}
 
 	public isMessageComponent(): this is MessageComponentDiscovery {
