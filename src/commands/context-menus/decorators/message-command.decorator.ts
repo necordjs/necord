@@ -1,5 +1,5 @@
 import { ContextMenuMeta } from '../context-menu.discovery';
-import { ApplicationCommandType } from 'discord-api-types/v10';
+import { ApplicationCommandType } from 'discord.js';
 import { ContextMenu } from './context-menu.decorator';
 
 export const MessageCommand = (options: Omit<ContextMenuMeta, 'type'>) =>

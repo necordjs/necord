@@ -7,7 +7,7 @@ export interface MessageComponentMeta {
 }
 
 export class MessageComponentDiscovery extends NecordBaseDiscovery<MessageComponentMeta> {
-	public getComponentType() {
+	public getType() {
 		return this.meta.type;
 	}
 

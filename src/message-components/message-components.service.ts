@@ -14,14 +14,14 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 	) {}
 
 	public onModuleInit() {
-		return this.explorerService.exploreMethods<MessageComponentDiscovery>(
-			MESSAGE_COMPONENT_METADATA,
-			component =>
+		return this.explorerService
+			.exploreMethods<MessageComponentDiscovery>(MESSAGE_COMPONENT_METADATA)
+			.forEach(component =>
 				this.componentsMap.set(
-					[component.getComponentType(), component.getCustomId()].join(':'),
+					[component.getType(), component.getCustomId()].join(':'),
 					component
 				)
-		);
+			);
 	}
 
 	public onApplicationBootstrap() {

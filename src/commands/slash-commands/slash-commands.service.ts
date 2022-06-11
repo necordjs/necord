@@ -16,11 +16,10 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public async onModuleInit() {
 		// Normal Commands
-		this.explorerService.exploreMethods<SlashCommandDiscovery>(
-			SLASH_COMMAND_METADATA,
-			command => this.slashCommands.set(command.getName(), command)
-		);
-		// TODO: Slash command group
+		return this.explorerService
+			.exploreMethods<SlashCommandDiscovery>(SLASH_COMMAND_METADATA)
+			.forEach(command => this.slashCommands.set(command.getName(), command));
+		// TODO: Subcommand group
 	}
 
 	public onApplicationBootstrap() {

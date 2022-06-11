@@ -5,13 +5,7 @@ import { ClientEvents } from 'discord.js';
 import { NecordBaseDiscovery } from '../context';
 import { ContextOf } from './necord-context.interface';
 
-export interface INecordArgumentsHost extends ArgumentsHost {
-	getContext<T extends keyof ClientEvents>(): ContextOf<T>;
-
-	getDiscovery(): NecordBaseDiscovery;
-}
-
-export class NecordArgumentsHost extends ExecutionContextHost implements INecordArgumentsHost {
+export class NecordArgumentsHost extends ExecutionContextHost {
 	public static create(context: ArgumentsHost): NecordArgumentsHost {
 		const type = context.getType();
 		const necContext = new NecordArgumentsHost(context.getArgs());

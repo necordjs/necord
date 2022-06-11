@@ -26,24 +26,14 @@ export class NecordExplorerService extends Reflector {
 		super();
 	}
 
-	// TODO: Remove fn parameter
-	public exploreProviders<T, U extends NecordBaseDiscovery>(
-		metadataKey: string,
-		fn: (discovery: U) => void
-	) {
-		return this.flatMap(wrapper => this.filterProvider(wrapper, metadataKey))
-			.filter(Boolean)
-			.forEach(provider => fn(provider));
+	public exploreProviders<T, U extends NecordBaseDiscovery>(metadataKey: string) {
+		return this.flatMap(wrapper => this.filterProvider(wrapper, metadataKey)).filter(Boolean);
 	}
 
-	// TODO: Remove fn parameter
-	public exploreMethods<T extends NecordBaseDiscovery>(
-		metadataKey: string,
-		fn: (discovery: T) => void
-	) {
+	public exploreMethods<T extends NecordBaseDiscovery>(metadataKey: string) {
 		return this.flatMap<T>(wrapper =>
 			this.filterProperties(wrapper, metadataKey).filter(Boolean)
-		).forEach(fn);
+		);
 	}
 
 	private flatMap<T = any>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
