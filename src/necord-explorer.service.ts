@@ -26,24 +26,19 @@ export class NecordExplorerService extends Reflector {
 		super();
 	}
 
-	public exploreProviders<T, U extends NecordBaseDiscovery>(metadataKey: string) {
-		return this.flatMap(wrapper => this.filterProvider(wrapper, metadataKey)).filter(Boolean);
+	public exploreProviders<T extends NecordBaseDiscovery>(metadataKey: string) {
+		return this.flatMap<T>(wrapper => this.filterProvider(wrapper, metadataKey));
 	}
 
 	public exploreMethods<T extends NecordBaseDiscovery>(metadataKey: string) {
-		return this.flatMap<T>(wrapper =>
-			this.filterProperties(wrapper, metadataKey).filter(Boolean)
-		);
+		return this.flatMap<T>(wrapper => this.filterProperties<T>(wrapper, metadataKey));
 	}
 
-	private flatMap<T = any>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
+	private flatMap<T>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	private filterProvider<T = any>(
-		{ instance }: InstanceWrapper,
-		metadataKey: string
-	): T | undefined {
+	private filterProvider<T>({ instance }: InstanceWrapper, metadataKey: string): T | undefined {
 		const item = this.get(metadataKey, instance.constructor);
 
 		if (!item) return;
@@ -55,7 +50,7 @@ export class NecordExplorerService extends Reflector {
 		return item;
 	}
 
-	private filterProperties({ instance }: InstanceWrapper, metadataKey: string) {
+	private filterProperties<T>({ instance }: InstanceWrapper, metadataKey: string) {
 		const prototype = Object.getPrototypeOf(instance);
 
 		return this.metadataScanner.scanFromPrototype(instance, prototype, methodName => {
