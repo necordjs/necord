@@ -1,6 +1,6 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { ListenerDiscovery } from './listener.discovery';
-import { Client, GuildChannel, Role, TextChannel } from 'discord.js';
+import { Client, GuildChannel, Role } from 'discord.js';
 import { LISTENERS_METADATA } from '../necord.constants';
 import { NecordExplorerService } from '../necord-explorer.service';
 import { NecordEvents } from './listener.interface';
@@ -55,15 +55,6 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 				newChannel,
 				(oldChannel as GuildChannel).permissionOverwrites,
 				(newChannel as GuildChannel).permissionOverwrites
-			);
-		}
-
-		if (oldChannel.isText() && newChannel.isText() && oldChannel.topic !== newChannel.topic) {
-			this.emit(
-				'guildChannelTopicUpdate',
-				newChannel,
-				(oldChannel as TextChannel).topic,
-				(newChannel as TextChannel).topic
 			);
 		}
 	}

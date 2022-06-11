@@ -26,11 +26,6 @@ export interface NecordEvents extends ClientEvents {
 		oldPermissions: PermissionOverwriteManager,
 		newPermissions: PermissionOverwriteManager
 	];
-	guildChannelTopicUpdate: [
-		channel: DMChannel | NonThreadGuildBasedChannel,
-		oldTopic: string,
-		newTopic: string
-	];
 
 	// GuildMemberUpdate
 	guildMemberBoost: [member: GuildMember];
