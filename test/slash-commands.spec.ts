@@ -1,9 +1,9 @@
 import { createApplication } from './utils.spec';
-import { createCommandGroup, Ctx, Opts, SlashCommand } from '../src';
+import { createCommandGroupDecorator, Ctx, Opts, SlashCommand } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
-const UtilsCommands = createCommandGroup({ name: 'utils', description: 'Test group' });
+const UtilsCommands = createCommandGroupDecorator({ name: 'utils', description: 'Test group' });
 
 @UtilsCommands()
 export class SlashCommandsSpec {

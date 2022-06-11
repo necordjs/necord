@@ -13,7 +13,7 @@ const SubcommandGroup = (subOptions: Omit<SlashCommandMeta, 'type'>): ClassDecor
 		})
 	);
 
-export const createCommandGroup =
+export const createCommandGroupDecorator =
 	(rootOptions: Omit<SlashCommandMeta, 'type'>) =>
 	(subOptions?: Omit<SlashCommandMeta, 'type'>): ClassDecorator =>
 		applyDecorators(SlashCommand(rootOptions), SubcommandGroup(subOptions));
