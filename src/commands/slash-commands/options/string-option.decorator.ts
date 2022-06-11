@@ -1,5 +1,4 @@
-import { APIApplicationCommandStringOption } from 'discord-api-types/v10';
-import { ApplicationCommandOptionType } from 'discord.js';
+import { ApplicationCommandOptionType, APIApplicationCommandStringOption } from 'discord.js';
 import { createOptionDecorator } from './option.util';
 
 export const StringOption = createOptionDecorator<APIApplicationCommandStringOption>(
