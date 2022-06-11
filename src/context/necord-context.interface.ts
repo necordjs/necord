@@ -1,4 +1,5 @@
 import {
+	AutocompleteInteraction,
 	ButtonInteraction,
 	CommandInteraction,
 	Message,
@@ -8,6 +9,8 @@ import {
 	UserContextMenuCommandInteraction
 } from 'discord.js';
 import { NecordEvents } from '../listeners/listener.interface';
+
+export type AutocompleteContext = [AutocompleteInteraction];
 
 export type SlashCommandContext = [CommandInteraction];
 

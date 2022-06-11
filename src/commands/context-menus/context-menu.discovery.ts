@@ -1,16 +1,15 @@
 import {
-	ApplicationCommandType,
 	ContextMenuCommandInteraction,
+	MessageApplicationCommandData,
 	PermissionsBitField,
-	Snowflake
+	Snowflake,
+	UserApplicationCommandData
 } from 'discord.js';
 import { GUILDS_METADATA } from '../../necord.constants';
 import { RESTPostAPIContextMenuApplicationCommandsJSONBody } from 'discord-api-types/v10';
-import { BaseApplicationCommandMeta, CommandDiscovery } from '../command.discovery';
+import { CommandDiscovery } from '../command.discovery';
 
-export interface ContextMenuMeta extends BaseApplicationCommandMeta {
-	type: Exclude<ApplicationCommandType, ApplicationCommandType.ChatInput>;
-}
+export type ContextMenuMeta = MessageApplicationCommandData | UserApplicationCommandData;
 
 export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	public getContextType() {
@@ -44,14 +43,6 @@ export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	}
 
 	public override toJSON(): RESTPostAPIContextMenuApplicationCommandsJSONBody {
-		return {
-			type: this.meta.type,
-			name: this.meta.name,
-			name_localizations: this.meta.name_localizations,
-			dm_permission: this.meta.dm_permission,
-			default_member_permissions: new PermissionsBitField(
-				this.meta.default_member_permissions
-			).bitfield.toString()
-		};
+		return this.meta;
 	}
 }

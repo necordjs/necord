@@ -2,23 +2,21 @@ import {
 	ApplicationCommandOptionType,
 	ApplicationCommandType,
 	AutocompleteInteraction,
+	ChatInputApplicationCommandData,
 	CommandInteraction,
 	CommandInteractionOptionResolver,
-	PermissionsBitField,
 	Snowflake
 } from 'discord.js';
 import { GUILDS_METADATA, OPTIONS_METADATA } from '../../necord.constants';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
-import { LocalizationMap } from 'discord-api-types/v10';
-import { BaseApplicationCommandMeta, CommandDiscovery } from '../command.discovery';
+import { CommandDiscovery } from '../command.discovery';
 
-export interface SlashCommandMeta extends BaseApplicationCommandMeta {
-	type:
+// @ts-ignore
+export interface SlashCommandMeta extends ChatInputApplicationCommandData {
+	type?:
 		| ApplicationCommandType.ChatInput
 		| ApplicationCommandOptionType.SubcommandGroup
 		| ApplicationCommandOptionType.Subcommand;
-	description: string;
-	description_localizations?: LocalizationMap;
 }
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
@@ -46,7 +44,7 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
 	}
 
-	public getOptions(): OptionMeta[] {
+	public getOptions() {
 		if (this.subcommands.size >= 1) {
 			return [...this.subcommands.values()].map(subcommand => subcommand.toJSON());
 		}
@@ -65,9 +63,6 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 	public override toJSON() {
 		return {
 			...this.meta,
-			default_member_permissions: new PermissionsBitField(
-				this.meta.default_member_permissions
-			).bitfield.toString(),
 			options: this.getOptions()
 		};
 	}

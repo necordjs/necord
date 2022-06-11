@@ -1,6 +1,6 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
-import { Client } from 'discord.js';
+import { Client, InteractionType } from 'discord.js';
 import { SLASH_COMMAND_METADATA } from '../../necord.constants';
 import { NecordExplorerService } from '../../necord-explorer.service';
 import { CommandDiscovery } from '../command.discovery';
@@ -25,7 +25,11 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', i => {
-			if (!i.isChatInputCommand() && !i.isAutocomplete()) return;
+			if (
+				!i.isChatInputCommand() &&
+				i.type !== InteractionType.ApplicationCommandAutocomplete
+			)
+				return;
 
 			const name = [
 				i.commandName,

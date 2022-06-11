@@ -1,9 +1,10 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
 import { Observable, of } from 'rxjs';
-import { NecordExecutionContext, SlashCommandContext } from '../../../context';
+import { AutocompleteContext, NecordExecutionContext, SlashCommandContext } from '../../../context';
 import { ModuleRef, Reflector } from '@nestjs/core';
 import { AUTOCOMPLETE_METADATA } from '../../../necord.constants';
 import { AutocompleteMeta } from './autocomplete.decorator';
+import { InteractionType } from 'discord.js';
 
 // TODO: Make Service instead Interceptor
 @Injectable()
@@ -18,10 +19,14 @@ export class AutocompleteInterceptor implements NestInterceptor {
 		next: CallHandler<any>
 	): Promise<Observable<any>> {
 		const necordContext = NecordExecutionContext.create(context);
-		const [interaction] = necordContext.getContext<SlashCommandContext>();
+		const [interaction] = necordContext.getContext<AutocompleteContext>();
 		const discovery = necordContext.getDiscovery();
 
-		if (!interaction.isAutocomplete() || !discovery.isSlashCommand()) return next.handle();
+		if (
+			interaction.type !== InteractionType.ApplicationCommandAutocomplete ||
+			!discovery.isSlashCommand()
+		)
+			return next.handle();
 
 		const autocompletes = this.reflector
 			.getAllAndOverride<AutocompleteMeta>(AUTOCOMPLETE_METADATA, [discovery.getHandler()])

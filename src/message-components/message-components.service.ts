@@ -26,7 +26,7 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
-			if (!interaction.isMessageComponent()) return;
+			if (!interaction.isButton() && !interaction.isSelectMenu()) return;
 
 			return this.componentsMap
 				.get([interaction.componentType, interaction.customId].join(':'))
