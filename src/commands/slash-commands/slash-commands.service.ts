@@ -6,7 +6,7 @@ import {
 	SUBCOMMAND_GROUP_METADATA,
 	SUBCOMMAND_METADATA
 } from '../../necord.constants';
-import { NecordExplorerService } from '../../necord-explorer.service';
+import { ExplorerService } from '../../necord-explorer.service';
 import { CommandDiscovery } from '../command.discovery';
 import { Reflector } from '@nestjs/core';
 
@@ -16,39 +16,36 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService,
+		private readonly explorerService: ExplorerService<SlashCommandDiscovery>,
 		private readonly reflector: Reflector
 	) {}
 
 	public async onModuleInit() {
-		// Normal Commands
 		this.explorerService
-			.explore<SlashCommandDiscovery>(SLASH_COMMAND_METADATA)
+			.explore(SLASH_COMMAND_METADATA)
 			.forEach(command => this.slashCommands.set(command.getName(), command));
 
-		return this.explorerService
-			.explore<SlashCommandDiscovery>(SUBCOMMAND_METADATA)
-			.forEach(subcommand => {
-				const rootCommand = this.reflector.get<SlashCommandDiscovery>(
-					SLASH_COMMAND_METADATA,
-					subcommand.getClass()
-				);
-				const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
-					SUBCOMMAND_GROUP_METADATA,
-					subcommand.getClass()
-				);
+		return this.explorerService.explore(SUBCOMMAND_METADATA).forEach(subcommand => {
+			const rootCommand = this.reflector.get<SlashCommandDiscovery>(
+				SLASH_COMMAND_METADATA,
+				subcommand.getClass()
+			);
+			const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
+				SUBCOMMAND_GROUP_METADATA,
+				subcommand.getClass()
+			);
 
-				if (subCommandGroup) {
-					subCommandGroup.setCommand(subcommand);
-					rootCommand.setCommand(subCommandGroup);
-				} else {
-					rootCommand.setCommand(subcommand);
-				}
+			if (subCommandGroup) {
+				subCommandGroup.setCommand(subcommand);
+				rootCommand.setCommand(subCommandGroup);
+			} else {
+				rootCommand.setCommand(subcommand);
+			}
 
-				if (!this.slashCommands.has(rootCommand.getName())) {
-					this.slashCommands.set(rootCommand.getName(), rootCommand);
-				}
-			});
+			if (!this.slashCommands.has(rootCommand.getName())) {
+				this.slashCommands.set(rootCommand.getName(), rootCommand);
+			}
+		});
 	}
 
 	public onApplicationBootstrap() {

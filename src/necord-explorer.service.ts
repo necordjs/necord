@@ -8,7 +8,7 @@ import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 
 @Injectable()
-export class NecordExplorerService extends Reflector {
+export class ExplorerService<T extends NecordBaseDiscovery> extends Reflector {
 	private readonly necordParamsFactory = new NecordParamsFactory();
 
 	private readonly wrappers = this.discoveryService.getProviders().filter(wrapper => {
@@ -26,15 +26,15 @@ export class NecordExplorerService extends Reflector {
 		super();
 	}
 
-	public explore<T extends NecordBaseDiscovery>(metadataKey: string) {
-		return this.flatMap<T>(wrapper => this.filterProperties<T>(wrapper.instance, metadataKey));
+	public explore(metadataKey: string): T[] {
+		return this.flatMap(wrapper => this.filterProperties(wrapper, metadataKey));
 	}
 
-	private flatMap<T extends NecordBaseDiscovery>(callback: (wrapper: InstanceWrapper) => T[]) {
+	private flatMap(callback: (wrapper: InstanceWrapper) => T[]) {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	private filterProperties<T extends NecordBaseDiscovery>(instance: any, metadataKey: string) {
+	private filterProperties({ instance }: InstanceWrapper, metadataKey: string) {
 		const prototype = Object.getPrototypeOf(instance);
 
 		return this.metadataScanner.scanFromPrototype(instance, prototype, methodName => {
@@ -49,11 +49,7 @@ export class NecordExplorerService extends Reflector {
 		});
 	}
 
-	private createContextCallback<T extends Record<string, any>>(
-		instance: T,
-		prototype: any,
-		methodName: string
-	) {
+	private createContextCallback(instance: object, prototype: unknown, methodName: string) {
 		return this.externalContextCreator.create<Record<number, ParamMetadata>, NecordContextType>(
 			instance,
 			prototype[methodName],

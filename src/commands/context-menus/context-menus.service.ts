@@ -2,7 +2,7 @@ import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common
 import { ContextMenuDiscovery } from './context-menu.discovery';
 import { Client } from 'discord.js';
 import { CONTEXT_MENU_METADATA } from '../../necord.constants';
-import { NecordExplorerService } from '../../necord-explorer.service';
+import { ExplorerService } from '../../necord-explorer.service';
 import { CommandDiscovery } from '../command.discovery';
 
 @Injectable()
@@ -11,12 +11,12 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService
+		private readonly explorerService: ExplorerService<ContextMenuDiscovery>
 	) {}
 
 	public onModuleInit() {
 		return this.explorerService
-			.explore<ContextMenuDiscovery>(CONTEXT_MENU_METADATA)
+			.explore(CONTEXT_MENU_METADATA)
 			.forEach(contextMenu =>
 				this.contextMenus.set(
 					contextMenu.getContextType().toString().concat(':', contextMenu.getName()),

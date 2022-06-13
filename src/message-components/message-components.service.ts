@@ -1,6 +1,6 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
-import { NecordExplorerService } from '../necord-explorer.service';
+import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 
@@ -10,12 +10,12 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService
+		private readonly explorerService: ExplorerService<MessageComponentDiscovery>
 	) {}
 
 	public onModuleInit() {
 		return this.explorerService
-			.explore<MessageComponentDiscovery>(MESSAGE_COMPONENT_METADATA)
+			.explore(MESSAGE_COMPONENT_METADATA)
 			.forEach(component =>
 				this.componentsMap.set(
 					[component.getType(), component.getCustomId()].join(':'),

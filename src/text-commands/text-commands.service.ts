@@ -2,7 +2,7 @@ import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestj
 import { Client } from 'discord.js';
 import { TextCommandDiscovery } from './text-command.discovery';
 import { NECORD_MODULE_OPTIONS, TEXT_COMMAND_METADATA } from '../necord.constants';
-import { NecordExplorerService } from '../necord-explorer.service';
+import { ExplorerService } from '../necord-explorer.service';
 import { NecordModuleOptions } from '../necord-options.interface';
 
 @Injectable()
@@ -13,12 +13,12 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService
+		private readonly explorerService: ExplorerService<TextCommandDiscovery>
 	) {}
 
 	public onModuleInit() {
 		return this.explorerService
-			.explore<TextCommandDiscovery>(TEXT_COMMAND_METADATA)
+			.explore(TEXT_COMMAND_METADATA)
 			.forEach(textCommand => this.textCommands.set(textCommand.getName(), textCommand));
 	}
 

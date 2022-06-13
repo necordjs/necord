@@ -19,7 +19,7 @@ import { ModalsService } from './modals';
 import { MessageComponentsService } from './message-components';
 import { NecordClientProvider } from './necord-client.provider';
 import { ListenersService } from './listeners';
-import { NecordExplorerService } from './necord-explorer.service';
+import { ExplorerService } from './necord-explorer.service';
 import { CommandsService, ContextMenusService, SlashCommandsService } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
 
@@ -29,7 +29,7 @@ import { DiscoveryModule } from '@nestjs/core';
 	providers: [
 		NecordClientProvider,
 		CommandsService,
-		NecordExplorerService,
+		ExplorerService,
 		TextCommandsService,
 		ModalsService,
 		MessageComponentsService,

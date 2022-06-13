@@ -1,6 +1,6 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client, InteractionType } from 'discord.js';
-import { NecordExplorerService } from '../necord-explorer.service';
+import { ExplorerService } from '../necord-explorer.service';
 import { MODAL_METADATA } from '../necord.constants';
 import { ModalDiscovery } from './modal.discovery';
 
@@ -10,12 +10,12 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService
+		private readonly explorerService: ExplorerService<ModalDiscovery>
 	) {}
 
 	public onModuleInit() {
 		return this.explorerService
-			.explore<ModalDiscovery>(MODAL_METADATA)
+			.explore(MODAL_METADATA)
 			.forEach(modal => this.modals.set(modal.getCustomId(), modal));
 	}
 

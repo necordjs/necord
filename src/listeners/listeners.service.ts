@@ -2,7 +2,7 @@ import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common
 import { ListenerDiscovery } from './listener.discovery';
 import { Client, GuildChannel, Role } from 'discord.js';
 import { LISTENERS_METADATA } from '../necord.constants';
-import { NecordExplorerService } from '../necord-explorer.service';
+import { ExplorerService } from '../necord-explorer.service';
 import { NecordEvents } from './listener.interface';
 import { ContextOf } from '../context';
 
@@ -10,12 +10,12 @@ import { ContextOf } from '../context';
 export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService
+		private readonly explorerService: ExplorerService<ListenerDiscovery>
 	) {}
 
 	public onModuleInit() {
 		return this.explorerService
-			.explore<ListenerDiscovery>(LISTENERS_METADATA)
+			.explore(LISTENERS_METADATA)
 			.forEach(listener =>
 				this.client[listener.getType()](listener.getEvent(), (...args) =>
 					listener.execute(args)
