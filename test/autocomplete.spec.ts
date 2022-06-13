@@ -1,12 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { CommandInteraction } from 'discord.js';
+import {
+	AutocompleteInteraction,
+	AutocompleteOption,
+	CacheType,
+	CommandInteraction
+} from 'discord.js';
 import { Autocomplete, Ctx, Opts, SlashCommand, TransformOptions } from '../src';
 import { createApplication } from './utils.spec';
 import { Style, ThemeDto } from './dto/theme.dto';
 
 @Injectable()
 class ThemeAutocomplete implements TransformOptions {
-	public transformOptions(interaction, focused) {
+	public transformOptions(
+		interaction: AutocompleteInteraction<CacheType>,
+		focused: AutocompleteOption
+	) {
 		let choices: string[];
 
 		if (focused.name === 'style') {

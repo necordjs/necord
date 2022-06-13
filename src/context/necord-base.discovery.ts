@@ -4,14 +4,13 @@ import { MessageComponentDiscovery } from '../message-components';
 import { ListenerDiscovery } from '../listeners';
 import { TextCommandDiscovery } from '../text-commands';
 import { ModalDiscovery } from '../modals';
-import { Type } from '@nestjs/common';
 
 interface DiscoveredItem {
-	class: Type;
+	class: any;
 	handler?: (...args: any[]) => any;
-	methodName?: string;
 }
 
+// TODO: Move TypeGuards to ExecutionContext
 export abstract class NecordBaseDiscovery<T = any> {
 	protected readonly reflector = new Reflector();
 

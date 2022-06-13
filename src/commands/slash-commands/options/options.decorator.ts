@@ -21,27 +21,22 @@ export const Options = createParamDecorator(
 	},
 	[
 		(target, propertyKey, parameterIndex) => {
-			try {
-				const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-				let prototype = Reflect.getPrototypeOf(new paramTypes[parameterIndex]());
+			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
+			let { prototype } = paramTypes[parameterIndex];
 
-				const options = {};
+			const options = {};
 
-				for (
-					;
-					prototype !== Object.prototype;
-					prototype = Reflect.getPrototypeOf(prototype)
-				) {
-					Object.getOwnPropertyNames(prototype)
-						.map(name => [name, Reflect.getMetadata(OPTIONS_METADATA, prototype, name)])
-						.filter(([, meta]) => !!meta)
-						.forEach(([name, meta]) => (options[name] ??= meta));
-				}
+			do {
+				Object.getOwnPropertyNames(prototype)
+					.map(name => [name, Reflect.getMetadata(OPTIONS_METADATA, prototype, name)])
+					.filter(([, meta]) => !!meta)
+					.forEach(([name, meta]) => (options[name] ??= meta));
+			} while (
+				(prototype = Reflect.getPrototypeOf(prototype)) &&
+				prototype !== Object.prototype
+			);
 
-				Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
-			} catch (err) {
-				// NO-OP
-			}
+			Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
 		}
 	]
 );

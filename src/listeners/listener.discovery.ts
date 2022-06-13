@@ -6,7 +6,7 @@ export interface ListenerMeta {
 }
 
 export class ListenerDiscovery extends NecordBaseDiscovery<ListenerMeta> {
-	public getListenerType() {
+	public getType() {
 		return this.meta.type;
 	}
 

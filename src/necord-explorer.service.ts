@@ -26,43 +26,23 @@ export class NecordExplorerService extends Reflector {
 		super();
 	}
 
-	public exploreProviders<T extends NecordBaseDiscovery>(metadataKey: string) {
-		return this.flatMap<T>(wrapper => this.filterProvider(wrapper, metadataKey));
+	public explore<T extends NecordBaseDiscovery>(metadataKey: string) {
+		return this.flatMap<T>(wrapper => this.filterProperties<T>(wrapper.instance, metadataKey));
 	}
 
-	public exploreMethods<T extends NecordBaseDiscovery>(metadataKey: string) {
-		return this.flatMap<T>(wrapper => this.filterProperties<T>(wrapper, metadataKey));
-	}
-
-	private flatMap<T>(callback: (wrapper: InstanceWrapper) => T[] | undefined) {
+	private flatMap<T extends NecordBaseDiscovery>(callback: (wrapper: InstanceWrapper) => T[]) {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	private filterProvider<T>({ instance }: InstanceWrapper, metadataKey: string): T | undefined {
-		const item = this.get(metadataKey, instance.constructor);
-
-		if (!item) return;
-
-		item.setDiscoveryMeta({
-			class: instance.class
-		});
-
-		return item;
-	}
-
-	private filterProperties<T>({ instance }: InstanceWrapper, metadataKey: string) {
+	private filterProperties<T extends NecordBaseDiscovery>(instance: any, metadataKey: string) {
 		const prototype = Object.getPrototypeOf(instance);
 
 		return this.metadataScanner.scanFromPrototype(instance, prototype, methodName => {
-			const item = this.get(metadataKey, instance[methodName]);
+			const item = this.get<T>(metadataKey, instance[methodName]);
 
 			if (!item) return;
 
-			item.setDiscoveryMeta({
-				class: instance.constructor,
-				handler: instance[methodName],
-				methodName
-			});
+			item.setDiscoveryMeta({ class: instance.constructor, handler: instance[methodName] });
 			item.setContextCallback(this.createContextCallback(instance, prototype, methodName));
 
 			return item;

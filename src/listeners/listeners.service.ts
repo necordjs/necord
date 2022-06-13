@@ -15,9 +15,9 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 
 	public onModuleInit() {
 		return this.explorerService
-			.exploreMethods<ListenerDiscovery>(LISTENERS_METADATA)
+			.explore<ListenerDiscovery>(LISTENERS_METADATA)
 			.forEach(listener =>
-				this.client[listener.getListenerType()](listener.getEvent(), (...args) =>
+				this.client[listener.getType()](listener.getEvent(), (...args) =>
 					listener.execute(args)
 				)
 			);

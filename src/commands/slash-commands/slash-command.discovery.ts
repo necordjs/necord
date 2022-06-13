@@ -3,7 +3,7 @@ import {
 	ApplicationCommandType,
 	AutocompleteInteraction,
 	ChatInputApplicationCommandData,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	CommandInteractionOptionResolver
 } from 'discord.js';
 import { OPTIONS_METADATA } from '../../necord.constants';
@@ -34,6 +34,10 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 		return this.meta.description;
 	}
 
+	public setCommand(command: SlashCommandDiscovery) {
+		this.subcommands.set(command.getName(), command);
+	}
+
 	public getRawOptions(): Record<string, OptionMeta> {
 		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
 	}
@@ -46,7 +50,20 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 		return Object.values(this.getRawOptions());
 	}
 
-	public execute(interaction: CommandInteraction | AutocompleteInteraction): any {
+	public execute(
+		interaction: ChatInputCommandInteraction | AutocompleteInteraction,
+		depth = 1
+	): any {
+		if (this.subcommands.size >= 1) {
+			const commandName =
+				depth === 2
+					? interaction.options.getSubcommand(true)
+					: interaction.options.getSubcommandGroup(false) ??
+					  interaction.options.getSubcommand(true);
+
+			return this.subcommands.get(commandName)?.execute(interaction, depth + 1);
+		}
+
 		return super.execute([interaction]);
 	}
 

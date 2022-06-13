@@ -1,9 +1,14 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
 import { Client, InteractionType } from 'discord.js';
-import { SLASH_COMMAND_METADATA } from '../../necord.constants';
+import {
+	SLASH_COMMAND_METADATA,
+	SUBCOMMAND_GROUP_METADATA,
+	SUBCOMMAND_METADATA
+} from '../../necord.constants';
 import { NecordExplorerService } from '../../necord-explorer.service';
 import { CommandDiscovery } from '../command.discovery';
+import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
@@ -11,15 +16,39 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: NecordExplorerService
+		private readonly explorerService: NecordExplorerService,
+		private readonly reflector: Reflector
 	) {}
 
 	public async onModuleInit() {
 		// Normal Commands
-		return this.explorerService
-			.exploreMethods<SlashCommandDiscovery>(SLASH_COMMAND_METADATA)
+		this.explorerService
+			.explore<SlashCommandDiscovery>(SLASH_COMMAND_METADATA)
 			.forEach(command => this.slashCommands.set(command.getName(), command));
-		// TODO: Subcommand group
+
+		return this.explorerService
+			.explore<SlashCommandDiscovery>(SUBCOMMAND_METADATA)
+			.forEach(subcommand => {
+				const rootCommand = this.reflector.get<SlashCommandDiscovery>(
+					SLASH_COMMAND_METADATA,
+					subcommand.getClass()
+				);
+				const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
+					SUBCOMMAND_GROUP_METADATA,
+					subcommand.getClass()
+				);
+
+				if (subCommandGroup) {
+					subCommandGroup.setCommand(subcommand);
+					rootCommand.setCommand(subCommandGroup);
+				} else {
+					rootCommand.setCommand(subcommand);
+				}
+
+				if (!this.slashCommands.has(rootCommand.getName())) {
+					this.slashCommands.set(rootCommand.getName(), rootCommand);
+				}
+			});
 	}
 
 	public onApplicationBootstrap() {
@@ -30,15 +59,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 			)
 				return;
 
-			const name = [
-				i.commandName,
-				i.options.getSubcommandGroup(false),
-				i.options.getSubcommand(false)
-			]
-				.filter(Boolean)
-				.join('');
-
-			return this.slashCommands.get(name)?.execute(i);
+			return this.slashCommands.get(i.commandName)?.execute(i);
 		});
 	}
 

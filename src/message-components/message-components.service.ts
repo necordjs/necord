@@ -15,7 +15,7 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public onModuleInit() {
 		return this.explorerService
-			.exploreMethods<MessageComponentDiscovery>(MESSAGE_COMPONENT_METADATA)
+			.explore<MessageComponentDiscovery>(MESSAGE_COMPONENT_METADATA)
 			.forEach(component =>
 				this.componentsMap.set(
 					[component.getType(), component.getCustomId()].join(':'),

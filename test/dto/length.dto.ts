@@ -1,5 +1,4 @@
-import { AttachmentOption, StringOption } from '../../src';
-import { Attachment } from 'discord.js';
+import { StringOption } from '../../src';
 
 export class LengthDto {
 	@StringOption({

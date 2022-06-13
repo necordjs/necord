@@ -57,7 +57,7 @@
 		"@typescript-eslint/eslint-plugin": "5.27.1",
 		"@typescript-eslint/parser": "5.27.1",
 		"discord-api-types": "0.33.5",
-		"discord.js": "^14.0.0-dev.1654949087-96053ba",
+		"discord.js": "dev",
 		"eslint": "8.17.0",
 		"eslint-config-prettier": "8.5.0",
 		"eslint-plugin-prettier": "4.0.0",
