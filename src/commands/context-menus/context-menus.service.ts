@@ -19,7 +19,7 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 			.explore(CONTEXT_MENU_METADATA)
 			.forEach(contextMenu =>
 				this.contextMenus.set(
-					contextMenu.getContextType().toString().concat(':', contextMenu.getName()),
+					contextMenu.getType().toString().concat(':', contextMenu.getName()),
 					contextMenu
 				)
 			);

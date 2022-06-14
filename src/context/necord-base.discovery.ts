@@ -29,11 +29,11 @@ export abstract class NecordBaseDiscovery<T = any> {
 	}
 
 	public setDiscoveryMeta(meta: DiscoveredItem) {
-		this.discovery = meta;
+		this.discovery ??= meta;
 	}
 
 	public setContextCallback(fn: Function) {
-		this.contextCallback = fn;
+		this.contextCallback ??= fn;
 	}
 
 	public execute(context: any = []) {

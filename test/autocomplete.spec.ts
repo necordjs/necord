@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import {
+	AutocompleteFocusedOption,
 	AutocompleteInteraction,
-	AutocompleteOption,
 	CacheType,
 	CommandInteraction
 } from 'discord.js';
@@ -13,7 +13,7 @@ import { Style, ThemeDto } from './dto/theme.dto';
 class ThemeAutocomplete implements TransformOptions {
 	public transformOptions(
 		interaction: AutocompleteInteraction<CacheType>,
-		focused: AutocompleteOption
+		focused: AutocompleteFocusedOption
 	) {
 		let choices: string[];
 

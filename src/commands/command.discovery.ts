@@ -4,4 +4,8 @@ import { NecordBaseDiscovery } from '../context';
 // TODO: Add guild parameter
 export abstract class CommandDiscovery<
 	T extends BaseApplicationCommandData = BaseApplicationCommandData
-> extends NecordBaseDiscovery<T> {}
+> extends NecordBaseDiscovery<T> {
+	public getName() {
+		return this.meta.name;
+	}
+}

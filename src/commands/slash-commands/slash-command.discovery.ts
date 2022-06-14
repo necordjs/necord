@@ -26,10 +26,6 @@ export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
 export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 	private readonly subcommands = new Map<string, SlashCommandDiscovery>();
 
-	public getName() {
-		return this.meta.name;
-	}
-
 	public getDescription() {
 		return this.meta.description;
 	}

@@ -8,12 +8,8 @@ import { CommandDiscovery } from '../command.discovery';
 export type ContextMenuMeta = MessageApplicationCommandData | UserApplicationCommandData;
 
 export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
-	public getContextType() {
+	public getType() {
 		return this.meta.type;
-	}
-
-	public getName() {
-		return this.meta.name;
 	}
 
 	public isContextMenu(): this is ContextMenuDiscovery {

@@ -4,6 +4,7 @@ import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 
+// TODO: Support path-to-regexp https://github.com/necordjs/necord/issues/279
 @Injectable()
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly componentsMap = new Map<string, MessageComponentDiscovery>();
