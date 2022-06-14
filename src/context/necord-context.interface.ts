@@ -1,7 +1,7 @@
 import {
 	AutocompleteInteraction,
 	ButtonInteraction,
-	CommandInteraction,
+	ChatInputCommandInteraction,
 	Message,
 	MessageContextMenuCommandInteraction,
 	ModalSubmitInteraction,
@@ -12,7 +12,7 @@ import { NecordEvents } from '../listeners/listener.interface';
 
 export type AutocompleteContext = [AutocompleteInteraction];
 
-export type SlashCommandContext = [CommandInteraction];
+export type SlashCommandContext = [ChatInputCommandInteraction];
 
 export type TextCommandContext = [Message];
 
