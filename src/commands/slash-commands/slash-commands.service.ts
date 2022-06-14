@@ -35,6 +35,12 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 				subcommand.getClass()
 			);
 
+			if (!rootCommand) {
+				throw new ReferenceError(
+					`can't register subcommand "${subcommand.getName()}" w/o root command`
+				);
+			}
+
 			if (subCommandGroup) {
 				subCommandGroup.setCommand(subcommand);
 				rootCommand.setCommand(subCommandGroup);
