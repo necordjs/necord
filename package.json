@@ -48,7 +48,7 @@
 		"Alexey Filippov <socket.someone@gmail.com>"
 	],
 	"devDependencies": {
-		"@commitlint/cli": "17.0.2",
+		"@commitlint/cli": "17.0.3",
 		"@commitlint/config-angular": "17.0.3",
 		"@favware/npm-deprecate": "1.0.4",
 		"@nestjs/common": "8.4.7",
