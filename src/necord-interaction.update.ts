@@ -63,7 +63,7 @@ export class NecordInteractionUpdate {
 		if (interaction.isModalSubmit()) {
 			return this.registry
 				.getModal(interaction.customId)
-				?.metadata.execute(interaction, null, { type: NecordInfoType.MODAL });
+				?.metadata.execute([interaction], null, { type: NecordInfoType.MODAL });
 		}
 
 		if (interaction.isMessageComponent()) {
