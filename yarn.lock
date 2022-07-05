@@ -2161,10 +2161,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-discord-api-types@0.36.0:
-  version "0.36.0"
-  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.36.0.tgz#73a60804e2d62c5dd07954dc055a846e57aaf34d"
-  integrity sha512-bazR7FWko6JY4xwoa4Ds4SCRTKGvbzq2ivAuZxiR79RJipU+IXYNvy4tiUt8ixcs2bI04JOQwgHvz491lruBaw==
+discord-api-types@0.36.1:
+  version "0.36.1"
+  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.36.1.tgz#f6df24c090535bf2e5aea577f906f9aa4a9fe63b"
+  integrity sha512-PTDinUU574hXA9Ko9wrftL1iww1raNiRVKjuPIWQ5Li1g7vQPArpZWw9x01kh/IXLPdzSAJ6H8T0eAYzxzFzIg==
 
 discord-api-types@^0.33.5:
   version "0.33.5"
