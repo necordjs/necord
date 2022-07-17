@@ -1,5 +1,5 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Client } from 'discord.js';
+import { Client, InteractionType } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
@@ -27,7 +27,7 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
-			if (!interaction.isButton() && !interaction.isSelectMenu()) return;
+			if (interaction.type !== InteractionType.MessageComponent) return;
 
 			return this.componentsMap
 				.get([interaction.componentType, interaction.customId].join(':'))

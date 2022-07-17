@@ -17,15 +17,7 @@ export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	}
 
 	public execute(interaction: ContextMenuCommandInteraction): any {
-		return super.execute(
-			[interaction]
-			// ApplicationCommandType.User === this.getContextType()
-			// 	? {
-			// 		user: interaction.options.getUser('user', false),
-			// 		member: interaction.options.getMember('user')
-			// 	}
-			// 	: { message: interaction.optiosns.getMessage('message', false) }
-		);
+		return super.execute([interaction]);
 	}
 
 	public override toJSON() {

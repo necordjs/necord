@@ -1,20 +1,19 @@
 import { NestFactory } from '@nestjs/core';
 import { Module, Provider } from '@nestjs/common';
 import { NecordModule } from '../src';
-import { IntentsBitField } from 'discord.js';
 
 export const createApplication = (...providers: Provider[]) => {
 	@Module({
 		imports: [
 			NecordModule.forRoot({
 				token: process.env.DISCORD_TOKEN,
-				intents: new IntentsBitField([
+				intents: [
 					'Guilds',
 					'DirectMessages',
 					'GuildMembers',
 					'GuildMessages',
 					'MessageContent'
-				]),
+				],
 				prefix: '!',
 				development: [process.env.DISCORD_TEST_GUILD]
 			})
