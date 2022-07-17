@@ -51,7 +51,7 @@ commit_parsers = [
 	{ message = "^revert", skip = true},
 	{ message = "^style", group = "Styling"},
 	{ message = "^test", group = "Testing"},
-	{ message = "^chore", skip = true},
+	{ message = "^chore", group = "Chore"},
 	{ message = "^ci", skip = true},
 	{ message = "^build", skip = true},
 	{ body = ".*security", group = "Security"},

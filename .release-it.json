@@ -6,6 +6,6 @@
 		"release": true
 	},
 	"hooks": {
-		"after:bump": "npm run changelog"
+		"after:git:release": "npm run changelog"
 	}
 }
