@@ -50,7 +50,11 @@ export interface NecordEvents extends ClientEvents {
 	guildVanityURLAdd: [guild: Guild, vanityURLCode: string];
 	guildVanityURLUpdate: [guild: Guild, oldVanityURLCode: string, newVanityURLCode: string];
 	guildVanityURLRemove: [guild: Guild, vanityURLCode: string];
-	guildFeaturesUpdate: [guild: Guild, oldFeatures: GuildFeature[], newFeatures: GuildFeature[]];
+	guildFeaturesUpdate: [
+		guild: Guild,
+		oldFeatures: `${GuildFeature}`[],
+		newFeatures: `${GuildFeature}`[]
+	];
 	guildAcronymUpdate: [oldGuild: Guild, newGuild: Guild];
 	guildOwnerUpdate: [oldGuild: Guild, newGuild: Guild];
 	guildPartnerAdd: [guild: Guild];
