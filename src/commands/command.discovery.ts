@@ -1,5 +1,6 @@
-import { BaseApplicationCommandData } from 'discord.js';
+import { BaseApplicationCommandData, Snowflake } from 'discord.js';
 import { NecordBaseDiscovery } from '../context';
+import { GUILDS_METADATA } from '../necord.constants';
 
 // TODO: Add guild parameter
 export abstract class CommandDiscovery<
@@ -7,5 +8,14 @@ export abstract class CommandDiscovery<
 > extends NecordBaseDiscovery<T> {
 	public getName() {
 		return this.meta.name;
+	}
+
+	public getGuilds(): Snowflake[] {
+		const guilds = this.reflector.getAllAndMerge(GUILDS_METADATA, [
+			this.getHandler(),
+			this.getClass()
+		]);
+
+		return guilds;
 	}
 }
