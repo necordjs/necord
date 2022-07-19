@@ -10,11 +10,9 @@ export abstract class CommandDiscovery<
 	}
 
 	public getGuilds(): Snowflake[] {
-		const guilds = this.reflector.getAllAndMerge(GUILDS_METADATA, [
+		return this.reflector.getAllAndMerge<Snowflake[]>(GUILDS_METADATA, [
 			this.getHandler(),
 			this.getClass()
 		]);
-
-		return guilds;
 	}
 }
