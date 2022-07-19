@@ -2,7 +2,6 @@ import { BaseApplicationCommandData, Snowflake } from 'discord.js';
 import { NecordBaseDiscovery } from '../context';
 import { GUILDS_METADATA } from '../necord.constants';
 
-// TODO: Add guild parameter
 export abstract class CommandDiscovery<
 	T extends BaseApplicationCommandData = BaseApplicationCommandData
 > extends NecordBaseDiscovery<T> {
