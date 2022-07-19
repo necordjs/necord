@@ -33,12 +33,11 @@ export class CommandsService implements OnModuleInit {
 			const commandsByGuildMap = new Map<string, Array<CommandDiscovery>>([[undefined, []]]);
 
 			for (const command of commands) {
-				const commandGuilds = command.getGuilds();
-				const defaultGuild = Array.isArray(this.options.development)
+				const guilds = Array.isArray(this.options.development)
 					? this.options.development
-					: [undefined];
+					: command.getGuilds() ?? [undefined];
 
-				for (const guildId of commandGuilds.length ? commandGuilds : defaultGuild) {
+				for (const guildId of guilds) {
 					const visitedCommands = commandsByGuildMap.get(guildId) ?? [];
 					commandsByGuildMap.set(guildId, visitedCommands.concat(command));
 				}
