@@ -14,5 +14,5 @@ export const ComponentParam = createParamDecorator((data, ctx: ExecutionContext)
 
 	if (!match) return null;
 
-	return data ? match.params[data] : data;
+	return data ? match.params[data] : match.params;
 });
