@@ -4,10 +4,9 @@ import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 
-// TODO: Support path-to-regexp https://github.com/necordjs/necord/issues/279
 @Injectable()
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
-	private readonly componentsMap = new Map<string, MessageComponentDiscovery>();
+	private readonly components: MessageComponentDiscovery[] = [];
 
 	public constructor(
 		private readonly client: Client,
@@ -17,21 +16,20 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 	public onModuleInit() {
 		return this.explorerService
 			.explore(MESSAGE_COMPONENT_METADATA)
-			.forEach(component =>
-				this.componentsMap.set(
-					[component.getType(), component.getCustomId()].join(':'),
-					component
-				)
-			);
+			.forEach(component => this.components.push(component));
 	}
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
 			if (interaction.type !== InteractionType.MessageComponent) return;
 
-			return this.componentsMap
-				.get([interaction.componentType, interaction.customId].join(':'))
-				?.execute(interaction);
+			const name = [interaction.componentType, interaction.customId].join('_');
+
+			for (const component of this.components) {
+				if (component.matcher(name)) {
+					return component.execute(interaction);
+				}
+			}
 		});
 	}
 }

@@ -1,6 +1,7 @@
 import {
 	Button,
 	ButtonContext,
+	ComponentParam,
 	Context,
 	SelectMenu,
 	SelectMenuContext,
@@ -21,7 +22,7 @@ export class MessageComponentsSpec {
 			components: [
 				new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
 					new ButtonBuilder()
-						.setCustomId('BUTTON')
+						.setCustomId('click/12345')
 						.setLabel('LABEL')
 						.setStyle(ButtonStyle.Primary)
 				])
@@ -50,9 +51,12 @@ export class MessageComponentsSpec {
 		});
 	}
 
-	@Button('BUTTON')
-	public onButton(@Context() [interaction]: ButtonContext) {
-		return interaction.reply({ content: 'Button clicked!' });
+	@Button('click/:value')
+	public onButton(
+		@Context() [interaction]: ButtonContext,
+		@ComponentParam('value') value: string
+	) {
+		return interaction.reply({ content: `Button clicked! Value: ${value}` });
 	}
 
 	@SelectMenu('SELECT_MENU')
