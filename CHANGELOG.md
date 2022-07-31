@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.1.0](https://github.com/necordjs/necord/compare/v5.0.3...v5.1.0) - (2022-07-31)
+
+## Bug Fixes
+
+- Usage without data parameter for `ComponentParam` ([8c7ce11](https://github.com/necordjs/necord/commit/8c7ce11d620134d4f8e8e4dac9cb56984d1e0917))
+
+## Features
+
+- Support dynamic matching for components ([1b470b3](https://github.com/necordjs/necord/commit/1b470b3ee80db37d285ee010153431e2a5847627))
+
 # [5.0.1](https://github.com/necordjs/necord/compare/v4.3.3...v5.0.1) - (2022-07-17)
 
 ## Bug Fixes
