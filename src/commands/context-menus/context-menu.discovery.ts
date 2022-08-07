@@ -1,11 +1,14 @@
 import {
 	ContextMenuCommandInteraction,
 	MessageApplicationCommandData,
+	Snowflake,
 	UserApplicationCommandData
 } from 'discord.js';
 import { CommandDiscovery } from '../command.discovery';
 
-export type ContextMenuMeta = MessageApplicationCommandData | UserApplicationCommandData;
+export type ContextMenuMeta = (MessageApplicationCommandData | UserApplicationCommandData) & {
+	guilds?: Snowflake[];
+};
 
 export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	public getType() {
