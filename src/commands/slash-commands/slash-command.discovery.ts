@@ -4,7 +4,8 @@ import {
 	AutocompleteInteraction,
 	ChatInputApplicationCommandData,
 	ChatInputCommandInteraction,
-	CommandInteractionOptionResolver
+	CommandInteractionOptionResolver,
+	Snowflake
 } from 'discord.js';
 import { OPTIONS_METADATA } from '../../necord.constants';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
@@ -17,6 +18,7 @@ export interface SlashCommandMeta extends ChatInputApplicationCommandData {
 		| ApplicationCommandType.ChatInput
 		| ApplicationCommandOptionType.SubcommandGroup
 		| ApplicationCommandOptionType.Subcommand;
+	guilds?: Snowflake[];
 }
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {

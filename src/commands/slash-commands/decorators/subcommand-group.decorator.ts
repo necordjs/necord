@@ -1,9 +1,13 @@
 import { applyDecorators, SetMetadata } from '@nestjs/common';
 import { SUBCOMMAND_GROUP_METADATA } from '../../../necord.constants';
-import { ApplicationCommandOptionType } from 'discord.js';
+import { ApplicationCommandOptionType, Snowflake } from 'discord.js';
 import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discovery';
 import { SlashCommand } from './slash-command.decorator';
 import { noop } from 'rxjs';
+
+type CreateCommandGroupDecoratorParams = Omit<SlashCommandMeta, 'type'> & {
+	guilds?: Snowflake[];
+}
 
 const SubcommandGroup = (options?: Omit<SlashCommandMeta, 'type'>) =>
 	SetMetadata(
@@ -14,7 +18,7 @@ const SubcommandGroup = (options?: Omit<SlashCommandMeta, 'type'>) =>
 		})
 	);
 
-export const createCommandGroupDecorator = (rootOptions: Omit<SlashCommandMeta, 'type'>) => {
+export const createCommandGroupDecorator = (rootOptions: CreateCommandGroupDecoratorParams) => {
 	const rootCommand = SlashCommand(rootOptions);
 
 	return (subOptions?: Omit<SlashCommandMeta, 'type'>): ClassDecorator => {
