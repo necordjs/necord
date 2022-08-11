@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.2.0](https://github.com/necordjs/necord/compare/v5.1.0...v5.2.0) - (2022-08-11)
+
+## Features
+
+- Add get guilds method and guilds property (#352) ([487caf2](https://github.com/necordjs/necord/commit/487caf2fdefed98c558518f5fedcac63cb4f528d))
+
 # [5.1.0](https://github.com/necordjs/necord/compare/v5.0.3...v5.1.0) - (2022-07-31)
 
 ## Bug Fixes
