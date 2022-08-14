@@ -1,11 +1,14 @@
 import { NecordBaseDiscovery } from '../context';
 import { ModalSubmitInteraction } from 'discord.js';
+import { match } from 'path-to-regexp';
 
 export interface ModalMeta {
 	customId: string;
 }
 
 export class ModalDiscovery extends NecordBaseDiscovery<ModalMeta> {
+	public readonly matcher = match(this.meta.customId);
+
 	public getCustomId() {
 		return this.meta.customId;
 	}
