@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Ctx, Modal, ModalContext, SlashCommand, SlashCommandContext } from '../src';
+import { Ctx, Modal, ModalContext, ModalParam, SlashCommand, SlashCommandContext } from '../src';
 import { createApplication } from './utils.spec';
 import {
 	ActionRowBuilder,
@@ -11,10 +11,10 @@ import {
 
 @Injectable()
 export class ContextMenuSpec {
-	@Modal('pizza')
-	public yourFavPizza(@Ctx() [interaction]: ModalContext) {
+	@Modal('pizza/:value')
+	public yourFavPizza(@Ctx() [interaction]: ModalContext, @ModalParam('value') value: string) {
 		return interaction.reply({
-			content: `Your fav pizza - ${interaction.fields.getTextInputValue('pizza')}`
+			content: `Your fav pizza${value} - ${interaction.fields.getTextInputValue('pizza')}`
 		});
 	}
 
@@ -23,7 +23,7 @@ export class ContextMenuSpec {
 		return interaction.showModal(
 			new ModalBuilder()
 				.setTitle('What your fav pizza?')
-				.setCustomId('pizza')
+				.setCustomId('pizza/12345')
 				.setComponents([
 					new ActionRowBuilder<ModalActionRowComponentBuilder>().addComponents([
 						new TextInputBuilder()
