@@ -69,4 +69,11 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 	public getCommands(): CommandDiscovery[] {
 		return [...this.slashCommands.values()];
 	}
+
+	public addCommand(command: SlashCommandDiscovery): void {
+		this.slashCommands.set(command.getName(), command);
+	}
+	public removeCommand(commandName: string): boolean {
+		return this.slashCommands.delete(commandName);
+	}
 }
