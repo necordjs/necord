@@ -37,7 +37,7 @@ import { DiscoveryModule } from '@nestjs/core';
 		ListenersService,
 		SlashCommandsService
 	],
-	exports: [NecordClientProvider]
+	exports: [NecordClientProvider, CommandsService]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
 	public static forRoot(options: NecordModuleOptions): DynamicModule {
