@@ -317,10 +317,10 @@
   resolved "https://registry.npmjs.org/@commitlint/config-angular-type-enum/-/config-angular-type-enum-17.0.0.tgz#4487ea0f2b97e255ad306316152a0b9b0b7fcf38"
   integrity sha512-OJrxpzszJ+jF0RvqLjsM/iZ94IfJ33NVCFFGVmkzuHjKxPt/i/+yJKJ5lzGhlsp5YV2F2Ui5ECIf5Sor2/OZvQ==
 
-"@commitlint/config-angular@17.1.0":
-  version "17.1.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-17.1.0.tgz#5a8a3bbddeeaeb665813f059d0b73668304eb5e2"
-  integrity sha512-icTZHZlKUSkAhNk0qX2KGAKVTsuhP8XnSLLusoKHZHPqbz2fX7DzjzsTU/Llr3J7v+XBv04ml2Rw4ZAvcIhcxQ==
+"@commitlint/config-angular@17.3.0":
+  version "17.3.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-17.3.0.tgz#288b566817397fc7b5a1643b7fa3dd3ed8a80bd8"
+  integrity sha512-Nv6OgcoeNDTfJSmcxGdSkN9a8nQpmm8bDXgHuoe1DwTDe1610A51w7+7MD3RlGUia2qV1tYDyQczWkGf4xC3EQ==
   dependencies:
     "@commitlint/config-angular-type-enum" "^17.0.0"
 
