@@ -42,7 +42,8 @@ import { DiscoveryModule } from '@nestjs/core';
 		CommandsService,
 		SlashCommandsService,
 		ContextMenusService,
-		MessageComponentsService
+		MessageComponentsService,
+		ModalsService
 	]
 })
 export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
