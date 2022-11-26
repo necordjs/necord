@@ -21,12 +21,10 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 	) {}
 
 	public async onModuleInit() {
-		this.explorerService
-			.explore(SLASH_COMMAND_METADATA)
-			.forEach(command => this.setCommand(command));
+		this.explorerService.explore(SLASH_COMMAND_METADATA).forEach(command => this.add(command));
 
 		return this.explorerService.explore(SUBCOMMAND_METADATA).forEach(subcommand => {
-			return this.setSubCommand(subcommand);
+			return this.addSubCommand(subcommand);
 		});
 	}
 
@@ -46,23 +44,11 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		return [...this.slashCommands.values()];
 	}
 
-	public addCommand(command: SlashCommandDiscovery): void {
-		this.setCommand(command);
+	public add(command: SlashCommandDiscovery): void {
+		this.slashCommands.set(command.getName(), command);
 	}
 
 	public addSubCommand(subCommand: SlashCommandDiscovery): void {
-		this.setSubCommand(subCommand);
-	}
-
-	public removeCommand(commandName: string): boolean {
-		return this.slashCommands.delete(commandName);
-	}
-
-	private setCommand(command: SlashCommandDiscovery) {
-		return this.slashCommands.set(command.getName(), command);
-	}
-
-	private setSubCommand(subCommand: SlashCommandDiscovery) {
 		const rootCommand = this.reflector.get<SlashCommandDiscovery>(
 			SLASH_COMMAND_METADATA,
 			subCommand.getClass()
@@ -88,5 +74,9 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		if (!this.slashCommands.has(rootCommand.getName())) {
 			this.slashCommands.set(rootCommand.getName(), rootCommand);
 		}
+	}
+
+	public remove(commandName: string): boolean {
+		return this.slashCommands.delete(commandName);
 	}
 }

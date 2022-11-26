@@ -17,7 +17,7 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 	public onModuleInit() {
 		return this.explorerService
 			.explore(CONTEXT_MENU_METADATA)
-			.forEach(contextMenu => this.setCommand(contextMenu));
+			.forEach(contextMenu => this.add(contextMenu));
 	}
 
 	public onApplicationBootstrap() {
@@ -34,18 +34,14 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		return [...this.contextMenus.values()];
 	}
 
-	public addCommand(contextMenu: ContextMenuDiscovery): void {
-		this.setCommand(contextMenu);
-	}
-
-	public removeCommand(contextMenu: Pick<ContextMenuMeta, 'type' | 'name'>): boolean {
-		return this.contextMenus.delete(contextMenu.type.toString().concat(':', contextMenu.name));
-	}
-
-	private setCommand(contextMenu: ContextMenuDiscovery) {
-		return this.contextMenus.set(
+	public add(contextMenu: ContextMenuDiscovery): void {
+		this.contextMenus.set(
 			contextMenu.getType().toString().concat(':', contextMenu.getName()),
 			contextMenu
 		);
+	}
+
+	public remove(contextMenu: Pick<ContextMenuMeta, 'type' | 'name'>): boolean {
+		return this.contextMenus.delete(contextMenu.type.toString().concat(':', contextMenu.name));
 	}
 }
