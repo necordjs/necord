@@ -19,7 +19,7 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 	public onModuleInit() {
 		return this.explorerService
 			.explore(TEXT_COMMAND_METADATA)
-			.forEach(textCommand => this.textCommands.set(textCommand.getName(), textCommand));
+			.forEach(textCommand => this.add(textCommand));
 	}
 
 	public onApplicationBootstrap() {
@@ -42,5 +42,13 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 
 			return this.textCommands.get(cmd)?.execute([message]);
 		});
+	}
+
+	public add(textCommand: TextCommandDiscovery) {
+		this.textCommands.set(textCommand.getName(), textCommand);
+	}
+
+	public remove(name: string) {
+		this.textCommands.delete(name);
 	}
 }
