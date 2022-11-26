@@ -23,34 +23,10 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 	public async onModuleInit() {
 		this.explorerService
 			.explore(SLASH_COMMAND_METADATA)
-			.forEach(command => this.slashCommands.set(command.getName(), command));
+			.forEach(command => this.setCommand(command));
 
 		return this.explorerService.explore(SUBCOMMAND_METADATA).forEach(subcommand => {
-			const rootCommand = this.reflector.get<SlashCommandDiscovery>(
-				SLASH_COMMAND_METADATA,
-				subcommand.getClass()
-			);
-			const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
-				SUBCOMMAND_GROUP_METADATA,
-				subcommand.getClass()
-			);
-
-			if (!rootCommand) {
-				throw new ReferenceError(
-					`can't register subcommand "${subcommand.getName()}" w/o root command`
-				);
-			}
-
-			if (subCommandGroup) {
-				subCommandGroup.setCommand(subcommand);
-				rootCommand.setCommand(subCommandGroup);
-			} else {
-				rootCommand.setCommand(subcommand);
-			}
-
-			if (!this.slashCommands.has(rootCommand.getName())) {
-				this.slashCommands.set(rootCommand.getName(), rootCommand);
-			}
+			return this.setSubCommand(subcommand);
 		});
 	}
 
@@ -70,10 +46,51 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		return [...this.slashCommands.values()];
 	}
 
-	public addCommand(command: SlashCommandDiscovery): void {
-		this.slashCommands.set(command.getName(), command);
+	public addCommands(...commands: SlashCommandDiscovery[]): void {
+		commands.forEach(command => this.setCommand(command));
 	}
-	public removeCommand(commandName: string): boolean {
-		return this.slashCommands.delete(commandName);
+
+	public addSubCommands(...subCommands: SlashCommandDiscovery[]): void {
+		subCommands.forEach(subCommand => {
+			this.setSubCommand(subCommand);
+		});
+	}
+
+	public removeCommands(...commandNames: string[]): boolean[] {
+		return commandNames.map(commandName => {
+			return this.slashCommands.delete(commandName);
+		});
+	}
+
+	private setCommand(command: SlashCommandDiscovery) {
+		return this.slashCommands.set(command.getName(), command);
+	}
+
+	private setSubCommand(subCommand: SlashCommandDiscovery) {
+		const rootCommand = this.reflector.get<SlashCommandDiscovery>(
+			SLASH_COMMAND_METADATA,
+			subCommand.getClass()
+		);
+		const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
+			SUBCOMMAND_GROUP_METADATA,
+			subCommand.getClass()
+		);
+
+		if (!rootCommand) {
+			throw new ReferenceError(
+				`can't register subcommand "${subCommand.getName()}" w/o root command`
+			);
+		}
+
+		if (subCommandGroup) {
+			subCommandGroup.setCommand(subCommand);
+			rootCommand.setCommand(subCommandGroup);
+		} else {
+			rootCommand.setCommand(subCommand);
+		}
+
+		if (!this.slashCommands.has(rootCommand.getName())) {
+			this.slashCommands.set(rootCommand.getName(), rootCommand);
+		}
 	}
 }
