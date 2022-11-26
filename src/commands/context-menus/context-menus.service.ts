@@ -41,7 +41,7 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		);
 	}
 
-	public remove(contextMenu: Pick<ContextMenuMeta, 'type' | 'name'>): boolean {
-		return this.contextMenus.delete(contextMenu.type.toString().concat(':', contextMenu.name));
+	public remove(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): boolean {
+		return this.contextMenus.delete(type.toString().concat(':', name));
 	}
 }
