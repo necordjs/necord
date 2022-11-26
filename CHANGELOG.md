@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.3.1](https://github.com/necordjs/necord/compare/v5.3.0...v5.3.1) - (2022-11-26)
+
+## Features
+
+- Target decorators for message, user, member ([47ccc2a](https://github.com/necordjs/necord/commit/47ccc2a7968c726c990ba5b66f54c267681bb777))
+
 # [5.3.0](https://github.com/necordjs/necord/compare/v5.2.0...v5.3.0) - (2022-09-17)
 
 ## Features
