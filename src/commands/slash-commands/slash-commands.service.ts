@@ -46,20 +46,16 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		return [...this.slashCommands.values()];
 	}
 
-	public addCommands(...commands: SlashCommandDiscovery[]): void {
-		commands.forEach(command => this.setCommand(command));
+	public addCommand(command: SlashCommandDiscovery): void {
+		this.setCommand(command);
 	}
 
-	public addSubCommands(...subCommands: SlashCommandDiscovery[]): void {
-		subCommands.forEach(subCommand => {
-			this.setSubCommand(subCommand);
-		});
+	public addSubCommand(subCommand: SlashCommandDiscovery): void {
+		this.setSubCommand(subCommand);
 	}
 
-	public removeCommands(...commandNames: string[]): boolean[] {
-		return commandNames.map(commandName => {
-			return this.slashCommands.delete(commandName);
-		});
+	public removeCommand(commandName: string): boolean {
+		return this.slashCommands.delete(commandName);
 	}
 
 	private setCommand(command: SlashCommandDiscovery) {

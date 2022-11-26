@@ -34,18 +34,12 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		return [...this.contextMenus.values()];
 	}
 
-	public addCommands(...contextMenus: ContextMenuDiscovery[]): void {
-		contextMenus.forEach(contextMenu => this.setCommand(contextMenu));
+	public addCommand(contextMenu: ContextMenuDiscovery): void {
+		this.setCommand(contextMenu);
 	}
 
-	public removeCommands(
-		...contextMenus: Array<Pick<ContextMenuMeta, 'type' | 'name'>>
-	): boolean[] {
-		return contextMenus.map(contextMenu => {
-			return this.contextMenus.delete(
-				contextMenu.type.toString().concat(':', contextMenu.name)
-			);
-		});
+	public removeCommand(contextMenu: Pick<ContextMenuMeta, 'type' | 'name'>): boolean {
+		return this.contextMenus.delete(contextMenu.type.toString().concat(':', contextMenu.name));
 	}
 
 	private setCommand(contextMenu: ContextMenuDiscovery) {
