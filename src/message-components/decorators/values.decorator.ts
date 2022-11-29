@@ -5,5 +5,5 @@ export const Values = createParamDecorator((_, ctx: ExecutionContext) => {
 	const necordContext = NecordExecutionContext.create(ctx);
 	const [interaction] = necordContext.getContext<'interactionCreate'>();
 
-	return interaction.isSelectMenu() ? interaction.values : [];
+	return interaction.isAnySelectMenu() ? interaction.values : [];
 });

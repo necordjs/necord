@@ -2,8 +2,8 @@ import { ComponentType } from 'discord.js';
 import { MessageComponent } from './message-component.decorator';
 
 /**
- *  @deprecated since 5.4 - This is the old name for @StringSelect
- *  Will be deleted in version 6
+ *  @deprecated since 5.4 - This is the old name for StringSelect.
+ *  Will be deleted in v6
  */
 export const SelectMenu = (customId: string) =>
 	MessageComponent({ customId, type: ComponentType.SelectMenu });
