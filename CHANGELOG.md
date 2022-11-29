@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.4.0](https://github.com/necordjs/necord/compare/v5.3.1...v5.4.0) - (2022-11-29)
+
+## Refactor
+
+- Some improvments ([665c8e2](https://github.com/necordjs/necord/commit/665c8e277fc5d7d481e5740069fa51b4ebf7be84))
+
 # [5.3.1](https://github.com/necordjs/necord/compare/v5.3.0...v5.3.1) - (2022-11-26)
 
 ## Features
