@@ -23,9 +23,9 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 	public async onModuleInit() {
 		this.explorerService.explore(SLASH_COMMAND_METADATA).forEach(command => this.add(command));
 
-		return this.explorerService.explore(SUBCOMMAND_METADATA).forEach(subcommand => {
-			this.addSubCommand(subcommand)
-		});
+		return this.explorerService
+			.explore(SUBCOMMAND_METADATA)
+			.forEach(subcommand => this.addSubCommand(subcommand));
 	}
 
 	public onApplicationBootstrap() {

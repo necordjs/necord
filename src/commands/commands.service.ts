@@ -19,13 +19,14 @@ export class CommandsService implements OnModuleInit {
 	) {}
 
 	public onModuleInit() {
-		if (this.options.skipRegistration) return;
-		return this.client.once('ready', async client => this.register());
+		if (this.options.skipRegistration) {
+			return;
+		}
+
+		return this.client.once('ready', async client => this.register(client));
 	}
 
-	public async register() {
-		const client = this.client;
-
+	public async register(client: Client) {
 		if (client.application.partial) {
 			await client.application.fetch();
 		}
