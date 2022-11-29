@@ -6,7 +6,7 @@ import { ModalDiscovery } from './modal.discovery';
 
 @Injectable()
 export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
-	private readonly modals: ModalDiscovery[] = [];
+	private readonly modals = new Map<string, ModalDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -14,9 +14,7 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	) {}
 
 	public onModuleInit() {
-		return this.explorerService
-			.explore(MODAL_METADATA)
-			.forEach(modal => this.modals.push(modal));
+		return this.explorerService.explore(MODAL_METADATA).forEach(modal => this.add(modal));
 	}
 
 	public onApplicationBootstrap() {
@@ -25,11 +23,19 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 
 			const name = interaction.customId;
 
-			for (const modal of this.modals) {
+			for (const modal of this.modals.values()) {
 				if (modal.matcher(name)) {
 					return modal.execute(interaction);
 				}
 			}
 		});
+	}
+
+	public add(modal: ModalDiscovery) {
+		this.modals.set(modal.getCustomId(), modal);
+	}
+
+	public remove(customId: string) {
+		this.modals.delete(customId);
 	}
 }

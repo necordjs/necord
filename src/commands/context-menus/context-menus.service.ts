@@ -1,5 +1,5 @@
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { ContextMenuDiscovery } from './context-menu.discovery';
+import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 import { Client } from 'discord.js';
 import { CONTEXT_MENU_METADATA } from '../../necord.constants';
 import { ExplorerService } from '../../necord-explorer.service';
@@ -17,12 +17,7 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 	public onModuleInit() {
 		return this.explorerService
 			.explore(CONTEXT_MENU_METADATA)
-			.forEach(contextMenu =>
-				this.contextMenus.set(
-					contextMenu.getType().toString().concat(':', contextMenu.getName()),
-					contextMenu
-				)
-			);
+			.forEach(contextMenu => this.add(contextMenu));
 	}
 
 	public onApplicationBootstrap() {
@@ -37,5 +32,16 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 
 	public getCommands(): CommandDiscovery[] {
 		return [...this.contextMenus.values()];
+	}
+
+	public add(contextMenu: ContextMenuDiscovery): void {
+		this.contextMenus.set(
+			contextMenu.getType().toString().concat(':', contextMenu.getName()),
+			contextMenu
+		);
+	}
+
+	public remove(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): boolean {
+		return this.contextMenus.delete(type.toString().concat(':', name));
 	}
 }

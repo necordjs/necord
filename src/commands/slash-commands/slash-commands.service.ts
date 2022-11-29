@@ -21,36 +21,10 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 	) {}
 
 	public async onModuleInit() {
-		this.explorerService
-			.explore(SLASH_COMMAND_METADATA)
-			.forEach(command => this.slashCommands.set(command.getName(), command));
+		this.explorerService.explore(SLASH_COMMAND_METADATA).forEach(command => this.add(command));
 
 		return this.explorerService.explore(SUBCOMMAND_METADATA).forEach(subcommand => {
-			const rootCommand = this.reflector.get<SlashCommandDiscovery>(
-				SLASH_COMMAND_METADATA,
-				subcommand.getClass()
-			);
-			const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
-				SUBCOMMAND_GROUP_METADATA,
-				subcommand.getClass()
-			);
-
-			if (!rootCommand) {
-				throw new ReferenceError(
-					`can't register subcommand "${subcommand.getName()}" w/o root command`
-				);
-			}
-
-			if (subCommandGroup) {
-				subCommandGroup.setCommand(subcommand);
-				rootCommand.setCommand(subCommandGroup);
-			} else {
-				rootCommand.setCommand(subcommand);
-			}
-
-			if (!this.slashCommands.has(rootCommand.getName())) {
-				this.slashCommands.set(rootCommand.getName(), rootCommand);
-			}
+			this.addSubCommand(subcommand)
 		});
 	}
 
@@ -68,5 +42,41 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public getCommands(): CommandDiscovery[] {
 		return [...this.slashCommands.values()];
+	}
+
+	public add(command: SlashCommandDiscovery): void {
+		this.slashCommands.set(command.getName(), command);
+	}
+
+	public addSubCommand(subCommand: SlashCommandDiscovery): void {
+		const rootCommand = this.reflector.get<SlashCommandDiscovery>(
+			SLASH_COMMAND_METADATA,
+			subCommand.getClass()
+		);
+		const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
+			SUBCOMMAND_GROUP_METADATA,
+			subCommand.getClass()
+		);
+
+		if (!rootCommand) {
+			throw new ReferenceError(
+				`can't register subcommand "${subCommand.getName()}" w/o root command`
+			);
+		}
+
+		if (subCommandGroup) {
+			subCommandGroup.setCommand(subCommand);
+			rootCommand.setCommand(subCommandGroup);
+		} else {
+			rootCommand.setCommand(subCommand);
+		}
+
+		if (!this.slashCommands.has(rootCommand.getName())) {
+			this.slashCommands.set(rootCommand.getName(), rootCommand);
+		}
+	}
+
+	public remove(commandName: string): boolean {
+		return this.slashCommands.delete(commandName);
 	}
 }
