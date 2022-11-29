@@ -1,6 +1,13 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { NecordExecutionContext } from '../../context';
 
+export const SelectedStrings = createParamDecorator((_, ctx: ExecutionContext) => {
+	const necordContext = NecordExecutionContext.create(ctx);
+	const [interaction] = necordContext.getContext<'interactionCreate'>();
+
+	return interaction.isStringSelectMenu() ? interaction.values : [];
+});
+
 export const SelectedChannels = createParamDecorator((_, ctx: ExecutionContext) => {
 	const necordContext = NecordExecutionContext.create(ctx);
 	const [interaction] = necordContext.getContext<'interactionCreate'>();
