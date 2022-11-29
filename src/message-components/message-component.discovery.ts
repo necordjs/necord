@@ -3,7 +3,7 @@ import { match } from 'path-to-regexp';
 import { NecordBaseDiscovery } from '../context';
 
 export interface MessageComponentMeta {
-	type: Exclude<MessageComponentType, ComponentType.ActionRow>;
+	type: Exclude<MessageComponentType, ComponentType.ActionRow | ComponentType.TextInput>;
 	customId: string;
 }
 
