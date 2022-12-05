@@ -520,10 +520,10 @@
     minimatch "^3.1.2"
     strip-json-comments "^3.1.1"
 
-"@favware/npm-deprecate@1.0.6":
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/@favware/npm-deprecate/-/npm-deprecate-1.0.6.tgz#405c0711fa06cb7524ca8cc185921021a068d8b0"
-  integrity sha512-FDm8bf76rN3EktCDKfWV1yiEn/qfrsWMBEZ5iYy4TYyRJa2yHLzjN2vtSEvpOL/c5V7JjJHJTfnvVN+toaHvwA==
+"@favware/npm-deprecate@1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@favware/npm-deprecate/-/npm-deprecate-1.0.7.tgz#c0747cea1f791c9ba06b6ecea74c102c98e06b3f"
+  integrity sha512-rCQdip+YfML29gzhSuXwZsJI5BwWp4uhHQZwDOR0DuzUrF+HXcmt7QWRzyUeseDqQKWnptRgmdpnrkm/qPUCbw==
   dependencies:
     "@sapphire/fetch" "^2.4.1"
     "@sapphire/utilities" "^3.11.0"
