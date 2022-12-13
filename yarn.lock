@@ -2267,15 +2267,10 @@ dir-glob@^3.0.1:
   dependencies:
     path-type "^4.0.0"
 
-discord-api-types@0.37.21:
-  version "0.37.21"
-  resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.21.tgz#122d571dfed2dce95be8fac34a0f1985ddc021b4"
-  integrity sha512-GB4ThibZEzWXcvgL2QfjKoDX5j1sNLWtgibodiJ9M9PM0u9bdR2t3vZ24oQWLKlksJehSJmZDtRsAibhcr46vw==
-
-discord-api-types@^0.37.20:
-  version "0.37.20"
-  resolved "https://registry.npmjs.org/discord-api-types/-/discord-api-types-0.37.20.tgz#f23894e3e6b894abb5431ff6c4aa52471360377c"
-  integrity sha512-uAO+55E11rMkYR36/paE1vKN8c2bZa1mgrIaiQIBgIZRKZTDIGOZB+8I5eMRPFJcGxrg16riUu+0aTu2JQEPew==
+discord-api-types@0.37.22, discord-api-types@^0.37.20:
+  version "0.37.22"
+  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.22.tgz#9bd5ac0de818d4d0bcf0f3e79e93945cc4dfe449"
+  integrity sha512-1FSm5hIUaxt3e+3H6lhY5Hg32DTJCPp3Q5gf3CM2CPSr95ZnqkSNEV0s7EdiBrlv5QoPrpcPIDYC3hWqZT2mIg==
 
 discord.js@14.7.1:
   version "14.7.1"
