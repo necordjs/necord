@@ -41,7 +41,7 @@ export const SelectedMembers = createParamDecorator((_, ctx: ExecutionContext) =
 	const [interaction] = necordContext.getContext<'interactionCreate'>();
 
 	if (interaction.isUserSelectMenu() || interaction.isMentionableSelectMenu()) {
-		return interaction.users;
+		return interaction.members;
 	}
 	return [];
 });
