@@ -62,7 +62,7 @@
 		"discord-api-types": "0.37.25",
 		"discord.js": "14.7.1",
 		"eslint": "8.31.0",
-		"eslint-config-prettier": "8.5.0",
+		"eslint-config-prettier": "8.6.0",
 		"eslint-plugin-prettier": "4.2.1",
 		"husky": "8.0.2",
 		"jest": "29.3.1",
