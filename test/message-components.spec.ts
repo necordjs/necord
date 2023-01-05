@@ -250,6 +250,43 @@ export class MessageComponentsSpec {
       `
 		});
 	}
+
+	@SlashCommand({
+		name: 'dynamic-select/:id',
+		description: 'Creates a dynamic string select component.'
+	})
+	public async createDynamicStringSelect(@Context() [interaction]: SlashCommandContext) {
+		return interaction.reply({
+			content: `Dynamic String Select Menu`,
+			components: [
+				new ActionRowBuilder<MessageActionRowComponentBuilder>().addComponents([
+					new StringSelectMenuBuilder()
+						.setCustomId('preferences/color')
+						.setPlaceholder('Select a color')
+						.setMaxValues(1)
+						.setMinValues(1)
+						.setOptions([
+							{ label: 'Red', value: 'Red' },
+							{ label: 'Blue', value: 'Blue' },
+							{ label: 'Yellow', value: 'Yellow' }
+						])
+				])
+			]
+		});
+	}
+
+	@StringSelect('preferences/:item')
+	public onPreferenceSelect(
+		@Context() [interaction]: StringSelectContext,
+		@SelectedStrings() values: string[],
+		@ComponentParam('item') item: string
+	) {
+		return interaction.reply({
+			content: `
+      ${item} = ${values.join(',')}\n
+      `
+		});
+	}
 }
 
 createApplication(MessageComponentsSpec);
