@@ -24,6 +24,7 @@ import {
 	SlashCommandContext,
 	StringSelect,
 	StringSelectContext,
+	UserSelect,
 	UserSelectContext
 } from '../src';
 import { Injectable } from '@nestjs/common';
@@ -176,7 +177,7 @@ export class MessageComponentsSpec {
 		});
 	}
 
-	@RoleSelect('USER_SELECT_MENU')
+	@UserSelect('USER_SELECT_MENU')
 	public onUserSelect(
 		@Context() [interaction]: UserSelectContext,
 		@SelectedUsers() users: ISelectedUsers,
