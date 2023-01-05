@@ -24,7 +24,6 @@ import {
 	SlashCommandContext,
 	StringSelect,
 	StringSelectContext,
-	UserSelect,
 	UserSelectContext
 } from '../src';
 import { Injectable } from '@nestjs/common';
@@ -177,7 +176,7 @@ export class MessageComponentsSpec {
 		});
 	}
 
-	@UserSelect('USER_SELECT_MENU')
+	@RoleSelect('USER_SELECT_MENU')
 	public onUserSelect(
 		@Context() [interaction]: UserSelectContext,
 		@SelectedUsers() users: ISelectedUsers,
@@ -240,7 +239,7 @@ export class MessageComponentsSpec {
 	public onMentionableSelect(
 		@Context() [interaction]: MentionableSelectContext,
 		@SelectedUsers() users: ISelectedUsers,
-		@SelectedUsers() members: ISelectedMembers,
+		@SelectedMembers() members: ISelectedMembers,
 		@SelectedRoles() roles: ISelectedRoles
 	) {
 		return interaction.reply({
