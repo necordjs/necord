@@ -827,14 +827,14 @@
   resolved "https://registry.yarnpkg.com/@lukeed/csprng/-/csprng-1.0.1.tgz#625e93a0edb2c830e3c52ce2d67b9d53377c6a66"
   integrity sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==
 
-"@nestjs/common@9.3.1":
-  version "9.3.1"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-9.3.1.tgz#8bbe94539783088e01f14c3459212b713961beed"
-  integrity sha512-T14G3xjIXmEkxMcHcwh/eJwodF2owhYIT0ZA8u6UCNCEQg+391TXA7xTynUuR5Fl2EJPYTKF0g89XSFOW7NS2Q==
+"@nestjs/common@9.3.3":
+  version "9.3.3"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-9.3.3.tgz#41e05020d2d37caf015453f913d7fab356c5d97b"
+  integrity sha512-NZI9RC5oI/WLtwjl/JWZJ1ltBDniG6dp+tLSaf9S9U6SmwaOq5eVtMxSlwHpaJ2pzpZVA6VqaEq9dHONUwdW3A==
   dependencies:
     uid "2.0.1"
     iterare "1.2.1"
-    tslib "2.4.1"
+    tslib "2.5.0"
 
 "@nestjs/core@9.3.2":
   version "9.3.2"
@@ -5921,11 +5921,6 @@ ts-node@10.9.1, ts-node@^10.8.1:
     make-error "^1.1.1"
     v8-compile-cache-lib "^3.0.1"
     yn "3.1.1"
-
-tslib@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/tslib/-/tslib-2.4.1.tgz#0d0bfbaac2880b91e22df0768e55be9753a5b17e"
-  integrity sha512-tGyy4dAjRIEwI7BzsB0lynWgOpfqjUdq91XXAlIWD2OwKBH7oCl/GZG/HT4BOHrTlPMOASlMQ7veyTqpmRcrNA==
 
 tslib@2.5.0, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.1:
   version "2.5.0"
