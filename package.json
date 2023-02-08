@@ -55,7 +55,7 @@
 		"@commitlint/config-angular": "17.4.2",
 		"@favware/npm-deprecate": "1.0.7",
 		"@nestjs/common": "9.3.5",
-		"@nestjs/core": "9.3.2",
+		"@nestjs/core": "9.3.7",
 		"@types/node": "18.13.0",
 		"@typescript-eslint/eslint-plugin": "5.50.0",
 		"@typescript-eslint/parser": "5.50.0",
