@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.4.5](https://github.com/necordjs/necord/compare/v5.4.4...v5.4.5) - (2023-02-08)
+
+## Bug Fixes
+
+- Select menu specs (#563) ([769f08b](https://github.com/necordjs/necord/commit/769f08b703e9262fe38a424cb9379559187a0c5e))
+
 # [5.4.0](https://github.com/necordjs/necord/compare/v5.3.1...v5.4.0) - (2022-11-29)
 
 ## Refactor
