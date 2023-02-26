@@ -1,4 +1,4 @@
-import { Inject, Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 import { TextCommandDiscovery } from './text-command.discovery';
 import { NECORD_MODULE_OPTIONS, TEXT_COMMAND_METADATA } from '../necord.constants';
@@ -7,6 +7,8 @@ import { NecordModuleOptions } from '../necord-options.interface';
 
 @Injectable()
 export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap {
+	private readonly logger = new Logger(TextCommandsService.name);
+	
 	private readonly textCommands = new Map<string, TextCommandDiscovery>();
 
 	public constructor(
@@ -45,7 +47,13 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 	}
 
 	public add(textCommand: TextCommandDiscovery) {
-		this.textCommands.set(textCommand.getName(), textCommand);
+		const name = textCommand.getName();
+		
+		if (this.textCommands.has(name)) {
+			this.logger.warn(`TextCommand : ${name} already exists`);
+		}
+		
+		this.textCommands.set(name, textCommand);
 	}
 
 	public remove(name: string) {

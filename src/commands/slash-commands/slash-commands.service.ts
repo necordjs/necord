@@ -1,4 +1,4 @@
-import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
 import { Client, InteractionType } from 'discord.js';
 import {
@@ -12,6 +12,8 @@ import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
+	private readonly logger = new Logger(SlashCommandsService.name);
+	
 	private readonly slashCommands = new Map<string, SlashCommandDiscovery>();
 
 	public constructor(
@@ -45,6 +47,10 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 	}
 
 	public add(command: SlashCommandDiscovery): void {
+		if (this.slashCommands.has(command.getName())) {
+			this.logger.warn(`Slash Command : ${command.getName()} already exists`);
+		}
+		
 		this.slashCommands.set(command.getName(), command);
 	}
 

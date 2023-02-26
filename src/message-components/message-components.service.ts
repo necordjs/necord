@@ -1,4 +1,4 @@
-import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client, InteractionType } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
@@ -6,6 +6,8 @@ import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 
 @Injectable()
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
+	private readonly logger = new Logger(MessageComponentsService.name);
+	
 	private readonly components = new Map<string, MessageComponentDiscovery>();
 
 	public constructor(
@@ -41,10 +43,13 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 	}
 
 	public add(component: MessageComponentDiscovery) {
-		this.components.set(
-			this.componentName(component.getType(), component.getCustomId()),
-			component
-		);
+		const name = this.componentName(component.getType(), component.getCustomId());
+		
+		if (this.components.has(name)) {
+			this.logger.warn(`Message Component : ${name} already exists`);
+		}
+		
+		this.components.set(name, component);
 	}
 
 	public remove(type: MessageComponentMeta['type'], customId: MessageComponentMeta['customId']) {
