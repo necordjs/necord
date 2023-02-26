@@ -13,6 +13,7 @@ import { Reflector } from '@nestjs/core';
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(SlashCommandsService.name);
+	
 	private readonly slashCommands = new Map<string, SlashCommandDiscovery>();
 
 	public constructor(
