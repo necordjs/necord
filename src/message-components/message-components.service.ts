@@ -7,6 +7,7 @@ import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 @Injectable()
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(MessageComponentsService.name);
+	
 	private readonly components = new Map<string, MessageComponentDiscovery>();
 
 	public constructor(
