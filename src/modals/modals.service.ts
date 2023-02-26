@@ -1,4 +1,4 @@
-import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client, InteractionType } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MODAL_METADATA } from '../necord.constants';
@@ -7,6 +7,7 @@ import { ModalDiscovery } from './modal.discovery';
 @Injectable()
 export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly modals = new Map<string, ModalDiscovery>();
+	private readonly logger = new Logger(ModalsService.name);
 
 	public constructor(
 		private readonly client: Client,
@@ -32,7 +33,11 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public add(modal: ModalDiscovery) {
-		this.modals.set(modal.getCustomId(), modal);
+		const id = modal.getCustomId();
+		if (this.modals.get(id)) {
+			this.logger.warn(`Modal : ${id} already exists`);
+		}
+		this.modals.set(id, modal);
 	}
 
 	public remove(customId: string) {
