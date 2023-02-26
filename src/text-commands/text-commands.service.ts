@@ -7,8 +7,9 @@ import { NecordModuleOptions } from '../necord-options.interface';
 
 @Injectable()
 export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap {
-	private readonly textCommands = new Map<string, TextCommandDiscovery>();
 	private readonly logger = new Logger(TextCommandsService.name);
+	
+	private readonly textCommands = new Map<string, TextCommandDiscovery>();
 
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)

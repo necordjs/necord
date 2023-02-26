@@ -43,9 +43,11 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public add(component: MessageComponentDiscovery) {
 		const name = this.componentName(component.getType(), component.getCustomId());
-		if (this.components.get(name)) {
+		
+		if (this.components.has(name)) {
 			this.logger.warn(`Message Component : ${name} already exists`);
 		}
+		
 		this.components.set(name, component);
 	}
 

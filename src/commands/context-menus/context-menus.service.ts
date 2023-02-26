@@ -7,8 +7,9 @@ import { CommandDiscovery } from '../command.discovery';
 
 @Injectable()
 export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap {
-	private readonly contextMenus = new Map<string, ContextMenuDiscovery>();
 	private readonly logger = new Logger(ContextMenusService.name);
+
+	private readonly contextMenus = new Map<string, ContextMenuDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
