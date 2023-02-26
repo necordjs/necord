@@ -47,9 +47,11 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 
 	public add(textCommand: TextCommandDiscovery) {
 		const name = textCommand.getName();
-		if (this.textCommands.get(name)) {
+		
+		if (this.textCommands.has(name)) {
 			this.logger.warn(`TextCommand : ${name} already exists`);
 		}
+		
 		this.textCommands.set(name, textCommand);
 	}
 
