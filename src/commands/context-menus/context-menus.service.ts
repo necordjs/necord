@@ -37,9 +37,11 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 
 	public add(contextMenu: ContextMenuDiscovery): void {
 		const id = this.getId(contextMenu.getType(), contextMenu.getName());
-		if (this.contextMenus.get(id)) {
+		
+		if (this.contextMenus.has(id)) {
 			this.logger.warn(`ContextMenu with id : ${id} is already exists`);
 		}
+		
 		this.contextMenus.set(id, contextMenu);
 	}
 
