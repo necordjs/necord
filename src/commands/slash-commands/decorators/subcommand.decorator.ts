@@ -3,7 +3,9 @@ import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discov
 import { SUBCOMMAND_METADATA } from '../../../necord.constants';
 import { ApplicationCommandOptionType } from 'discord.js';
 
-export const Subcommand = (options: Omit<SlashCommandMeta, 'type'>): MethodDecorator =>
+export const Subcommand = (
+	options: Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>
+): MethodDecorator =>
 	SetMetadata<string, SlashCommandDiscovery>(
 		SUBCOMMAND_METADATA,
 		new SlashCommandDiscovery({

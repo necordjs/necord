@@ -5,7 +5,7 @@ import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discov
 import { SlashCommand } from './slash-command.decorator';
 import { noop } from 'rxjs';
 
-const SubcommandGroup = (options?: Omit<SlashCommandMeta, 'type'>) =>
+const SubcommandGroup = (options?: Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>) =>
 	SetMetadata(
 		SUBCOMMAND_GROUP_METADATA,
 		new SlashCommandDiscovery({
