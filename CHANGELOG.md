@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.4.6](https://github.com/necordjs/necord/compare/v5.4.5...v5.4.6) - (2023-02-26)
+
+## Features
+
+- Add warnings for duplicate registrations (#635) ([b8596c8](https://github.com/necordjs/necord/commit/b8596c881632a1c6b8509575b39b37377b4becc7))
+
 # [5.4.5](https://github.com/necordjs/necord/compare/v5.4.4...v5.4.5) - (2023-02-08)
 
 ## Bug Fixes
