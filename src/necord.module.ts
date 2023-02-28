@@ -1,5 +1,6 @@
 import { Client } from 'discord.js';
 import {
+	ConfigurableModuleBuilder,
 	DynamicModule,
 	Global,
 	Inject,
@@ -13,7 +14,7 @@ import {
 	NecordModuleOptions,
 	NecordOptionsFactory
 } from './necord-options.interface';
-import { NECORD_MODULE_OPTIONS } from './necord.constants';
+import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.constants';
 import { TextCommandsService } from './text-commands';
 import { ModalsService } from './modals';
 import { MessageComponentsService } from './message-components';
@@ -47,65 +48,17 @@ import { DiscoveryModule } from '@nestjs/core';
 		TextCommandsService
 	]
 })
-export class NecordModule implements OnApplicationBootstrap, OnApplicationShutdown {
-	public static forRoot(options: NecordModuleOptions): DynamicModule {
-		return {
-			module: NecordModule,
-			providers: [
-				{
-					provide: NECORD_MODULE_OPTIONS,
-					useValue: options
-				}
-			],
-			exports: []
-		};
-	}
-
-	public static forRootAsync(options: NecordModuleAsyncOptions): DynamicModule {
-		return {
-			module: NecordModule,
-			imports: options.imports,
-			providers: this.createAsyncProviders(options),
-			exports: []
-		};
-	}
-
-	private static createAsyncProviders(options: NecordModuleAsyncOptions): Provider[] {
-		if (options.useExisting || options.useFactory) {
-			return [this.createAsyncOptionsProvider(options)];
-		}
-
-		return [
-			this.createAsyncOptionsProvider(options),
-			{
-				provide: options.useClass,
-				useClass: options.useClass
-			}
-		];
-	}
-
-	private static createAsyncOptionsProvider(options: NecordModuleAsyncOptions): Provider {
-		if (options.useFactory) {
-			return {
-				provide: NECORD_MODULE_OPTIONS,
-				useFactory: async (...args: any[]) => await options.useFactory(...args),
-				inject: options.inject || []
-			};
-		}
-
-		return {
-			provide: NECORD_MODULE_OPTIONS,
-			useFactory: async (optionsFactory: NecordOptionsFactory) =>
-				await optionsFactory.createNecordOptions(),
-			inject: [options.useExisting || options.useClass]
-		};
-	}
-
+export class NecordModule
+	extends ConfigurableModuleClass
+	implements OnApplicationBootstrap, OnApplicationShutdown
+{
 	public constructor(
 		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions
-	) {}
+	) {
+		super();
+	}
 
 	public onApplicationBootstrap() {
 		return this.client.login(this.options.token);

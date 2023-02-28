@@ -1,5 +1,16 @@
-export const NECORD_MODULE_OPTIONS = 'necord:module_options';
+import { ConfigurableModuleBuilder } from '@nestjs/common';
+import { NecordModuleOptions } from './necord-options.interface';
 
+export const {
+	ConfigurableModuleClass,
+	MODULE_OPTIONS_TOKEN: NECORD_MODULE_OPTIONS,
+	OPTIONS_TYPE,
+	ASYNC_OPTIONS_TYPE
+} = new ConfigurableModuleBuilder<NecordModuleOptions>()
+	.setClassMethodName('forRoot')
+	.setFactoryMethodName('createNecordOptions')
+	.setExtras({})
+	.build();
 export const LISTENERS_METADATA = 'necord:listeners_meta';
 export const TEXT_COMMAND_METADATA = 'necord:text_command_meta';
 export const CONTEXT_MENU_METADATA = 'necord:context_menu_meta';
