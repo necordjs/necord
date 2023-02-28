@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.4.7](https://github.com/necordjs/necord/compare/v5.4.6...v5.4.7) - (2023-02-28)
+
+## Bug Fixes
+
+- Change bypass types ([b5d890a](https://github.com/necordjs/necord/commit/b5d890add5613252c63464ac969226f78630a554))
+
+## Styling
+
+- Lint ([cebd133](https://github.com/necordjs/necord/commit/cebd13320f0f429910497fa813c098d687fb82d3))
+
 # [5.4.6](https://github.com/necordjs/necord/compare/v5.4.5...v5.4.6) - (2023-02-26)
 
 ## Features
