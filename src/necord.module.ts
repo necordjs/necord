@@ -1,19 +1,12 @@
 import { Client } from 'discord.js';
 import {
-	ConfigurableModuleBuilder,
-	DynamicModule,
 	Global,
 	Inject,
 	Module,
 	OnApplicationBootstrap,
-	OnApplicationShutdown,
-	Provider
+	OnApplicationShutdown
 } from '@nestjs/common';
-import {
-	NecordModuleAsyncOptions,
-	NecordModuleOptions,
-	NecordOptionsFactory
-} from './necord-options.interface';
+import { NecordModuleOptions } from './necord-options.interface';
 import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.constants';
 import { TextCommandsService } from './text-commands';
 import { ModalsService } from './modals';
