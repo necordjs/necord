@@ -9,7 +9,6 @@ export const {
 } = new ConfigurableModuleBuilder<NecordModuleOptions>()
 	.setClassMethodName('forRoot')
 	.setFactoryMethodName('createNecordOptions')
-	.setExtras({})
 	.build();
 export const LISTENERS_METADATA = 'necord:listeners_meta';
 export const TEXT_COMMAND_METADATA = 'necord:text_command_meta';

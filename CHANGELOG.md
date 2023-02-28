@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.4.8](https://github.com/necordjs/necord/compare/v5.4.7...v5.4.8) - (2023-02-28)
+
+## Features
+
+- Add configurable module class ([8af0f0d](https://github.com/necordjs/necord/commit/8af0f0d5a70c17b3eee78d7cf8860208c26c5d79))
+
+## Styling
+
+- Remove imports ([b115aa0](https://github.com/necordjs/necord/commit/b115aa040eaf87fbdaf41681153f601072e4d5c9))
+
 # [5.4.7](https://github.com/necordjs/necord/compare/v5.4.6...v5.4.7) - (2023-02-28)
 
 ## Bug Fixes
