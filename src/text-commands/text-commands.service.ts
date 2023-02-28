@@ -8,7 +8,7 @@ import { NecordModuleOptions } from '../necord-options.interface';
 @Injectable()
 export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(TextCommandsService.name);
-	
+
 	private readonly textCommands = new Map<string, TextCommandDiscovery>();
 
 	public constructor(
@@ -48,11 +48,11 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 
 	public add(textCommand: TextCommandDiscovery) {
 		const name = textCommand.getName();
-		
+
 		if (this.textCommands.has(name)) {
 			this.logger.warn(`TextCommand : ${name} already exists`);
 		}
-		
+
 		this.textCommands.set(name, textCommand);
 	}
 

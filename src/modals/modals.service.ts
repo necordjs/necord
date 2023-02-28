@@ -7,7 +7,7 @@ import { ModalDiscovery } from './modal.discovery';
 @Injectable()
 export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(ModalsService.name);
-	
+
 	private readonly modals = new Map<string, ModalDiscovery>();
 
 	public constructor(
@@ -35,11 +35,11 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 
 	public add(modal: ModalDiscovery) {
 		const id = modal.getCustomId();
-		
+
 		if (this.modals.has(id)) {
 			this.logger.warn(`Modal : ${id} already exists`);
 		}
-		
+
 		this.modals.set(id, modal);
 	}
 

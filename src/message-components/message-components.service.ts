@@ -7,7 +7,7 @@ import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 @Injectable()
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(MessageComponentsService.name);
-	
+
 	private readonly components = new Map<string, MessageComponentDiscovery>();
 
 	public constructor(
@@ -44,11 +44,11 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public add(component: MessageComponentDiscovery) {
 		const name = this.componentName(component.getType(), component.getCustomId());
-		
+
 		if (this.components.has(name)) {
 			this.logger.warn(`Message Component : ${name} already exists`);
 		}
-		
+
 		this.components.set(name, component);
 	}
 

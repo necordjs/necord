@@ -13,7 +13,7 @@ import { Reflector } from '@nestjs/core';
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(SlashCommandsService.name);
-	
+
 	private readonly slashCommands = new Map<string, SlashCommandDiscovery>();
 
 	public constructor(
@@ -50,7 +50,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		if (this.slashCommands.has(command.getName())) {
 			this.logger.warn(`Slash Command : ${command.getName()} already exists`);
 		}
-		
+
 		this.slashCommands.set(command.getName(), command);
 	}
 
