@@ -51,7 +51,6 @@ Once the installation process is complete, we can import the `NecordModule` into
 ```typescript
 import { NecordModule } from 'necord';
 import { Module } from '@nestjs/common';
-import { IntentsBitField } from 'discord.js';
 
 @Module({
     imports: [
