@@ -51,13 +51,13 @@ Once the installation process is complete, we can import the `NecordModule` into
 ```typescript
 import { NecordModule } from 'necord';
 import { Module } from '@nestjs/common';
-import { GatewayIntentBits } from 'discord.js';
+import { IntentsBitField } from 'discord.js';
 
 @Module({
     imports: [
         NecordModule.forRoot({
             token: 'DISCORD_BOT_TOKEN',
-            intents: [GatewayIntentBits.FLAGS.GUILDS, GatewayIntentBits.FLAGS.GUILD_MESSAGES, GatewayIntentBits.FLAGS.DIRECT_MESSAGES]
+            intents: ['Guilds', 'GuildMessages', 'DirectMessages']
         })
     ],
     providers: []
