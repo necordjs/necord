@@ -16,12 +16,14 @@ import { ListenersService } from './listeners';
 import { ExplorerService } from './necord-explorer.service';
 import { CommandsService, ContextMenusService, SlashCommandsService } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
+import { NecordRestProvider } from './necord-rest.provider';
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
 	providers: [
 		NecordClientProvider,
+		NecordRestProvider,
 		CommandsService,
 		ExplorerService,
 		TextCommandsService,
@@ -33,6 +35,7 @@ import { DiscoveryModule } from '@nestjs/core';
 	],
 	exports: [
 		NecordClientProvider,
+		NecordRestProvider,
 		CommandsService,
 		SlashCommandsService,
 		ContextMenusService,
