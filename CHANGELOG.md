@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.5.0](https://github.com/necordjs/necord/compare/v5.4.8...v5.5.0) - (2023-03-09)
+
+## Bug Fixes
+
+- Remove extras ([318e5dd](https://github.com/necordjs/necord/commit/318e5ddd43059b01dc078bd68523df637bad8300))
+
+## Features
+
+- Add rest provider ([85a9c33](https://github.com/necordjs/necord/commit/85a9c33a78d2b76f791d26346073746515674722))
+
+## Styling
+
+- Lint ([56a59f8](https://github.com/necordjs/necord/commit/56a59f8cb140d3df891d1cb56bc942de6ef4d8fc))
+
 # [5.4.8](https://github.com/necordjs/necord/compare/v5.4.7...v5.4.8) - (2023-02-28)
 
 ## Features
