@@ -5,6 +5,5 @@ export interface NecordModuleOptions extends DiscordClientOptions {
 	prefix?: string | Function;
 	development?: Snowflake[] | false;
 	skipRegistration?: boolean;
-
 	rest?: RESTOptions;
 }
