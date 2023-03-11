@@ -1,3 +1,4 @@
-custom:
-  - https://paypal.me/socketsomeone
-  - https://www.tinkoff.ru/rm/filippov.aleksey372/YN6Ob51146
+# These are supported funding model platforms
+
+github: [socketsomeone]
+open_collective: necord
