@@ -21,9 +21,9 @@
 		"test": "test"
 	},
 	"funding": {
-    	"type": "opencollective",
-    	"url": "https://opencollective.com/necord"
-  	},
+		"type": "opencollective",
+		"url": "https://opencollective.com/necord"
+	},
 	"main": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"keywords": [
