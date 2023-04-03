@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.5.4](https://github.com/necordjs/necord/compare/v5.5.3...v5.5.4) - (2023-04-03)
+
+## Bug Fixes
+
+- Add tsconfig for build and tests ([2abef6c](https://github.com/necordjs/necord/commit/2abef6c9c0a75344b56b743d121493551cf88726))
+
 # [5.5.3](https://github.com/necordjs/necord/compare/v5.5.2...v5.5.3) - (2023-04-01)
 
 ## Testing
