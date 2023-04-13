@@ -60,23 +60,31 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 
 	public async registerInGuild(guildId: string) {
 		return this.client.application.commands.set(
-			this.getCommandsByGuildId(guildId).flatMap(command => command.toJSON())
+			this.getGuildCommands(guildId).flatMap(command => command.toJSON())
 		);
 	}
 
 	public getCommands(): CommandDiscovery[] {
-		return this.applicationCommands.get(undefined) ?? [];
-	}
-
-	public getCommandsByGuildId(guildId: string): CommandDiscovery[] {
-		return this.applicationCommands.get(guildId) ?? [];
+		return [...this.applicationCommands.values()].flat();
 	}
 
 	public getCommandByName(name: string): CommandDiscovery {
 		return this.getCommands().find(command => command.getName() === name);
 	}
 
-	public getCommandByGuildIdAndName(guildId: string, name: string): CommandDiscovery {
-		return this.getCommandsByGuildId(guildId).find(command => command.getName() === name);
+	public getGlobalCommands(): CommandDiscovery[] {
+		return this.applicationCommands.get(undefined) ?? [];
+	}
+
+	public getGuildCommands(guildId: string): CommandDiscovery[] {
+		return this.applicationCommands.get(guildId) ?? [];
+	}
+
+	public getGlobalCommandByName(name: string): CommandDiscovery {
+		return this.getGlobalCommands().find(command => command.getName() === name);
+	}
+
+	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery {
+		return this.getGuildCommands(guildId).find(command => command.getName() === name);
 	}
 }
