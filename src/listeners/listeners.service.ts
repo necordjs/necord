@@ -351,16 +351,21 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 	private onGuildAuditLogEntryCreate([auditLogEntry, guild]: ContextOf<'guildAuditLogEntryCreate'>) {
 		const { actionType } = auditLogEntry;
 
-		if(actionType == 'Create') {
-			this.emit('guildAuditLogsEntryTypeCreate', auditLogEntry, guild);
-		}
+		switch (actionType) {
+			case "Create":
+				this.emit('guildAuditLogsEntryTypeCreate', auditLogEntry, guild);
+				break;
 
-		if(actionType == 'Delete') {
-			this.emit('guildAuditLogsEntryTypeDelete', auditLogEntry, guild);
-		}
+			case "Delete":
+				this.emit('guildAuditLogsEntryTypeDelete', auditLogEntry, guild);
+				break;
 
-		if(actionType == 'Update') {
-			this.emit('guildAuditLogsEntryTypeUpdate', auditLogEntry, guild);
+			case "Update":
+				this.emit('guildAuditLogsEntryTypeUpdate', auditLogEntry, guild);
+				break;
+
+			default:
+				break;
 		}
 	}
 }
