@@ -75,13 +75,12 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	public getGlobalCommands(): CommandDiscovery[] {
 		return this.applicationCommands.get(undefined) ?? [];
 	}
+	public getGlobalCommandByName(name: string): CommandDiscovery {
+		return this.getGlobalCommands().find(command => command.getName() === name);
+	}
 
 	public getGuildCommands(guildId: string): CommandDiscovery[] {
 		return this.applicationCommands.get(guildId) ?? [];
-	}
-
-	public getGlobalCommandByName(name: string): CommandDiscovery {
-		return this.getGlobalCommands().find(command => command.getName() === name);
 	}
 
 	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery {
