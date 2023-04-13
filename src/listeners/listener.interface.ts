@@ -2,6 +2,7 @@ import {
 	ClientEvents,
 	DMChannel,
 	Guild,
+	GuildAuditLogsEntry,
 	GuildFeature,
 	GuildMember,
 	GuildPremiumTier,
@@ -124,4 +125,9 @@ export interface NecordEvents extends ClientEvents {
 	voiceChannelUndeaf: [member: GuildMember, type: 'self-deafed' | 'server-deafed'];
 	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
 	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
+
+	// Audit Log Entry
+	GuildAuditLogsEntryTypeCreate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+	GuildAuditLogsEntryTypeUpdate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+	GuildAuditLogsEntryTypeDelete: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 }

@@ -33,6 +33,7 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		this.on('threadUpdate', this.onThreadUpdate);
 		this.on('userUpdate', this.onUserUpdate);
 		this.on('voiceStateUpdate', this.onVoiceStateUpdate);
+		this.on('guildAuditLogEntryCreate', this.onGuildAuditLogEntryCreate);
 	}
 
 	private on<K extends keyof NecordEvents>(event: K, fn: (args: NecordEvents[K]) => void) {
@@ -344,6 +345,22 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 
 		if (oldState.streaming && !newState.streaming) {
 			this.emit('voiceStreamingStop', newMember, newState.channel);
+		}
+	}
+
+	private onGuildAuditLogEntryCreate([auditLogEntry, guild]: ContextOf<'guildAuditLogEntryCreate'>) {
+		const { actionType } = auditLogEntry;
+
+		if(actionType == 'Create') {
+			this.emit('GuildAuditLogsEntryTypeCreate', auditLogEntry, guild);
+		}
+
+		if(actionType == 'Delete') {
+			this.emit('GuildAuditLogsEntryTypeDelete', auditLogEntry, guild);
+		}
+
+		if(actionType == 'Update') {
+			this.emit('GuildAuditLogsEntryTypeUpdate', auditLogEntry, guild);
 		}
 	}
 }
