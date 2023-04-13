@@ -100,6 +100,10 @@ If you want to fully dive into Necord check out these resources:
 * [Discord JS](https://discord.js.org) - The most powerful library for creating bots.
 * [Discord API](https://discord.com/developers/docs) - Official documentation of Discord API.
 
+## Backers
+
+<a href="https://opencollective.com/necord" target="_blank"><img src="https://opencollective.com/necord/backers.svg?width=1000"></a>
+
 ## Stay in touch
 
 * Author - [Alexey Filippov](https://t.me/socketsomeone)
