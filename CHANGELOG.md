@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.6.1](https://github.com/necordjs/necord/compare/v5.6.0...v5.6.1) - (2023-04-13)
+
+## Refactor
+
+- Rename guild audit logs event names ([af91ac7](https://github.com/necordjs/necord/commit/af91ac7b8f39d7fc890baef3c9c95fa974fc6dab))
+
 # [5.6.0](https://github.com/necordjs/necord/compare/v5.5.4...v5.6.0) - (2023-04-13)
 
 ## Refactor
