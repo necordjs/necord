@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.6.0](https://github.com/necordjs/necord/compare/v5.5.4...v5.6.0) - (2023-04-13)
+
+## Refactor
+
+- Update position of switch-case ([dd63a25](https://github.com/necordjs/necord/commit/dd63a250d0aec10c5a92e7bbb007e4fe1fc12dfe))
+
 # [5.5.4](https://github.com/necordjs/necord/compare/v5.5.3...v5.5.4) - (2023-04-03)
 
 ## Bug Fixes
