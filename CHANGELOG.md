@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.7.0](https://github.com/necordjs/necord/compare/v5.6.1...v5.7.0) - (2023-04-13)
+
+## Features
+
+- Add commands service methods for get commands ([34a58f7](https://github.com/necordjs/necord/commit/34a58f793a8cb2b93b988bc0e16324bb34755747))
+
 # [5.6.1](https://github.com/necordjs/necord/compare/v5.6.0...v5.6.1) - (2023-04-13)
 
 ## Refactor
