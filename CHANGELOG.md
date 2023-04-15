@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.7.1](https://github.com/necordjs/necord/compare/v5.7.0...v5.7.1) - (2023-04-13)
+
+## Refactor
+
+- Split global commands to all command ([cace782](https://github.com/necordjs/necord/commit/cace782a76de005797b96c71a480a4df9a7fa932))
+
+## Styling
+
+- Lint ([f21ada2](https://github.com/necordjs/necord/commit/f21ada2a2f6a2b1e277a49ae6abf97e8a4de421e))
+
 # [5.7.0](https://github.com/necordjs/necord/compare/v5.6.1...v5.7.0) - (2023-04-13)
 
 ## Features
