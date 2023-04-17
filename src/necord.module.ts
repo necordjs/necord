@@ -22,25 +22,27 @@ import { NecordRestProvider } from './necord-rest.provider';
 @Module({
 	imports: [DiscoveryModule],
 	providers: [
+		CommandsService,
+		ContextMenusService,
+		ExplorerService,
+		ListenersService,
+		MessageComponentsService,
+		ModalsService,
 		NecordClientProvider,
 		NecordRestProvider,
-		CommandsService,
-		ExplorerService,
-		TextCommandsService,
-		ModalsService,
-		MessageComponentsService,
-		ContextMenusService,
-		ListenersService,
-		SlashCommandsService
+		SlashCommandsService,
+		TextCommandsService
 	],
 	exports: [
-		NecordClientProvider,
-		NecordRestProvider,
 		CommandsService,
-		SlashCommandsService,
 		ContextMenusService,
+		ExplorerService,
+		ListenersService,
 		MessageComponentsService,
 		ModalsService,
+		NecordClientProvider,
+		NecordRestProvider,
+		SlashCommandsService,
 		TextCommandsService
 	]
 })
