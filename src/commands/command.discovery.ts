@@ -17,7 +17,11 @@ export abstract class CommandDiscovery<
 	}
 
 	public hasGuild(guild: Snowflake) {
-		return this.meta.guilds?.includes(guild);
+		if (!this.meta.guilds) {
+			return false;
+		}
+
+		return this.meta.guilds.includes(guild);
 	}
 
 	public getGuilds(): Snowflake[] {
