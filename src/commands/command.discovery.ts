@@ -1,12 +1,12 @@
 import { BaseApplicationCommandData, Snowflake } from 'discord.js';
 import { NecordBaseDiscovery } from '../context';
 
-export interface BaseCommandData extends BaseApplicationCommandData {
+export interface BaseCommandMeta extends BaseApplicationCommandData {
 	guilds?: Snowflake[];
 }
 
 export abstract class CommandDiscovery<
-	T extends BaseCommandData = BaseCommandData
+	T extends BaseCommandMeta = BaseCommandMeta
 > extends NecordBaseDiscovery<T> {
 	public getName() {
 		return this.meta.name;
