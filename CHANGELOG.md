@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.8.0](https://github.com/necordjs/necord/compare/v5.7.3...v5.8.0) - (2023-04-25)
+
+## Features
+
+- Add methods for discovery #710 ([783bb98](https://github.com/necordjs/necord/commit/783bb986e593222b0c5d03ab980d5cc15517311a))
+
+## Refactor
+
+- Rename interface ([71e6bee](https://github.com/necordjs/necord/commit/71e6beefdc4fb260a8b9b57f4a0f9d284f1be8dc))
+
 # [5.7.3](https://github.com/necordjs/necord/compare/v5.7.2...v5.7.3) - (2023-04-17)
 
 ## Refactor
