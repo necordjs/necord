@@ -240,14 +240,14 @@
   resolved "https://registry.yarnpkg.com/@discordjs/util/-/util-0.3.1.tgz#4e8737e1dcff7e9f5eccc3116fb44755b65b1e97"
   integrity sha512-HxXKYKg7vohx2/OupUN/4Sd02Ev3PBJ5q0gtjdcvXb0ErCva8jNHWfe/v5sU3UKjIB/uxOhc+TDOnhqffj9pRA==
 
-"@discordjs/ws@^0.8.2":
-  version "0.8.2"
-  resolved "https://registry.yarnpkg.com/@discordjs/ws/-/ws-0.8.2.tgz#e76f013fe69e41641e9c4d9f0514763048f691d0"
-  integrity sha512-av2yboE9VrBn0xyObiMMCrBbls+ucjjR3MNI5hc78hdNnYLoZQuvEVLGN8h/I+W1Vr08WATxke69RXsNZS5FBQ==
+"@discordjs/ws@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.yarnpkg.com/@discordjs/ws/-/ws-0.8.3.tgz#77db8d563b731a2198c1b40f63b1ef8d230504f7"
+  integrity sha512-hcYtppanjHecbdNyCKQNH2I4RP9UrphDgmRgLYrATEQF1oo4sYSve7ZmGsBEXSzH72MO2tBPdWSThunbxUVk0g==
   dependencies:
     "@discordjs/collection" "^1.5.1"
     "@discordjs/rest" "^1.7.1"
-    "@discordjs/util" "^0.3.0"
+    "@discordjs/util" "^0.3.1"
     "@sapphire/async-queue" "^1.5.0"
     "@types/ws" "^8.5.4"
     "@vladfrangu/async_event_emitter" "^2.2.1"
@@ -1459,17 +1459,17 @@ discord-api-types@0.37.41, discord-api-types@^0.37.41:
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.41.tgz#b2719aa25ba6c5794d08524742ab008224b03710"
   integrity sha512-FaPGBK9hx3zqSRX1x3KQWj+OElAJKmcyyfcdCy+U4AKv+gYuIkRySM7zd1So2sE4gc1DikkghkSBgBgKh6pe4Q==
 
-discord.js@14.10.2:
-  version "14.10.2"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.10.2.tgz#0cc7eec422ab1589e1fdaf57fcb14cd063324610"
-  integrity sha512-yPMJ/vGSWJP8WbbfPX18WGU2wOLBjL+OKVOVKI1eWx3ICcUhDg5MvFkg5aNGiokjPfKlAgqnFIUH0jl59ONHrQ==
+discord.js@14.11.0:
+  version "14.11.0"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.11.0.tgz#6529d49f30d10fc5a9ff8e6796661aa998769afe"
+  integrity sha512-CkueWYFQ28U38YPR8HgsBR/QT35oPpMbEsTNM30Fs8loBIhnA4s70AwQEoy6JvLcpWWJO7GY0y2BUzZmuBMepQ==
   dependencies:
     "@discordjs/builders" "^1.6.3"
     "@discordjs/collection" "^1.5.1"
     "@discordjs/formatters" "^0.3.1"
     "@discordjs/rest" "^1.7.1"
     "@discordjs/util" "^0.3.1"
-    "@discordjs/ws" "^0.8.2"
+    "@discordjs/ws" "^0.8.3"
     "@sapphire/snowflake" "^3.4.2"
     "@types/ws" "^8.5.4"
     discord-api-types "^0.37.41"
