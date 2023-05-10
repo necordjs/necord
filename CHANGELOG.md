@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.8.4](https://github.com/necordjs/necord/compare/v5.8.3...v5.8.4) - (2023-05-10)
+
+## Bug Fixes
+
+- Register commands to guild ([7f215de](https://github.com/necordjs/necord/commit/7f215de8a17e7b971442744f9692299312ac4f74))
+
 # [5.8.3](https://github.com/necordjs/necord/compare/v5.8.2...v5.8.3) - (2023-05-10)
 
 ## Bug Fixes
