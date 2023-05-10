@@ -53,7 +53,9 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 
 		this.logger.log(`Started refreshing application commands.`);
 		for (const guild of this.applicationCommands.keys()) {
-			await this.registerInGuild(guild);
+			await this.registerInGuild(guild).catch(error => {
+				this.logger.error(`Failed to register application commands: ${error}`);
+			});
 		}
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
@@ -75,6 +77,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	public getGlobalCommands(): CommandDiscovery[] {
 		return this.applicationCommands.get(undefined) ?? [];
 	}
+
 	public getGlobalCommandByName(name: string): CommandDiscovery {
 		return this.getGlobalCommands().find(command => command.getName() === name);
 	}
