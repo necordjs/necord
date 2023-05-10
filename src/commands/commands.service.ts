@@ -53,6 +53,13 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 
 		this.logger.log(`Started refreshing application commands.`);
 		for (const guild of this.applicationCommands.keys()) {
+			if (this.getGuildCommands(guild).length === 0) {
+				this.logger.log(
+					`Skipping ${guild ? `guild ${guild}` : 'global'} as it has no commands.`
+				);
+				continue;
+			}
+
 			await this.registerInGuild(guild).catch(error => {
 				this.logger.error(
 					`Failed to register application commands (${
