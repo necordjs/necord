@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.8.1](https://github.com/necordjs/necord/compare/v5.8.0...v5.8.1) - (2023-05-10)
+
+## Bug Fixes
+
+- Allow register command when getting error ([f872895](https://github.com/necordjs/necord/commit/f872895b99d87435a49f951a325bec9b8347f9b4))
+
 # [5.8.0](https://github.com/necordjs/necord/compare/v5.7.3...v5.8.0) - (2023-04-25)
 
 ## Features
