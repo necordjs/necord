@@ -3,7 +3,11 @@ import { createCommandGroupDecorator, Ctx, Opts, Subcommand } from '../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
-const UtilsCommands = createCommandGroupDecorator({ name: 'utils', description: 'Test group' });
+const UtilsCommands = createCommandGroupDecorator({
+	name: 'utils',
+	description: 'Test group',
+	guilds: ['123']
+});
 
 @UtilsCommands()
 export class SlashCommandsSpec {

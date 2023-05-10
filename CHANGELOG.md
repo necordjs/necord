@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.8.3](https://github.com/necordjs/necord/compare/v5.8.2...v5.8.3) - (2023-05-10)
+
+## Bug Fixes
+
+- Skip registering global when commands empty ([9925b02](https://github.com/necordjs/necord/commit/9925b027f78e25caad99854676a741fa7068f752))
+
 # [5.8.1](https://github.com/necordjs/necord/compare/v5.8.0...v5.8.1) - (2023-05-10)
 
 ## Bug Fixes

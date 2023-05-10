@@ -73,7 +73,8 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 
 	public async registerInGuild(guildId: string) {
 		return this.client.application.commands.set(
-			this.getGuildCommands(guildId).flatMap(command => command.toJSON())
+			this.getGuildCommands(guildId).flatMap(command => command.toJSON()),
+			guildId
 		);
 	}
 
