@@ -55,7 +55,7 @@
 		"path-to-regexp": "6.2.1"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "17.6.3",
+		"@commitlint/cli": "17.6.5",
 		"@commitlint/config-angular": "17.6.5",
 		"@favware/npm-deprecate": "1.0.7",
 		"@nestjs/common": "9.4.2",
