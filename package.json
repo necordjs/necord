@@ -60,7 +60,7 @@
 		"@favware/npm-deprecate": "1.0.7",
 		"@nestjs/common": "9.4.3",
 		"@nestjs/core": "9.4.3",
-		"@types/node": "20.4.1",
+		"@types/node": "20.4.2",
 		"@typescript-eslint/eslint-plugin": "5.62.0",
 		"@typescript-eslint/parser": "5.62.0",
 		"discord-api-types": "0.37.48",
