@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Client, InteractionType } from 'discord.js';
+import { Client, Collection, InteractionType } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MODAL_METADATA } from '../necord.constants';
 import { ModalDiscovery } from './modal.discovery';
@@ -8,7 +8,7 @@ import { ModalDiscovery } from './modal.discovery';
 export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(ModalsService.name);
 
-	private readonly modals = new Map<string, ModalDiscovery>();
+	private readonly modals = new Collection<string, ModalDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -23,13 +23,7 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 		return this.client.on('interactionCreate', interaction => {
 			if (interaction.type !== InteractionType.ModalSubmit) return;
 
-			const name = interaction.customId;
-
-			for (const modal of this.modals.values()) {
-				if (modal.matcher(name)) {
-					return modal.execute(interaction);
-				}
-			}
+			return this.get(interaction.customId)?.execute(interaction);
 		});
 	}
 
@@ -41,6 +35,16 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 		}
 
 		this.modals.set(id, modal);
+	}
+
+	public get(customId: string) {
+		for (const modal of this.modals.values()) {
+			if (modal.matcher(customId)) {
+				return modal;
+			}
+		}
+
+		return null;
 	}
 
 	public remove(customId: string) {

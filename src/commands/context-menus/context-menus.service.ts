@@ -1,4 +1,4 @@
-import { Client } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 import { CONTEXT_MENU_METADATA } from '../../necord.constants';
@@ -9,7 +9,7 @@ import { CommandDiscovery } from '../command.discovery';
 export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(ContextMenusService.name);
 
-	private readonly contextMenus = new Map<string, ContextMenuDiscovery>();
+	private readonly contextMenus = new Collection<string, ContextMenuDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -26,13 +26,11 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		return this.client.on('interactionCreate', interaction => {
 			if (!interaction.isContextMenuCommand()) return;
 
-			return this.contextMenus
-				.get(this.getId(interaction.commandType, interaction.commandName))
-				?.execute(interaction);
+			return this.get(interaction.commandType, interaction.commandName)?.execute(interaction);
 		});
 	}
 
-	public getCommands(): CommandDiscovery[] {
+	public getCommands(): ContextMenuDiscovery[] {
 		return [...this.contextMenus.values()];
 	}
 
@@ -44,6 +42,10 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		}
 
 		this.contextMenus.set(id, contextMenu);
+	}
+
+	public get(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): ContextMenuDiscovery {
+		return this.contextMenus.get(this.getId(type, name));
 	}
 
 	public remove(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): boolean {

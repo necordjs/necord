@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Client } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import { TextCommandDiscovery } from './text-command.discovery';
 import { NECORD_MODULE_OPTIONS, TEXT_COMMAND_METADATA } from '../necord.constants';
 import { ExplorerService } from '../necord-explorer.service';
@@ -9,7 +9,7 @@ import { NecordModuleOptions } from '../necord-options.interface';
 export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(TextCommandsService.name);
 
-	private readonly textCommands = new Map<string, TextCommandDiscovery>();
+	private readonly textCommands = new Collection<string, TextCommandDiscovery>();
 
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
@@ -42,7 +42,7 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 
 			if (!cmd) return;
 
-			return this.textCommands.get(cmd)?.execute([message]);
+			return this.get(cmd)?.execute([message]);
 		});
 	}
 
@@ -54,6 +54,10 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 		}
 
 		this.textCommands.set(name, textCommand);
+	}
+
+	public get(name: string) {
+		return this.textCommands.get(name);
 	}
 
 	public remove(name: string) {

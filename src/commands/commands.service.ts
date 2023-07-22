@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { NECORD_MODULE_OPTIONS } from '../necord.constants';
-import { Client } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import { NecordModuleOptions } from '../necord-options.interface';
 import { ContextMenusService } from './context-menus';
 import { CommandDiscovery } from './command.discovery';
@@ -10,7 +10,9 @@ import { SlashCommandsService } from './slash-commands';
 export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(CommandsService.name);
 
-	private readonly applicationCommands = new Map<string, CommandDiscovery[]>([[undefined, []]]);
+	private readonly applicationCommands = new Collection<string, CommandDiscovery[]>([
+		[undefined, []]
+	]);
 
 	public constructor(
 		private readonly client: Client,
@@ -29,7 +31,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public onApplicationBootstrap() {
-		const commands = [
+		const commands: CommandDiscovery[] = [
 			...this.contextMenusService.getCommands(),
 			...this.slashCommandsService.getCommands()
 		];

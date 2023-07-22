@@ -1,20 +1,19 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
-import { Client, InteractionType } from 'discord.js';
+import { Client, Collection, InteractionType } from 'discord.js';
 import {
 	SLASH_COMMAND_METADATA,
 	SUBCOMMAND_GROUP_METADATA,
 	SUBCOMMAND_METADATA
 } from '../../necord.constants';
 import { ExplorerService } from '../../necord-explorer.service';
-import { CommandDiscovery } from '../command.discovery';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(SlashCommandsService.name);
 
-	private readonly slashCommands = new Map<string, SlashCommandDiscovery>();
+	private readonly slashCommands = new Collection<string, SlashCommandDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -38,11 +37,11 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 			)
 				return;
 
-			return this.slashCommands.get(i.commandName)?.execute(i);
+			return this.get(i.commandName)?.execute(i);
 		});
 	}
 
-	public getCommands(): CommandDiscovery[] {
+	public getCommands(): SlashCommandDiscovery[] {
 		return [...this.slashCommands.values()];
 	}
 
@@ -54,7 +53,15 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		this.slashCommands.set(command.getName(), command);
 	}
 
-	public addSubCommand(subCommand: SlashCommandDiscovery): void {
+	public get(commandName: string): SlashCommandDiscovery {
+		return this.slashCommands.get(commandName);
+	}
+
+	public remove(commandName: string): boolean {
+		return this.slashCommands.delete(commandName);
+	}
+
+	private addSubCommand(subCommand: SlashCommandDiscovery): void {
 		const rootCommand = this.reflector.get<SlashCommandDiscovery>(
 			SLASH_COMMAND_METADATA,
 			subCommand.getClass()
@@ -71,18 +78,14 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		}
 
 		if (subCommandGroup) {
-			subCommandGroup.setCommand(subCommand);
-			rootCommand.setCommand(subCommandGroup);
+			subCommandGroup.setSubcommand(subCommand);
+			rootCommand.setSubcommand(subCommandGroup);
 		} else {
-			rootCommand.setCommand(subCommand);
+			rootCommand.setSubcommand(subCommand);
 		}
 
 		if (!this.slashCommands.has(rootCommand.getName())) {
 			this.slashCommands.set(rootCommand.getName(), rootCommand);
 		}
-	}
-
-	public remove(commandName: string): boolean {
-		return this.slashCommands.delete(commandName);
 	}
 }

@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Client, InteractionType } from 'discord.js';
+import { Client, Collection, InteractionType } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
@@ -8,7 +8,7 @@ import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(MessageComponentsService.name);
 
-	private readonly components = new Map<string, MessageComponentDiscovery>();
+	private readonly components = new Collection<string, MessageComponentDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -25,13 +25,7 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 		return this.client.on('interactionCreate', interaction => {
 			if (interaction.type !== InteractionType.MessageComponent) return;
 
-			const name = this.componentName(interaction.componentType, interaction.customId);
-
-			for (const component of this.components.values()) {
-				if (component.matcher(name)) {
-					return component.execute(interaction);
-				}
-			}
+			return this.get(interaction.componentType, interaction.customId)?.execute(interaction);
 		});
 	}
 
@@ -50,6 +44,16 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 		}
 
 		this.components.set(name, component);
+	}
+
+	public get(type: MessageComponentMeta['type'], customId: MessageComponentMeta['customId']) {
+		for (const component of this.components.values()) {
+			if (component.matcher(this.componentName(type, customId))) {
+				return component;
+			}
+		}
+
+		return null;
 	}
 
 	public remove(type: MessageComponentMeta['type'], customId: MessageComponentMeta['customId']) {
