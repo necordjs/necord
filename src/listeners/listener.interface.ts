@@ -1,4 +1,5 @@
 import {
+	AuditLogEvent,
 	ClientEvents,
 	DMChannel,
 	Guild,
@@ -130,4 +131,17 @@ export interface NecordEvents extends ClientEvents {
 	guildAuditLogEntryAdd: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 	guildAuditLogEntryUpdate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 	guildAuditLogEntryDelete: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+
+	guildAuditLogEntryWebhookCreate: [
+		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
+		guild: Guild
+	];
+	guildAuditLogEntryWebhookUpdate: [
+		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
+		guild: Guild
+	];
+	guildAuditLogEntryWebhookDelete: [
+		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
+		guild: Guild
+	];
 }

@@ -1,10 +1,11 @@
+import { AuditLogEvent, Client, GuildAuditLogsEntry, GuildChannel, Role } from 'discord.js';
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { ListenerDiscovery } from './listener.discovery';
-import { Client, GuildChannel, Role } from 'discord.js';
-import { LISTENERS_METADATA } from '../necord.constants';
-import { ExplorerService } from '../necord-explorer.service';
-import { NecordEvents } from './listener.interface';
+
 import { ContextOf } from '../context';
+import { ExplorerService } from '../necord-explorer.service';
+import { LISTENERS_METADATA } from '../necord.constants';
+import { ListenerDiscovery } from './listener.discovery';
+import { NecordEvents } from './listener.interface';
 
 @Injectable()
 export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
@@ -353,18 +354,41 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		guild
 	]: ContextOf<'guildAuditLogEntryCreate'>) {
 		const { actionType } = auditLogEntry;
-
 		switch (actionType) {
 			case 'Create':
 				this.emit('guildAuditLogEntryAdd', auditLogEntry, guild);
+
+				if (auditLogEntry.targetType === 'Webhook') {
+					this.emit(
+						'guildAuditLogEntryWebhookCreate',
+						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
+						guild
+					);
+				}
 				break;
 
 			case 'Update':
 				this.emit('guildAuditLogEntryUpdate', auditLogEntry, guild);
+
+				if (auditLogEntry.targetType === 'Webhook') {
+					this.emit(
+						'guildAuditLogEntryWebhookUpdate',
+						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
+						guild
+					);
+				}
 				break;
 
 			case 'Delete':
 				this.emit('guildAuditLogEntryDelete', auditLogEntry, guild);
+
+				if (auditLogEntry.targetType === 'Webhook') {
+					this.emit(
+						'guildAuditLogEntryWebhookDelete',
+						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
+						guild
+					);
+				}
 				break;
 
 			default:
