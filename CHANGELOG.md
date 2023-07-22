@@ -1,6 +1,31 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.0.0](https://github.com/necordjs/necord/compare/v5.9.0...v6.0.0) - (2023-07-22)
+
+## Bug Fixes
+
+- Add error stack for log ([3f29fa0](https://github.com/necordjs/necord/commit/3f29fa08dbbc064ea5a03285e8db580d10166759))
+
+## Refactor
+
+- Make life cycle methods as private ([b758b8a](https://github.com/necordjs/necord/commit/b758b8a4b6c4e8b2aedbc194e5adbd8941cfefbe))
+- Make cached discovery data as public ([fc180b9](https://github.com/necordjs/necord/commit/fc180b9bcb529d69a1cda0c8e909816df0cb8532))
+
+   ### Breaking Changes:
+   - `.getCommands()` methods removed
+
+- Remove deprecated interfaces, decorators and comments ([8a72279](https://github.com/necordjs/necord/commit/8a72279d439eca2269503d206d57f0677260d77f))
+
+   ### Breaking Changes:
+   - `@Values` and `@SelectMenu` removed
+
+- Use typeguards from djs ([c71cdd4](https://github.com/necordjs/necord/commit/c71cdd4aadd58d2ab809a8f46a99ddea3dcdcf38))
+
+## Testing
+
+- Change env ([0b33892](https://github.com/necordjs/necord/commit/0b33892e592cddf6634a77757f1cf75ec87c56c4))
+
 # [5.9.0](https://github.com/necordjs/necord/compare/v5.8.7...v5.9.0) - (2023-07-22)
 
 ## Features
