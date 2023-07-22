@@ -1,10 +1,18 @@
+import {
+	AuditLogEvent,
+	Client,
+	GuildAuditLogsEntry,
+	GuildAuditLogsTargetType,
+	GuildChannel,
+	Role
+} from 'discord.js';
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { ListenerDiscovery } from './listener.discovery';
-import { Client, GuildChannel, Role } from 'discord.js';
-import { LISTENERS_METADATA } from '../necord.constants';
-import { ExplorerService } from '../necord-explorer.service';
-import { NecordEvents } from './listener.interface';
+
 import { ContextOf } from '../context';
+import { ExplorerService } from '../necord-explorer.service';
+import { LISTENERS_METADATA } from '../necord.constants';
+import { ListenerDiscovery } from './listener.discovery';
+import { NecordEvents } from './listener.interface';
 
 @Injectable()
 export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
@@ -34,6 +42,9 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		this.on('userUpdate', this.onUserUpdate);
 		this.on('voiceStateUpdate', this.onVoiceStateUpdate);
 		this.on('guildAuditLogEntryCreate', this.onGuildAuditLogEntryCreate);
+		this.on('guildAuditLogEntryAdd', this.onGuildAuditLogEntryAdd);
+		this.on('guildAuditLogEntryUpdate', this.onGuildAuditLogEntryUpdate);
+		this.on('guildAuditLogEntryDelete', this.onGuildAuditLogEntryDelete);
 	}
 
 	private on<K extends keyof NecordEvents>(event: K, fn: (args: NecordEvents[K]) => void) {
@@ -353,22 +364,69 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		guild
 	]: ContextOf<'guildAuditLogEntryCreate'>) {
 		const { actionType } = auditLogEntry;
-
 		switch (actionType) {
 			case 'Create':
-				this.emit('guildAuditLogEntryAdd', auditLogEntry, guild);
+				this.emit(
+					'guildAuditLogEntryAdd',
+					auditLogEntry as GuildAuditLogsEntry<null, 'Create', GuildAuditLogsTargetType>,
+					guild
+				);
 				break;
 
 			case 'Update':
-				this.emit('guildAuditLogEntryUpdate', auditLogEntry, guild);
+				this.emit(
+					'guildAuditLogEntryUpdate',
+					auditLogEntry as GuildAuditLogsEntry<null, 'Update', GuildAuditLogsTargetType>,
+					guild
+				);
 				break;
 
 			case 'Delete':
-				this.emit('guildAuditLogEntryDelete', auditLogEntry, guild);
+				this.emit(
+					'guildAuditLogEntryDelete',
+					auditLogEntry as GuildAuditLogsEntry<null, 'Delete', GuildAuditLogsTargetType>,
+					guild
+				);
 				break;
 
 			default:
 				break;
+		}
+	}
+
+	private onGuildAuditLogEntryAdd([auditLogEntry, guild]: ContextOf<'guildAuditLogEntryAdd'>) {
+		if (auditLogEntry.targetType === 'Webhook') {
+			this.emit(
+				'guildAuditLogEntryWebhookCreate',
+				auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
+				guild
+			);
+		}
+	}
+
+	private onGuildAuditLogEntryUpdate([
+		auditLogEntry,
+		guild
+	]: ContextOf<'guildAuditLogEntryUpdate'>) {
+		if (auditLogEntry.targetType === 'Webhook') {
+			this.emit(
+				'guildAuditLogEntryWebhookUpdate',
+				auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
+				guild
+			);
+		}
+	}
+
+	private onGuildAuditLogEntryDelete([
+		auditLogEntry,
+		guild
+	]: ContextOf<'guildAuditLogEntryDelete'>) {
+		if (auditLogEntry.targetType === 'Webhook') {
+			this.emit(
+				'guildAuditLogEntryWebhookDelete',
+				auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
+				guild
+			);
 		}
 	}
 }
