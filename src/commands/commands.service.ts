@@ -1,4 +1,4 @@
-import { Inject, Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { NECORD_MODULE_OPTIONS } from '../necord.constants';
 import { Client, Collection } from 'discord.js';
 import { NecordModuleOptions } from '../necord-options.interface';
@@ -7,7 +7,7 @@ import { CommandDiscovery } from './command.discovery';
 import { SlashCommandsService } from './slash-commands';
 
 @Injectable()
-export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
+export class CommandsService {
 	private readonly logger = new Logger(CommandsService.name);
 
 	public readonly cache = new Collection<string, CommandDiscovery[]>([[undefined, []]]);
@@ -20,7 +20,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 		private readonly slashCommandsService: SlashCommandsService
 	) {}
 
-	public onModuleInit() {
+	private onModuleInit() {
 		if (this.options.skipRegistration) {
 			return;
 		}
@@ -28,7 +28,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 		return this.client.once('ready', async () => this.register());
 	}
 
-	public onApplicationBootstrap() {
+	private onApplicationBootstrap() {
 		const commands: CommandDiscovery[] = [
 			...this.contextMenusService.cache.values(),
 			...this.slashCommandsService.cache.values()

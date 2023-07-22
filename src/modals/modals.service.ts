@@ -5,7 +5,7 @@ import { MODAL_METADATA } from '../necord.constants';
 import { ModalDiscovery } from './modal.discovery';
 
 @Injectable()
-export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
+export class ModalsService {
 	private readonly logger = new Logger(ModalsService.name);
 
 	public readonly cache = new Collection<string, ModalDiscovery>();
@@ -15,11 +15,11 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 		private readonly explorerService: ExplorerService<ModalDiscovery>
 	) {}
 
-	public onModuleInit() {
+	private onModuleInit() {
 		return this.explorerService.explore(MODAL_METADATA).forEach(modal => this.add(modal));
 	}
 
-	public onApplicationBootstrap() {
+	private onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
 			if (!interaction.isModalSubmit()) return;
 

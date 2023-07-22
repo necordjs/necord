@@ -6,7 +6,7 @@ import { ExplorerService } from '../necord-explorer.service';
 import { NecordModuleOptions } from '../necord-options.interface';
 
 @Injectable()
-export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap {
+export class TextCommandsService {
 	private readonly logger = new Logger(TextCommandsService.name);
 
 	public readonly cache = new Collection<string, TextCommandDiscovery>();
@@ -18,13 +18,13 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 		private readonly explorerService: ExplorerService<TextCommandDiscovery>
 	) {}
 
-	public onModuleInit() {
+	private onModuleInit() {
 		return this.explorerService
 			.explore(TEXT_COMMAND_METADATA)
 			.forEach(textCommand => this.add(textCommand));
 	}
 
-	public onApplicationBootstrap() {
+	private onApplicationBootstrap() {
 		return this.client.on('messageCreate', async message => {
 			if (!message || !message.content?.length || message.webhookId || message.author.bot)
 				return;

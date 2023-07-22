@@ -1,4 +1,4 @@
-import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
 import { Client, Collection } from 'discord.js';
 import {
@@ -10,7 +10,7 @@ import { ExplorerService } from '../../necord-explorer.service';
 import { Reflector } from '@nestjs/core';
 
 @Injectable()
-export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
+export class SlashCommandsService {
 	private readonly logger = new Logger(SlashCommandsService.name);
 
 	public readonly cache = new Collection<string, SlashCommandDiscovery>();
@@ -21,7 +21,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		private readonly reflector: Reflector
 	) {}
 
-	public async onModuleInit() {
+	private onModuleInit() {
 		this.explorerService.explore(SLASH_COMMAND_METADATA).forEach(command => this.add(command));
 
 		return this.explorerService
@@ -29,7 +29,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 			.forEach(subcommand => this.addSubCommand(subcommand));
 	}
 
-	public onApplicationBootstrap() {
+	private onApplicationBootstrap() {
 		return this.client.on('interactionCreate', i => {
 			if (!i.isChatInputCommand() && !i.isAutocomplete()) return;
 

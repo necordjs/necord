@@ -1,11 +1,11 @@
-import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 
 @Injectable()
-export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
+export class MessageComponentsService {
 	private readonly logger = new Logger(MessageComponentsService.name);
 
 	public readonly cache = new Collection<string, MessageComponentDiscovery>();
@@ -15,13 +15,13 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 		private readonly explorerService: ExplorerService<MessageComponentDiscovery>
 	) {}
 
-	public onModuleInit() {
+	private onModuleInit() {
 		return this.explorerService
 			.explore(MESSAGE_COMPONENT_METADATA)
 			.forEach(component => this.add(component));
 	}
 
-	public onApplicationBootstrap() {
+	private onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
 			if (!interaction.isMessageComponent()) return;
 

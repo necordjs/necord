@@ -9,13 +9,13 @@ import { NecordEvents } from './listener.interface';
 
 // Oh... fuck, it looks really shitty
 @Injectable()
-export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
+export class ListenersService {
 	public constructor(
 		private readonly client: Client,
 		private readonly explorerService: ExplorerService<ListenerDiscovery>
 	) {}
 
-	public onModuleInit() {
+	private onModuleInit() {
 		return this.explorerService
 			.explore(LISTENERS_METADATA)
 			.forEach(listener =>
@@ -25,7 +25,7 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 			);
 	}
 
-	public onApplicationBootstrap() {
+	private onApplicationBootstrap() {
 		this.on('channelUpdate', this.onChannelUpdate);
 		this.on('guildMemberUpdate', this.onGuildMemberUpdate);
 		this.on('guildUpdate', this.onGuildUpdate);
