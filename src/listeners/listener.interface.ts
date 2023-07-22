@@ -21,14 +21,14 @@ import {
 } from 'discord.js';
 
 export interface NecordEvents extends ClientEvents {
-	// ChannelUpdate
+	// Channel Update
 	guildChannelPermissionsUpdate: [
 		channel: DMChannel | NonThreadGuildBasedChannel,
 		oldPermissions: PermissionOverwriteManager,
 		newPermissions: PermissionOverwriteManager
 	];
 
-	// GuildMemberUpdate
+	// Guild Member Update
 	guildMemberBoost: [member: GuildMember];
 	guildMemberUnboost: [member: GuildMember];
 	guildMemberRoleAdd: [member: GuildMember, role: Role];
@@ -39,7 +39,7 @@ export interface NecordEvents extends ClientEvents {
 	guildMemberAvatarUpdate: [member: GuildMember, oldAvatarURL: string, newAvatarURL: string];
 	guildMemberAvatarRemove: [member: GuildMember, oldAvatarURL: string];
 
-	// GuildUpdate
+	// Guild Update
 	guildBoostLevelUp: [
 		guild: Guild,
 		oldPremiumTier: GuildPremiumTier,
@@ -63,7 +63,7 @@ export interface NecordEvents extends ClientEvents {
 	guildVerificationAdd: [guild: Guild];
 	guildVerificationRemove: [guild: Guild];
 
-	// MessageUpdate
+	// Message Update
 	messagePinned: [Message<boolean> | PartialMessage];
 	messageContentEdited: [
 		message: Message<boolean> | PartialMessage,
@@ -71,11 +71,11 @@ export interface NecordEvents extends ClientEvents {
 		newContent: string
 	];
 
-	// PresenceUpdate
+	// Presence Update
 	guildMemberOffline: [member: GuildMember, oldStatus: PresenceStatus];
 	guildMemberOnline: [member: GuildMember, newStatus: PresenceStatus];
 
-	// RoleUpdate
+	// Role Update
 	rolePositionUpdate: [role: Role, oldPosition: number, newPosition: number];
 	rolePermissionsUpdate: [
 		role: Role,
