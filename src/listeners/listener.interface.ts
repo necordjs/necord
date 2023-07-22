@@ -4,7 +4,6 @@ import {
 	DMChannel,
 	Guild,
 	GuildAuditLogsEntry,
-	GuildAuditLogsTargetType,
 	GuildFeature,
 	GuildMember,
 	GuildPremiumTier,
@@ -23,14 +22,14 @@ import {
 } from 'discord.js';
 
 export interface NecordEvents extends ClientEvents {
-	// ChannelUpdate
+	// Channel Update
 	guildChannelPermissionsUpdate: [
 		channel: DMChannel | NonThreadGuildBasedChannel,
 		oldPermissions: PermissionOverwriteManager,
 		newPermissions: PermissionOverwriteManager
 	];
 
-	// GuildMemberUpdate
+	// Guild Member Update
 	guildMemberBoost: [member: GuildMember];
 	guildMemberUnboost: [member: GuildMember];
 	guildMemberRoleAdd: [member: GuildMember, role: Role];
@@ -41,7 +40,7 @@ export interface NecordEvents extends ClientEvents {
 	guildMemberAvatarUpdate: [member: GuildMember, oldAvatarURL: string, newAvatarURL: string];
 	guildMemberAvatarRemove: [member: GuildMember, oldAvatarURL: string];
 
-	// GuildUpdate
+	// Guild Update
 	guildBoostLevelUp: [
 		guild: Guild,
 		oldPremiumTier: GuildPremiumTier,
@@ -65,7 +64,7 @@ export interface NecordEvents extends ClientEvents {
 	guildVerificationAdd: [guild: Guild];
 	guildVerificationRemove: [guild: Guild];
 
-	// MessageUpdate
+	// Message Update
 	messagePinned: [Message<boolean> | PartialMessage];
 	messageContentEdited: [
 		message: Message<boolean> | PartialMessage,
@@ -73,11 +72,11 @@ export interface NecordEvents extends ClientEvents {
 		newContent: string
 	];
 
-	// PresenceUpdate
+	// Presence Update
 	guildMemberOffline: [member: GuildMember, oldStatus: PresenceStatus];
 	guildMemberOnline: [member: GuildMember, newStatus: PresenceStatus];
 
-	// RoleUpdate
+	// Role Update
 	rolePositionUpdate: [role: Role, oldPosition: number, newPosition: number];
 	rolePermissionsUpdate: [
 		role: Role,
@@ -88,7 +87,7 @@ export interface NecordEvents extends ClientEvents {
 	roleIconUpdate: [role: Role, oldIconURL: string, newIconURL: string];
 	roleIconRemove: [role: Role, iconURL: string];
 
-	// ThreadUpdate
+	// Thread Update
 	threadStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
 	threadNameUpdate: [thread: ThreadChannel, oldName: string, newName: string];
 	threadLockStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
@@ -103,7 +102,7 @@ export interface NecordEvents extends ClientEvents {
 		newDuration: number | string
 	];
 
-	// UserUpdate
+	// User Update
 	userAvatarUpdate: [user: User, oldAvatar: string, newAvatar: string];
 	userUsernameUpdate: [user: User, oldUsername: string, newUsername: string];
 	userDiscriminatorUpdate: [user: User, oldDiscriminator: string, newDiscriminator: string];
@@ -113,7 +112,7 @@ export interface NecordEvents extends ClientEvents {
 		newFlags: Readonly<UserFlagsBitField>
 	];
 
-	// VoiceStateUpdate
+	// Voice State Update
 	voiceChannelJoin: [member: GuildMember, channel: VoiceBasedChannel];
 	voiceChannelSwitch: [
 		member: GuildMember,
@@ -128,33 +127,19 @@ export interface NecordEvents extends ClientEvents {
 	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
 	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
 
-	// GuildAuditLogEntryCreate
-	guildAuditLogEntryAdd: [
-		auditLogEntry: GuildAuditLogsEntry<null, 'Create', GuildAuditLogsTargetType>,
-		guild: Guild
-	];
-	guildAuditLogEntryUpdate: [
-		auditLogEntry: GuildAuditLogsEntry<null, 'Update', GuildAuditLogsTargetType>,
-		guild: Guild
-	];
-	guildAuditLogEntryDelete: [
-		auditLogEntry: GuildAuditLogsEntry<null, 'Delete', GuildAuditLogsTargetType>,
-		guild: Guild
-	];
+	// Guild Audit Log Entry Create
+	guildAuditLogEntryAdd: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+	guildAuditLogEntryUpdate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+	guildAuditLogEntryDelete: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 
-	// guildAuditLogEntryAdd
 	guildAuditLogEntryWebhookCreate: [
 		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
 		guild: Guild
 	];
-
-	// guildAuditLogEntryUpdate
 	guildAuditLogEntryWebhookUpdate: [
 		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
 		guild: Guild
 	];
-
-	// guildAuditLogEntryDelete
 	guildAuditLogEntryWebhookDelete: [
 		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
 		guild: Guild

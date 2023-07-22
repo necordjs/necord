@@ -1,11 +1,4 @@
-import {
-	AuditLogEvent,
-	Client,
-	GuildAuditLogsEntry,
-	GuildAuditLogsTargetType,
-	GuildChannel,
-	Role
-} from 'discord.js';
+import { AuditLogEvent, Client, GuildAuditLogsEntry, GuildChannel, Role } from 'discord.js';
 import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 
 import { ContextOf } from '../context';
@@ -42,9 +35,6 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		this.on('userUpdate', this.onUserUpdate);
 		this.on('voiceStateUpdate', this.onVoiceStateUpdate);
 		this.on('guildAuditLogEntryCreate', this.onGuildAuditLogEntryCreate);
-		this.on('guildAuditLogEntryAdd', this.onGuildAuditLogEntryAdd);
-		this.on('guildAuditLogEntryUpdate', this.onGuildAuditLogEntryUpdate);
-		this.on('guildAuditLogEntryDelete', this.onGuildAuditLogEntryDelete);
 	}
 
 	private on<K extends keyof NecordEvents>(event: K, fn: (args: NecordEvents[K]) => void) {
@@ -366,67 +356,43 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		const { actionType } = auditLogEntry;
 		switch (actionType) {
 			case 'Create':
-				this.emit(
-					'guildAuditLogEntryAdd',
-					auditLogEntry as GuildAuditLogsEntry<null, 'Create', GuildAuditLogsTargetType>,
-					guild
-				);
+				this.emit('guildAuditLogEntryAdd', auditLogEntry, guild);
+
+				if (auditLogEntry.targetType === 'Webhook') {
+					this.emit(
+						'guildAuditLogEntryWebhookCreate',
+						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
+						guild
+					);
+				}
 				break;
 
 			case 'Update':
-				this.emit(
-					'guildAuditLogEntryUpdate',
-					auditLogEntry as GuildAuditLogsEntry<null, 'Update', GuildAuditLogsTargetType>,
-					guild
-				);
+				this.emit('guildAuditLogEntryUpdate', auditLogEntry, guild);
+
+				if (auditLogEntry.targetType === 'Webhook') {
+					this.emit(
+						'guildAuditLogEntryWebhookUpdate',
+						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
+						guild
+					);
+				}
 				break;
 
 			case 'Delete':
-				this.emit(
-					'guildAuditLogEntryDelete',
-					auditLogEntry as GuildAuditLogsEntry<null, 'Delete', GuildAuditLogsTargetType>,
-					guild
-				);
+				this.emit('guildAuditLogEntryDelete', auditLogEntry, guild);
+
+				if (auditLogEntry.targetType === 'Webhook') {
+					this.emit(
+						'guildAuditLogEntryWebhookDelete',
+						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
+						guild
+					);
+				}
 				break;
 
 			default:
 				break;
-		}
-	}
-
-	private onGuildAuditLogEntryAdd([auditLogEntry, guild]: ContextOf<'guildAuditLogEntryAdd'>) {
-		if (auditLogEntry.targetType === 'Webhook') {
-			this.emit(
-				'guildAuditLogEntryWebhookCreate',
-				auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
-				guild
-			);
-		}
-	}
-
-	private onGuildAuditLogEntryUpdate([
-		auditLogEntry,
-		guild
-	]: ContextOf<'guildAuditLogEntryUpdate'>) {
-		if (auditLogEntry.targetType === 'Webhook') {
-			this.emit(
-				'guildAuditLogEntryWebhookUpdate',
-				auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
-				guild
-			);
-		}
-	}
-
-	private onGuildAuditLogEntryDelete([
-		auditLogEntry,
-		guild
-	]: ContextOf<'guildAuditLogEntryDelete'>) {
-		if (auditLogEntry.targetType === 'Webhook') {
-			this.emit(
-				'guildAuditLogEntryWebhookDelete',
-				auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
-				guild
-			);
 		}
 	}
 }
