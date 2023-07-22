@@ -3,7 +3,6 @@ import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestj
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 import { CONTEXT_MENU_METADATA } from '../../necord.constants';
 import { ExplorerService } from '../../necord-explorer.service';
-import { CommandDiscovery } from '../command.discovery';
 
 @Injectable()
 export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap {
