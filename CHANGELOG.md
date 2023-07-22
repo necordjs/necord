@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [5.9.0](https://github.com/necordjs/necord/compare/v5.8.7...v5.9.0) - (2023-07-22)
+
+## Features
+
+- Add webhook events (#827) ([ef23133](https://github.com/necordjs/necord/commit/ef2313394d065e63fc1e0da05adb36d5084f0b99))
+- Add get methods and use collection instead of maps ([8a45056](https://github.com/necordjs/necord/commit/8a4505641f7847f5570ea0596c23b2a6f937b136))
+
+## Refactor
+
+- Use target type from deconstruct ([4f1e6bd](https://github.com/necordjs/necord/commit/4f1e6bd2b2f30de6939eea1276ed838591019cfb))
+
+## Styling
+
+- Remove unused imports ([ab1c420](https://github.com/necordjs/necord/commit/ab1c420bb4b165bcf47c013dff0a050d145a626a))
+- Use curly brackets for switch-case" ([81ebbb0](https://github.com/necordjs/necord/commit/81ebbb0ff7ab6a28d32ff4eef78169d47352a608))
+
 # [5.8.4](https://github.com/necordjs/necord/compare/v5.8.3...v5.8.4) - (2023-05-10)
 
 ## Bug Fixes
