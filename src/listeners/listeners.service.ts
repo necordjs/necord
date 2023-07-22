@@ -7,6 +7,7 @@ import { LISTENERS_METADATA } from '../necord.constants';
 import { ListenerDiscovery } from './listener.discovery';
 import { NecordEvents } from './listener.interface';
 
+// Oh... fuck, it looks really shitty
 @Injectable()
 export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 	public constructor(
