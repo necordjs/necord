@@ -10,7 +10,6 @@ interface DiscoveredItem {
 	handler?: (...args: any[]) => any;
 }
 
-// TODO: Move TypeGuards to ExecutionContext
 export abstract class NecordBaseDiscovery<T = any> {
 	protected readonly reflector = new Reflector();
 

@@ -12,7 +12,6 @@ import { OPTIONS_METADATA } from '../../necord.constants';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
 import { CommandDiscovery } from '../command.discovery';
 
-// TODO: Separate to SlashCommandDiscovery, SubcommandGroupDiscovery, SubcommandDiscovery
 // @ts-ignore
 export interface SlashCommandMeta extends ChatInputApplicationCommandData {
 	type?:

@@ -18,8 +18,6 @@ import {
 	SelectedRoles,
 	SelectedStrings,
 	SelectedUsers,
-	SelectMenu,
-	SelectMenuContext,
 	SlashCommand,
 	SlashCommandContext,
 	StringSelect,
@@ -86,20 +84,6 @@ export class MessageComponentsSpec {
 		@ComponentParam('value') value: string
 	) {
 		return interaction.reply({ content: `Button clicked! Value: ${value}` });
-	}
-
-	// TODO: Remove in v6
-	/**
-	 *  @deprecated since v5.4 - old name for `@SelectedStrings`. Will be removed in v6. Discord now uses new select menus
-	 *  @see {@link https://discord.js.org/#/docs/discord.js/main/class/SelectMenuInteraction DiscordJS docs}
-	 *  @see {@link https://discord.com/developers/docs/interactions/message-components#select-menus Discord API docs}
-	 *  @see {@link https://discord.com/developers/docs/interactions/message-components#component-object-component-types ComponentType}
-	 */
-	@SelectMenu('SELECT_MENU')
-	public onSelectMenu(@Context() [interaction]: SelectMenuContext) {
-		return interaction.reply({
-			content: `Your selected color - ${interaction.values.join(' ')}`
-		});
 	}
 
 	@SlashCommand({ name: 'string-select', description: 'Creates string select menu component.' })
