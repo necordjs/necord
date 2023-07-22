@@ -22,14 +22,14 @@ import {
 } from 'discord.js';
 
 export interface NecordEvents extends ClientEvents {
-	// Channel Update
+	// ChannelUpdate
 	guildChannelPermissionsUpdate: [
 		channel: DMChannel | NonThreadGuildBasedChannel,
 		oldPermissions: PermissionOverwriteManager,
 		newPermissions: PermissionOverwriteManager
 	];
 
-	// Guild Member Update
+	// GuildMemberUpdate
 	guildMemberBoost: [member: GuildMember];
 	guildMemberUnboost: [member: GuildMember];
 	guildMemberRoleAdd: [member: GuildMember, role: Role];
@@ -40,7 +40,7 @@ export interface NecordEvents extends ClientEvents {
 	guildMemberAvatarUpdate: [member: GuildMember, oldAvatarURL: string, newAvatarURL: string];
 	guildMemberAvatarRemove: [member: GuildMember, oldAvatarURL: string];
 
-	// Guild Update
+	// GuildUpdate
 	guildBoostLevelUp: [
 		guild: Guild,
 		oldPremiumTier: GuildPremiumTier,
@@ -64,7 +64,7 @@ export interface NecordEvents extends ClientEvents {
 	guildVerificationAdd: [guild: Guild];
 	guildVerificationRemove: [guild: Guild];
 
-	// Message Update
+	// MessageUpdate
 	messagePinned: [Message<boolean> | PartialMessage];
 	messageContentEdited: [
 		message: Message<boolean> | PartialMessage,
@@ -72,11 +72,11 @@ export interface NecordEvents extends ClientEvents {
 		newContent: string
 	];
 
-	// Presence Update
+	// PresenceUpdate
 	guildMemberOffline: [member: GuildMember, oldStatus: PresenceStatus];
 	guildMemberOnline: [member: GuildMember, newStatus: PresenceStatus];
 
-	// Role Update
+	// RoleUpdate
 	rolePositionUpdate: [role: Role, oldPosition: number, newPosition: number];
 	rolePermissionsUpdate: [
 		role: Role,
@@ -127,7 +127,7 @@ export interface NecordEvents extends ClientEvents {
 	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
 	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
 
-	// Guild Audit Log Entry Create
+	// Guild Audit Log Entry
 	guildAuditLogEntryAdd: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 	guildAuditLogEntryUpdate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 	guildAuditLogEntryDelete: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
