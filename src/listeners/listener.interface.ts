@@ -126,7 +126,7 @@ export interface NecordEvents extends ClientEvents {
 	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
 	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
 
-	// Guild Audit Log Entry
+	// Guild Audit Log Entry Create
 	guildAuditLogEntryAdd: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 	guildAuditLogEntryUpdate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
 	guildAuditLogEntryDelete: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
