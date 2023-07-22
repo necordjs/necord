@@ -11,15 +11,10 @@ All notable changes to this project will be documented in this file.
 
 - Make life cycle methods as private ([b758b8a](https://github.com/necordjs/necord/commit/b758b8a4b6c4e8b2aedbc194e5adbd8941cfefbe))
 - Make cached discovery data as public ([fc180b9](https://github.com/necordjs/necord/commit/fc180b9bcb529d69a1cda0c8e909816df0cb8532))
-
-   ### Breaking Changes:
-   - `.getCommands()` methods removed
-
+  - **BREAKING CHANGE:** `.getCommands()` methods removed
 - Remove deprecated interfaces, decorators and comments ([8a72279](https://github.com/necordjs/necord/commit/8a72279d439eca2269503d206d57f0677260d77f))
-
-   ### Breaking Changes:
-   - `@Values` and `@SelectMenu` removed
-
+  - **BREAKING CHANGE:** `@Values` and `@SelectMenu` removed
+  - **Refs:** #515
 - Use typeguards from djs ([c71cdd4](https://github.com/necordjs/necord/commit/c71cdd4aadd58d2ab809a8f46a99ddea3dcdcf38))
 
 ## Testing
