@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Client, Collection, InteractionType } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
 import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
@@ -23,7 +23,7 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
-			if (interaction.type !== InteractionType.MessageComponent) return;
+			if (!interaction.isMessageComponent()) return;
 
 			return this.get(interaction.componentType, interaction.customId)?.execute(interaction);
 		});

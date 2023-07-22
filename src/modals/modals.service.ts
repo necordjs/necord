@@ -1,5 +1,5 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { Client, Collection, InteractionType } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MODAL_METADATA } from '../necord.constants';
 import { ModalDiscovery } from './modal.discovery';
@@ -21,7 +21,7 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', interaction => {
-			if (interaction.type !== InteractionType.ModalSubmit) return;
+			if (!interaction.isModalSubmit()) return;
 
 			return this.get(interaction.customId)?.execute(interaction);
 		});

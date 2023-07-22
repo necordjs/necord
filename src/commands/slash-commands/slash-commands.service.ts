@@ -1,6 +1,6 @@
 import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
-import { Client, Collection, InteractionType } from 'discord.js';
+import { Client, Collection } from 'discord.js';
 import {
 	SLASH_COMMAND_METADATA,
 	SUBCOMMAND_GROUP_METADATA,
@@ -31,11 +31,7 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 
 	public onApplicationBootstrap() {
 		return this.client.on('interactionCreate', i => {
-			if (
-				!i.isChatInputCommand() &&
-				i.type !== InteractionType.ApplicationCommandAutocomplete
-			)
-				return;
+			if (!i.isChatInputCommand() && !i.isAutocomplete()) return;
 
 			return this.get(i.commandName)?.execute(i);
 		});

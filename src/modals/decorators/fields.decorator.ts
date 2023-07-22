@@ -1,12 +1,12 @@
 import { createParamDecorator } from '@nestjs/common';
 import { NecordExecutionContext } from '../../context';
-import { InteractionType } from 'discord.js';
 
 export const Fields = createParamDecorator((customId, context) => {
 	const necordContext = NecordExecutionContext.create(context);
 	const [interaction] = necordContext.getContext<'interactionCreate'>();
+	const discovery = necordContext.getDiscovery();
 
-	if (interaction.type !== InteractionType.ModalSubmit) {
+	if (!interaction.isModalSubmit() || !discovery.isModal()) {
 		return null;
 	}
 
