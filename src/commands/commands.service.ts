@@ -66,7 +66,8 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 				this.logger.error(
 					`Failed to register application commands (${
 						guild ? `in guild ${guild}` : 'global'
-					}): ${error}`
+					}): ${error}`,
+					error.stack
 				);
 			});
 		}
