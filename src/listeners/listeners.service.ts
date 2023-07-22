@@ -356,7 +356,7 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		const { actionType, targetType } = auditLogEntry;
 
 		switch (actionType) {
-			case 'Create':
+			case 'Create': {
 				this.emit('guildAuditLogEntryAdd', auditLogEntry, guild);
 
 				if (targetType === 'Webhook') {
@@ -366,9 +366,11 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 						guild
 					);
 				}
-				break;
 
-			case 'Update':
+				break;
+			}
+
+			case 'Update': {
 				this.emit('guildAuditLogEntryUpdate', auditLogEntry, guild);
 
 				if (targetType === 'Webhook') {
@@ -378,9 +380,11 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 						guild
 					);
 				}
-				break;
 
-			case 'Delete':
+				break;
+			}
+
+			case 'Delete': {
 				this.emit('guildAuditLogEntryDelete', auditLogEntry, guild);
 
 				if (targetType === 'Webhook') {
@@ -390,7 +394,9 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 						guild
 					);
 				}
+
 				break;
+			}
 
 			default:
 				break;
