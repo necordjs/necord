@@ -9,7 +9,7 @@ import { NecordModuleOptions } from '../necord-options.interface';
 export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(TextCommandsService.name);
 
-	private readonly textCommands = new Collection<string, TextCommandDiscovery>();
+	public readonly cache = new Collection<string, TextCommandDiscovery>();
 
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
@@ -49,18 +49,18 @@ export class TextCommandsService implements OnModuleInit, OnApplicationBootstrap
 	public add(textCommand: TextCommandDiscovery) {
 		const name = textCommand.getName();
 
-		if (this.textCommands.has(name)) {
+		if (this.cache.has(name)) {
 			this.logger.warn(`TextCommand : ${name} already exists`);
 		}
 
-		this.textCommands.set(name, textCommand);
+		this.cache.set(name, textCommand);
 	}
 
 	public get(name: string) {
-		return this.textCommands.get(name);
+		return this.cache.get(name);
 	}
 
 	public remove(name: string) {
-		this.textCommands.delete(name);
+		this.cache.delete(name);
 	}
 }

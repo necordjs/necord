@@ -10,9 +10,7 @@ import { SlashCommandsService } from './slash-commands';
 export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(CommandsService.name);
 
-	private readonly applicationCommands = new Collection<string, CommandDiscovery[]>([
-		[undefined, []]
-	]);
+	public readonly cache = new Collection<string, CommandDiscovery[]>([[undefined, []]]);
 
 	public constructor(
 		private readonly client: Client,
@@ -27,13 +25,13 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 			return;
 		}
 
-		return this.client.once('ready', async client => this.register());
+		return this.client.once('ready', async () => this.register());
 	}
 
 	public onApplicationBootstrap() {
 		const commands: CommandDiscovery[] = [
-			...this.contextMenusService.getCommands(),
-			...this.slashCommandsService.getCommands()
+			...this.contextMenusService.cache.values(),
+			...this.slashCommandsService.cache.values()
 		];
 
 		for (const command of commands) {
@@ -42,8 +40,8 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 				: command.getGuilds() ?? [undefined];
 
 			for (const guildId of guilds) {
-				const visitedCommands = this.applicationCommands.get(guildId) ?? [];
-				this.applicationCommands.set(guildId, visitedCommands.concat(command));
+				const visitedCommands = this.cache.get(guildId) ?? [];
+				this.cache.set(guildId, visitedCommands.concat(command));
 			}
 		}
 	}
@@ -54,7 +52,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 		}
 
 		this.logger.log(`Started refreshing application commands.`);
-		for (const guild of this.applicationCommands.keys()) {
+		for (const guild of this.cache.keys()) {
 			if (this.getGuildCommands(guild).length === 0) {
 				this.logger.log(
 					`Skipping ${guild ? `guild ${guild}` : 'global'} as it has no commands.`
@@ -82,7 +80,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public getCommands(): CommandDiscovery[] {
-		return [...this.applicationCommands.values()].flat();
+		return [...this.cache.values()].flat();
 	}
 
 	public getCommandByName(name: string): CommandDiscovery {
@@ -90,7 +88,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public getGlobalCommands(): CommandDiscovery[] {
-		return this.applicationCommands.get(undefined) ?? [];
+		return this.cache.get(undefined) ?? [];
 	}
 
 	public getGlobalCommandByName(name: string): CommandDiscovery {
@@ -98,7 +96,7 @@ export class CommandsService implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public getGuildCommands(guildId: string): CommandDiscovery[] {
-		return this.applicationCommands.get(guildId) ?? [];
+		return this.cache.get(guildId) ?? [];
 	}
 
 	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery {

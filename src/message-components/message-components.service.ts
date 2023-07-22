@@ -8,7 +8,7 @@ import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
 export class MessageComponentsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(MessageComponentsService.name);
 
-	private readonly components = new Collection<string, MessageComponentDiscovery>();
+	public readonly cache = new Collection<string, MessageComponentDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -39,15 +39,15 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 	public add(component: MessageComponentDiscovery) {
 		const name = this.componentName(component.getType(), component.getCustomId());
 
-		if (this.components.has(name)) {
+		if (this.cache.has(name)) {
 			this.logger.warn(`Message Component : ${name} already exists`);
 		}
 
-		this.components.set(name, component);
+		this.cache.set(name, component);
 	}
 
 	public get(type: MessageComponentMeta['type'], customId: MessageComponentMeta['customId']) {
-		for (const component of this.components.values()) {
+		for (const component of this.cache.values()) {
 			if (component.matcher(this.componentName(type, customId))) {
 				return component;
 			}
@@ -57,6 +57,6 @@ export class MessageComponentsService implements OnModuleInit, OnApplicationBoot
 	}
 
 	public remove(type: MessageComponentMeta['type'], customId: MessageComponentMeta['customId']) {
-		this.components.delete(this.componentName(type, customId));
+		this.cache.delete(this.componentName(type, customId));
 	}
 }

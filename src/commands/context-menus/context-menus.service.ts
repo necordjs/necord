@@ -8,7 +8,7 @@ import { ExplorerService } from '../../necord-explorer.service';
 export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(ContextMenusService.name);
 
-	private readonly contextMenus = new Collection<string, ContextMenuDiscovery>();
+	public readonly cache = new Collection<string, ContextMenuDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -29,26 +29,22 @@ export class ContextMenusService implements OnModuleInit, OnApplicationBootstrap
 		});
 	}
 
-	public getCommands(): ContextMenuDiscovery[] {
-		return [...this.contextMenus.values()];
-	}
-
 	public add(contextMenu: ContextMenuDiscovery): void {
 		const id = this.getId(contextMenu.getType(), contextMenu.getName());
 
-		if (this.contextMenus.has(id)) {
+		if (this.cache.has(id)) {
 			this.logger.warn(`ContextMenu with id : ${id} is already exists`);
 		}
 
-		this.contextMenus.set(id, contextMenu);
+		this.cache.set(id, contextMenu);
 	}
 
 	public get(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): ContextMenuDiscovery {
-		return this.contextMenus.get(this.getId(type, name));
+		return this.cache.get(this.getId(type, name));
 	}
 
 	public remove(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): boolean {
-		return this.contextMenus.delete(this.getId(type, name));
+		return this.cache.delete(this.getId(type, name));
 	}
 
 	private getId(type: ContextMenuMeta['type'], name: string) {

@@ -8,7 +8,7 @@ import { ModalDiscovery } from './modal.discovery';
 export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(ModalsService.name);
 
-	private readonly modals = new Collection<string, ModalDiscovery>();
+	public readonly cache = new Collection<string, ModalDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -30,15 +30,15 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	public add(modal: ModalDiscovery) {
 		const id = modal.getCustomId();
 
-		if (this.modals.has(id)) {
+		if (this.cache.has(id)) {
 			this.logger.warn(`Modal : ${id} already exists`);
 		}
 
-		this.modals.set(id, modal);
+		this.cache.set(id, modal);
 	}
 
 	public get(customId: string) {
-		for (const modal of this.modals.values()) {
+		for (const modal of this.cache.values()) {
 			if (modal.matcher(customId)) {
 				return modal;
 			}
@@ -48,6 +48,6 @@ export class ModalsService implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public remove(customId: string) {
-		this.modals.delete(customId);
+		this.cache.delete(customId);
 	}
 }

@@ -13,7 +13,7 @@ import { Reflector } from '@nestjs/core';
 export class SlashCommandsService implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(SlashCommandsService.name);
 
-	private readonly slashCommands = new Collection<string, SlashCommandDiscovery>();
+	public readonly cache = new Collection<string, SlashCommandDiscovery>();
 
 	public constructor(
 		private readonly client: Client,
@@ -37,24 +37,20 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 		});
 	}
 
-	public getCommands(): SlashCommandDiscovery[] {
-		return [...this.slashCommands.values()];
-	}
-
 	public add(command: SlashCommandDiscovery): void {
-		if (this.slashCommands.has(command.getName())) {
+		if (this.cache.has(command.getName())) {
 			this.logger.warn(`Slash Command : ${command.getName()} already exists`);
 		}
 
-		this.slashCommands.set(command.getName(), command);
+		this.cache.set(command.getName(), command);
 	}
 
 	public get(commandName: string): SlashCommandDiscovery {
-		return this.slashCommands.get(commandName);
+		return this.cache.get(commandName);
 	}
 
 	public remove(commandName: string): boolean {
-		return this.slashCommands.delete(commandName);
+		return this.cache.delete(commandName);
 	}
 
 	private addSubCommand(subCommand: SlashCommandDiscovery): void {
@@ -80,8 +76,8 @@ export class SlashCommandsService implements OnModuleInit, OnApplicationBootstra
 			rootCommand.setSubcommand(subCommand);
 		}
 
-		if (!this.slashCommands.has(rootCommand.getName())) {
-			this.slashCommands.set(rootCommand.getName(), rootCommand);
+		if (!this.cache.has(rootCommand.getName())) {
+			this.cache.set(rootCommand.getName(), rootCommand);
 		}
 	}
 }
