@@ -353,12 +353,13 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 		auditLogEntry,
 		guild
 	]: ContextOf<'guildAuditLogEntryCreate'>) {
-		const { actionType } = auditLogEntry;
+		const { actionType, targetType } = auditLogEntry;
+
 		switch (actionType) {
 			case 'Create':
 				this.emit('guildAuditLogEntryAdd', auditLogEntry, guild);
 
-				if (auditLogEntry.targetType === 'Webhook') {
+				if (targetType === 'Webhook') {
 					this.emit(
 						'guildAuditLogEntryWebhookCreate',
 						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
@@ -370,7 +371,7 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 			case 'Update':
 				this.emit('guildAuditLogEntryUpdate', auditLogEntry, guild);
 
-				if (auditLogEntry.targetType === 'Webhook') {
+				if (targetType === 'Webhook') {
 					this.emit(
 						'guildAuditLogEntryWebhookUpdate',
 						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
@@ -382,7 +383,7 @@ export class ListenersService implements OnModuleInit, OnApplicationBootstrap {
 			case 'Delete':
 				this.emit('guildAuditLogEntryDelete', auditLogEntry, guild);
 
-				if (auditLogEntry.targetType === 'Webhook') {
+				if (targetType === 'Webhook') {
 					this.emit(
 						'guildAuditLogEntryWebhookDelete',
 						auditLogEntry as GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
