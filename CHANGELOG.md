@@ -1,6 +1,20 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.1.0](https://github.com/necordjs/necord/compare/v6.0.0...v6.1.0) - (2023-08-21)
+
+## Refactor
+
+- Rename file with module definition ([cb80c95](https://github.com/necordjs/necord/commit/cb80c9559b4584f4fa3393933ebb52fcd76025e6))
+- Options metadata keys ([854259a](https://github.com/necordjs/necord/commit/854259a2b5c963827e6bf82cea5ea33e43517043))
+- Explorer use not deprecated methods ([1cfcd0d](https://github.com/necordjs/necord/commit/1cfcd0dfbadcd1dd95d57fec87dcfa768a2cabe2))
+- **text-commands:** Use reflector decorator ([4288fed](https://github.com/necordjs/necord/commit/4288fed3e5908f325190acde0f5f55227f92f63e))
+- **modals:** Use reflector decorator ([58f287a](https://github.com/necordjs/necord/commit/58f287a28a44f0a07ad445a4b9d27f3b143effc9))
+- **message-components:** Use reflector decorator ([7b6fc67](https://github.com/necordjs/necord/commit/7b6fc677afbd1cccd235e1c16fc34de782111418))
+- **listeners:** Use reflector decorator ([eef900d](https://github.com/necordjs/necord/commit/eef900d7730bb90bcaa76a88056ee7aab1d6898d))
+- **slash-commands:** Use reflector decorator ([11ed8c1](https://github.com/necordjs/necord/commit/11ed8c1ffea728a09d6d0b53868f7d22d444f873))
+- **context-menus:** Use reflector decorator ([4b41186](https://github.com/necordjs/necord/commit/4b411864313ad39d583bba8bf1239f269e1e815b))
+
 # [6.0.0](https://github.com/necordjs/necord/compare/v5.9.0...v6.0.0) - (2023-07-22)
 
 ## Bug Fixes
