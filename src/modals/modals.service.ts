@@ -1,8 +1,8 @@
-import { Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
-import { MODAL_METADATA } from '../necord.constants';
 import { ModalDiscovery } from './modal.discovery';
+import { Modal } from './decorators';
 
 @Injectable()
 export class ModalsService {
@@ -16,7 +16,7 @@ export class ModalsService {
 	) {}
 
 	private onModuleInit() {
-		return this.explorerService.explore(MODAL_METADATA).forEach(modal => this.add(modal));
+		return this.explorerService.explore(Modal.KEY).forEach(modal => this.add(modal));
 	}
 
 	private onApplicationBootstrap() {
