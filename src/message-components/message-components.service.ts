@@ -2,7 +2,7 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
-import { MESSAGE_COMPONENT_METADATA } from '../necord.constants';
+import { MessageComponent } from './decorators';
 
 @Injectable()
 export class MessageComponentsService {
@@ -17,7 +17,7 @@ export class MessageComponentsService {
 
 	private onModuleInit() {
 		return this.explorerService
-			.explore(MESSAGE_COMPONENT_METADATA)
+			.explore(MessageComponent.KEY)
 			.forEach(component => this.add(component));
 	}
 
