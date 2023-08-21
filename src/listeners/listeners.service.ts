@@ -1,11 +1,11 @@
 import { AuditLogEvent, Client, GuildAuditLogsEntry, GuildChannel, Role } from 'discord.js';
-import { Injectable, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 
 import { ContextOf } from '../context';
 import { ExplorerService } from '../necord-explorer.service';
-import { LISTENERS_METADATA } from '../necord.constants';
 import { ListenerDiscovery } from './listener.discovery';
 import { NecordEvents } from './listener.interface';
+import { Listener } from './decorators';
 
 // Oh... fuck, it looks really shitty
 @Injectable()
@@ -17,7 +17,7 @@ export class ListenersService {
 
 	private onModuleInit() {
 		return this.explorerService
-			.explore(LISTENERS_METADATA)
+			.explore(Listener.KEY)
 			.forEach(listener =>
 				this.client[listener.getType()](listener.getEvent(), (...args) =>
 					listener.execute(args)

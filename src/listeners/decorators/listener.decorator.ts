@@ -1,6 +1,6 @@
 import { ListenerDiscovery, ListenerMeta } from '../listener.discovery';
-import { SetMetadata } from '@nestjs/common';
-import { LISTENERS_METADATA } from '../../necord.constants';
+import { Reflector } from '@nestjs/core';
 
-export const Listener = (options: ListenerMeta) =>
-	SetMetadata<string, ListenerDiscovery>(LISTENERS_METADATA, new ListenerDiscovery(options));
+export const Listener = Reflector.createDecorator<ListenerMeta>({
+	transform: options => new ListenerDiscovery(options)
+});
