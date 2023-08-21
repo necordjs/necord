@@ -8,9 +8,9 @@ import {
 	CommandInteractionOptionResolver,
 	Snowflake
 } from 'discord.js';
-import { OPTIONS_METADATA } from '../../necord.constants';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
 import { CommandDiscovery } from '../command.discovery';
+import { OPTIONS_METADATA } from './options';
 
 // @ts-ignore
 export interface SlashCommandMeta extends ChatInputApplicationCommandData {

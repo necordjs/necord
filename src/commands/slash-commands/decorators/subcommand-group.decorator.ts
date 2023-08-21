@@ -1,18 +1,19 @@
-import { applyDecorators, SetMetadata } from '@nestjs/common';
-import { SUBCOMMAND_GROUP_METADATA } from '../../../necord.constants';
+import { applyDecorators } from '@nestjs/common';
 import { ApplicationCommandOptionType } from 'discord.js';
 import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discovery';
 import { SlashCommand } from './slash-command.decorator';
 import { noop } from 'rxjs';
+import { Reflector } from '@nestjs/core';
 
-const SubcommandGroup = (options?: Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>) =>
-	SetMetadata(
-		SUBCOMMAND_GROUP_METADATA,
+export const SubcommandGroup = Reflector.createDecorator<
+	Partial<Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>>
+>({
+	transform: options =>
 		new SlashCommandDiscovery({
 			type: ApplicationCommandOptionType.SubcommandGroup,
 			...options
 		})
-	);
+});
 
 export const createCommandGroupDecorator = (rootOptions: Omit<SlashCommandMeta, 'type'>) => {
 	const rootCommand = SlashCommand(rootOptions);

@@ -1,13 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
 import { Client, Collection } from 'discord.js';
-import {
-	SLASH_COMMAND_METADATA,
-	SUBCOMMAND_GROUP_METADATA,
-	SUBCOMMAND_METADATA
-} from '../../necord.constants';
 import { ExplorerService } from '../../necord-explorer.service';
 import { Reflector } from '@nestjs/core';
+import { SlashCommand, Subcommand, SubcommandGroup } from './decorators';
 
 @Injectable()
 export class SlashCommandsService {
@@ -22,10 +18,10 @@ export class SlashCommandsService {
 	) {}
 
 	private onModuleInit() {
-		this.explorerService.explore(SLASH_COMMAND_METADATA).forEach(command => this.add(command));
+		this.explorerService.explore(SlashCommand.KEY).forEach(command => this.add(command));
 
 		return this.explorerService
-			.explore(SUBCOMMAND_METADATA)
+			.explore(Subcommand.KEY)
 			.forEach(subcommand => this.addSubCommand(subcommand));
 	}
 
@@ -55,11 +51,11 @@ export class SlashCommandsService {
 
 	private addSubCommand(subCommand: SlashCommandDiscovery): void {
 		const rootCommand = this.reflector.get<SlashCommandDiscovery>(
-			SLASH_COMMAND_METADATA,
+			SlashCommand.KEY,
 			subCommand.getClass()
 		);
 		const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
-			SUBCOMMAND_GROUP_METADATA,
+			SubcommandGroup.KEY,
 			subCommand.getClass()
 		);
 
