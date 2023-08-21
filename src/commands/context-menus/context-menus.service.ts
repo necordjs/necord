@@ -1,8 +1,8 @@
 import { Client, Collection } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
-import { CONTEXT_MENU_METADATA } from '../../necord.constants';
 import { ExplorerService } from '../../necord-explorer.service';
+import { ContextMenu } from './decorators';
 
 @Injectable()
 export class ContextMenusService {
@@ -17,7 +17,7 @@ export class ContextMenusService {
 
 	private onModuleInit() {
 		return this.explorerService
-			.explore(CONTEXT_MENU_METADATA)
+			.explore(ContextMenu.KEY)
 			.forEach(contextMenu => this.add(contextMenu));
 	}
 

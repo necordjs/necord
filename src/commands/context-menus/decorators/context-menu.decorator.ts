@@ -1,9 +1,6 @@
 import { ContextMenuDiscovery, ContextMenuMeta } from '../context-menu.discovery';
-import { SetMetadata } from '@nestjs/common';
-import { CONTEXT_MENU_METADATA } from '../../../necord.constants';
+import { Reflector } from '@nestjs/core';
 
-export const ContextMenu = (options: ContextMenuMeta) =>
-	SetMetadata<string, ContextMenuDiscovery>(
-		CONTEXT_MENU_METADATA,
-		new ContextMenuDiscovery(options)
-	);
+export const ContextMenu = Reflector.createDecorator<ContextMenuMeta>({
+	transform: options => new ContextMenuDiscovery(options)
+});
