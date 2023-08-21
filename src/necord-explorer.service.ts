@@ -37,7 +37,7 @@ export class ExplorerService<T extends NecordBaseDiscovery> extends Reflector {
 	private filterProperties({ instance }: InstanceWrapper, metadataKey: string) {
 		const prototype = Object.getPrototypeOf(instance);
 
-		return this.metadataScanner.scanFromPrototype(instance, prototype, methodName => {
+		return this.metadataScanner.getAllMethodNames(prototype).map(methodName => {
 			const item = this.get<T>(metadataKey, instance[methodName]);
 
 			if (!item) return;
