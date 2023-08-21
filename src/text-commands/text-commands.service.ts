@@ -1,9 +1,10 @@
-import { Inject, Injectable, Logger, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
 import { TextCommandDiscovery } from './text-command.discovery';
-import { NECORD_MODULE_OPTIONS, TEXT_COMMAND_METADATA } from '../necord.constants';
+import { NECORD_MODULE_OPTIONS } from '../necord.constants';
 import { ExplorerService } from '../necord-explorer.service';
 import { NecordModuleOptions } from '../necord-options.interface';
+import { TextCommand } from './decorators';
 
 @Injectable()
 export class TextCommandsService {
@@ -20,7 +21,7 @@ export class TextCommandsService {
 
 	private onModuleInit() {
 		return this.explorerService
-			.explore(TEXT_COMMAND_METADATA)
+			.explore(TextCommand.KEY)
 			.forEach(textCommand => this.add(textCommand));
 	}
 
