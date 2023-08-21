@@ -2,7 +2,8 @@ import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/
 import { ApplicationCommandOptionType } from 'discord.js';
 import { OptionMeta } from '../slash-command.discovery';
 import { DistributiveOmit } from 'discord-api-types/utils/internals';
-import { OPTIONS_METADATA } from '../../../necord.constants';
+
+export const OPTIONS_METADATA = 'necord:options_meta';
 
 export function createOptionDecorator<T extends APIApplicationCommandOptionBase<any>>(
 	type: ApplicationCommandOptionType,
