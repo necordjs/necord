@@ -7,7 +7,7 @@ import {
 	OnApplicationShutdown
 } from '@nestjs/common';
 import { NecordModuleOptions } from './necord-options.interface';
-import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.constants';
+import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.module-definition';
 import { TextCommandsService } from './text-commands';
 import { ModalsService } from './modals';
 import { MessageComponentsService } from './message-components';

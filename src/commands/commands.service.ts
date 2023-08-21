@@ -1,5 +1,5 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { NECORD_MODULE_OPTIONS } from '../necord.constants';
+import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
 import { Client, Collection } from 'discord.js';
 import { NecordModuleOptions } from '../necord-options.interface';
 import { ContextMenusService } from './context-menus';

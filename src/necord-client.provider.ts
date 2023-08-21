@@ -1,7 +1,7 @@
 import { Provider } from '@nestjs/common';
 import { Client } from 'discord.js';
 import { NecordModuleOptions } from './necord-options.interface';
-import { NECORD_MODULE_OPTIONS } from './necord.constants';
+import { NECORD_MODULE_OPTIONS } from './necord.module-definition';
 
 export const NecordClientProvider: Provider<Client> = {
 	provide: Client,

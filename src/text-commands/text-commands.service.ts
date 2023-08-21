@@ -1,7 +1,7 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
 import { TextCommandDiscovery } from './text-command.discovery';
-import { NECORD_MODULE_OPTIONS } from '../necord.constants';
+import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
 import { ExplorerService } from '../necord-explorer.service';
 import { NecordModuleOptions } from '../necord-options.interface';
 import { TextCommand } from './decorators';
