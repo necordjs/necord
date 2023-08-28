@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
+import { NecordClient } from '../necord-client';
 import { ExplorerService } from '../necord-explorer.service';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
 import { MessageComponent } from './decorators';
@@ -11,7 +12,7 @@ export class MessageComponentsService {
 	public readonly cache = new Collection<string, MessageComponentDiscovery>();
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		private readonly explorerService: ExplorerService<MessageComponentDiscovery>
 	) {}
 

@@ -1,7 +1,8 @@
-import { AuditLogEvent, Client, GuildAuditLogsEntry, GuildChannel, Role } from 'discord.js';
+import { AuditLogEvent, GuildAuditLogsEntry, GuildChannel, Role } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 
 import { ContextOf } from '../context';
+import { NecordClient } from '../necord-client';
 import { ExplorerService } from '../necord-explorer.service';
 import { ListenerDiscovery } from './listener.discovery';
 import { NecordEvents } from './listener.interface';
@@ -11,18 +12,20 @@ import { Listener } from './decorators';
 @Injectable()
 export class ListenersService {
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		private readonly explorerService: ExplorerService<ListenerDiscovery>
 	) {}
 
 	private onModuleInit() {
 		return this.explorerService
 			.explore(Listener.KEY)
-			.forEach(listener =>
-				this.client[listener.getType()](listener.getEvent(), (...args) =>
-					listener.execute(args)
-				)
-			);
+			.forEach(listener => {
+				if (listener.isForBot(this.client.botName)) {
+					this.client[listener.getType()](listener.getEvent(), (...args) =>
+						listener.execute(args)
+					)
+				}
+			});
 	}
 
 	private onApplicationBootstrap() {

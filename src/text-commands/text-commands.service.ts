@@ -1,7 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
 import { TextCommandDiscovery } from './text-command.discovery';
 import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
+import { NecordClient } from '../necord-client';
 import { ExplorerService } from '../necord-explorer.service';
 import { NecordModuleOptions } from '../necord-options.interface';
 import { TextCommand } from './decorators';
@@ -15,7 +16,7 @@ export class TextCommandsService {
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		private readonly explorerService: ExplorerService<TextCommandDiscovery>
 	) {}
 
@@ -48,6 +49,8 @@ export class TextCommandsService {
 	}
 
 	public add(textCommand: TextCommandDiscovery) {
+		if (!textCommand.isForBot(this.client.botName)) return;
+
 		const name = textCommand.getName();
 
 		if (this.cache.has(name)) {

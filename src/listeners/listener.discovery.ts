@@ -3,6 +3,7 @@ import { NecordBaseDiscovery } from '../context';
 export interface ListenerMeta {
 	type: 'once' | 'on';
 	event: string | symbol | number;
+	botNames?: string[];
 }
 
 export class ListenerDiscovery extends NecordBaseDiscovery<ListenerMeta> {
@@ -16,6 +17,10 @@ export class ListenerDiscovery extends NecordBaseDiscovery<ListenerMeta> {
 
 	public isListener(): this is ListenerDiscovery {
 		return true;
+	}
+
+	public isForBot(botName: string) {
+		return this.meta.botNames?.includes(botName) ?? true;
 	}
 
 	public override toJSON(): Record<string, any> {

@@ -4,6 +4,7 @@ import { match } from 'path-to-regexp';
 
 export interface ModalMeta {
 	customId: string;
+	botNames?: string[];
 }
 
 export class ModalDiscovery extends NecordBaseDiscovery<ModalMeta> {
@@ -19,6 +20,10 @@ export class ModalDiscovery extends NecordBaseDiscovery<ModalMeta> {
 
 	public isModal(): this is ModalDiscovery {
 		return true;
+	}
+
+	public isForBot(botName: string) {
+		return this.meta.botNames?.includes(botName) ?? true;
 	}
 
 	public override toJSON(): Record<string, any> {

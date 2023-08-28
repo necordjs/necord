@@ -19,6 +19,7 @@ export interface SlashCommandMeta extends ChatInputApplicationCommandData {
 		| ApplicationCommandOptionType.SubcommandGroup
 		| ApplicationCommandOptionType.Subcommand;
 	guilds?: Snowflake[];
+	botNames?: string[];
 }
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
@@ -67,6 +68,10 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 
 	public isSlashCommand(): this is SlashCommandDiscovery {
 		return true;
+	}
+
+	public isForBot(botName: string) {
+		return this.meta.botNames?.includes(botName) ?? true;
 	}
 
 	public override toJSON() {

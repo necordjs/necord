@@ -1,4 +1,3 @@
-import { Client } from 'discord.js';
 import {
 	Global,
 	Inject,
@@ -17,6 +16,7 @@ import { ExplorerService } from './necord-explorer.service';
 import { CommandsService, ContextMenusService, SlashCommandsService } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
 import { NecordRestProvider } from './necord-rest.provider';
+import { NecordClient } from './necord-client';
 
 @Global()
 @Module({
@@ -51,7 +51,7 @@ export class NecordModule
 	implements OnApplicationBootstrap, OnApplicationShutdown
 {
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions
 	) {

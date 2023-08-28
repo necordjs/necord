@@ -1,6 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
+import { NecordClient } from '../../necord-client';
 import { ExplorerService } from '../../necord-explorer.service';
 import { Reflector } from '@nestjs/core';
 import { SlashCommand, Subcommand, SubcommandGroup } from './decorators';
@@ -12,7 +13,7 @@ export class SlashCommandsService {
 	public readonly cache = new Collection<string, SlashCommandDiscovery>();
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		private readonly explorerService: ExplorerService<SlashCommandDiscovery>,
 		private readonly reflector: Reflector
 	) {}
@@ -34,6 +35,8 @@ export class SlashCommandsService {
 	}
 
 	public add(command: SlashCommandDiscovery): void {
+		if (!command.isForBot(this.client.botName)) return;
+
 		if (this.cache.has(command.getName())) {
 			this.logger.warn(`Slash Command : ${command.getName()} already exists`);
 		}

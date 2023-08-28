@@ -1,5 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
+import { NecordClient } from '../necord-client';
 import { ExplorerService } from '../necord-explorer.service';
 import { ModalDiscovery } from './modal.discovery';
 import { Modal } from './decorators';
@@ -11,7 +12,7 @@ export class ModalsService {
 	public readonly cache = new Collection<string, ModalDiscovery>();
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		private readonly explorerService: ExplorerService<ModalDiscovery>
 	) {}
 
@@ -28,6 +29,9 @@ export class ModalsService {
 	}
 
 	public add(modal: ModalDiscovery) {
+		if (modal.isForBot(this.client.botName)) 
+			return;
+
 		const id = modal.getCustomId();
 
 		if (this.cache.has(id)) {

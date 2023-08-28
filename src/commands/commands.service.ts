@@ -1,7 +1,8 @@
 import { Inject, Injectable, Logger } from '@nestjs/common';
 import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
 import { NecordModuleOptions } from '../necord-options.interface';
+import { NecordClient } from '../necord-client';
 import { ContextMenusService } from './context-menus';
 import { CommandDiscovery } from './command.discovery';
 import { SlashCommandsService } from './slash-commands';
@@ -13,7 +14,7 @@ export class CommandsService {
 	public readonly cache = new Collection<string, CommandDiscovery[]>([[undefined, []]]);
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
 		private readonly contextMenusService: ContextMenusService,

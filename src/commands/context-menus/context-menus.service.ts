@@ -1,7 +1,8 @@
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 import { ExplorerService } from '../../necord-explorer.service';
+import { NecordClient } from '../../necord-client';
 import { ContextMenu } from './decorators';
 
 @Injectable()
@@ -11,7 +12,7 @@ export class ContextMenusService {
 	public readonly cache = new Collection<string, ContextMenuDiscovery>();
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: NecordClient,
 		private readonly explorerService: ExplorerService<ContextMenuDiscovery>
 	) {}
 
@@ -30,6 +31,8 @@ export class ContextMenusService {
 	}
 
 	public add(contextMenu: ContextMenuDiscovery): void {
+		if(!contextMenu.isForBot(this.client.botName)) return;
+
 		const id = this.getId(contextMenu.getType(), contextMenu.getName());
 
 		if (this.cache.has(id)) {
