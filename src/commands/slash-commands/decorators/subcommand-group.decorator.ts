@@ -6,7 +6,8 @@ import { noop } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 
 export const SubcommandGroup = Reflector.createDecorator<
-	Partial<Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>>
+	Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>,
+	SlashCommandDiscovery
 >({
 	transform: options =>
 		new SlashCommandDiscovery({
