@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.1.2](https://github.com/necordjs/necord/compare/v6.1.1...v6.1.2) - (2023-08-29)
+
+## Refactor
+
+- Update types for nest version ([d9d1578](https://github.com/necordjs/necord/commit/d9d15780f1cb8745b7f3215bfb2b31115da29f76))
+
 # [6.1.0](https://github.com/necordjs/necord/compare/v6.0.0...v6.1.0) - (2023-08-21)
 
 ## Refactor
