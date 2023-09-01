@@ -36,6 +36,10 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 		this.subcommands.set(command.getName(), command);
 	}
 
+	public ensureSubcommand(command: SlashCommandDiscovery) {
+		return this.subcommands.ensure(command.getName(), () => command);
+	}
+
 	public getRawOptions(): Record<string, OptionMeta> {
 		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
 	}

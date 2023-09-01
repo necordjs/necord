@@ -50,30 +50,22 @@ export class SlashCommandsService {
 	}
 
 	private addSubCommand(subCommand: SlashCommandDiscovery): void {
-		const rootCommand = this.reflector.get<SlashCommandDiscovery>(
+		let rootCommand = this.reflector.get<SlashCommandDiscovery>(
 			SlashCommand.KEY,
 			subCommand.getClass()
 		);
-		const subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
+		let subCommandGroup = this.reflector.get<SlashCommandDiscovery>(
 			SubcommandGroup.KEY,
 			subCommand.getClass()
 		);
 
-		if (!rootCommand) {
-			throw new ReferenceError(
-				`can't register subcommand "${subCommand.getName()}" w/o root command`
-			);
-		}
+		rootCommand = this.cache.ensure(rootCommand.getName(), () => rootCommand);
 
 		if (subCommandGroup) {
-			subCommandGroup.setSubcommand(subCommand);
-			rootCommand.setSubcommand(subCommandGroup);
+			subCommandGroup = rootCommand.ensureSubcommand(subCommandGroup);
+			subCommandGroup.ensureSubcommand(subCommand);
 		} else {
-			rootCommand.setSubcommand(subCommand);
-		}
-
-		if (!this.cache.has(rootCommand.getName())) {
-			this.cache.set(rootCommand.getName(), rootCommand);
+			rootCommand.ensureSubcommand(subCommand);
 		}
 	}
 }
