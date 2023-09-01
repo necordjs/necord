@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.1.3](https://github.com/necordjs/necord/compare/v6.1.2...v6.1.3) - (2023-09-01)
+
+## Bug Fixes
+
+- Grouping subcommands and commands ([823a48e](https://github.com/necordjs/necord/commit/823a48e057043f9696704aa801b8eff55f9178de))
+
 # [6.1.2](https://github.com/necordjs/necord/compare/v6.1.1...v6.1.2) - (2023-08-29)
 
 ## Refactor
