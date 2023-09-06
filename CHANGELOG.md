@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.1.4](https://github.com/necordjs/necord/compare/v6.1.3...v6.1.4) - (2023-09-06)
+
+## Features
+
+- **slash-command-discovery:** Add getters for subcommands ([1851628](https://github.com/necordjs/necord/commit/1851628f35bdc200f6a4e80e8ed0bce239ed33ba))
+
 # [6.1.3](https://github.com/necordjs/necord/compare/v6.1.2...v6.1.3) - (2023-09-01)
 
 ## Bug Fixes
