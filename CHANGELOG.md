@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.1.5](https://github.com/necordjs/necord/compare/v6.1.4...v6.1.5) - (2023-09-26)
+
+## Bug Fixes
+
+- Remove rewrite prototype of default value ([263ca68](https://github.com/necordjs/necord/commit/263ca682ee533d1e4d635e065a41dabfbd7a2e11))
+
 # [6.1.4](https://github.com/necordjs/necord/compare/v6.1.3...v6.1.4) - (2023-09-06)
 
 ## Features
