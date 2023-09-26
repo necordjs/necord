@@ -22,19 +22,10 @@ export const Options = createParamDecorator(
 	[
 		(target, propertyKey, parameterIndex) => {
 			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-			let { prototype } = paramTypes[parameterIndex];
+			const { prototype } = paramTypes[parameterIndex];
+			const options = Reflect.getMetadata(OPTIONS_METADATA, prototype);
 
-			const options = {};
-
-			do {
-				Object.getOwnPropertyNames(prototype)
-					.map(name => [name, Reflect.getMetadata(OPTIONS_METADATA, prototype, name)])
-					.filter(([, meta]) => !!meta)
-					.forEach(([name, meta]) => (options[name] ??= meta));
-			} while (
-				(prototype = Reflect.getPrototypeOf(prototype)) &&
-				prototype !== Object.prototype
-			);
+			console.log(options);
 
 			Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
 		}
