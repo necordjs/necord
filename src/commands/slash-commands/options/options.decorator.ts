@@ -25,8 +25,6 @@ export const Options = createParamDecorator(
 			const { prototype } = paramTypes[parameterIndex];
 			const options = Reflect.getMetadata(OPTIONS_METADATA, prototype);
 
-			console.log(options);
-
 			Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
 		}
 	]
