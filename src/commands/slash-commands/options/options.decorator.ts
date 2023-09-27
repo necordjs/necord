@@ -22,8 +22,18 @@ export const Options = createParamDecorator(
 	[
 		(target, propertyKey, parameterIndex) => {
 			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-			const { prototype } = paramTypes[parameterIndex];
-			const options = Reflect.getMetadata(OPTIONS_METADATA, prototype);
+			let { prototype } = paramTypes[parameterIndex];
+
+			const options = {};
+
+			do {
+				const metadata = Reflect.getOwnMetadata(OPTIONS_METADATA, prototype);
+
+				Object.assign(options, metadata);
+			} while (
+				(prototype = Reflect.getPrototypeOf(prototype)) &&
+				prototype !== Object.prototype
+			);
 
 			Reflect.defineMetadata(OPTIONS_METADATA, options, target[propertyKey]);
 		}

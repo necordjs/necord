@@ -13,7 +13,7 @@ export function createOptionDecorator<T extends APIApplicationCommandOptionBase<
 	// @ts-ignore
 	return (data: DistributiveOmit<T, 'type'>): PropertyDecorator => {
 		return (target: any, propertyKey: string | symbol) => {
-			let metadata: Record<string, OptionMeta> = Reflect.getMetadata(
+			let metadata: Record<string, OptionMeta> = Reflect.getOwnMetadata(
 				OPTIONS_METADATA,
 				target
 			);
