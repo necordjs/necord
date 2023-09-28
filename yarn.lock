@@ -4088,10 +4088,10 @@ registry-url@^6.0.0:
   dependencies:
     rc "1.2.8"
 
-release-it@16.2.0:
-  version "16.2.0"
-  resolved "https://registry.yarnpkg.com/release-it/-/release-it-16.2.0.tgz#0315f5fd034791a145ebcfd4496accdff79b135a"
-  integrity sha512-cemAN6GVk7RBhZiOCcxv/qJky5wTqxbZjQlfotgPnKlGQjugoJvsIpILtgbhITpYlUxQTgx3ddizY7YeaIqt6Q==
+release-it@16.2.1:
+  version "16.2.1"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-16.2.1.tgz#1dc9f5e327f903933777a6851e139179c115d67a"
+  integrity sha512-+bHiKPqkpld+NaiW+K/2WsjaHgfPB00J6uk8a+g8QyuBtzfFoMVe+GKsfaDO5ztEHRrSg+7luoXzd8IfvPNPig==
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "19.0.13"
