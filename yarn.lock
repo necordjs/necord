@@ -380,10 +380,10 @@
     iterare "1.2.1"
     tslib "2.6.2"
 
-"@nestjs/core@10.2.6":
-  version "10.2.6"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-10.2.6.tgz#4b2e5bd4ee5f5b347ba713aae9a06b6d6e0fd097"
-  integrity sha512-oGQ2CoBeFRT7egG47MFqS89xlXBTIRZBkRpKRTPMftEfL1RMXhXIcIIaGfzp11wx6qxrBVxBXpVLM09oaqHpaQ==
+"@nestjs/core@10.2.7":
+  version "10.2.7"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-10.2.7.tgz#26ca5cc63504b54a08c4cdc6da9300c9b8904fde"
+  integrity sha512-5GSu53QUUcwX17sNmlJPa1I0wIeAZOKbedyVuQx0ZAwWVa9g0wJBbsNP+R4EJ+j5Dkdzt/8xkiZvnKt8RFRR8g==
   dependencies:
     uid "2.0.2"
     "@nuxtjs/opencollective" "0.3.2"
