@@ -3,7 +3,7 @@ import { ApplicationCommandOptionType } from 'discord.js';
 import { Reflector } from '@nestjs/core';
 
 export const Subcommand = Reflector.createDecorator<
-	Omit<SlashCommandMeta, 'type' | 'options' | 'guilds'>,
+	Omit<SlashCommandMeta, 'type' | 'options' | 'guilds' | 'defaultMemberPermissions'>,
 	SlashCommandDiscovery
 >({
 	transform: options =>
