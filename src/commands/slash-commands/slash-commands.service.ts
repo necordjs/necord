@@ -1,37 +1,16 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable, Logger, Scope } from '@nestjs/common';
 import { SlashCommandDiscovery } from './slash-command.discovery';
-import { Client, Collection } from 'discord.js';
-import { ExplorerService } from '../../necord-explorer.service';
+import { Collection } from 'discord.js';
 import { Reflector } from '@nestjs/core';
-import { SlashCommand, Subcommand, SubcommandGroup } from './decorators';
+import { SlashCommand, SubcommandGroup } from './decorators';
 
-@Injectable()
+@Injectable({ scope: Scope.DEFAULT, durable: true })
 export class SlashCommandsService {
 	private readonly logger = new Logger(SlashCommandsService.name);
 
 	public readonly cache = new Collection<string, SlashCommandDiscovery>();
 
-	public constructor(
-		private readonly client: Client,
-		private readonly explorerService: ExplorerService<SlashCommandDiscovery>,
-		private readonly reflector: Reflector
-	) {}
-
-	private onModuleInit() {
-		this.explorerService.explore(SlashCommand.KEY).forEach(command => this.add(command));
-
-		return this.explorerService
-			.explore(Subcommand.KEY)
-			.forEach(subcommand => this.addSubCommand(subcommand));
-	}
-
-	private onApplicationBootstrap() {
-		return this.client.on('interactionCreate', i => {
-			if (!i.isChatInputCommand() && !i.isAutocomplete()) return;
-
-			return this.get(i.commandName)?.execute(i);
-		});
-	}
+	public constructor(private readonly reflector: Reflector) {}
 
 	public add(command: SlashCommandDiscovery): void {
 		if (this.cache.has(command.getName())) {
@@ -49,7 +28,7 @@ export class SlashCommandsService {
 		return this.cache.delete(commandName);
 	}
 
-	private addSubCommand(subCommand: SlashCommandDiscovery): void {
+	public addSubCommand(subCommand: SlashCommandDiscovery): void {
 		let rootCommand = this.reflector.get<SlashCommandDiscovery>(
 			SlashCommand.KEY,
 			subCommand.getClass()

@@ -8,42 +8,37 @@ import {
 } from '@nestjs/common';
 import { NecordModuleOptions } from './necord-options.interface';
 import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.module-definition';
-import { TextCommandsService } from './text-commands';
-import { ModalsService } from './modals';
-import { MessageComponentsService } from './message-components';
+import { TextCommandsModule } from './text-commands';
+import { ModalsModule } from './modals';
+import { MessageComponentsModule } from './message-components';
 import { NecordClientProvider } from './necord-client.provider';
-import { ListenersService } from './listeners';
+import { ListenersModule } from './listeners';
 import { ExplorerService } from './necord-explorer.service';
-import { CommandsService, ContextMenusService, SlashCommandsService } from './commands';
+import { CommandsModule } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
 import { NecordRestProvider } from './necord-rest.provider';
 
 @Global()
 @Module({
-	imports: [DiscoveryModule],
-	providers: [
-		CommandsService,
-		ContextMenusService,
-		ExplorerService,
-		ListenersService,
-		MessageComponentsService,
-		ModalsService,
-		NecordClientProvider,
-		NecordRestProvider,
-		SlashCommandsService,
-		TextCommandsService
+	imports: [
+		DiscoveryModule,
+		CommandsModule,
+		ListenersModule,
+		MessageComponentsModule,
+		ModalsModule,
+		TextCommandsModule
 	],
+	providers: [ExplorerService, NecordClientProvider, NecordRestProvider],
 	exports: [
-		CommandsService,
-		ContextMenusService,
+		CommandsModule,
+		ListenersModule,
+		MessageComponentsModule,
+		ModalsModule,
+		TextCommandsModule,
 		ExplorerService,
-		ListenersService,
-		MessageComponentsService,
-		ModalsService,
 		NecordClientProvider,
 		NecordRestProvider,
-		SlashCommandsService,
-		TextCommandsService
+		NECORD_MODULE_OPTIONS
 	]
 })
 export class NecordModule

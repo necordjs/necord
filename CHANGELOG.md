@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.1.8](https://github.com/necordjs/necord/compare/v6.1.7...v6.1.8) - (2023-10-09)
+
+## Bug Fixes
+
+- Remove type of member permissions from subcommand and groups ([df4683e](https://github.com/necordjs/necord/commit/df4683ef1dc70747e754d711283d2fcd17b05a29))
+
 # [6.1.5](https://github.com/necordjs/necord/compare/v6.1.4...v6.1.5) - (2023-09-26)
 
 ## Bug Fixes

@@ -1,33 +1,12 @@
-import { Client, Collection } from 'discord.js';
+import { Collection } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
-import { ExplorerService } from '../../necord-explorer.service';
-import { ContextMenu } from './decorators';
 
 @Injectable()
 export class ContextMenusService {
 	private readonly logger = new Logger(ContextMenusService.name);
 
 	public readonly cache = new Collection<string, ContextMenuDiscovery>();
-
-	public constructor(
-		private readonly client: Client,
-		private readonly explorerService: ExplorerService<ContextMenuDiscovery>
-	) {}
-
-	private onModuleInit() {
-		return this.explorerService
-			.explore(ContextMenu.KEY)
-			.forEach(contextMenu => this.add(contextMenu));
-	}
-
-	private onApplicationBootstrap() {
-		return this.client.on('interactionCreate', interaction => {
-			if (!interaction.isContextMenuCommand()) return;
-
-			return this.get(interaction.commandType, interaction.commandName)?.execute(interaction);
-		});
-	}
 
 	public add(contextMenu: ContextMenuDiscovery): void {
 		const id = this.getId(contextMenu.getType(), contextMenu.getName());

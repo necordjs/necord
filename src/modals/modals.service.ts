@@ -10,23 +10,6 @@ export class ModalsService {
 
 	public readonly cache = new Collection<string, ModalDiscovery>();
 
-	public constructor(
-		private readonly client: Client,
-		private readonly explorerService: ExplorerService<ModalDiscovery>
-	) {}
-
-	private onModuleInit() {
-		return this.explorerService.explore(Modal.KEY).forEach(modal => this.add(modal));
-	}
-
-	private onApplicationBootstrap() {
-		return this.client.on('interactionCreate', interaction => {
-			if (!interaction.isModalSubmit()) return;
-
-			return this.get(interaction.customId)?.execute(interaction);
-		});
-	}
-
 	public add(modal: ModalDiscovery) {
 		const id = modal.getCustomId();
 

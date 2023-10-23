@@ -2,28 +2,12 @@ import { AuditLogEvent, Client, GuildAuditLogsEntry, GuildChannel, Role } from '
 import { Injectable } from '@nestjs/common';
 
 import { ContextOf } from '../context';
-import { ExplorerService } from '../necord-explorer.service';
-import { ListenerDiscovery } from './listener.discovery';
 import { NecordEvents } from './listener.interface';
-import { Listener } from './decorators';
 
 // Oh... fuck, it looks really shitty
 @Injectable()
 export class ListenersService {
-	public constructor(
-		private readonly client: Client,
-		private readonly explorerService: ExplorerService<ListenerDiscovery>
-	) {}
-
-	private onModuleInit() {
-		return this.explorerService
-			.explore(Listener.KEY)
-			.forEach(listener =>
-				this.client[listener.getType()](listener.getEvent(), (...args) =>
-					listener.execute(args)
-				)
-			);
-	}
+	public constructor(private readonly client: Client) {}
 
 	private onApplicationBootstrap() {
 		this.on('channelUpdate', this.onChannelUpdate);
