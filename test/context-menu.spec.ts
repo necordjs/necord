@@ -4,6 +4,8 @@ import {
 	MessageCommand,
 	MessageCommandContext,
 	Target,
+	TargetMessage,
+	TargetUser,
 	UserCommand,
 	UserCommandContext
 } from '../src';
@@ -13,7 +15,7 @@ import { EmbedBuilder, Message, User } from 'discord.js';
 @Injectable()
 export class ContextMenuSpec {
 	@UserCommand({ name: 'Get user avatar' })
-	public getUserAvatar(@Ctx() [interaction]: UserCommandContext, @Target() user: User) {
+	public getUserAvatar(@Ctx() [interaction]: UserCommandContext, @TargetUser() user: User) {
 		return interaction.reply({
 			embeds: [
 				new EmbedBuilder()
@@ -26,7 +28,7 @@ export class ContextMenuSpec {
 	@MessageCommand({ name: 'Copy message content' })
 	public copyMessageContent(
 		@Ctx() [interaction]: MessageCommandContext,
-		@Target() message: Message
+		@TargetMessage() message: Message
 	) {
 		return interaction.reply({ content: message.content });
 	}

@@ -65,9 +65,9 @@ export interface NecordEvents extends ClientEvents {
 	guildVerificationRemove: [guild: Guild];
 
 	// Message Update
-	messagePinned: [Message<boolean> | PartialMessage];
+	messagePinned: [Message | PartialMessage];
 	messageContentEdited: [
-		message: Message<boolean> | PartialMessage,
+		message: Message | PartialMessage,
 		oldContent: string,
 		newContent: string
 	];

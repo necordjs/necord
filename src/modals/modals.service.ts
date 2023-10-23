@@ -1,8 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { Client, Collection } from 'discord.js';
-import { ExplorerService } from '../necord-explorer.service';
+import { Collection } from 'discord.js';
 import { ModalDiscovery } from './modal.discovery';
-import { Modal } from './decorators';
 
 @Injectable()
 export class ModalsService {

@@ -8,12 +8,11 @@ import {
 	MessageContextMenuCommandInteraction,
 	ModalSubmitInteraction,
 	RoleSelectMenuInteraction,
-	SelectMenuInteraction,
 	StringSelectMenuInteraction,
 	UserContextMenuCommandInteraction,
 	UserSelectMenuInteraction
 } from 'discord.js';
-import { NecordEvents } from '../listeners/listener.interface';
+import { NecordEvents } from '../listeners';
 
 export type AutocompleteContext = [AutocompleteInteraction];
 

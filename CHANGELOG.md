@@ -85,7 +85,7 @@ All notable changes to this project will be documented in this file.
 ## Styling
 
 - Remove unused imports ([ab1c420](https://github.com/necordjs/necord/commit/ab1c420bb4b165bcf47c013dff0a050d145a626a))
-- Use curly brackets for switch-case" ([81ebbb0](https://github.com/necordjs/necord/commit/81ebbb0ff7ab6a28d32ff4eef78169d47352a608))
+- Use curly brackets for switch-case ([81ebbb0](https://github.com/necordjs/necord/commit/81ebbb0ff7ab6a28d32ff4eef78169d47352a608))
 
 # [5.8.4](https://github.com/necordjs/necord/compare/v5.8.3...v5.8.4) - (2023-05-10)
 

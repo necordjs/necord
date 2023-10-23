@@ -2,7 +2,6 @@
 .vscode
 .github
 docs
-integration
 sample
 src
 test
