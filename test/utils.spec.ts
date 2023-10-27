@@ -12,7 +12,8 @@ export const createApplication = (...providers: Provider[]) => {
 					'DirectMessages',
 					'GuildMembers',
 					'GuildMessages',
-					'MessageContent'
+					'MessageContent',
+					'GuildVoiceStates'
 				],
 				prefix: '!',
 				development: [process.env.DISCORD_TEST_GUILD]
