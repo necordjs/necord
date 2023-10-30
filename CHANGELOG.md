@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.4.0](https://github.com/necordjs/necord/compare/v6.3.0...v6.4.0) - (2023-10-30)
+
+## Features
+
+- Add more flexibility for custom listeners ([ec89cdb](https://github.com/necordjs/necord/commit/ec89cdb8ba43caea9c3c061816f960958eba8f13))
+
 # [6.2.0](https://github.com/necordjs/necord/compare/v6.1.8...v6.2.0) - (2023-10-23)
 
 ## Refactor
