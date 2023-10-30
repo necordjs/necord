@@ -2,10 +2,36 @@ import { BaseHandler } from './base.handler';
 import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { ContextOf } from '../../context';
+import { Guild, GuildFeature, GuildPremiumTier, VoiceChannel } from 'discord.js';
+
+export type CustomGuildUpdateEvents = {
+	guildBoostLevelUp: [
+		guild: Guild,
+		oldPremiumTier: GuildPremiumTier,
+		newPremiumTier: GuildPremiumTier
+	];
+	guildBoostLevelDown: [oldGuild: Guild, newGuild: Guild];
+	guildBannerAdd: [guild: Guild, bannerURL: string];
+	guildAfkChannelAdd: [guild: Guild, afkChannel: VoiceChannel];
+	guildVanityURLAdd: [guild: Guild, vanityURLCode: string];
+	guildVanityURLUpdate: [guild: Guild, oldVanityURLCode: string, newVanityURLCode: string];
+	guildVanityURLRemove: [guild: Guild, vanityURLCode: string];
+	guildFeaturesUpdate: [
+		guild: Guild,
+		oldFeatures: `${GuildFeature}`[],
+		newFeatures: `${GuildFeature}`[]
+	];
+	guildAcronymUpdate: [oldGuild: Guild, newGuild: Guild];
+	guildOwnerUpdate: [oldGuild: Guild, newGuild: Guild];
+	guildPartnerAdd: [guild: Guild];
+	guildPartnerRemove: [guild: Guild];
+	guildVerificationAdd: [guild: Guild];
+	guildVerificationRemove: [guild: Guild];
+};
 
 @Injectable()
 @CustomListener('guildUpdate')
-export class GuildUpdateHandler extends BaseHandler {
+export class GuildUpdateHandler extends BaseHandler<CustomGuildUpdateEvents> {
 	@CustomListenerHandler()
 	public handleGuildBoostLevel([oldGuild, newGuild]: ContextOf<'guildUpdate'>) {
 		if (oldGuild.premiumTier < newGuild.premiumTier) {

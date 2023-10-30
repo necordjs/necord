@@ -2,10 +2,22 @@ import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { BaseHandler } from './base.handler';
 import { ContextOf } from '../../context';
+import { User, UserFlagsBitField } from 'discord.js';
+
+export type CustomUserUpdateEvents = {
+	userAvatarUpdate: [user: User, oldAvatar: string, newAvatar: string];
+	userUsernameUpdate: [user: User, oldUsername: string, newUsername: string];
+	userDiscriminatorUpdate: [user: User, oldDiscriminator: string, newDiscriminator: string];
+	userFlagsUpdate: [
+		user: User,
+		oldFlags: Readonly<UserFlagsBitField>,
+		newFlags: Readonly<UserFlagsBitField>
+	];
+};
 
 @Injectable()
 @CustomListener('userUpdate')
-export class UserUpdateHandler extends BaseHandler {
+export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 	@CustomListenerHandler()
 	public handleUserAvatarUpdate([oldUser, newUser]: ContextOf<'userUpdate'>) {
 		if (oldUser.partial) return;

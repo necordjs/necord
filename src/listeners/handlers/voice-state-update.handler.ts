@@ -2,10 +2,27 @@ import { BaseHandler } from './base.handler';
 import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { ContextOf } from '../../context';
+import { GuildMember, VoiceBasedChannel } from 'discord.js';
+
+export type CustomVoiceStateUpdateEvents = {
+	voiceChannelJoin: [member: GuildMember, channel: VoiceBasedChannel];
+	voiceChannelSwitch: [
+		member: GuildMember,
+		oldChannel: VoiceBasedChannel,
+		newChannel: VoiceBasedChannel
+	];
+	voiceChannelLeave: [member: GuildMember, channel: VoiceBasedChannel];
+	voiceChannelMute: [member: GuildMember, type: 'self-muted' | 'server-muted'];
+	voiceChannelUnmute: [member: GuildMember, type: 'self-muted' | 'server-muted'];
+	voiceChannelDeaf: [member: GuildMember, type: 'self-deafed' | 'server-deafed'];
+	voiceChannelUndeaf: [member: GuildMember, type: 'self-deafed' | 'server-deafed'];
+	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
+	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
+};
 
 @Injectable()
 @CustomListener('voiceStateUpdate')
-export class VoiceStateUpdateHandler extends BaseHandler {
+export class VoiceStateUpdateHandler extends BaseHandler<CustomVoiceStateUpdateEvents> {
 	@CustomListenerHandler()
 	public handleVoiceChannelChanges([oldState, newState]: ContextOf<'voiceStateUpdate'>) {
 		const newMember = newState.member;

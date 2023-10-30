@@ -2,10 +2,27 @@ import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { BaseHandler } from './base.handler';
 import { ContextOf } from '../../context';
+import { ThreadChannel } from 'discord.js';
+
+export type CustomThreadUpdateEvents = {
+	threadStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
+	threadNameUpdate: [thread: ThreadChannel, oldName: string, newName: string];
+	threadLockStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
+	threadRateLimitPerUserUpdate: [
+		thread: ThreadChannel,
+		oldRateLimit: number,
+		newRateLimit: number
+	];
+	threadAutoArchiveDurationUpdate: [
+		thread: ThreadChannel,
+		oldDuration: number | string,
+		newDuration: number | string
+	];
+};
 
 @Injectable()
 @CustomListener('threadUpdate')
-export class ThreadUpdateHandler extends BaseHandler {
+export class ThreadUpdateHandler extends BaseHandler<CustomThreadUpdateEvents> {
 	@CustomListenerHandler()
 	public handleThreadStateUpdate([oldThread, newThread]: ContextOf<'threadUpdate'>) {
 		if (oldThread.archived !== newThread.archived) {

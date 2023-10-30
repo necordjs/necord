@@ -2,11 +2,30 @@ import { BaseHandler } from './base.handler';
 import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { ContextOf } from '../../context';
-import { AuditLogEvent, GuildAuditLogsEntry } from 'discord.js';
+import { AuditLogEvent, Guild, GuildAuditLogsEntry } from 'discord.js';
+
+export type CustomGuildAuditLogEntryCreateEvents = {
+	guildAuditLogEntryAdd: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+	guildAuditLogEntryUpdate: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+	guildAuditLogEntryDelete: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
+
+	guildAuditLogEntryWebhookCreate: [
+		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookCreate>,
+		guild: Guild
+	];
+	guildAuditLogEntryWebhookUpdate: [
+		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookUpdate>,
+		guild: Guild
+	];
+	guildAuditLogEntryWebhookDelete: [
+		auditLogEntry: GuildAuditLogsEntry<AuditLogEvent.WebhookDelete>,
+		guild: Guild
+	];
+};
 
 @Injectable()
 @CustomListener('guildAuditLogEntryCreate')
-export class GuildAuditLogEntryCreateHandler extends BaseHandler {
+export class GuildAuditLogEntryCreateHandler extends BaseHandler<CustomGuildAuditLogEntryCreateEvents> {
 	@CustomListenerHandler()
 	public handleGuildAuditLogEntryChanges([
 		auditLogEntry,

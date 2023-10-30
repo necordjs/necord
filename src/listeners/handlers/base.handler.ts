@@ -1,16 +1,19 @@
-import { Client } from 'discord.js';
-import { NecordEvents } from '../listener.interface';
+import { Client, ClientEvents } from 'discord.js';
 import { Inject } from '@nestjs/common';
+import { NecordEvents } from '../listener.interface';
 
-export abstract class BaseHandler {
+type EventTypes = Record<string, Array<any>>;
+type OnlyCustomEvents = Exclude<NecordEvents, ClientEvents>;
+
+export abstract class BaseHandler<Events extends Record<string, Array<any>> = OnlyCustomEvents> {
 	@Inject(Client)
 	private readonly client: Client;
 
-	protected on<K extends keyof NecordEvents>(event: K, fn: (args: NecordEvents[K]) => void) {
+	protected on<K extends keyof Events>(event: K, fn: (args: Events[K]) => void) {
 		this.client.on<any>(event, (...args) => fn.call(this, args));
 	}
 
-	protected emit<K extends keyof NecordEvents>(event: K, ...args: NecordEvents[K]) {
+	protected emit<K extends keyof Events>(event: K, ...args: Events[K]) {
 		this.client.emit<any>(event, ...args);
 	}
 }
