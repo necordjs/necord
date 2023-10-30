@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.4.1](https://github.com/necordjs/necord/compare/v6.4.0...v6.4.1) - (2023-10-30)
+
+## Bug Fixes
+
+- Add event of client for message update ([5d7d912](https://github.com/necordjs/necord/commit/5d7d912a2f1bf1f24843af3c18c4a06de7e7d88d))
+
 # [6.4.0](https://github.com/necordjs/necord/compare/v6.3.0...v6.4.0) - (2023-10-30)
 
 ## Features
