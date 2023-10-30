@@ -14,7 +14,7 @@ export type CustomMessageUpdateEvents = {
 };
 
 @Injectable()
-@CustomListener()
+@CustomListener('messageUpdate')
 export class MessageUpdateHandler extends BaseHandler<CustomMessageUpdateEvents> {
 	@CustomListenerHandler()
 	public handleMessagePinned([oldMessage, newMessage]: ContextOf<'messageUpdate'>) {
