@@ -1,6 +1,16 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.5.0](https://github.com/necordjs/necord/compare/v6.4.2...v6.5.0) - (2023-12-19)
+
+## Refactor
+
+- Create register all commands fn ([2de4b17](https://github.com/necordjs/necord/commit/2de4b17a772a62c5f044b2f4a126ab0c71e5c30e))
+
+## Styling
+
+- Lint ([8f4fe0b](https://github.com/necordjs/necord/commit/8f4fe0bff07cfde2a446c11f9e0a44ca9a8beaa8))
+
 # [6.4.1](https://github.com/necordjs/necord/compare/v6.4.0...v6.4.1) - (2023-10-30)
 
 ## Bug Fixes
