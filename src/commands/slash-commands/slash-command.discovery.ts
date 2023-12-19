@@ -69,7 +69,7 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 				depth === 2
 					? interaction.options.getSubcommand(true)
 					: interaction.options.getSubcommandGroup(false) ??
-					  interaction.options.getSubcommand(true);
+						interaction.options.getSubcommand(true);
 
 			return this.subcommands.get(commandName)?.execute(interaction, depth + 1);
 		}
