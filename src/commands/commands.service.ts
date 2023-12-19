@@ -14,39 +14,36 @@ export class CommandsService {
 		private readonly slashCommandsService: SlashCommandsService
 	) {}
 
-	public async register() {
-		if (this.client.application.partial) {
-			await this.client.application.fetch();
-		}
+	public async registerAllCommands() {
+		const guilds = new Set(this.getCommandsByGuilds().keys());
 
 		this.logger.log(`Started refreshing application commands.`);
-		for (const [guild, commands] of this.getCommandsByGuilds().entries()) {
-			if (commands.length === 0) {
-				this.logger.log(
-					`Skipping ${guild ? `guild ${guild}` : 'global'} as it has no commands.`
-				);
-				continue;
-			}
-
-			const rawCommands = commands.flatMap(command => command.toJSON());
-
-			await this.client.application.commands.set(rawCommands, guild).catch(error => {
-				this.logger.error(
-					`Failed to register application commands (${
-						guild ? `in guild ${guild}` : 'global'
-					}): ${error}`,
-					error.stack
-				);
-			});
+		for (const guild of guilds) {
+			await this.registerInGuild(guild);
 		}
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
 
 	public async registerInGuild(guildId: string) {
-		return this.client.application.commands.set(
-			this.getGuildCommands(guildId).flatMap(command => command.toJSON()),
-			guildId
-		);
+		const commands = this.getGuildCommands(guildId);
+
+		if (commands.length === 0) {
+			this.logger.log(
+				`Skipping ${guildId ? `guild ${guildId}` : 'global'} as it has no commands.`
+			);
+			return;
+		}
+
+		const rawCommands = commands.flatMap(command => command.toJSON());
+
+		return this.client.application.commands.set(rawCommands, guildId).catch(error => {
+			this.logger.error(
+				`Failed to register application commands (${
+					guildId ? `in guild ${guildId}` : 'global'
+				}): ${error}`,
+				error.stack
+			);
+		});
 	}
 
 	public getCommands(): CommandDiscovery[] {

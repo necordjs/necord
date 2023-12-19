@@ -28,7 +28,13 @@ export class CommandsModule implements OnModuleInit, OnApplicationBootstrap {
 			return;
 		}
 
-		return this.client.once('ready', async () => this.commandsService.register());
+		return this.client.once('ready', async () => {
+			if (this.client.application.partial) {
+				await this.client.application.fetch();
+			}
+
+			return this.commandsService.registerAllCommands();
+		});
 	}
 
 	public onApplicationBootstrap() {
