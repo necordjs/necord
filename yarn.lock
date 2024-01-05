@@ -44,17 +44,17 @@
     resolve-global "1.0.0"
     yargs "^17.0.0"
 
-"@commitlint/config-angular-type-enum@^18.4.3":
-  version "18.4.3"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-18.4.3.tgz#9bc7ae8d7971e4fcf1f0f9de79dd2ae6c203082d"
-  integrity sha512-Gg65txKHYG5zPJxIrE9/ESS7CItyz2BB9VgFy8orK0uDg9KUb+yjL/tRKttuHmrHppK2HO/PUs5Qe1BMzdrSPQ==
+"@commitlint/config-angular-type-enum@^18.4.4":
+  version "18.4.4"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-18.4.4.tgz#c40fcff66292dadd2e796f7c512a70a7f4627362"
+  integrity sha512-a4FKpTP52x69usmnio9ukffcefYRhZICs952bRts0Q3GpvkTsM1f4/natPVHU7XMG++J02XUKZOs+I0F+4LRwg==
 
-"@commitlint/config-angular@18.4.3":
-  version "18.4.3"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-18.4.3.tgz#7b1eadbd9d03f29628b2f2afd32248a5f2e7e117"
-  integrity sha512-LaoWW56jymtWPubIe8ndFg6wYLWixbNrXVk8EtV24ZaY8R223bO3iA2by+YD7aorQGxvMJFyyeFc3e0Gs40NWw==
+"@commitlint/config-angular@18.4.4":
+  version "18.4.4"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-18.4.4.tgz#8031b55093f03437f520d9bad55ecaca56253597"
+  integrity sha512-bmW32RPEn5UH1bM5nyPM8kO2B6+cJgP9sWa8uUD9yI8hRshcKUFuK7gVUxZLcXO7gZWuJRcvXXcC2Vv76cKNHg==
   dependencies:
-    "@commitlint/config-angular-type-enum" "^18.4.3"
+    "@commitlint/config-angular-type-enum" "^18.4.4"
 
 "@commitlint/config-validator@^18.4.4":
   version "18.4.4"
