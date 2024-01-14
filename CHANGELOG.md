@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.6.0](https://github.com/necordjs/necord/compare/v6.5.0...v6.6.0) - (2024-01-14)
+
+## Features
+
+- Add providers of client ([8c65d72](https://github.com/necordjs/necord/commit/8c65d72a46ff64e7fd107bdb6b3d507268ff63b0))
+
 # [6.5.0](https://github.com/necordjs/necord/compare/v6.4.2...v6.5.0) - (2023-12-19)
 
 ## Refactor
