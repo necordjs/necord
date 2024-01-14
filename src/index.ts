@@ -7,7 +7,7 @@ export * from './text-commands';
 
 export * from './necord.module-definition';
 export * from './necord.module';
-export * from './necord-client.provider';
+export * from './providers/client.provider';
 export * from './necord-explorer.service';
 export * from './necord-options.interface';
-export * from './necord-rest.provider';
+export * from './providers/rest.provider';

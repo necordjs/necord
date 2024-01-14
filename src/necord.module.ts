@@ -11,12 +11,13 @@ import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.module-
 import { TextCommandsModule } from './text-commands';
 import { ModalsModule } from './modals';
 import { MessageComponentsModule } from './message-components';
-import { NecordClientProvider } from './necord-client.provider';
+import * as ProvidersMap from './providers';
 import { ListenersModule } from './listeners';
 import { ExplorerService } from './necord-explorer.service';
 import { CommandsModule } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
-import { NecordRestProvider } from './necord-rest.provider';
+
+const Providers = Object.values(ProvidersMap);
 
 @Global()
 @Module({
@@ -28,7 +29,7 @@ import { NecordRestProvider } from './necord-rest.provider';
 		ModalsModule,
 		TextCommandsModule
 	],
-	providers: [ExplorerService, NecordClientProvider, NecordRestProvider],
+	providers: [ExplorerService, ...Providers],
 	exports: [
 		CommandsModule,
 		ListenersModule,
@@ -36,8 +37,7 @@ import { NecordRestProvider } from './necord-rest.provider';
 		ModalsModule,
 		TextCommandsModule,
 		ExplorerService,
-		NecordClientProvider,
-		NecordRestProvider,
+		...Providers,
 		NECORD_MODULE_OPTIONS
 	]
 })
