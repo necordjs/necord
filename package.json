@@ -72,7 +72,7 @@
 		"lint-staged": "15.2.0",
 		"prettier": "3.2.4",
 		"reflect-metadata": "0.1.14",
-		"release-it": "17.0.1",
+		"release-it": "17.0.3",
 		"rimraf": "5.0.5",
 		"rxjs": "7.8.1",
 		"ts-node": "10.9.2",
