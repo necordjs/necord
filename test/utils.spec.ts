@@ -15,8 +15,8 @@ export const createApplication = (...providers: Provider[]) => {
 					'MessageContent',
 					'GuildVoiceStates'
 				],
-				prefix: '!',
-				development: [process.env.DISCORD_TEST_GUILD]
+				prefix: '!'
+				// development: [process.env.DISCORD_TEST_GUILD]
 			})
 		],
 		providers

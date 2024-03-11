@@ -6,6 +6,9 @@ export interface ModalMeta {
 	customId: string;
 }
 
+/**
+ * Represents a modal discovery.
+ */
 export class ModalDiscovery extends NecordBaseDiscovery<ModalMeta> {
 	public readonly matcher = match(this.meta.customId);
 

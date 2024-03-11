@@ -5,6 +5,9 @@ export interface ListenerMeta {
 	event: string | symbol | number;
 }
 
+/**
+ * Represents a listener discovery.
+ */
 export class ListenerDiscovery extends NecordBaseDiscovery<ListenerMeta> {
 	public getType() {
 		return this.meta.type;

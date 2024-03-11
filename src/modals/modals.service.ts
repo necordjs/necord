@@ -2,6 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Collection } from 'discord.js';
 import { ModalDiscovery } from './modal.discovery';
 
+/**
+ * Service that manages modals.
+ */
 @Injectable()
 export class ModalsService {
 	private readonly logger = new Logger(ModalsService.name);

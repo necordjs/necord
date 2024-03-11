@@ -3,6 +3,12 @@ import { Observable, of } from 'rxjs';
 import { AutocompleteContext, NecordExecutionContext } from '../../../context';
 import { AutocompleteInteraction } from 'discord.js';
 
+/**
+ * The autocomplete interceptor.
+ * @see AutocompleteContext
+ * @see AutocompleteInteraction
+ * @url https://necord.org/interactions/slash-commands#autocomplete
+ */
 @Injectable()
 export abstract class AutocompleteInterceptor implements NestInterceptor {
 	public abstract transformOptions(interaction: AutocompleteInteraction): void | Promise<void>;

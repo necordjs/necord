@@ -2,6 +2,15 @@ import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discov
 import { ApplicationCommandType } from 'discord.js';
 import { Reflector } from '@nestjs/core';
 
+/**
+ * Decorator that marks a method as a slash command.
+ * @param options The slash command options.
+ * @returns The decorated method.
+ * @see SlashCommandDiscovery
+ * @see SlashCommandMeta
+ * @url https://necord.org/interactions/slash-commands
+ *
+ */
 export const SlashCommand = Reflector.createDecorator<
 	Omit<SlashCommandMeta, 'type' | 'options'>,
 	SlashCommandDiscovery

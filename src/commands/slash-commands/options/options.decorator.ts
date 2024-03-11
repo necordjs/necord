@@ -2,6 +2,12 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { NecordExecutionContext, SlashCommandContext } from '../../../context';
 import { OPTIONS_METADATA } from './option.util';
 
+/**
+ * Options decorator that mark arguments as options.
+ * This decorator is used to retrieve the options from a slash command.
+ * @returns The decorated argument.
+ * @url https://necord.org/interactions/slash-commands#options
+ */
 export const Options = createParamDecorator(
 	(_, context: ExecutionContext) => {
 		const necordContext = NecordExecutionContext.create(context);

@@ -2,6 +2,9 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Collection } from 'discord.js';
 import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
 
+/**
+ * Service that manages message components.
+ */
 @Injectable()
 export class MessageComponentsService {
 	private readonly logger = new Logger(MessageComponentsService.name);

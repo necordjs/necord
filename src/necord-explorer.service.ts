@@ -7,6 +7,10 @@ import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import { ParamMetadata } from '@nestjs/core/helpers/interfaces';
 import { STATIC_CONTEXT } from '@nestjs/core/injector/constants';
 
+/**
+ * Represents a explorer service.
+ * This service is used to explore the application and retrieve the discovery items.
+ */
 @Injectable()
 export class ExplorerService<T extends NecordBaseDiscovery> extends Reflector {
 	private readonly necordParamsFactory = new NecordParamsFactory();

@@ -5,6 +5,9 @@ export interface TextCommandMeta {
 	description: string;
 }
 
+/**
+ * Represents a text command discovery.
+ */
 export class TextCommandDiscovery extends NecordBaseDiscovery<TextCommandMeta> {
 	public getName() {
 		return this.meta.name;

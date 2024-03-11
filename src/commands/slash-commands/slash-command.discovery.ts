@@ -25,33 +25,61 @@ export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
 	resolver?: keyof CommandInteractionOptionResolver;
 }
 
+/**
+ * Represents a slash command discovery.
+ * @url https://necord.org/interactions/slash-commands
+ */
 export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 	private readonly subcommands = new Collection<string, SlashCommandDiscovery>();
 
+	/**
+	 * Returns the command description.
+	 */
 	public getDescription() {
 		return this.meta.description;
 	}
 
+	/**
+	 * Sets the command description.
+	 * @param command The command discovery.
+	 */
 	public setSubcommand(command: SlashCommandDiscovery) {
 		this.subcommands.set(command.getName(), command);
 	}
 
+	/**
+	 * Ensures a subcommand exists.
+	 * @param command
+	 */
 	public ensureSubcommand(command: SlashCommandDiscovery) {
 		return this.subcommands.ensure(command.getName(), () => command);
 	}
 
+	/**
+	 * Returns the subcommand.
+	 * @param name
+	 */
 	public getSubcommand(name: string) {
 		return this.subcommands.get(name);
 	}
 
+	/**
+	 * Returns the subcommands.
+	 */
 	public getSubcommands() {
 		return this.subcommands;
 	}
 
+	/**
+	 * Returns raw options from metadata.
+	 */
 	public getRawOptions(): Record<string, OptionMeta> {
 		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
 	}
 
+	/**
+	 * Returns the options.
+	 */
 	public getOptions() {
 		if (this.subcommands.size >= 1) {
 			return [...this.subcommands.values()].map(subcommand => subcommand.toJSON());
@@ -60,6 +88,11 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 		return Object.values(this.getRawOptions());
 	}
 
+	/**
+	 * Executes the command.
+	 * @param interaction
+	 * @param depth
+	 */
 	public execute(
 		interaction: ChatInputCommandInteraction | AutocompleteInteraction,
 		depth = 1
@@ -77,10 +110,16 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 		return super.execute([interaction]);
 	}
 
+	/**
+	 * Returns whether the discovery is a slash command.
+	 */
 	public isSlashCommand(): this is SlashCommandDiscovery {
 		return true;
 	}
 
+	/**
+	 * Returns the JSON representation of the discovery.
+	 */
 	public override toJSON() {
 		return {
 			...this.meta,

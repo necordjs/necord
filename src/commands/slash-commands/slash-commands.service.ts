@@ -4,6 +4,10 @@ import { Collection } from 'discord.js';
 import { Reflector } from '@nestjs/core';
 import { SlashCommand, SubcommandGroup } from './decorators';
 
+/**
+ * Represents a service that manages slash commands.
+ * @url https://necord.org/interactions/slash-commands
+ */
 @Injectable({ scope: Scope.DEFAULT, durable: true })
 export class SlashCommandsService {
 	private readonly logger = new Logger(SlashCommandsService.name);

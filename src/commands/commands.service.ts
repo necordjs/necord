@@ -4,6 +4,10 @@ import { CommandDiscovery } from './command.discovery';
 import { ContextMenusService } from './context-menus';
 import { SlashCommandsService } from './slash-commands';
 
+/**
+ * Represents a service that manages commands.
+ * @url https://necord.org/interactions/slash-commands
+ */
 @Injectable()
 export class CommandsService {
 	private readonly logger = new Logger(CommandsService.name);
@@ -14,6 +18,10 @@ export class CommandsService {
 		private readonly slashCommandsService: SlashCommandsService
 	) {}
 
+	/**
+	 * Registers all commands.
+	 *
+	 */
 	public async registerAllCommands() {
 		const guilds = new Set(this.getCommandsByGuilds().keys());
 
@@ -24,6 +32,10 @@ export class CommandsService {
 		this.logger.log(`Successfully reloaded application commands.`);
 	}
 
+	/**
+	 * Registers commands in a guild.
+	 * @param guildId
+	 */
 	public async registerInGuild(guildId: string) {
 		const commands = this.getGuildCommands(guildId);
 

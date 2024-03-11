@@ -2,6 +2,14 @@ import { Collection } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 
+/**
+ * Service that manages context menus.
+ * @see ContextMenuDiscovery
+ * @see ContextMenuMeta
+ * @see ContextMenu
+ * @see MessageCommand
+ * @see UserCommand
+ */
 @Injectable()
 export class ContextMenusService {
 	private readonly logger = new Logger(ContextMenusService.name);

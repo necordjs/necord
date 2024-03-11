@@ -5,6 +5,13 @@ import { SlashCommand } from './slash-command.decorator';
 import { noop } from 'rxjs';
 import { Reflector } from '@nestjs/core';
 
+/**
+ * Decorator that marks a method as a subcommand.
+ * @param options The subcommand options.
+ * @returns The decorated method.
+ * @see SlashCommandDiscovery
+ * @url https://necord.org/interactions/slash-commands#groups
+ */
 export const SubcommandGroup = Reflector.createDecorator<
 	Omit<SlashCommandMeta, 'type' | 'options' | 'guilds' | 'defaultMemberPermissions'>,
 	SlashCommandDiscovery
@@ -16,6 +23,14 @@ export const SubcommandGroup = Reflector.createDecorator<
 		})
 });
 
+/**
+ * Factory that creates a decorator that marks a class as a slash command group.
+ * @param rootOptions
+ * @returns The decorator.
+ * @see SlashCommand
+ * @see SubcommandGroup
+ * @url https://necord.org/interactions/slash-commands#groups
+ */
 export const createCommandGroupDecorator = (rootOptions: Omit<SlashCommandMeta, 'type'>) => {
 	const rootCommand = SlashCommand(rootOptions);
 

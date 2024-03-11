@@ -6,7 +6,7 @@ import { LengthDto } from './dto/length.dto';
 const UtilsCommands = createCommandGroupDecorator({
 	name: 'utils',
 	description: 'Test group',
-	guilds: [process.env.DISCORD_TEST_GUILD]
+	guilds: [process.env.DISCORD_TEST_GUILD, '580747890272763964']
 });
 
 @UtilsCommands()
