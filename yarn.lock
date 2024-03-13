@@ -41,17 +41,17 @@
     execa "^8.0.1"
     yargs "^17.0.0"
 
-"@commitlint/config-angular-type-enum@^19.0.0":
-  version "19.0.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-19.0.0.tgz#5bbbdb94e2af4c5d566de3173bc2a3a94dc300c7"
-  integrity sha512-t+VwImd0faPg4ZCNb7rfMkyOvvLhDLpp4YjEQEek/TBYTaAWeAXGuEUmdigMd1QEL2t+DP08CMmEcDg9UZQ4dw==
+"@commitlint/config-angular-type-enum@^19.1.0":
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-19.1.0.tgz#d72ff2cfbc4dfab6bb567dc5e41eb3ce433c6c42"
+  integrity sha512-eLjt7vSArP62kpDmmIZNdIBjPzbqY8jss6mVOcSDm4t1KfDw4UmPrtPh/7zcIL3GI5uf/7W8d2s3K0qisf9C+g==
 
-"@commitlint/config-angular@19.0.3":
-  version "19.0.3"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-19.0.3.tgz#8da8f4f8b9001178cbb6f21f33441b6a5e41ff8a"
-  integrity sha512-HxSFaJyGekLDs0YWG4jjWJdeZqrlGC9QgwvFclGCISdntqvf+Vk09FH3QPZb6hM5Kgbs9AMChCUlVAQIR4sRFQ==
+"@commitlint/config-angular@19.1.0":
+  version "19.1.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-19.1.0.tgz#f326677d5fa9cb76446a66b16daa3dfb1d1642ef"
+  integrity sha512-qZyG9FHjPoG+VaHxH1OruWI8cmWWRe00sAS73jXAhACimT74k4Dex5jI2cKFcXSH8Ebh1yGwxfjzSgup5O0ykA==
   dependencies:
-    "@commitlint/config-angular-type-enum" "^19.0.0"
+    "@commitlint/config-angular-type-enum" "^19.1.0"
 
 "@commitlint/config-validator@^19.0.3":
   version "19.0.3"
