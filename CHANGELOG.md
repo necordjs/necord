@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.7.0](https://github.com/necordjs/necord/compare/v6.6.1...v6.7.0) - (2024-03-11)
+
+## Documentation
+
+- Add jsdoc for project ([457ca51](https://github.com/necordjs/necord/commit/457ca5121da6073f9b977492320e2743efae854b))
+
 # [6.6.0](https://github.com/necordjs/necord/compare/v6.5.0...v6.6.0) - (2024-01-14)
 
 ## Features
