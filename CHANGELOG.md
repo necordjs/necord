@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.8.0](https://github.com/necordjs/necord/compare/v6.7.0...v6.8.0) - (2024-03-14)
+
+## Features
+
+- **Providers:** Add emojis and user (#1117) ([cf36b3c](https://github.com/necordjs/necord/commit/cf36b3c15fcf2a8e64e7cb65952c6b86ee211e09))
+
 # [6.7.0](https://github.com/necordjs/necord/compare/v6.6.1...v6.7.0) - (2024-03-11)
 
 ## Documentation
