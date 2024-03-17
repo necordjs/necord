@@ -1,4 +1,3 @@
-export * from './application.provider';
 export * from './channels.provider';
 export * from './client.provider';
 export * from './guilds.provider';
