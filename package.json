@@ -52,7 +52,7 @@
 		"Alexey Filippov <socket.someone@gmail.com>"
 	],
 	"dependencies": {
-		"path-to-regexp": "6.2.1"
+		"path-to-regexp": "6.2.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "19.2.1",
