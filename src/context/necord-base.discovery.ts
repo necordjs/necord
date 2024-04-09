@@ -20,11 +20,11 @@ export abstract class NecordBaseDiscovery<T = any> {
 	public constructor(protected readonly meta: T) {}
 
 	public getClass() {
-		return this.discovery.class;
+		return this.discovery?.class;
 	}
 
 	public getHandler() {
-		return this.discovery.handler;
+		return this.discovery?.handler;
 	}
 
 	public setDiscoveryMeta(meta: DiscoveredItem) {
