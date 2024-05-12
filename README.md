@@ -51,6 +51,7 @@ Once the installation process is complete, we can import the `NecordModule` into
 ```typescript
 import { NecordModule } from 'necord';
 import { Module } from '@nestjs/common';
+import { AppUpdate } from './app.update';
 
 @Module({
     imports: [
@@ -59,7 +60,7 @@ import { Module } from '@nestjs/common';
             intents: ['Guilds', 'GuildMessages', 'DirectMessages']
         })
     ],
-    providers: []
+    providers: [AppUpdate]
 })
 export class AppModule {
 }
