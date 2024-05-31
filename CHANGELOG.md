@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.8.3](https://github.com/necordjs/necord/compare/v6.8.1...v6.8.3) - (2024-04-09)
+
+## Bug Fixes
+
+- Add undefined value for discovery meta ([78f558d](https://github.com/necordjs/necord/commit/78f558d99cc2b0e6769836944b381336944cd10b))
+
 # [6.8.0](https://github.com/necordjs/necord/compare/v6.7.0...v6.8.0) - (2024-03-14)
 
 ## Features
