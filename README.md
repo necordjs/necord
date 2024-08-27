@@ -20,9 +20,10 @@
 
 ## About
 
-This package uses the best of the NodeJS world under the hood. [Discord.js](https://github.com/discordjs/discord.js) is the most powerful
+This package uses the best of the Node.js world under the hood. 
+[Discord.js](https://github.com/discordjs/discord.js) is the most powerful
 library for creating bots and [Nest.js](https://github.com/nestjs) is a progressive framework for creating well-architectured applications.
-This module provides fast and easy way for creating Discord bots and deep integration with your NestJS application.
+This module provides a fast and easy way of creating Discord bots and deep integration with your NestJS application.
 
 **Features**
 
@@ -31,7 +32,7 @@ This module provides fast and easy way for creating Discord bots and deep integr
 - Interact with Discord (Slash Commands, Context Menus, Message Components, Listeners).
 - Full support of NestJS guards, interceptors, filters and pipes!
 
-For questions and support please use
+For questions and support, please use
 the [Issues](https://github.com/necordjs/necord/issues/new?assignees=&labels=question&template=question.yml).
 
 ## Installation
@@ -94,7 +95,7 @@ export class AppUpdate {
 
 Whenever you need to handle any event data, use the `Context` decorator.
 
-If you want to fully dive into Necord check out these resources:
+If you want to fully dive into Necord, check out these resources:
 
 * [Necord Wiki](https://necord.org) - Official documentation of Necord.
 * [Nest JS](https://docs.nestjs.com) - A progressive framework for creating well-architectured applications.
