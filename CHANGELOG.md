@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.8.4](https://github.com/necordjs/necord/compare/v6.8.3...v6.8.4) - (2024-09-02)
+
+## Styling
+
+- Lint ([7383a88](https://github.com/necordjs/necord/commit/7383a88e053db25781579dfe4a420d48f4b80b76))
+
 # [6.8.3](https://github.com/necordjs/necord/compare/v6.8.1...v6.8.3) - (2024-04-09)
 
 ## Bug Fixes
