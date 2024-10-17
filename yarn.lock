@@ -3304,10 +3304,10 @@ registry-url@^6.0.1:
   dependencies:
     rc "1.2.8"
 
-release-it@17.9.0:
-  version "17.9.0"
-  resolved "https://registry.yarnpkg.com/release-it/-/release-it-17.9.0.tgz#4478fd3d80de7cd658a24c8f983f47457f182dbe"
-  integrity sha512-KAZqvYcfYI/Rva8yr7vzVruM3mN8kuUR1WeQfOtGrc4ub7bGYf8eN91NOXC73LJE1uNpVlppF5xB8KOvKtQosg==
+release-it@17.10.0:
+  version "17.10.0"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-17.10.0.tgz#be44422de7b8d752a97e96da898fc6f2ad7d45d5"
+  integrity sha512-00cXYEl7RFD5NnjXpwaH9JFjpwe8w3NcfUd4XPxrKQkszp1xppPo42zK9eSbxStKyPA5CVk2KmKPDPDiAKVJTA==
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "20.1.1"
