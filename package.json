@@ -8,7 +8,7 @@
 		"publish:npm": "release-it",
 		"prepublish:dev": "npm run build",
 		"publish:dev": "npm publish --access public --tag dev",
-		"prepare": "husky .github/husky",
+		"prepare": "husky",
 		"format": "prettier --write \"src/**/*.ts\"",
 		"lint": "eslint --ignore-path .gitignore src/**/*.ts",
 		"changelog": "git cliff --prepend ./CHANGELOG.md -l --current -c ./cliff.toml -r ."
