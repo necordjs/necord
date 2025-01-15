@@ -67,7 +67,7 @@
 		"discord.js": "14.17.3",
 		"eslint": "8.57.1",
 		"eslint-config-prettier": "9.1.0",
-		"eslint-plugin-prettier": "5.2.1",
+		"eslint-plugin-prettier": "5.2.2",
 		"husky": "9.1.7",
 		"lint-staged": "15.3.0",
 		"prettier": "3.4.2",
