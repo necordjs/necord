@@ -10,7 +10,7 @@
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky",
 		"format": "prettier --write \"src/**/*.ts\"",
-		"lint": "eslint --ignore-path .gitignore src/**/*.ts",
+		"lint": "eslint --ignore-pattern .gitignore src/**/*.ts",
 		"changelog": "git cliff --prepend ./CHANGELOG.md -l --current -c ./cliff.toml -r ."
 	},
 	"lint-staged": {
@@ -57,17 +57,20 @@
 	"devDependencies": {
 		"@commitlint/cli": "19.6.1",
 		"@commitlint/config-angular": "19.7.0",
+		"@eslint/eslintrc": "^3.2.0",
+		"@eslint/js": "^9.18.0",
 		"@favware/npm-deprecate": "2.0.0",
 		"@nestjs/common": "11.0.3",
 		"@nestjs/core": "11.0.3",
 		"@types/node": "22.10.7",
-		"@typescript-eslint/eslint-plugin": "7.0.0",
-		"@typescript-eslint/parser": "6.21.0",
+		"@typescript-eslint/eslint-plugin": "^8.21.0",
+		"@typescript-eslint/parser": "^8.21.0",
 		"discord-api-types": "0.37.117",
 		"discord.js": "14.17.3",
 		"eslint": "8.57.1",
 		"eslint-config-prettier": "10.0.1",
 		"eslint-plugin-prettier": "5.2.3",
+		"globals": "^15.14.0",
 		"husky": "9.1.7",
 		"lint-staged": "15.4.1",
 		"prettier": "3.4.2",
@@ -76,13 +79,14 @@
 		"rimraf": "6.0.1",
 		"rxjs": "7.8.1",
 		"ts-node": "10.9.2",
-		"typescript": "5.7.3"
+		"typescript": "5.7.3",
+		"typescript-eslint": "^8.21.0"
 	},
 	"peerDependencies": {
 		"@nestjs/common": "^10.2.0 || ^11.0.0",
 		"@nestjs/core": "^10.2.0 || ^11.0.0",
-		"discord.js": "^14.0.1",
 		"discord-api-types": "^0.37.99",
+		"discord.js": "^14.0.1",
 		"reflect-metadata": "^0.2.1",
 		"rxjs": "^7.2.0"
 	},

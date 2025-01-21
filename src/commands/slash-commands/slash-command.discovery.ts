@@ -12,7 +12,7 @@ import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/
 import { CommandDiscovery } from '../command.discovery';
 import { OPTIONS_METADATA } from './options';
 
-// @ts-ignore
+// @ts-expect-error - This is a decorator.
 export interface SlashCommandMeta extends ChatInputApplicationCommandData {
 	type?:
 		| ApplicationCommandType.ChatInput

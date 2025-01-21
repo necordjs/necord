@@ -35,7 +35,7 @@ export class TextCommandsModule implements OnModuleInit, OnApplicationBootstrap 
 			const content = message.content.toLowerCase();
 			const prefix =
 				typeof this.options.prefix !== 'function'
-					? this.options.prefix ?? '!'
+					? (this.options.prefix ?? '!')
 					: await this.options.prefix(message);
 
 			if (!prefix || !content.startsWith(prefix)) return;

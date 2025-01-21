@@ -2,23 +2,20 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import {
 	ChannelSelectMenuInteraction,
 	Collection,
-	MentionableSelectMenuInteraction,
 	RoleSelectMenuInteraction,
 	UserSelectMenuInteraction
 } from 'discord.js';
 import { NecordExecutionContext } from '../../context';
 
-export const SelectedStrings = createParamDecorator<any, any, string[]>(
-	(_, ctx: ExecutionContext) => {
-		const necordContext = NecordExecutionContext.create(ctx);
-		const [interaction] = necordContext.getContext<'interactionCreate'>();
+export const SelectedStrings = createParamDecorator<any, string[]>((_, ctx: ExecutionContext) => {
+	const necordContext = NecordExecutionContext.create(ctx);
+	const [interaction] = necordContext.getContext<'interactionCreate'>();
 
-		return interaction.isStringSelectMenu() ? interaction.values : [];
-	}
-);
+	return interaction.isStringSelectMenu() ? interaction.values : [];
+});
 
 export type ISelectedChannels = ChannelSelectMenuInteraction['channels'];
-export const SelectedChannels = createParamDecorator<any, any, ISelectedChannels>(
+export const SelectedChannels = createParamDecorator<any, ISelectedChannels>(
 	(_, ctx: ExecutionContext) => {
 		const necordContext = NecordExecutionContext.create(ctx);
 		const [interaction] = necordContext.getContext<'interactionCreate'>();
@@ -27,10 +24,8 @@ export const SelectedChannels = createParamDecorator<any, any, ISelectedChannels
 	}
 );
 
-export type ISelectedUsers =
-	| UserSelectMenuInteraction['users']
-	| MentionableSelectMenuInteraction['users'];
-export const SelectedUsers = createParamDecorator<any, any, ISelectedUsers>(
+export type ISelectedUsers = UserSelectMenuInteraction['users'];
+export const SelectedUsers = createParamDecorator<any, ISelectedUsers>(
 	(_, ctx: ExecutionContext) => {
 		const necordContext = NecordExecutionContext.create(ctx);
 		const [interaction] = necordContext.getContext<'interactionCreate'>();
@@ -43,10 +38,8 @@ export const SelectedUsers = createParamDecorator<any, any, ISelectedUsers>(
 	}
 );
 
-export type ISelectedMembers =
-	| UserSelectMenuInteraction['members']
-	| MentionableSelectMenuInteraction['members'];
-export const SelectedMembers = createParamDecorator<any, any, ISelectedMembers>(
+export type ISelectedMembers = UserSelectMenuInteraction['members'];
+export const SelectedMembers = createParamDecorator<any, ISelectedMembers>(
 	(_, ctx: ExecutionContext) => {
 		const necordContext = NecordExecutionContext.create(ctx);
 		const [interaction] = necordContext.getContext<'interactionCreate'>();
@@ -58,10 +51,8 @@ export const SelectedMembers = createParamDecorator<any, any, ISelectedMembers>(
 	}
 );
 
-export type ISelectedRoles =
-	| RoleSelectMenuInteraction['roles']
-	| MentionableSelectMenuInteraction['roles'];
-export const SelectedRoles = createParamDecorator<any, any, ISelectedRoles>(
+export type ISelectedRoles = RoleSelectMenuInteraction['roles'];
+export const SelectedRoles = createParamDecorator<any, ISelectedRoles>(
 	(_, ctx: ExecutionContext) => {
 		const necordContext = NecordExecutionContext.create(ctx);
 		const [interaction] = necordContext.getContext<'interactionCreate'>();
