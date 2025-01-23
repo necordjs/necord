@@ -62,7 +62,7 @@
 		"@favware/npm-deprecate": "2.0.0",
 		"@nestjs/common": "11.0.3",
 		"@nestjs/core": "11.0.3",
-		"@types/node": "22.10.7",
+		"@types/node": "22.10.9",
 		"discord-api-types": "0.37.117",
 		"discord.js": "14.17.3",
 		"eslint": "^9.18.0",
