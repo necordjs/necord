@@ -3910,10 +3910,10 @@ registry-url@^6.0.1:
   dependencies:
     rc "1.2.8"
 
-release-it@18.1.1:
-  version "18.1.1"
-  resolved "https://registry.yarnpkg.com/release-it/-/release-it-18.1.1.tgz#263f0dc67a6b2209b072528444a49cb0fa7ae015"
-  integrity sha512-rC/iVKri7U/Kp/Myujmsf7HG2gPq8My/LBVB72TbZZYKD14fmgDZC4Eyn8DD7Yh2h/G/YCCsRe1QQPrjXj9Mzg==
+release-it@18.1.2:
+  version "18.1.2"
+  resolved "https://registry.yarnpkg.com/release-it/-/release-it-18.1.2.tgz#33db1dc22daaf36e48ccd6cf986216625fb34868"
+  integrity sha512-HOVRcicehCgoCsPFOu0iCBlEC8GDOoKS5s6ICkWmqomGEoZtRQ88D3RCsI5MciSU8vAQU+aWZW2z57NQNNb74w==
   dependencies:
     "@iarna/toml" "2.2.5"
     "@octokit/rest" "21.0.2"
@@ -3935,7 +3935,7 @@ release-it@18.1.1:
     proxy-agent "6.5.0"
     semver "7.6.3"
     shelljs "0.8.5"
-    undici "6.21.0"
+    undici "6.21.1"
     update-notifier "7.3.1"
     url-join "5.0.0"
     wildcard-match "5.1.4"
@@ -4623,10 +4623,10 @@ undici@6.19.8:
   resolved "https://registry.npmjs.org/undici/-/undici-6.19.8.tgz#002d7c8a28f8cc3a44ff33c3d4be4d85e15d40e1"
   integrity sha512-U8uCCl2x9TK3WANvmBavymRzxbfFYG+tAu+fgx3zxQy3qdagQqBLwJVrdyO1TBfUXvfKveMKJZhpvUYoOjM+4g==
 
-undici@6.21.0:
-  version "6.21.0"
-  resolved "https://registry.yarnpkg.com/undici/-/undici-6.21.0.tgz#4b3d3afaef984e07b48e7620c34ed8a285ed4cd4"
-  integrity sha512-BUgJXc752Kou3oOIuU1i+yZZypyZRqNPW0vqoMPl8VaoalSfeR0D8/t4iAS3yirs79SSMTxTag+ZC86uswv+Cw==
+undici@6.21.1:
+  version "6.21.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-6.21.1.tgz#336025a14162e6837e44ad7b819b35b6c6af0e05"
+  integrity sha512-q/1rj5D0/zayJB2FraXdaWxbhWiNKDvu8naDT2dl1yTlvJp4BLtOcp2a5BvgGNQpYYJzau7tf1WgKv3b+7mqpQ==
 
 unicorn-magic@^0.1.0:
   version "0.1.0"
