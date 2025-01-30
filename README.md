@@ -104,7 +104,7 @@ If you want to fully dive into Necord, check out these resources:
 
 ## Backers
 
-<a href="https://opencollective.com/necord" target="_blank"><img src="https://opencollective.com/necord/backers.svg?width=1000"></a>
+<a href="https://opencollective.com/necord" target="_blank"><img src="https://opencollective.com/necord/backers.svg?width=1000"/></a>
 
 ## Stay in touch
 
