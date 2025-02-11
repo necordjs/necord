@@ -64,7 +64,7 @@
 		"@nestjs/core": "11.0.8",
 		"@types/node": "22.13.1",
 		"discord-api-types": "0.37.119",
-		"discord.js": "14.17.3",
+		"discord.js": "14.18.0",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "10.0.1",
 		"eslint-plugin-import": "^2.31.0",
