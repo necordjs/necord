@@ -542,10 +542,10 @@
   resolved "https://registry.npmjs.org/@lukeed/csprng/-/csprng-1.0.1.tgz#625e93a0edb2c830e3c52ce2d67b9d53377c6a66"
   integrity sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==
 
-"@nestjs/common@11.0.10":
-  version "11.0.10"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.0.10.tgz#c300168171896d0ae7d189e5237ab6c30d1b64ef"
-  integrity sha512-pzGXp14KF2Q4CDZGQgPK4l8zEg7i6cNkb+10yc8ZA5K41cLe3ZbWW1YxtY2e/glHauOJwTLSVjH4tiRVtOTizg==
+"@nestjs/common@11.0.11":
+  version "11.0.11"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.0.11.tgz#6ae7bb7a7dce323179fb93ca016b27350853ce5c"
+  integrity sha512-b3zYiho5/XGCnLa7W2hHv5ecSBR1huQrXCHu6pxd+g2HY2B7sKP5CXHMv4gHYqpIqu4ClOb7Q4tLKXMp9LyLUg==
   dependencies:
     uid "2.0.2"
     iterare "1.2.1"
