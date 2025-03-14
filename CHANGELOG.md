@@ -1,5 +1,4 @@
 # Changelog
-All notable changes to this project will be documented in this file.
 
 # [6.8.7](https://github.com/necordjs/necord/compare/v6.8.6...v6.8.7) - (2025-01-21)
 

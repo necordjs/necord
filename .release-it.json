@@ -6,6 +6,13 @@
 		"release": true
 	},
 	"hooks": {
-		"after:bump": "npm run changelog"
+	},
+	"plugins": {
+		"@release-it/conventional-changelog": {
+			"preset": {
+				"name": "angular"
+			},
+			"infile": "CHANGELOG.md"
+		}
 	}
 }
