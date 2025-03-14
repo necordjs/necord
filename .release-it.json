@@ -6,11 +6,66 @@
 		"release": true
 	},
 	"hooks": {
+		"before:init": ["npx lint-staged"]
 	},
 	"plugins": {
 		"@release-it/conventional-changelog": {
 			"preset": {
-				"name": "angular"
+				"name": "angular",
+				"types": [
+					{
+						"type": "feat",
+						"section": "Features"
+					},
+					{
+						"type": "fix",
+						"section": "Bug Fixes"
+					},
+					{
+						"type": "docs",
+						"section": "Documentation"
+					},
+					{
+						"type": "perf",
+						"section": "Performance"
+					},
+					{
+						"type": "refactor",
+						"section": "Refactor"
+					},
+					{
+						"type": "typings",
+						"section": "Typings"
+					},
+					{
+						"type": "types",
+						"section": "Typings"
+					},
+					{
+						"type": "revert",
+						"hidden": true
+					},
+					{
+						"type": "style",
+						"section": "Styling"
+					},
+					{
+						"type": "test",
+						"section": "Testing"
+					},
+					{
+						"type": "chore",
+						"hidden": true
+					},
+					{
+						"type": "ci",
+						"hidden": true
+					},
+					{
+						"type": "build",
+						"hidden": true
+					}
+				]
 			},
 			"infile": "CHANGELOG.md"
 		}
