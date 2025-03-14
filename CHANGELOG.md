@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file.
 
+# [6.8.7](https://github.com/necordjs/necord/compare/v6.8.6...v6.8.7) - (2025-01-21)
+
+## Styling
+
+- Bump eslint to 9 ([914f9ad](https://github.com/necordjs/necord/commit/914f9ad01e6b809ff3110b8189bf9ffb42a17238))
+- Bump eslint to 9 ([875e41d](https://github.com/necordjs/necord/commit/875e41d22a57e3514cc89b6d4658cdc9e0a16d7d))
+
 # [6.8.4](https://github.com/necordjs/necord/compare/v6.8.3...v6.8.4) - (2024-09-02)
 
 ## Styling
