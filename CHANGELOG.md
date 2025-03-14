@@ -70,6 +70,8 @@
 
 ## Refactor
 
+
+
 - Use modules for listeners and explorer ([4759617](https://github.com/necordjs/necord/commit/475961792dc4fd4b957720aebc935b5a7dad01c1))
 
 # [6.1.8](https://github.com/necordjs/necord/compare/v6.1.7...v6.1.8) - (2023-10-09)
