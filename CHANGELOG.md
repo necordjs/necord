@@ -1,5 +1,12 @@
 # Changelog
 
+## [6.8.8](https://github.com/necordjs/necord/compare/v6.8.7...v6.8.8) (2025-03-14)
+
+
+### Bug Fixes
+
+* add run changelog hook ([1ba2a5e](https://github.com/necordjs/necord/commit/1ba2a5e1da884256e4bfc49919969847105c3dec))
+
 # [6.8.7](https://github.com/necordjs/necord/compare/v6.8.6...v6.8.7) - (2025-01-21)
 
 ## Styling
