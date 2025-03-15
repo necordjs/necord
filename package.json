@@ -10,8 +10,7 @@
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky",
 		"format": "prettier --write \"src/**/*.ts\"",
-		"lint": "eslint --ignore-pattern .gitignore src/**/*.ts",
-		"changelog": "git cliff --prepend ./CHANGELOG.md -l --current -c ./cliff.toml -r ."
+		"lint": "eslint --ignore-pattern .gitignore src/**/*.ts"
 	},
 	"lint-staged": {
 		"*.ts": "npm run format"
