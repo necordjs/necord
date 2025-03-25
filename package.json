@@ -62,7 +62,7 @@
 		"@nestjs/common": "11.0.12",
 		"@nestjs/core": "11.0.12",
 		"@release-it/conventional-changelog": "^10.0.0",
-		"@types/node": "22.13.12",
+		"@types/node": "22.13.13",
 		"discord-api-types": "0.37.119",
 		"discord.js": "14.18.0",
 		"eslint": "^9.18.0",
