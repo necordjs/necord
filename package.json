@@ -60,7 +60,7 @@
 		"@eslint/js": "^9.18.0",
 		"@favware/npm-deprecate": "2.0.0",
 		"@nestjs/common": "11.0.19",
-		"@nestjs/core": "11.0.17",
+		"@nestjs/core": "11.0.20",
 		"@release-it/conventional-changelog": "^10.0.0",
 		"@types/node": "22.14.1",
 		"discord-api-types": "0.37.119",
