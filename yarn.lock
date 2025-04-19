@@ -765,9 +765,9 @@
     config-chain "^1.1.11"
 
 "@release-it/conventional-changelog@^10.0.0":
-  version "10.0.0"
-  resolved "https://registry.npmjs.org/@release-it/conventional-changelog/-/conventional-changelog-10.0.0.tgz"
-  integrity sha512-49qf9phGmPUIGpY2kwfgehs9en1znbPv2zdNn1WMLAH9DtHUh4m6KNSB+mLFGAMUhv24JhsA8ruYRYgluc2UJw==
+  version "10.0.1"
+  resolved "https://registry.yarnpkg.com/@release-it/conventional-changelog/-/conventional-changelog-10.0.1.tgz#580bbe763d14b601deb73c59d5230b34bcc02af3"
+  integrity sha512-Qp+eyMGCPyq5xiWoNK91cWVIR/6HD1QAUNeG6pV2G4kxotWl81k/KDQqDNvrNVmr9+zDp53jI7pVVYQp6mi4zA==
   dependencies:
     concat-stream "^2.0.0"
     conventional-changelog "^6.0.0"
