@@ -9,11 +9,11 @@ import {
 	UserCommand,
 	UserCommandContext
 } from '../src';
-import { createApplication } from './utils.spec';
+import { createApplication } from './utils.local-spec';
 import { EmbedBuilder, Message, User } from 'discord.js';
 
 @Injectable()
-export class ContextMenuSpec {
+export class ContextMenuLocalSpec {
 	@UserCommand({ name: 'Get user avatar' })
 	public getUserAvatar(@Ctx() [interaction]: UserCommandContext, @TargetUser() user: User) {
 		return interaction.reply({
@@ -34,4 +34,4 @@ export class ContextMenuSpec {
 	}
 }
 
-createApplication(ContextMenuSpec);
+createApplication(ContextMenuLocalSpec);
