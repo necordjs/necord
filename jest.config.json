@@ -8,9 +8,5 @@
 	"transform": {
 		"^.+\\.(t|j)s$": "ts-jest"
 	},
-	"testEnvironment": "node",
-	"coverageDirectory": "./coverage",
-	"collectCoverageFrom": [
-		"src/**/*.ts"
-	]
+	"testEnvironment": "node"
 }
