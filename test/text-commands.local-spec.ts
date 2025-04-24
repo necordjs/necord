@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Arguments, ContextOf, Ctx, TextCommand } from '../src';
-import { createApplication } from './utils.spec';
+import { createApplication } from './utils.local-spec';
 
 @Injectable()
-class TextCommandsSpec {
+class TextCommandsLocalSpec {
 	@TextCommand({ name: 'ping', description: 'ping-pong' })
 	public onPing(@Ctx() [message]: ContextOf<'messageCreate'>) {
 		return message.reply('pong!');
@@ -15,4 +15,4 @@ class TextCommandsSpec {
 	}
 }
 
-createApplication(TextCommandsSpec);
+createApplication(TextCommandsLocalSpec);
