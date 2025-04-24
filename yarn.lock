@@ -547,10 +547,10 @@
   resolved "https://registry.npmjs.org/@lukeed/csprng/-/csprng-1.0.1.tgz"
   integrity sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==
 
-"@nestjs/common@11.0.21":
-  version "11.0.21"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.0.21.tgz#a0dfe2c9fc998b45883859783846479f6751d4d9"
-  integrity sha512-5YgGVNIUJaVjSufbF+/8w5V4V3S/dQoyNsTfBOnlr/oP+7PYRn4Sl126Y0KF9rG81mZzMcZU6pkXi6ZJ+NxcMw==
+"@nestjs/common@11.1.0":
+  version "11.1.0"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.1.0.tgz#505baa190adc3a2efbf91ff9e5a41f34da21bd7d"
+  integrity sha512-8MrajltjtIN6eW9cTpv+1IZogqz2Zsrc8YDt0LwQPUq8cSq0j50DETdQpPsNMeib+p9avkV41+NrzGk1z2o5Wg==
   dependencies:
     uid "2.0.2"
     file-type "20.4.1"
