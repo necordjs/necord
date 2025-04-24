@@ -10,7 +10,11 @@
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky",
 		"format": "prettier --write \"src/**/*.ts\"",
-		"lint": "eslint --ignore-pattern .gitignore src/**/*.ts"
+		"lint": "eslint --ignore-pattern .gitignore src/**/*.ts",
+		"test": "jest",
+		"test:watch": "jest --watch",
+		"test:cov": "jest --coverage",
+		"test:ci": "jest --ci --passWithNoTests --coverage"
 	},
 	"lint-staged": {
 		"*.ts": "npm run format"
@@ -61,7 +65,9 @@
 		"@favware/npm-deprecate": "2.0.0",
 		"@nestjs/common": "11.1.0",
 		"@nestjs/core": "11.1.0",
+		"@nestjs/testing": "^11.1.0",
 		"@release-it/conventional-changelog": "^10.0.0",
+		"@types/jest": "^29.5.14",
 		"@types/node": "22.14.1",
 		"discord-api-types": "0.37.119",
 		"discord.js": "14.18.0",
@@ -71,12 +77,14 @@
 		"eslint-plugin-prettier": "5.2.6",
 		"globals": "^16.0.0",
 		"husky": "9.1.7",
+		"jest": "^29.7.0",
 		"lint-staged": "15.5.1",
 		"prettier": "3.5.3",
 		"reflect-metadata": "0.2.2",
 		"release-it": "19.0.1",
 		"rimraf": "6.0.1",
 		"rxjs": "7.8.2",
+		"ts-jest": "^29.3.2",
 		"ts-node": "10.9.2",
 		"typescript": "5.8.3",
 		"typescript-eslint": "^8.21.0"
