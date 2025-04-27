@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.8.9](https://github.com/necordjs/necord/compare/v6.8.8...v6.8.9) (2025-04-27)
+
+### Bug Fixes
+
+* remove distributive omit ([44c9215](https://github.com/necordjs/necord/commit/44c921568da490a5f404186fabde229741fca984))
+
+### Styling
+
+* update deps ([5eb1811](https://github.com/necordjs/necord/commit/5eb18114b0f20a796d66e803bf9cbeaab83c2b70))
+
 ## [6.8.8](https://github.com/necordjs/necord/compare/v6.8.7...v6.8.8) (2025-03-14)
 
 
