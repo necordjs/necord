@@ -3,7 +3,8 @@
 		"commitMessage": "chore: release v${version}"
 	},
 	"github": {
-		"release": true
+		"release": true,
+		"releaseName": "v${version}"
 	},
 	"hooks": {
 		"before:init": ["npx lint-staged"]
