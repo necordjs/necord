@@ -1,7 +1,7 @@
 {
 	"name": "necord",
 	"description": "A module for creating Discord bots using NestJS, based on Discord.js",
-	"version": "6.8.12",
+	"version": "6.8.13",
 	"scripts": {
 		"build": "rimraf dist && tsc -p tsconfig.build.json",
 		"prepublish:npm": "npm run build",
