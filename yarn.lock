@@ -195,10 +195,10 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
-"@discordjs/builders@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-1.11.1.tgz#29eec7e801cb638ae3045478abd1f66d90608858"
-  integrity sha512-2zDAVuoeAkdv0YQzYKO8vZfaDfB+1KZ60ymBKtD7QDpsh6lzAnQSUBLqeRkhlons6BT9+yRctOh9fPy94w6kDA==
+"@discordjs/builders@^1.11.2":
+  version "1.11.2"
+  resolved "https://registry.yarnpkg.com/@discordjs/builders/-/builders-1.11.2.tgz#b96185d05d22f9d6bde89aada2decf45a5c982ce"
+  integrity sha512-F1WTABdd8/R9D1icJzajC4IuLyyS8f3rTOz66JsSI3pKvpCAtsMBweu8cyNYsIyvcrKAVn9EPK+Psoymq+XC0A==
   dependencies:
     "@discordjs/formatters" "^0.6.1"
     "@discordjs/util" "^1.1.1"
@@ -1736,12 +1736,12 @@ discord-api-types@0.38.2, discord-api-types@^0.38.1:
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.38.2.tgz#ded35082cadd4968cc8b2ad72f32807c8f139bab"
   integrity sha512-GAPY1/Kv3aqEoBYgUYXB2tHdWJCZXfytlCzxZ4QMQ1/TIQn1JI+xUOukehl4iEa9m7fCURnMIOpOxpaTWqzX2w==
 
-discord.js@14.19.2:
-  version "14.19.2"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.19.2.tgz#34e7d849bcba2b91a98daeb599428976b06a2974"
-  integrity sha512-L/ivhVefzzRcChHJSaGYsgA4Uqx6or2sst5JZ/ft9OBwrj8OJIzrrcutlkHnm/hlI0Hrm3es62TRVksU8VUqrg==
+discord.js@14.19.3:
+  version "14.19.3"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.19.3.tgz#ed08c61ad300efc3033ecf2b70f28a68d95b138a"
+  integrity sha512-lncTRk0k+8Q5D3nThnODBR8fR8x2fM798o8Vsr40Krx0DjPwpZCuxxTcFMrXMQVOqM1QB9wqWgaXPg3TbmlHqA==
   dependencies:
-    "@discordjs/builders" "^1.11.1"
+    "@discordjs/builders" "^1.11.2"
     "@discordjs/collection" "1.5.3"
     "@discordjs/formatters" "^0.6.1"
     "@discordjs/rest" "^2.5.0"
