@@ -34,17 +34,17 @@
     tinyexec "^0.3.0"
     yargs "^17.0.0"
 
-"@commitlint/config-angular-type-enum@^19.8.0":
-  version "19.8.0"
-  resolved "https://registry.npmjs.org/@commitlint/config-angular-type-enum/-/config-angular-type-enum-19.8.0.tgz"
-  integrity sha512-CAFHGAgUeOGNuU5DSX1ALXvJio82NZUGPPNFFDZU7BDf6q/A2U8vT1sjZQ56JTuFBpqTRF5Qk3IfSwmp0/zsCA==
+"@commitlint/config-angular-type-enum@^19.8.1":
+  version "19.8.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular-type-enum/-/config-angular-type-enum-19.8.1.tgz#c81164caea0ab0a306180bd40a21e9337dffa2c7"
+  integrity sha512-JKEINTDQcH5+qSq0Fcp/gzT7SQ3RvY74SNXiMABNTsseocB33TKMzPwDJHZbl/hyRemWEE97Qbxz+ILnJ+9AZQ==
 
-"@commitlint/config-angular@19.8.0":
-  version "19.8.0"
-  resolved "https://registry.npmjs.org/@commitlint/config-angular/-/config-angular-19.8.0.tgz"
-  integrity sha512-YVXDVUbmtsA9pv6QaRp+riQJd22zv4qvQ6Yjy5GB+pRClncX9PPNOhzPMITPyquF05QX6hC9me6ADrvrSzQ1xw==
+"@commitlint/config-angular@19.8.1":
+  version "19.8.1"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-angular/-/config-angular-19.8.1.tgz#627c9aef16a3330527a8e7d772c8bd672d02988b"
+  integrity sha512-5OAVgqwg6m4iXP2FkrswKZjrgzyQetR5Jkyt5SajlxLfKzZOzdB3hSqVJQdtvF/AxiMwz9Ey5BIXTCfSIrvZGg==
   dependencies:
-    "@commitlint/config-angular-type-enum" "^19.8.0"
+    "@commitlint/config-angular-type-enum" "^19.8.1"
 
 "@commitlint/config-validator@^19.8.0":
   version "19.8.0"
