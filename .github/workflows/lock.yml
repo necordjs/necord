@@ -6,9 +6,11 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: write
+  contents: write # only for delete-branch option
   issues: write
   pull-requests: write
-
+  
 concurrency:
   group: lock
 
@@ -16,17 +18,18 @@ jobs:
   action:
     runs-on: ubuntu-latest
     steps:
-      - uses: dessant/lock-threads@v5
+      - name: Close Stale Issues
+        uses: actions/stale@v9.1.0
         with:
-          github-token: ${{ github.token }}
-          issue-inactive-days: '90'
-          add-issue-labels: 'wontfix'
-          exclude-any-issue-labels: 'help wanted'
-          issue-comment: >
+          days-before-stale: 90
+          days-before-close: 0
+          stale-issue-label: 'wontfix'
+          exempt-issue-labels: 'help wanted'
+          stale-issue-message: >
             This issue has been automatically locked since there
             has not been any recent activity after it was closed.
             Please open a new issue for related bugs.
-          pr-comment: >
+          stale-pr-message: >
             This pull request has been automatically locked since there
             has not been any recent activity after it was closed.
             Please open a new issue for related bugs.
