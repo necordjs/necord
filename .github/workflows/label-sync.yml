@@ -1,4 +1,5 @@
 name: Label Sync
+
 on:
   schedule:
     - cron: '0 0 * * *'
@@ -8,6 +9,16 @@ on:
       - master
     paths:
       - '.github/labels.yml'
+      - '.github/workflows/label-sync.yml'
+  pull_request:
+    paths:
+      - '.github/labels.yml'
+      - '.github/workflows/label-sync.yml'
+
+permissions:
+  contents: read
+  issues: write
+  
 jobs:
   labeler:
     name: Labeler
@@ -20,3 +31,5 @@ jobs:
         uses: crazy-max/ghaction-github-labeler@v5
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          yaml-file: .github/labels.yml
+          dry-run: ${{ github.event_name == 'pull_request' }}
