@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.8.14](https://github.com/necordjs/necord/compare/v6.8.13...v6.8.14) (2025-05-15)
+
+### Bug Fixes
+
+* typings of slash commands ([0b7e66d](https://github.com/necordjs/necord/commit/0b7e66d2c42d5d5ab994b35b3d66839e7d52b9fa))
+
+### Styling
+
+* imports ([4b62869](https://github.com/necordjs/necord/commit/4b628690c06b40997387a4f7c104d7949040312b))
+
 ## [6.8.13](https://github.com/necordjs/necord/compare/v6.8.9...v6.8.13) (2025-05-01)
 
 ## [6.8.9](https://github.com/necordjs/necord/compare/v6.8.8...v6.8.9) (2025-04-27)
