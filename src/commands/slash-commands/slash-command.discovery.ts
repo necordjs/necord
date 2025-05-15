@@ -1,8 +1,6 @@
 import {
-	ApplicationCommandOptionType,
 	ApplicationCommandSubCommandData,
 	ApplicationCommandSubGroupData,
-	ApplicationCommandType,
 	AutocompleteInteraction,
 	ChatInputApplicationCommandData,
 	ChatInputCommandInteraction,
