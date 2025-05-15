@@ -1,5 +1,5 @@
-import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discovery';
-import { ApplicationCommandOptionType } from 'discord.js';
+import { SlashCommandDiscovery, SubcommandMeta } from '../slash-command.discovery';
+import { ApplicationCommandOptionType, SlashCommandSubcommandBuilder } from 'discord.js';
 import { Reflector } from '@nestjs/core';
 
 /**
@@ -10,7 +10,7 @@ import { Reflector } from '@nestjs/core';
  * @url https://necord.org/interactions/slash-commands#groups
  */
 export const Subcommand = Reflector.createDecorator<
-	Omit<SlashCommandMeta, 'type' | 'options' | 'guilds' | 'defaultMemberPermissions'>,
+	Omit<SubcommandMeta, 'type' | 'options' | 'autocomplete'>,
 	SlashCommandDiscovery
 >({
 	transform: options =>

@@ -1,5 +1,7 @@
 import {
 	ApplicationCommandOptionType,
+	ApplicationCommandSubCommandData,
+	ApplicationCommandSubGroupData,
 	ApplicationCommandType,
 	AutocompleteInteraction,
 	ChatInputApplicationCommandData,
@@ -12,14 +14,11 @@ import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/
 import { CommandDiscovery } from '../command.discovery';
 import { OPTIONS_METADATA } from './options';
 
-// @ts-expect-error - This is a decorator.
-export interface SlashCommandMeta extends ChatInputApplicationCommandData {
-	type?:
-		| ApplicationCommandType.ChatInput
-		| ApplicationCommandOptionType.SubcommandGroup
-		| ApplicationCommandOptionType.Subcommand;
-	guilds?: Snowflake[];
-}
+export type RootCommandMeta = ChatInputApplicationCommandData & { guilds?: Snowflake[] };
+export type SubcommandGroupMeta = ApplicationCommandSubGroupData;
+export type SubcommandMeta = ApplicationCommandSubCommandData;
+
+export type SlashCommandMeta = RootCommandMeta | SubcommandGroupMeta | SubcommandMeta;
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
 	resolver?: keyof CommandInteractionOptionResolver;

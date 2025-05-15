@@ -1,6 +1,10 @@
 import { applyDecorators } from '@nestjs/common';
 import { ApplicationCommandOptionType } from 'discord.js';
-import { SlashCommandDiscovery, SlashCommandMeta } from '../slash-command.discovery';
+import {
+	RootCommandMeta,
+	SlashCommandDiscovery,
+	SubcommandGroupMeta
+} from '../slash-command.discovery';
 import { SlashCommand } from './slash-command.decorator';
 import { noop } from 'rxjs';
 import { Reflector } from '@nestjs/core';
@@ -13,12 +17,13 @@ import { Reflector } from '@nestjs/core';
  * @url https://necord.org/interactions/slash-commands#groups
  */
 export const SubcommandGroup = Reflector.createDecorator<
-	Omit<SlashCommandMeta, 'type' | 'options' | 'guilds' | 'defaultMemberPermissions'>,
+	Omit<SubcommandGroupMeta, 'type' | 'options'>,
 	SlashCommandDiscovery
 >({
 	transform: options =>
 		new SlashCommandDiscovery({
 			type: ApplicationCommandOptionType.SubcommandGroup,
+			options: [],
 			...options
 		})
 });
@@ -31,10 +36,10 @@ export const SubcommandGroup = Reflector.createDecorator<
  * @see SubcommandGroup
  * @url https://necord.org/interactions/slash-commands#groups
  */
-export const createCommandGroupDecorator = (rootOptions: Omit<SlashCommandMeta, 'type'>) => {
+export const createCommandGroupDecorator = (rootOptions: Omit<RootCommandMeta, 'type'>) => {
 	const rootCommand = SlashCommand(rootOptions);
 
-	return (subOptions?: Omit<SlashCommandMeta, 'type'>): ClassDecorator => {
+	return (subOptions?: Omit<SubcommandGroupMeta, 'type'>): ClassDecorator => {
 		const subCommandGroup = subOptions ? SubcommandGroup(subOptions) : noop;
 
 		return applyDecorators(rootCommand, subCommandGroup);
