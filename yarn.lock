@@ -547,13 +547,13 @@
   resolved "https://registry.npmjs.org/@lukeed/csprng/-/csprng-1.0.1.tgz"
   integrity sha512-uSvJdwQU5nK+Vdf6zxcWAY2A8r7uqe+gePwLWzJ+fsQehq18pc0I2hJKwypZ2aLM90+Er9u1xn4iLJPZ+xlL4g==
 
-"@nestjs/common@11.1.1":
-  version "11.1.1"
-  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.1.1.tgz#421eddea4385b06eba120722bd614fa03dbc8172"
-  integrity sha512-crzp+1qeZ5EGL0nFTPy9NrVMAaUWewV5AwtQyv6SQ9yQPXwRl9W9hm1pt0nAtUu5QbYMbSuo7lYcF81EjM+nCA==
+"@nestjs/common@11.1.2":
+  version "11.1.2"
+  resolved "https://registry.yarnpkg.com/@nestjs/common/-/common-11.1.2.tgz#b4852a4cc99228955b1ee68c73e0538f8e39ae29"
+  integrity sha512-cHh4OPH44PjaHM93D1jgE1HO/B7XTZVRDxy/cPuGgyMEA4p2zXO+qqcOgTMC5FYcp7dX9jLeCjXAU0ToFAnODw==
   dependencies:
     uid "2.0.2"
-    file-type "20.5.0"
+    file-type "21.0.0"
     iterare "1.2.1"
     load-esm "1.0.2"
     tslib "2.8.1"
@@ -798,7 +798,7 @@
   resolved "https://registry.npmjs.org/@sapphire/utilities/-/utilities-3.17.0.tgz"
   integrity sha512-bbqjnKKrCgyT0C3+KOjIBzE6z6/v764EFuV7Uxw9WeIdkqGhwepl6tuNEzgiek/JdtEcODaPeX0K1aCt53yCcA==
 
-"@tokenizer/inflate@^0.2.6":
+"@tokenizer/inflate@^0.2.7":
   version "0.2.7"
   resolved "https://registry.yarnpkg.com/@tokenizer/inflate/-/inflate-0.2.7.tgz#32dd9dfc9abe457c89b3d9b760fc0690c85a103b"
   integrity sha512-MADQgmZT1eKjp06jpI2yozxaU9uVs4GzzgSL+uEq7bVcJ9V1ZXQkeGNql1fsSI0gMy1vhvNTNbUqrx+pZfJVmg==
@@ -2208,13 +2208,13 @@ file-entry-cache@^8.0.0:
   dependencies:
     flat-cache "^4.0.0"
 
-file-type@20.5.0:
-  version "20.5.0"
-  resolved "https://registry.yarnpkg.com/file-type/-/file-type-20.5.0.tgz#616e90564e6ffabab22ad9763e28efcc5c95aee0"
-  integrity sha512-BfHZtG/l9iMm4Ecianu7P8HRD2tBHLtjXinm4X62XBOYzi7CYA7jyqfJzOvXHqzVrVPYqBo2/GvbARMaaJkKVg==
+file-type@21.0.0:
+  version "21.0.0"
+  resolved "https://registry.yarnpkg.com/file-type/-/file-type-21.0.0.tgz#b6c5990064bc4b704f8e5c9b6010c59064d268bc"
+  integrity sha512-ek5xNX2YBYlXhiUXui3D/BXa3LdqPmoLJ7rqEx2bKJ7EAUEfmXgW0Das7Dc6Nr9MvqaOnIqiPV0mZk/r/UpNAg==
   dependencies:
-    "@tokenizer/inflate" "^0.2.6"
-    strtok3 "^10.2.0"
+    "@tokenizer/inflate" "^0.2.7"
+    strtok3 "^10.2.2"
     token-types "^6.0.0"
     uint8array-extras "^1.4.0"
 
@@ -4501,7 +4501,7 @@ strip-json-comments@^3.1.1:
   resolved "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz"
   integrity sha512-6fPc+R4ihwqP6N/aIv2f1gMH8lOVtWQHoqC4yK6oSDVVocumAsfCqjkXnqiYMhmMwS/mEHLp7Vehlt3ql6lEig==
 
-strtok3@^10.2.0:
+strtok3@^10.2.2:
   version "10.2.2"
   resolved "https://registry.yarnpkg.com/strtok3/-/strtok3-10.2.2.tgz#a4c6d78d15db02c5eb20d92af3eedf81edaf09d2"
   integrity sha512-Xt18+h4s7Z8xyZ0tmBoRmzxcop97R4BAh+dXouUDCYn+Em+1P3qpkUfI5ueWLT8ynC5hZ+q4iPEmGG1urvQGBg==
