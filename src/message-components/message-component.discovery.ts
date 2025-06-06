@@ -21,11 +21,11 @@ export class MessageComponentDiscovery extends NecordBaseDiscovery<MessageCompon
 		return this.meta.customId;
 	}
 
-	public execute(interaction: MessageComponentInteraction): any {
+	public override execute(interaction: MessageComponentInteraction): any {
 		return super.execute([interaction]);
 	}
 
-	public isMessageComponent(): this is MessageComponentDiscovery {
+	public override isMessageComponent(): this is MessageComponentDiscovery {
 		return true;
 	}
 

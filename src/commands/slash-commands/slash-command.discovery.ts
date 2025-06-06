@@ -90,7 +90,7 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 	 * @param interaction
 	 * @param depth
 	 */
-	public execute(
+	public override execute(
 		interaction: ChatInputCommandInteraction | AutocompleteInteraction,
 		depth = 1
 	): any {
@@ -110,7 +110,7 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 	/**
 	 * Returns whether the discovery is a slash command.
 	 */
-	public isSlashCommand(): this is SlashCommandDiscovery {
+	public override isSlashCommand(): this is SlashCommandDiscovery {
 		return true;
 	}
 

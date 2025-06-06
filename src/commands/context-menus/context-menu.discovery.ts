@@ -29,7 +29,7 @@ export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	/**
 	 * Type guard for the context menu discovery.
 	 */
-	public isContextMenu(): this is ContextMenuDiscovery {
+	public override isContextMenu(): this is ContextMenuDiscovery {
 		return true;
 	}
 
@@ -37,7 +37,7 @@ export class ContextMenuDiscovery extends CommandDiscovery<ContextMenuMeta> {
 	 * Executes the context menu discovery.
 	 * @param interaction The interaction to execute.
 	 */
-	public execute(interaction: ContextMenuCommandInteraction): any {
+	public override execute(interaction: ContextMenuCommandInteraction): any {
 		return super.execute([interaction]);
 	}
 

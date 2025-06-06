@@ -16,11 +16,11 @@ export class ModalDiscovery extends NecordBaseDiscovery<ModalMeta> {
 		return this.meta.customId;
 	}
 
-	public execute(interaction: ModalSubmitInteraction) {
+	public override execute(interaction: ModalSubmitInteraction) {
 		return super.execute([interaction]);
 	}
 
-	public isModal(): this is ModalDiscovery {
+	public override isModal(): this is ModalDiscovery {
 		return true;
 	}
 

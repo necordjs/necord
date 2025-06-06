@@ -17,7 +17,7 @@ export class TextCommandDiscovery extends NecordBaseDiscovery<TextCommandMeta> {
 		return this.meta.description;
 	}
 
-	public isTextCommand(): this is TextCommandDiscovery {
+	public override isTextCommand(): this is TextCommandDiscovery {
 		return true;
 	}
 

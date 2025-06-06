@@ -17,7 +17,7 @@ export class ListenerDiscovery extends NecordBaseDiscovery<ListenerMeta> {
 		return this.meta.event.toString();
 	}
 
-	public isListener(): this is ListenerDiscovery {
+	public override isListener(): this is ListenerDiscovery {
 		return true;
 	}
 
