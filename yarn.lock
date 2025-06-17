@@ -225,10 +225,10 @@
   dependencies:
     discord-api-types "^0.38.1"
 
-"@discordjs/rest@^2.5.0":
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/@discordjs/rest/-/rest-2.5.0.tgz#fc4c5e23bee31f4df98e6e148e9d22f8eb031924"
-  integrity sha512-PWhchxTzpn9EV3vvPRpwS0EE2rNYB9pvzDU/eLLW3mByJl0ZHZjHI2/wA8EbH2gRMQV7nu+0FoDF84oiPl8VAQ==
+"@discordjs/rest@^2.5.1":
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/@discordjs/rest/-/rest-2.5.1.tgz#a6bde4d08f0e23bd763506cc1fcc83564afee077"
+  integrity sha512-Tg9840IneBcbrAjcGaQzHUJWFNq1MMWZjTdjJ0WS/89IffaNKc++iOvffucPxQTF/gviO9+9r8kEPea1X5J2Dw==
   dependencies:
     "@discordjs/collection" "^2.1.1"
     "@discordjs/util" "^1.1.1"
@@ -238,20 +238,20 @@
     discord-api-types "^0.38.1"
     magic-bytes.js "^1.10.0"
     tslib "^2.6.3"
-    undici "6.21.1"
+    undici "6.21.3"
 
 "@discordjs/util@^1.1.0", "@discordjs/util@^1.1.1":
   version "1.1.1"
   resolved "https://registry.npmjs.org/@discordjs/util/-/util-1.1.1.tgz"
   integrity sha512-eddz6UnOBEB1oITPinyrB2Pttej49M9FZQY8NxgEvc3tq6ZICZ19m70RsmzRdDHk80O9NoYN/25AqJl8vPVf/g==
 
-"@discordjs/ws@^1.2.2":
-  version "1.2.2"
-  resolved "https://registry.yarnpkg.com/@discordjs/ws/-/ws-1.2.2.tgz#bab8d16ea2fe9eb205351bd8896e03307bf42fdb"
-  integrity sha512-dyfq7yn0wO0IYeYOs3z79I6/HumhmKISzFL0Z+007zQJMtAFGtt3AEoq1nuLXtcunUE5YYYQqgKvybXukAK8/w==
+"@discordjs/ws@^1.2.3":
+  version "1.2.3"
+  resolved "https://registry.yarnpkg.com/@discordjs/ws/-/ws-1.2.3.tgz#7cf80d8528366c6810c02b43ca49958ef154c3d4"
+  integrity sha512-wPlQDxEmlDg5IxhJPuxXr3Vy9AjYq5xCvFWGJyD7w7Np8ZGu+Mc+97LCoEc/+AYCo2IDpKioiH0/c/mj5ZR9Uw==
   dependencies:
     "@discordjs/collection" "^2.1.0"
-    "@discordjs/rest" "^2.5.0"
+    "@discordjs/rest" "^2.5.1"
     "@discordjs/util" "^1.1.0"
     "@sapphire/async-queue" "^1.5.2"
     "@types/ws" "^8.5.10"
@@ -1752,24 +1752,24 @@ discord-api-types@0.38.11, discord-api-types@^0.38.1:
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.38.11.tgz#8732a3a3a6c6fc5bf71fa7d5bfa9a6117602fdb6"
   integrity sha512-XN0qhcQpetkyb/49hcDHuoeUPsQqOkb17wbV/t48gUkoEDi4ajhsxqugGcxvcN17BBtI9FPPWEgzv6IhQmCwyw==
 
-discord.js@14.19.3:
-  version "14.19.3"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.19.3.tgz#ed08c61ad300efc3033ecf2b70f28a68d95b138a"
-  integrity sha512-lncTRk0k+8Q5D3nThnODBR8fR8x2fM798o8Vsr40Krx0DjPwpZCuxxTcFMrXMQVOqM1QB9wqWgaXPg3TbmlHqA==
+discord.js@14.20.0:
+  version "14.20.0"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.20.0.tgz#eaac6485f756714d31c00b3dcb7ebfbc92beb5d3"
+  integrity sha512-5fRTptK2vpuz+bTuAEUQLSo/3AgCSLHl6Mm9+/ofb+8cbbnjWllhtaqRBq7XcpzlBnfNEugKv8HvCwcOtIHpCg==
   dependencies:
     "@discordjs/builders" "^1.11.2"
     "@discordjs/collection" "1.5.3"
     "@discordjs/formatters" "^0.6.1"
-    "@discordjs/rest" "^2.5.0"
+    "@discordjs/rest" "^2.5.1"
     "@discordjs/util" "^1.1.1"
-    "@discordjs/ws" "^1.2.2"
+    "@discordjs/ws" "^1.2.3"
     "@sapphire/snowflake" "3.5.3"
     discord-api-types "^0.38.1"
     fast-deep-equal "3.1.3"
     lodash.snakecase "4.1.1"
     magic-bytes.js "^1.10.0"
     tslib "^2.6.3"
-    undici "6.21.1"
+    undici "6.21.3"
 
 doctrine@^2.1.0:
   version "2.1.0"
@@ -4767,15 +4767,15 @@ undici-types@~7.8.0:
   resolved "https://registry.yarnpkg.com/undici-types/-/undici-types-7.8.0.tgz#de00b85b710c54122e44fbfd911f8d70174cd294"
   integrity sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==
 
-undici@6.21.1:
-  version "6.21.1"
-  resolved "https://registry.npmjs.org/undici/-/undici-6.21.1.tgz"
-  integrity sha512-q/1rj5D0/zayJB2FraXdaWxbhWiNKDvu8naDT2dl1yTlvJp4BLtOcp2a5BvgGNQpYYJzau7tf1WgKv3b+7mqpQ==
-
 undici@6.21.2:
   version "6.21.2"
   resolved "https://registry.yarnpkg.com/undici/-/undici-6.21.2.tgz#49c5884e8f9039c65a89ee9018ef3c8e2f1f4928"
   integrity sha512-uROZWze0R0itiAKVPsYhFov9LxrPMHLMEQFszeI2gCN6bnIIZ8twzBCJcN2LJrBBLfrP0t1FW0g+JmKVl8Vk1g==
+
+undici@6.21.3:
+  version "6.21.3"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-6.21.3.tgz#185752ad92c3d0efe7a7d1f6854a50f83b552d7a"
+  integrity sha512-gBLkYIlEnSp8pFbT64yFgGE6UIB9tAkhukC23PmMDCe5Nd+cRqKxSjw5y54MK2AZMgZfJWMaNE4nYUHgi1XEOw==
 
 unicorn-magic@^0.1.0:
   version "0.1.0"
