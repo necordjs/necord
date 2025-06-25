@@ -1766,10 +1766,10 @@ diff@^4.0.1:
   resolved "https://registry.npmjs.org/diff/-/diff-4.0.2.tgz"
   integrity sha512-58lmxKSA4BNyLz+HHMUzlOEpg09FV+ev6ZMe3vJihgdxzgcwZ8VoEEPmALCZG9LmqfVoNMMKpttIYTVG6uDY7A==
 
-discord-api-types@0.38.12, discord-api-types@^0.38.1:
-  version "0.38.12"
-  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.38.12.tgz#5b6e096b206a76f7f0203cdbe174233e610e48ed"
-  integrity sha512-vqkRM50N5Zc6OVckAqtSslbUEoXmpN4bd9xq2jkoK9fgO3KNRIOyMMQ7ipqjwjKuAgzWvU6G8bRIcYWaUe1sCA==
+discord-api-types@0.38.13, discord-api-types@^0.38.1:
+  version "0.38.13"
+  resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.38.13.tgz#ee388a9df106d8dbc298c3c579e60b2fadf2029c"
+  integrity sha512-FELWJRgLVQuR7Az8RhdEZE0k6QNjSW9PCUcU1iyP2Gke8HrJmnMceSS9pD93UM64s3tvZzJPajpPLjWZJylf4g==
 
 discord.js@14.20.0:
   version "14.20.0"
