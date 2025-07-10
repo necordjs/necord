@@ -9,14 +9,13 @@ export const createApplication = (...providers: Provider[]) => {
 				token: process.env.DISCORD_TOKEN,
 				intents: [
 					'Guilds',
-					'DirectMessages',
 					'GuildMembers',
 					'GuildMessages',
 					'MessageContent',
 					'GuildVoiceStates'
 				],
-				prefix: '!'
-				// development: [process.env.DISCORD_TEST_GUILD]
+				prefix: '!',
+				development: [process.env.DISCORD_TEST_GUILD]
 			})
 		],
 		providers
