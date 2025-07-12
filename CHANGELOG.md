@@ -1,5 +1,23 @@
 # Changelog
 
+## [6.9.0](https://github.com/necordjs/necord/compare/v6.8.14...v6.9.0) (2025-07-12)
+
+### Features
+
+* add support of request and transient scoped instances ([4bba0df](https://github.com/necordjs/necord/commit/4bba0dfba09aa74f3278bebd55ea1d39a2ab7d5c))
+
+### Bug Fixes
+
+* slash command problems ([b84ec1d](https://github.com/necordjs/necord/commit/b84ec1db9d6492bfcab3ac93718d331a6dc457f5))
+
+### Refactor
+
+* add override keyword ([204e41d](https://github.com/necordjs/necord/commit/204e41d0c22e7809ecc55e662e18260fb29f108b))
+
+### Styling
+
+* imports ([0995746](https://github.com/necordjs/necord/commit/0995746017d05884856df9cca67c0194165f25d6))
+
 ## [6.8.14](https://github.com/necordjs/necord/compare/v6.8.13...v6.8.14) (2025-05-15)
 
 ### Bug Fixes
