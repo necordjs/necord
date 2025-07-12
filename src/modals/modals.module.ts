@@ -2,7 +2,7 @@ import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/co
 import { ModalsService } from './modals.service';
 import { Modal } from './decorators';
 import { Client } from 'discord.js';
-import { ExplorerService } from '../necord-explorer.service';
+import { NecordExplorerService } from '../necord-explorer.service';
 import { ModalDiscovery } from './modal.discovery';
 
 @Global()
@@ -13,7 +13,7 @@ import { ModalDiscovery } from './modal.discovery';
 export class ModalsModule implements OnModuleInit, OnApplicationBootstrap {
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: ExplorerService<ModalDiscovery>,
+		private readonly explorerService: NecordExplorerService<ModalDiscovery>,
 		private readonly modalsService: ModalsService
 	) {}
 

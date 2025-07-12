@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { Module, Provider } from '@nestjs/common';
+import { Injectable, Module, Provider } from '@nestjs/common';
 import { NecordModule } from '../src';
 
 export const createApplication = (...providers: Provider[]) => {

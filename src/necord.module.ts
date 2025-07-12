@@ -13,9 +13,10 @@ import { ModalsModule } from './modals';
 import { MessageComponentsModule } from './message-components';
 import * as ProvidersMap from './providers';
 import { ListenersModule } from './listeners';
-import { ExplorerService } from './necord-explorer.service';
+import { NecordExplorerService } from './necord-explorer.service';
 import { CommandsModule } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
+import { NecordContextCreator } from './necord-context.creator';
 
 const Providers = Object.values(ProvidersMap);
 
@@ -29,14 +30,14 @@ const Providers = Object.values(ProvidersMap);
 		ModalsModule,
 		TextCommandsModule
 	],
-	providers: [ExplorerService, ...Providers],
+	providers: [NecordExplorerService, NecordContextCreator, ...Providers],
 	exports: [
 		CommandsModule,
 		ListenersModule,
 		MessageComponentsModule,
 		ModalsModule,
 		TextCommandsModule,
-		ExplorerService,
+		NecordExplorerService,
 		...Providers,
 		NECORD_MODULE_OPTIONS
 	]

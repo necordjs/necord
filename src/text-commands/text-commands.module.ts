@@ -4,7 +4,7 @@ import { TextCommand } from './decorators';
 import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
 import { NecordModuleOptions } from '../necord-options.interface';
 import { Client } from 'discord.js';
-import { ExplorerService } from '../necord-explorer.service';
+import { NecordExplorerService } from '../necord-explorer.service';
 import { TextCommandDiscovery } from './text-command.discovery';
 
 @Global()
@@ -17,7 +17,7 @@ export class TextCommandsModule implements OnModuleInit, OnApplicationBootstrap 
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
 		private readonly client: Client,
-		private readonly explorerService: ExplorerService<TextCommandDiscovery>,
+		private readonly explorerService: NecordExplorerService<TextCommandDiscovery>,
 		private readonly textCommandsService: TextCommandsService
 	) {}
 

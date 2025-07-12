@@ -1,7 +1,7 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler, Listener } from './decorators';
 import { Client } from 'discord.js';
-import { ExplorerService } from '../necord-explorer.service';
+import { NecordExplorerService } from '../necord-explorer.service';
 import { ListenerDiscovery } from './listener.discovery';
 import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import * as CustomListeners from './handlers';
@@ -16,7 +16,7 @@ const { BaseHandler, ...listeners } = CustomListeners;
 export class ListenersModule implements OnModuleInit, OnApplicationBootstrap {
 	public constructor(
 		private readonly client: Client,
-		private readonly explorerService: ExplorerService<ListenerDiscovery>,
+		private readonly explorerService: NecordExplorerService<ListenerDiscovery>,
 		private readonly discoveryService: DiscoveryService,
 		private readonly metadataScanner: MetadataScanner,
 		private readonly reflector: Reflector
