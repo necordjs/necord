@@ -565,10 +565,10 @@
     load-esm "1.0.2"
     tslib "2.8.1"
 
-"@nestjs/core@11.1.3":
-  version "11.1.3"
-  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-11.1.3.tgz#42a9c6261ff70ef49afa809c526134cae22021e8"
-  integrity sha512-5lTni0TCh8x7bXETRD57pQFnKnEg1T6M+VLE7wAmyQRIecKQU+2inRGZD+A4v2DC1I04eA0WffP0GKLxjOKlzw==
+"@nestjs/core@11.1.4":
+  version "11.1.4"
+  resolved "https://registry.yarnpkg.com/@nestjs/core/-/core-11.1.4.tgz#85580c5bfb967cdd8c591e138bd38cb7393a2589"
+  integrity sha512-pTLjlfLCSgEvCm8iOONLtHN9uw4XyMEI4yec6+jdw6/7QuOHoqEPAVvdUlNwW1OfFjrAdZmZlpf6Uw8pWBfQlQ==
   dependencies:
     uid "2.0.2"
     "@nuxt/opencollective" "0.4.1"
