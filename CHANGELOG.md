@@ -1,5 +1,7 @@
 # Changelog
 
+## [6.9.1](https://github.com/necordjs/necord/compare/v6.9.0...v6.9.1) (2025-07-17)
+
 ## [6.9.0](https://github.com/necordjs/necord/compare/v6.8.14...v6.9.0) (2025-07-12)
 
 ### Features
