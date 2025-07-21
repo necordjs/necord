@@ -8,7 +8,7 @@ import {
 	TargetUser,
 	UserCommand,
 	UserCommandContext
-} from '../src';
+} from '../../src';
 import { createApplication } from './utils.local-spec';
 import { EmbedBuilder, Message, User } from 'discord.js';
 

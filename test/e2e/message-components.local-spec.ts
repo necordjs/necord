@@ -23,7 +23,7 @@ import {
 	StringSelect,
 	StringSelectContext,
 	UserSelectContext
-} from '../src';
+} from '../../src';
 import { Injectable } from '@nestjs/common';
 import {
 	ActionRowBuilder,
