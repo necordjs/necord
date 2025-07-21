@@ -17,7 +17,10 @@
 		"test:ci": "jest --ci --passWithNoTests --coverage"
 	},
 	"lint-staged": {
-		"*.ts": "npm run format"
+		"*.ts": [
+			"npm run format",
+			"npm run test:ci"
+		]
 	},
 	"directories": {
 		"lib": "src",
