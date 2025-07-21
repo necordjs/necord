@@ -1,5 +1,5 @@
-import { createApplication } from './utils.spec';
-import { createCommandGroupDecorator, Ctx, Opts, SlashCommand, Subcommand } from '../src';
+import { createApplication } from './utils.local-spec';
+import { createCommandGroupDecorator, Ctx, Opts, SlashCommand, Subcommand } from '../../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
@@ -10,7 +10,7 @@ const UtilsCommands = createCommandGroupDecorator({
 });
 
 @UtilsCommands()
-export class SlashCommandsSpec {
+export class SlashCommandsLocalSpec {
 	@Subcommand({ name: 'length', description: 'Get length of your text' })
 	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
 		return interaction.reply({
@@ -26,4 +26,4 @@ export class SlashCommandsSpec {
 	}
 }
 
-createApplication(SlashCommandsSpec);
+createApplication(SlashCommandsLocalSpec);

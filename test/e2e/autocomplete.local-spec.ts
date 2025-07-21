@@ -1,7 +1,7 @@
 import { Injectable, UseInterceptors } from '@nestjs/common';
 import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
-import { AutocompleteInterceptor, Ctx, Opts, SlashCommand } from '../src';
-import { createApplication } from './utils.spec';
+import { AutocompleteInterceptor, Ctx, Opts, SlashCommand } from '../../src';
+import { createApplication } from './utils.local-spec';
 import { Style, ThemeDto } from './dto/theme.dto';
 
 @Injectable()
