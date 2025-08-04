@@ -1,6 +1,6 @@
 import { Injectable, UseInterceptors } from '@nestjs/common';
 import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
-import { AutocompleteInterceptor, Ctx, Opts, SlashCommand } from '../src';
+import { AutocompleteInterceptor, Ctx, Opts, SlashCommand } from '../../src';
 import { createApplication } from './utils.local-spec';
 import { Style, ThemeDto } from './dto/theme.dto';
 
@@ -23,7 +23,7 @@ class ThemeAutocompleteInterceptor extends AutocompleteInterceptor {
 }
 
 @Injectable()
-export class AutocompleteLocalSpec {
+export class AutocompleteSpec {
 	@UseInterceptors(ThemeAutocompleteInterceptor)
 	@SlashCommand({ name: 'theme', description: 'Select new theme style' })
 	public theme(@Ctx() [interaction]: [CommandInteraction], @Opts() { style }: ThemeDto) {
@@ -33,4 +33,4 @@ export class AutocompleteLocalSpec {
 	}
 }
 
-createApplication(AutocompleteLocalSpec);
+createApplication(AutocompleteSpec);
