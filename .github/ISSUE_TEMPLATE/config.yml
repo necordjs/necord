@@ -2,9 +2,9 @@
 blank_issues_enabled: false
 
 contact_links:
-  - name: "\u2049 FAQ"
+  - name: "📖 FAQ"
     url: "https://necord.org/faq"
     about: "Make sure you have read the Frequently Asked Questions page."
-  - name: "\ud83d\udcac Discord Community of Necord"
+  - name: "💬 Discord Community of Necord"
     url: "https://discord.gg/mcBYvMTnwP"
     about: "Please ask support questions or discuss suggestions/enhancements here."
