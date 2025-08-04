@@ -7,8 +7,12 @@ on:
   pull_request:
     paths-ignore: ['.github/**']
 
+permissions:
+  contents: read
+
 jobs:
   build:
+    name: Build and Test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

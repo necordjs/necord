@@ -1,0 +1,145 @@
+name: Security Scans
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  schedule:
+    - cron: '39 15 * * 3'
+
+permissions:
+  contents: read
+
+jobs:
+  check-ghas:
+    name: Check GitHub Advanced Security
+    runs-on: ubuntu-latest
+    outputs:
+      ghas_enabled: ${{ steps.detect.outputs.ghas_enabled }}
+    steps:
+      - name: Check Advanced Security status
+        id: detect
+        run: |
+          echo "Fetching repository security settings..."
+          echo "Repository: ${{ github.repository }}"
+          echo "Repository visibility: ${{ github.repository_visibility }}"
+          if [[ "${{ github.repository_visibility }}" == "public" ]]; then
+            echo "Repository is public. Setting ghas_enabled=true"
+            echo "ghas_enabled=true" >> $GITHUB_OUTPUT
+          else
+            ENABLED=$(gh api repos/${{ github.repository }} | jq -r '.security_and_analysis.advanced_security.status // empty')
+            echo "Advanced Security status: $ENABLED"
+            if [[ "$ENABLED" == "enabled" ]]; then
+              echo "ghas_enabled=true" >> $GITHUB_OUTPUT
+              echo "Advanced Security is enabled. Setting ghas_enabled=true"
+            else
+              echo "ghas_enabled=false" >> $GITHUB_OUTPUT
+              echo "Advanced Security is disabled. Setting ghas_enabled=false"
+            fi
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  codeql:
+    needs: check-ghas
+    if: needs.check-ghas.outputs.ghas_enabled == 'true'
+    name: CodeQL Analyze
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    permissions:
+      # required for all workflows
+      security-events: write
+
+      # required to fetch internal or private CodeQL packs
+      packages: read
+
+      # only required for workflows in private repositories
+      actions: read
+      contents: read
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+          - language: javascript-typescript
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          build-mode: ${{ matrix.build-mode }}
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{matrix.language}}"
+
+  dependency-review:
+    needs: check-ghas
+    if: needs.check-ghas.outputs.ghas_enabled == 'true' && github.event_name == 'pull_request'
+    name: Dependency Review
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Dependency Review
+        uses: actions/dependency-review-action@v4
+        with:
+          comment-summary-in-pr: on-failure
+          fail-on-severity: moderate
+
+  trufflehog:
+    needs: check-ghas
+    if: needs.check-ghas.outputs.ghas_enabled == 'true' || github.actor != 'dependabot[bot]'
+    name: TruffleHog Secrets Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run TruffleHog
+        uses: trufflesecurity/trufflehog@v3.90.2
+        with:
+          head: ${{ github.event.pull_request.head.sha || github.sha }}
+          extra_args: --log-level=2 --results=verified,unknown
+
+  trivy:
+    needs: check-ghas
+    if: needs.check-ghas.outputs.ghas_enabled == 'true' || github.actor != 'dependabot[bot]'
+    name: Trivy Vulnerability Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          scan-type: 'fs'
+          format: ${{ needs.check-ghas.outputs.ghas_enabled == 'true' && 'sarif' || 'table' }}
+          output: ${{ needs.check-ghas.outputs.ghas_enabled == 'true' && 'trivy-results.sarif' || '' }}
+          ignore-unfixed: true
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        if: needs.check-ghas.outputs.ghas_enabled == 'true'
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: 'trivy-results.sarif'
+          category: 'trivy'
+
+      - name: Run Trivy vulnerability scanner in IaC mode
+        uses: aquasecurity/trivy-action@0.32.0
+        with:
+          scan-type: 'config'
+          hide-progress: false
+          format: table
+          skip-setup-trivy: true
