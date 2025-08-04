@@ -38,10 +38,10 @@ import {
 	UserSelectMenuBuilder
 } from 'discord.js';
 import { MessageActionRowComponentBuilder } from '@discordjs/builders';
-import { createApplication } from './utils.spec';
+import { createApplication } from './utils.local-spec';
 
 @Injectable()
-export class MessageComponentsSpec {
+export class MessageComponentsLocalSpec {
 	@SlashCommand({ name: 'button', description: 'Creates button component.' })
 	public async createButton(@Context() [interaction]: SlashCommandContext) {
 		return interaction.reply({
@@ -273,4 +273,4 @@ export class MessageComponentsSpec {
 	}
 }
 
-createApplication(MessageComponentsSpec);
+createApplication(MessageComponentsLocalSpec);

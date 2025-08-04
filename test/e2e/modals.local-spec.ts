@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Ctx, Modal, ModalContext, ModalParam, SlashCommand, SlashCommandContext } from '../src';
-import { createApplication } from './utils.spec';
+import { createApplication } from './utils.local-spec';
 import {
 	ActionRowBuilder,
 	ModalActionRowComponentBuilder,
