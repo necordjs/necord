@@ -1,6 +1,6 @@
 name: 🐛 Bug report
-description: Report incorrect or unexpected behavior of necord
-labels: [bug, need repro]
+description: Report incorrect or unexpected behavior
+labels: [bug, needs repro]
 body:
   - type: textarea
     id: description
