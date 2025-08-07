@@ -66,7 +66,7 @@
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.18.0",
 		"@favware/npm-deprecate": "2.0.0",
-		"@nestjs/common": "11.1.5",
+		"@nestjs/common": "11.1.6",
 		"@nestjs/core": "11.1.6",
 		"@nestjs/testing": "^11.1.5",
 		"@release-it/conventional-changelog": "^10.0.0",
