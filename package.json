@@ -71,7 +71,7 @@
 		"@nestjs/testing": "^11.1.5",
 		"@release-it/conventional-changelog": "^10.0.0",
 		"@types/jest": "^30.0.0",
-		"@types/node": "24.2.0",
+		"@types/node": "24.2.1",
 		"discord-api-types": "0.38.18",
 		"discord.js": "14.21.0",
 		"eslint": "^9.18.0",
