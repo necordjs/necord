@@ -27,8 +27,6 @@ export class ModalsService {
 				return modal;
 			}
 		}
-
-		return null;
 	}
 
 	public remove(customId: string) {
