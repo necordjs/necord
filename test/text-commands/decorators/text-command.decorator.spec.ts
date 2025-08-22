@@ -1,7 +1,7 @@
 import { TextCommand, TextCommandDiscovery } from '../../../src';
 
-describe('@TextCommand ', () => {
-	class TestCommand {
+describe('@TextCommand', () => {
+	class Test {
 		@TextCommand({ name: 'test', description: 'A test command' })
 		public execute() {
 			return 'Executed';
@@ -14,7 +14,7 @@ describe('@TextCommand ', () => {
 	});
 
 	it('should create a command with the correct properties', () => {
-		const metadata = Reflect.getMetadata(TextCommand.KEY, TestCommand.prototype['execute']);
+		const metadata = Reflect.getMetadata(TextCommand.KEY, Test.prototype['execute']);
 
 		expect(metadata).toBeInstanceOf(TextCommandDiscovery);
 		expect(metadata.getName()).toBe('test');
