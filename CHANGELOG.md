@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.10.0](https://github.com/necordjs/necord/compare/v6.9.1...v6.10.0) (2025-08-28)
+
+### Features
+
+* add custom listener decorator helpers ([ab0c4d0](https://github.com/necordjs/necord/commit/ab0c4d04347b067104253820aa486197aed7b284))
+
 ## [6.9.1](https://github.com/necordjs/necord/compare/v6.9.0...v6.9.1) (2025-07-17)
 
 ## [6.9.0](https://github.com/necordjs/necord/compare/v6.8.14...v6.9.0) (2025-07-12)
