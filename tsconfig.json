@@ -2,7 +2,6 @@
 	"extends": "./tsconfig.build.json",
 	"include": [
 		"src/**/*",
-		"**/*.spec.ts",
-		"**/*.local-spec.ts"
+		"**/*.spec.ts"
 	]
 }
