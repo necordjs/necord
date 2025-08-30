@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Arguments, ContextOf, Ctx, TextCommand } from '../src';
+import { Arguments, ContextOf, Ctx, TextCommand } from '../../src';
 import { createApplication } from './utils.local-spec';
 
 @Injectable()

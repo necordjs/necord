@@ -34,8 +34,6 @@ export class MessageComponentsService {
 				return component;
 			}
 		}
-
-		return null;
 	}
 
 	public remove(type: MessageComponentMeta['type'], customId: MessageComponentMeta['customId']) {
