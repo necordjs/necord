@@ -17,15 +17,8 @@
 		"outDir": "./dist",
 		"baseUrl": ".",
 		"forceConsistentCasingInFileNames": true,
-		"strictPropertyInitialization": false,
-		"types": ["node"]
+		"strictPropertyInitialization": false
 	},
-	"include": [
-		"src/**/*",
-		"**/*.spec.ts",
-		"**/*.test.ts",
-		"test/**/*"
-	],
 	"exclude": [
 		"node_modules"
 	]
