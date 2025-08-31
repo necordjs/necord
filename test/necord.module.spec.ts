@@ -39,6 +39,6 @@ describe('NecordModule', () => {
 	});
 
 	afterEach(async () => {
-		jest.clearAllMocks();
+		jest.resetAllMocks();
 	});
 });

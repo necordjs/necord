@@ -22,5 +22,5 @@ export const createApplication = (...providers: Provider[]) => {
 	})
 	class AppModule {}
 
-	return NestFactory.createApplicationContext(AppModule);
+	void NestFactory.createApplicationContext(AppModule);
 };

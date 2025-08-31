@@ -1,11 +1,17 @@
-import { Global, Inject, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { ContextMenusModule, ContextMenusService } from './context-menus';
-import { SlashCommandsModule, SlashCommandsService } from './slash-commands';
+import {
+	Global,
+	Inject,
+	Logger,
+	Module,
+	OnApplicationBootstrap,
+	OnModuleInit
+} from '@nestjs/common';
+import { ContextMenusModule } from './context-menus';
+import { SlashCommandsModule } from './slash-commands';
 import { CommandsService } from './commands.service';
 import { Client } from 'discord.js';
 import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
 import { NecordModuleOptions } from '../necord-options.interface';
-import { CommandDiscovery } from './command.discovery';
 
 @Global()
 @Module({
@@ -14,13 +20,13 @@ import { CommandDiscovery } from './command.discovery';
 	exports: [ContextMenusModule, SlashCommandsModule, CommandsService]
 })
 export class CommandsModule implements OnModuleInit, OnApplicationBootstrap {
+	private readonly logger = new Logger(CommandsModule.name);
+
 	public constructor(
 		private readonly client: Client,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
-		private readonly commandsService: CommandsService,
-		private readonly contextMenusService: ContextMenusService,
-		private readonly slashCommandsService: SlashCommandsService
+		private readonly commandsService: CommandsService
 	) {}
 
 	public onModuleInit() {
@@ -38,17 +44,21 @@ export class CommandsModule implements OnModuleInit, OnApplicationBootstrap {
 	}
 
 	public onApplicationBootstrap() {
-		const commands: CommandDiscovery[] = [
-			...this.contextMenusService.cache.values(),
-			...this.slashCommandsService.cache.values()
-		];
+		if (!this.options.development || !Array.isArray(this.options.development)) {
+			return;
+		}
+
+		this.logger.debug('Running in development mode, overriding guilds to all commands');
+
+		// Override all commands guilds to development guilds
+		// This is useful for testing commands without having to wait for global commands to update
+		// or having to manually add guilds to each command
+		// Note: This will only work if development is an array of guild IDs
+
+		const commands = this.commandsService.getCommands();
 
 		for (const command of commands) {
-			if (Array.isArray(this.options.development)) {
-				command.setGuilds(this.options.development);
-			} else {
-				command.setGuilds(command.getGuilds() ?? [undefined]);
-			}
+			command.setGuilds(this.options.development);
 		}
 	}
 }

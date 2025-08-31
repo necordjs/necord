@@ -3,7 +3,6 @@ import {
 	Ctx,
 	MessageCommand,
 	MessageCommandContext,
-	Target,
 	TargetMessage,
 	TargetUser,
 	UserCommand,

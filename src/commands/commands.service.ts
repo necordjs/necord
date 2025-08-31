@@ -23,38 +23,55 @@ export class CommandsService {
 	 *
 	 */
 	public async registerAllCommands() {
-		const guilds = new Set(this.getCommandsByGuilds().keys());
+		const commandsByGuilds = this.getCommandsGroupedByGuilds();
 
 		this.logger.log(`Started refreshing application commands.`);
-		for (const guild of guilds) {
-			await this.registerInGuild(guild);
-		}
+		await Promise.all([
+			this.registerGlobalCommands(),
+			commandsByGuilds.map((commands, guildId) =>
+				this.registerCommandsInGuild(guildId, commands)
+			)
+		]);
 		this.logger.log(`Successfully reloaded application commands.`);
+	}
+
+	public async registerGlobalCommands() {
+		const commands = this.getGlobalCommands();
+		const rawCommands = commands.flatMap(command => command.toJSON());
+
+		if (rawCommands.length === 0) {
+			return;
+		}
+
+		this.logger.debug(`Registering ${rawCommands.length} global application commands...`);
+		return this.client.application.commands.set(rawCommands).catch(error => {
+			this.logger.error(
+				`Failed to register application commands (global): ${error}`,
+				error.stack
+			);
+			throw error;
+		});
 	}
 
 	/**
 	 * Registers commands in a guild.
 	 * @param guildId
+	 * @param commands
 	 */
-	public async registerInGuild(guildId: string) {
-		const commands = this.getGuildCommands(guildId);
-
-		if (commands.length === 0) {
-			this.logger.log(
-				`Skipping ${guildId ? `guild ${guildId}` : 'global'} as it has no commands.`
-			);
-			return;
+	public async registerCommandsInGuild(guildId: string, commands: CommandDiscovery[]) {
+		if (!guildId) {
+			throw new TypeError('Guild ID is required to register guild commands.');
 		}
 
 		const rawCommands = commands.flatMap(command => command.toJSON());
 
+		this.logger.debug(`Registering ${rawCommands.length} guild commands in ${guildId}`);
 		return this.client.application.commands.set(rawCommands, guildId).catch(error => {
 			this.logger.error(
-				`Failed to register application commands (${
-					guildId ? `in guild ${guildId}` : 'global'
-				}): ${error}`,
+				`Failed to register application commands (guild: ${guildId}): ${error}`,
 				error.stack
 			);
+			throw error;
 		});
 	}
 
@@ -65,12 +82,18 @@ export class CommandsService {
 		].flat();
 	}
 
-	public getCommandsByGuilds(): Collection<string, CommandDiscovery[]> {
+	public getCommandsGroupedByGuilds(): Collection<string, CommandDiscovery[]> {
 		const collection = new Collection<string, CommandDiscovery[]>();
 		const commands = this.getCommands();
 
 		for (const command of commands) {
-			for (const guildId of command.getGuilds()) {
+			const guilds = command.getGuilds();
+
+			if (!guilds || guilds.length === 0) {
+				continue;
+			}
+
+			for (const guildId of guilds) {
 				const visitedCommands = collection.get(guildId) ?? [];
 				collection.set(guildId, visitedCommands.concat(command));
 			}
@@ -84,7 +107,7 @@ export class CommandsService {
 	}
 
 	public getGlobalCommands(): CommandDiscovery[] {
-		return this.getCommandsByGuilds().get(undefined) ?? [];
+		return this.getCommands().filter(command => command.isGlobal());
 	}
 
 	public getGlobalCommandByName(name: string): CommandDiscovery {
@@ -92,7 +115,7 @@ export class CommandsService {
 	}
 
 	public getGuildCommands(guildId: string): CommandDiscovery[] {
-		return this.getCommandsByGuilds().get(guildId) ?? [];
+		return this.getCommandsGroupedByGuilds().get(guildId) ?? [];
 	}
 
 	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery {

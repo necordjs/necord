@@ -111,6 +111,6 @@ describe('ListenersModule', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		jest.restoreAllMocks();
 	});
 });

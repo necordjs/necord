@@ -161,12 +161,12 @@ export class MessageComponentsLocalSpec {
 	}
 
 	@RoleSelect('USER_SELECT_MENU')
-	public onUserSelect(
+	public async onUserSelect(
 		@Context() [interaction]: UserSelectContext,
 		@SelectedUsers() users: ISelectedUsers,
 		@SelectedMembers() members: ISelectedMembers
 	) {
-		interaction.reply({
+		await interaction.reply({
 			content: `
       Your selected users - ${users.map(user => user.username).join(',')}\n
       Your selected members - ${members.map(member => member.user?.username).join(',')}

@@ -20,12 +20,15 @@ describe('MessageComponentsService', () => {
 		[ComponentType.RoleSelect, 'role-select-:id'],
 		[ComponentType.MentionableSelect, 'mentionable-select-:id'],
 		[ComponentType.ChannelSelect, 'channel-select-:id']
-	])('should add a %s component with customId %s', (type: MessageComponentType, customId) => {
-		const component = new MessageComponentDiscovery({ type, customId });
+	])('should add a %s component with customId %s', (type, customId) => {
+		const component = new MessageComponentDiscovery({
+			type: type as MessageComponentType,
+			customId
+		});
 
 		service.add(component);
 
-		expect(service.cache.has(componentName(type, customId))).toBe(true);
+		expect(service.cache.has(componentName(type as MessageComponentType, customId))).toBe(true);
 	});
 
 	it('should warn if a component is already added', () => {

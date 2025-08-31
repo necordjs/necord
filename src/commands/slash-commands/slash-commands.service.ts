@@ -8,7 +8,7 @@ import { SlashCommand, SubcommandGroup } from './decorators';
  * Represents a service that manages slash commands.
  * @url https://necord.org/interactions/slash-commands
  */
-@Injectable({ scope: Scope.DEFAULT, durable: true })
+@Injectable()
 export class SlashCommandsService {
 	private readonly logger = new Logger(SlashCommandsService.name);
 
