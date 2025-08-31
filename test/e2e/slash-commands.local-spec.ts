@@ -9,7 +9,7 @@ const UtilsCommands = createCommandGroupDecorator({
 	guilds: [process.env.DISCORD_TEST_GUILD]
 });
 
-@UtilsCommands({ name: 'text', description: 'Text utilities' })
+@UtilsCommands
 export class SlashCommandsLocalSpec {
 	@Subcommand({ name: 'length', description: 'Get length of your text' })
 	public onLength(@Ctx() [interaction]: [CommandInteraction], @Opts() { text }: LengthDto) {
