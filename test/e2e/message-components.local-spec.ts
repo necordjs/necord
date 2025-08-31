@@ -160,7 +160,7 @@ export class MessageComponentsLocalSpec {
 		});
 	}
 
-	@RoleSelect('USER_SELECT_MENU')
+	@UserSelect('USER_SELECT_MENU')
 	public async onUserSelect(
 		@Context() [interaction]: UserSelectContext,
 		@SelectedUsers() users: ISelectedUsers,
