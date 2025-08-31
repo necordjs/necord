@@ -1,6 +1,6 @@
 import { NestFactory } from '@nestjs/core';
 import { Module, Provider } from '@nestjs/common';
-import { NecordModule } from '../src';
+import { NecordModule } from '../../src';
 
 export const createApplication = (...providers: Provider[]) => {
 	@Module({
@@ -22,5 +22,5 @@ export const createApplication = (...providers: Provider[]) => {
 	})
 	class AppModule {}
 
-	return NestFactory.createApplicationContext(AppModule);
+	void NestFactory.createApplicationContext(AppModule);
 };

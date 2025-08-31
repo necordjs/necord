@@ -9,6 +9,6 @@ test
 .editorconfig
 .eslintrc
 .gitattributes
-tsconfig.json
+tsconfig.build.json
 yarn.lock
 yarn-error.log

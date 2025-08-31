@@ -1,4 +1,4 @@
-import { StringOption } from '../../src';
+import { StringOption } from '../../../src';
 
 export class LengthDto {
 	@StringOption({

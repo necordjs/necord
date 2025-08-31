@@ -24,8 +24,8 @@ export abstract class CommandDiscovery<
 	 * Sets the command guilds for register.
 	 * @param guilds
 	 */
-	public setGuilds(guilds: Snowflake[]) {
-		this.meta.guilds = guilds;
+	public setGuilds(guilds: Snowflake[] | Snowflake) {
+		this.meta.guilds = Array.isArray(guilds) ? guilds : [guilds];
 	}
 
 	/**
@@ -33,6 +33,10 @@ export abstract class CommandDiscovery<
 	 */
 	public hasGuild(guild: Snowflake) {
 		return this.meta.guilds?.includes(guild);
+	}
+
+	public isGlobal() {
+		return !this.meta.guilds || this.meta.guilds.length === 0;
 	}
 
 	/**

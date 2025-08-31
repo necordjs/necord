@@ -61,9 +61,13 @@ export class NecordContextCreator {
 		contextId: ContextId = STATIC_CONTEXT,
 		wrapperId?: string
 	) {
+		if (!instance || typeof instance[methodName] !== 'function') {
+			return;
+		}
+
 		const prototype = Object.getPrototypeOf(instance);
 
-		if (!instance || !prototype || !prototype[methodName]) {
+		if (!prototype || !prototype[methodName]) {
 			return;
 		}
 

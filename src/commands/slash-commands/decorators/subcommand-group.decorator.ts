@@ -39,7 +39,7 @@ export const SubcommandGroup = Reflector.createDecorator<
 export const createCommandGroupDecorator = (rootOptions: Omit<RootCommandMeta, 'type'>) => {
 	const rootCommand = SlashCommand(rootOptions);
 
-	return (subOptions?: Omit<SubcommandGroupMeta, 'type'>): ClassDecorator => {
+	return (subOptions?: Omit<SubcommandGroupMeta, 'type' | 'options'>): ClassDecorator => {
 		const subCommandGroup = subOptions ? SubcommandGroup(subOptions) : noop;
 
 		return applyDecorators(rootCommand, subCommandGroup);
