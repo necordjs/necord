@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.11.0](https://github.com/necordjs/necord/compare/v6.10.0...v6.11.0) (2025-08-31)
+
+### Features
+
+* add unit tests ([#1484](https://github.com/necordjs/necord/issues/1484)) ([1829577](https://github.com/necordjs/necord/commit/18295777d5a6158085da63fef83d9c8381cf6187))
+
 ## [6.10.0](https://github.com/necordjs/necord/compare/v6.9.1...v6.10.0) (2025-08-28)
 
 ### Features
