@@ -1,5 +1,5 @@
 import { createApplication } from './utils.local-spec';
-import { createCommandGroupDecorator, Ctx, Opts, SlashCommand, Subcommand } from '../../src';
+import { createCommandGroupDecorator, Ctx, Opts, Subcommand } from '../../src';
 import { CommandInteraction } from 'discord.js';
 import { LengthDto } from './dto/length.dto';
 
