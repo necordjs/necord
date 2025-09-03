@@ -82,7 +82,7 @@
 		"@types/jest": "^29.5.14",
 		"@types/node": "24.0.14",
 		"discord-api-types": "0.38.16",
-		"discord.js": "14.21.0",
+		"discord.js": "14.22.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "10.1.5",
 		"eslint-plugin-import": "^2.31.0",
