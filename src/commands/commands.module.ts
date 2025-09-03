@@ -34,7 +34,7 @@ export class CommandsModule implements OnModuleInit, OnApplicationBootstrap {
 			return;
 		}
 
-		return this.client.once('ready', async () => {
+		return this.client.once('clientReady', async () => {
 			if (this.client.application.partial) {
 				await this.client.application.fetch();
 			}
