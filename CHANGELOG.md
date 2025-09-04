@@ -1,5 +1,16 @@
 # Changelog
 
+## [6.11.1](https://github.com/necordjs/necord/compare/v6.11.0...v6.11.1) (2025-09-04)
+
+### Bug Fixes
+
+* **CommandModule:** update "ready" event to "clientReady" as "ready" is now deprecated ([#1633](https://github.com/necordjs/necord/issues/1633)) ([771add4](https://github.com/necordjs/necord/commit/771add41f26ca29ff9ea69141d712c2b22082519))
+* return brackets to local spec ([8991866](https://github.com/necordjs/necord/commit/899186642ce65fafa85755cf0c293a357a247dcf))
+
+### Styling
+
+* lint ([5df5030](https://github.com/necordjs/necord/commit/5df50308500a9f29e79b3933988ea729f7d52304))
+
 ## [6.11.0](https://github.com/necordjs/necord/compare/v6.10.0...v6.11.0) (2025-08-31)
 
 ### Features
