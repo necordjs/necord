@@ -38,7 +38,9 @@ describe('CommandsModule', () => {
 		module = moduleRef.get(CommandsModule);
 
 		emitReady = () => {
-			const listener = clientMock.once.mock.calls.find(call => call[0] === 'ready')?.[1];
+			const listener = clientMock.once.mock.calls.find(
+				call => call[0] === 'clientReady'
+			)?.[1];
 			if (listener) listener();
 		};
 	});
@@ -66,7 +68,7 @@ describe('CommandsModule', () => {
 
 			it('should register commands on client ready', () => {
 				module.onModuleInit();
-				expect(clientMock.once).toHaveBeenCalledWith('ready', expect.any(Function));
+				expect(clientMock.once).toHaveBeenCalledWith('clientReady', expect.any(Function));
 			});
 
 			it('should handle ready event and register commands', async () => {
