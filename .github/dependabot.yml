@@ -5,6 +5,10 @@ updates:
     directory: "/"
     schedule:
       interval: daily
+    groups:
+      actions-deps:
+        patterns:
+          - "*"
   - package-ecosystem: npm
     rebase-strategy: "auto"
     directory: "/"
