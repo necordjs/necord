@@ -28,7 +28,7 @@ export class CommandsService {
 		this.logger.log(`Started refreshing application commands.`);
 		await Promise.all([
 			this.registerGlobalCommands(),
-			commandsByGuilds.map((commands, guildId) =>
+			...commandsByGuilds.map((commands, guildId) =>
 				this.registerCommandsInGuild(guildId, commands)
 			)
 		]);
