@@ -10,7 +10,7 @@
 		"publish:dev": "npm publish --access public --tag dev",
 		"prepare": "husky",
 		"postinstall": "opencollective",
-		"format": "prettier --write \"src/**/*.ts\"",
+		"format": "prettier --write \"{src,apps,libs,test}/**/*.ts\"",
 		"lint": "eslint --ignore-pattern .gitignore \"{src,apps,libs,test}/**/*.ts\"",
 		"test": "jest",
 		"test:watch": "jest --watch",
