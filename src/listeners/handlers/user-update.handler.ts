@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { BaseHandler } from './base.handler';
 import { ContextOf } from '../../context';
-import { User, UserFlagsBitField } from 'discord.js';
+import { UserPrimaryGuild, User, UserFlagsBitField } from 'discord.js';
 
 export type CustomUserUpdateEvents = {
 	userAvatarUpdate: [user: User, oldAvatar: string, newAvatar: string];
@@ -13,8 +13,10 @@ export type CustomUserUpdateEvents = {
 		oldFlags: Readonly<UserFlagsBitField>,
 		newFlags: Readonly<UserFlagsBitField>
 	];
-	userServerTagAdd: [user: User, tag: string];
-	userServerTagRemove: [user: User, tag: string];
+	userPrimaryGuildUpdate: [
+		oldPrimaryGuild: UserPrimaryGuild | null,
+		newPrimaryGuild: UserPrimaryGuild | null
+	];
 };
 
 @Injectable()
@@ -67,18 +69,14 @@ export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 	}
 
 	@CustomListenerHandler()
-	public handleUserServerTags([oldUser, newUser]: ContextOf<'userUpdate'>) {
+	public handleUserPrimaryGuildUpdate([oldUser, newUser]: ContextOf<'userUpdate'>) {
 		if (oldUser.partial) return;
 
-		const oldTag = oldUser.primaryGuild?.tag;
-		const newTag = newUser.primaryGuild?.tag;
+		const oldPrimaryGuild = JSON.stringify(oldUser.primaryGuild);
+		const newPrimaryGuild = JSON.stringify(newUser.primaryGuild);
 
-		if (!oldTag && newTag) {
-			this.emit('userServerTagAdd', newUser, newTag);
-		}
-
-		if (oldTag && !newTag) {
-			this.emit('userServerTagRemove', newUser, oldTag);
+		if (oldPrimaryGuild !== newPrimaryGuild) {
+			this.emit('userPrimaryGuildUpdate', oldUser.primaryGuild, newUser.primaryGuild);
 		}
 	}
 }
