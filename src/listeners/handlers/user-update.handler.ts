@@ -13,10 +13,7 @@ export type CustomUserUpdateEvents = {
 		oldFlags: Readonly<UserFlagsBitField>,
 		newFlags: Readonly<UserFlagsBitField>
 	];
-	userPrimaryGuildUpdate: [
-		oldPrimaryGuild: UserPrimaryGuild | null,
-		newPrimaryGuild: UserPrimaryGuild | null
-	];
+	userPrimaryGuildUpdate: [oldPrimaryGuild: UserPrimaryGuild, newPrimaryGuild: UserPrimaryGuild];
 };
 
 @Injectable()
