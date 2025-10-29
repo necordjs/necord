@@ -13,6 +13,8 @@ export type CustomUserUpdateEvents = {
 		oldFlags: Readonly<UserFlagsBitField>,
 		newFlags: Readonly<UserFlagsBitField>
 	];
+	userServerTagAdd: [user: User, tag: string];
+	userServerTagRemove: [user: User, tag: string];
 };
 
 @Injectable()
@@ -61,6 +63,22 @@ export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 
 		if (oldUser.flags !== newUser.flags) {
 			this.emit('userFlagsUpdate', newUser, oldUser.flags, newUser.flags);
+		}
+	}
+
+	@CustomListenerHandler()
+	public handleUserServerTags([oldUser, newUser]: ContextOf<'userUpdate'>) {
+		if (oldUser.partial) return;
+
+		const oldTag = oldUser.primaryGuild?.tag;
+		const newTag = newUser.primaryGuild?.tag;
+
+		if (!oldTag && newTag) {
+			this.emit('userServerTagAdd', newUser, newTag);
+		}
+
+		if (oldTag && !newTag) {
+			this.emit('userServerTagRemove', newUser, oldTag);
 		}
 	}
 }
