@@ -13,7 +13,11 @@ export type CustomUserUpdateEvents = {
 		oldFlags: Readonly<UserFlagsBitField>,
 		newFlags: Readonly<UserFlagsBitField>
 	];
-	userPrimaryGuildUpdate: [oldPrimaryGuild: UserPrimaryGuild, newPrimaryGuild: UserPrimaryGuild];
+	userPrimaryGuildUpdate: [
+		user: User,
+		oldPrimaryGuild: UserPrimaryGuild,
+		newPrimaryGuild: UserPrimaryGuild
+	];
 };
 
 @Injectable()
@@ -73,7 +77,12 @@ export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 		const newPrimaryGuild = JSON.stringify(newUser.primaryGuild);
 
 		if (oldPrimaryGuild !== newPrimaryGuild) {
-			this.emit('userPrimaryGuildUpdate', oldUser.primaryGuild, newUser.primaryGuild);
+			this.emit(
+				'userPrimaryGuildUpdate',
+				newUser,
+				oldUser.primaryGuild,
+				newUser.primaryGuild
+			);
 		}
 	}
 }
