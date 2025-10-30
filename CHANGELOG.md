@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.11.2](https://github.com/necordjs/necord/compare/v6.11.1...v6.11.2) (2025-10-30)
+
+### Features
+
+* **CustomEventHandlers:** handleUserPrimaryGuildUpdate handler ([#1684](https://github.com/necordjs/necord/issues/1684)) ([e486e5e](https://github.com/necordjs/necord/commit/e486e5ef3ba290303293c3da4a4019cb77899df4))
+
 ## [6.11.1](https://github.com/necordjs/necord/compare/v6.11.0...v6.11.1) (2025-09-04)
 
 ### Bug Fixes
