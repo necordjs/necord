@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { BaseHandler } from './base.handler';
 import { ContextOf } from '../../context';
-import { User, UserFlagsBitField } from 'discord.js';
+import { UserPrimaryGuild, User, UserFlagsBitField } from 'discord.js';
 
 export type CustomUserUpdateEvents = {
 	userAvatarUpdate: [user: User, oldAvatar: string, newAvatar: string];
@@ -12,6 +12,11 @@ export type CustomUserUpdateEvents = {
 		user: User,
 		oldFlags: Readonly<UserFlagsBitField>,
 		newFlags: Readonly<UserFlagsBitField>
+	];
+	userPrimaryGuildUpdate: [
+		user: User,
+		oldPrimaryGuild: UserPrimaryGuild,
+		newPrimaryGuild: UserPrimaryGuild
 	];
 };
 
@@ -61,6 +66,23 @@ export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 
 		if (oldUser.flags !== newUser.flags) {
 			this.emit('userFlagsUpdate', newUser, oldUser.flags, newUser.flags);
+		}
+	}
+
+	@CustomListenerHandler()
+	public handleUserPrimaryGuildUpdate([oldUser, newUser]: ContextOf<'userUpdate'>) {
+		if (oldUser.partial) return;
+
+		const oldPrimaryGuild = JSON.stringify(oldUser.primaryGuild);
+		const newPrimaryGuild = JSON.stringify(newUser.primaryGuild);
+
+		if (oldPrimaryGuild !== newPrimaryGuild) {
+			this.emit(
+				'userPrimaryGuildUpdate',
+				newUser,
+				oldUser.primaryGuild,
+				newUser.primaryGuild
+			);
 		}
 	}
 }
