@@ -16,7 +16,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install Node v22
+      - name: Install Node v24
         uses: actions/setup-node@v6
         with:
           node-version: 24
