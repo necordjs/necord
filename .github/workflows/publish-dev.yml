@@ -34,8 +34,6 @@ jobs:
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
         run: 'npx @favware/npm-deprecate --name "*dev*" --package "necord"'
-        env:
-            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
