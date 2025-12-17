@@ -38,9 +38,9 @@ jobs:
 
       - name: Deprecate old versions
         if: steps.pre-release.outputs.release == 'true'
-        run: 'npx @favware/npm-deprecate --name "*dev*" --package "necord"'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_READ_TOKEN }}
+        run: |
+          npm deprecate necord@6.11.2-dev.1765952414.b9b83f6 "This version has been automatically deprecated. Please use a newer version."
+          'npx @favware/npm-deprecate --name "*dev*" --package "necord"'
 
       - name: Publish
         if: steps.pre-release.outputs.release == 'true'
