@@ -23,9 +23,11 @@ export class TextCommandsModule implements OnApplicationBootstrap, OnModuleInit 
 	) {}
 
 	public onModuleInit() {
+		const prefix = (this.options.prefix ?? '!');
+
 		return this.explorerService
 			.explore(TextCommand.KEY)
-			.forEach(textCommand => this.textCommandsService.add(textCommand));
+			.forEach(textCommand => this.textCommandsService.add(textCommand, prefix));
 	}
 
 	public onApplicationBootstrap() {
@@ -34,14 +36,8 @@ export class TextCommandsModule implements OnApplicationBootstrap, OnModuleInit 
 				return;
 
 			const content = message.content.toLowerCase();
-			const prefix =
-				typeof this.options.prefix !== 'function'
-					? (this.options.prefix ?? '!')
-					: await this.options.prefix(message);
 
-			if (!prefix || !content.startsWith(prefix)) return;
-
-			const args = content.substring(prefix.length).split(/ +/g);
+			const args = content.split(/ +/g);
 			const cmd = args.shift();
 
 			if (!cmd) return;

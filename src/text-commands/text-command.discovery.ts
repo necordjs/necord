@@ -3,6 +3,7 @@ import { NecordBaseDiscovery } from '../context';
 export interface TextCommandMeta {
 	name: string;
 	description: string;
+	aliases?: string[];
 }
 
 /**
@@ -15,6 +16,10 @@ export class TextCommandDiscovery extends NecordBaseDiscovery<TextCommandMeta> {
 
 	public getDescription() {
 		return this.meta.description;
+	}
+
+	public getAliases() {
+		return this.meta.aliases;
 	}
 
 	public override isTextCommand(): this is TextCommandDiscovery {
