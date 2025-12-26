@@ -12,7 +12,7 @@ export class TextCommandsService {
 
 	public readonly cache = new Collection<string, TextCommandDiscovery>();
 
-	public add(textCommand: TextCommandDiscovery, prefix) {
+	public add(textCommand: TextCommandDiscovery) {
 		const name = textCommand.getName();
 		const aliases = textCommand.getAliases() || [];
 
@@ -24,7 +24,7 @@ export class TextCommandsService {
 			this.cache.set(aliase, textCommand);
 		});
 
-		this.cache.set(`${prefix ?? ""}${name}`, textCommand);
+		this.cache.set(name, textCommand);
 	}
 
 	public get(name: string) {
