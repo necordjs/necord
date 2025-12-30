@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.12.0](https://github.com/necordjs/necord/compare/v6.11.2...v6.12.0) (2025-12-30)
+
+### Features
+
+* add scope of execution for custom listeners ([#1712](https://github.com/necordjs/necord/issues/1712)) ([54b1269](https://github.com/necordjs/necord/commit/54b1269fe29eec0b10c1dee4a951fcdefc1ffe83))
+
+### Bug Fixes
+
+* remove project field due project service dominating ([28728ad](https://github.com/necordjs/necord/commit/28728adb705baa5be7036ce7a43da1dfde91cfe3))
+
 ## [6.11.2](https://github.com/necordjs/necord/compare/v6.11.1...v6.11.2) (2025-10-30)
 
 ### Features
