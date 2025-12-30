@@ -54,7 +54,7 @@ export class ListenersModule implements OnModuleInit, OnApplicationBootstrap {
 			this.client.on(customListener, (...args) => {
 				for (const method of methods) {
 					AsyncCustomListenerContext.runInContext(customListener, () => {
-						return instance[method](...args);
+						return instance[method](args);
 					});
 				}
 			});
