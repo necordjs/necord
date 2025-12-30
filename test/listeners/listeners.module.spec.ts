@@ -127,6 +127,9 @@ describe('ListenersModule', () => {
 				expect(AsyncCustomListenerContext.getCurrentContext().getRootEvent()).toBe(
 					'messageCreate'
 				);
+				expect(AsyncCustomListenerContext.getCurrentContext().getRootArgs()).toEqual([
+					'scoped payload'
+				]);
 
 				return args;
 			});
@@ -137,7 +140,13 @@ describe('ListenersModule', () => {
 
 			emitEvent('messageCreate', 'scoped payload');
 
-			expect(runInContextSpy).toHaveBeenCalledWith('messageCreate', expect.any(Function));
+			expect(runInContextSpy).toHaveBeenCalledWith(
+				{
+					root: 'messageCreate',
+					args: ['scoped payload']
+				},
+				expect.any(Function)
+			);
 			expect(instance.handleEvent).toHaveBeenCalledWith(['scoped payload']);
 		});
 	});
