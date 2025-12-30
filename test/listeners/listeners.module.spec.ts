@@ -1,5 +1,6 @@
 import { Client } from 'discord.js';
 import {
+	AsyncCustomListenerContext,
 	CustomListener,
 	CustomListenerHandler,
 	Listener,
@@ -107,6 +108,46 @@ describe('ListenersModule', () => {
 			expect(handlers).toHaveBeenCalledWith(CustomListener, expect.any(Object));
 			expect(handlers).toHaveLastReturnedWith('messageCreate');
 			expect(instance.handleEvent).toHaveBeenCalledWith(['test message']);
+		});
+
+		it('should execute custom listeners within the async custom listener context', () => {
+			const discoveryService = moduleRef.get(DiscoveryService);
+			const instance = new CustomListenerExample();
+
+			jest.spyOn(discoveryService, 'getProviders').mockReturnValue([
+				{
+					instance,
+					metatype: CustomListenerExample
+				} as any
+			]);
+			jest.spyOn(discoveryService, 'getMetadataByDecorator');
+
+			jest.spyOn(instance, 'handleEvent').mockImplementation(args => {
+				expect(AsyncCustomListenerContext.isAttached()).toBe(true);
+				expect(AsyncCustomListenerContext.getCurrentContext().getRootEvent()).toBe(
+					'messageCreate'
+				);
+				expect(AsyncCustomListenerContext.getCurrentContext().getRootArgs()).toEqual([
+					'scoped payload'
+				]);
+
+				return args;
+			});
+
+			const runInContextSpy = jest.spyOn(AsyncCustomListenerContext, 'runInContext');
+
+			listenersModule.onApplicationBootstrap();
+
+			emitEvent('messageCreate', 'scoped payload');
+
+			expect(runInContextSpy).toHaveBeenCalledWith(
+				{
+					root: 'messageCreate',
+					args: ['scoped payload']
+				},
+				expect.any(Function)
+			);
+			expect(instance.handleEvent).toHaveBeenCalledWith(['scoped payload']);
 		});
 	});
 
