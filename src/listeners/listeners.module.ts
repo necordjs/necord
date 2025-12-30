@@ -5,6 +5,8 @@ import { NecordExplorerService } from '../necord-explorer.service';
 import { ListenerDiscovery } from './listener.discovery';
 import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import * as CustomListeners from './handlers';
+import { AsyncLocalStorage } from 'node:async_hooks';
+import { AsyncCustomListenerContext } from './scopes';
 
 const { BaseHandler, ...listeners } = CustomListeners;
 
@@ -51,7 +53,9 @@ export class ListenersModule implements OnModuleInit, OnApplicationBootstrap {
 
 			this.client.on(customListener, (...args) => {
 				for (const method of methods) {
-					instance[method](args);
+					AsyncCustomListenerContext.runInContext(customListener, () => {
+						return instance[method](...args);
+					});
 				}
 			});
 		}
