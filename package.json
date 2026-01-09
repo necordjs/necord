@@ -71,8 +71,8 @@
 		"tslib": "^2.8.1"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "20.3.0",
-		"@commitlint/config-angular": "20.3.0",
+		"@commitlint/cli": "20.3.1",
+		"@commitlint/config-angular": "20.3.1",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^9.18.0",
 		"@favware/npm-deprecate": "2.0.0",
