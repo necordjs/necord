@@ -53,6 +53,9 @@ jobs:
       - name: Install latest version of npm
         run: npm install -g npm@latest
 
+      - name: Build
+        run: yarn build
+
       - name: Publish
         run: |
           set -euo pipefail
