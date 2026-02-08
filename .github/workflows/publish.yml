@@ -29,7 +29,7 @@ on:
 
 permissions:
   id-token: write  # Required for OIDC
-  contents: read
+  contents: write  # Required for GIT Operations
 
 jobs:
   release:
