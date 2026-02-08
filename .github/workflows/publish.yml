@@ -1,0 +1,71 @@
+name: Publish
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        description: Version increment
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+          - prepatch
+          - preminor
+          - premajor
+          - prerelease
+        default: patch
+      dry_run:
+        description: Run without publishing (release-it --dry-run)
+        type: boolean
+        default: false
+      verbose:
+        description: Verbose logging
+        type: choice
+        options:
+          - none
+          - verbose
+          - debug
+        default: none
+
+permissions:
+  id-token: write  # Required for OIDC
+  contents: read
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: lts/*
+          registry-url: https://registry.npmjs.org
+          cache: yarn
+          cache-dependency-path: yarn.lock
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Install latest version of npm
+        run: npm install -g npm@latest
+
+      - name: Publish
+        run: |
+          set -euo pipefail
+          args=()
+          args+=("${INCREMENT}")
+          if [ "${DRY_RUN}" = "true" ]; then args+=("--dry-run"); fi
+          case "${VERBOSE}" in
+            verbose) args+=("-V") ;;
+            debug) args+=("-VV") ;;
+          esac
+          npx release-it "${args[@]}" --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          INCREMENT: ${{ inputs.increment || 'patch' }}
+          DRY_RUN: ${{ inputs.dry_run || false }}
+          VERBOSE: ${{ inputs.verbose || 'none' }}
