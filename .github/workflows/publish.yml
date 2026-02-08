@@ -63,7 +63,7 @@ jobs:
             verbose) args+=("-V") ;;
             debug) args+=("-VV") ;;
           esac
-          npx release-it "${args[@]}" --ci
+          npx release-it "${args[@]}" --ci --npm.skipChecks=true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           INCREMENT: ${{ inputs.increment || 'patch' }}
