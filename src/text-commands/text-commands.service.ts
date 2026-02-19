@@ -13,10 +13,15 @@ export class TextCommandsService {
 
 	public add(textCommand: TextCommandDiscovery) {
 		const name = textCommand.getName();
+		const aliases = textCommand.getAliases() || [];
 
 		if (this.cache.has(name)) {
 			this.logger.warn(`TextCommand : ${name} already exists`);
 		}
+
+		aliases.forEach((aliase) => {
+			this.cache.set(aliase, textCommand);
+		});
 
 		this.cache.set(name, textCommand);
 	}
