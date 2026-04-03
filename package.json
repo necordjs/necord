@@ -81,7 +81,7 @@
 		"@release-it/conventional-changelog": "^10.0.0",
 		"@types/jest": "^30.0.0",
 		"@types/node": "25.5.0",
-		"discord-api-types": "0.38.43",
+		"discord-api-types": "0.38.44",
 		"discord.js": "14.26.0",
 		"eslint": "^10.0.0",
 		"eslint-config-prettier": "10.1.8",
