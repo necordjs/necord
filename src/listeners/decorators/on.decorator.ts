@@ -13,7 +13,7 @@ export function On<E = NecordEvents>(event: keyof NoInfer<E>): ReturnType<typeof
  * Or use `createCustomOnDecorator<CustomEvents>()` to create a custom `On` decorator.
  */
 export function On<K extends keyof E, E = NecordEvents>(event: K): ReturnType<typeof Listener>;
-export function On(event: keyof NecordEvents) {
+export function On(event: PropertyKey) {
 	return Listener({ type: 'on', event });
 }
 

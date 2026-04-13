@@ -13,7 +13,7 @@ export function Once<E = NecordEvents>(event: keyof NoInfer<E>): ReturnType<type
  * Or use `createCustomOnceDecorator<CustomEvents>()` to create a custom `Once` decorator.
  */
 export function Once<K extends keyof E, E = NecordEvents>(event: K): ReturnType<typeof Listener>;
-export function Once(event: keyof NecordEvents) {
+export function Once(event: PropertyKey) {
 	return Listener({ type: 'once', event });
 }
 
