@@ -2,7 +2,7 @@ import { createCustomOnDecorator, Listener, ListenerDiscovery, On } from '../../
 
 describe('@On', () => {
 	class Test {
-		@On('ready')
+		@On('clientReady')
 		public execute() {
 			return 'Executed';
 		}
@@ -20,7 +20,7 @@ describe('@On', () => {
 
 		expect(metadata).toBeInstanceOf(ListenerDiscovery);
 		expect(metadata.getType()).toBe('on');
-		expect(metadata.getEvent()).toBe('ready');
+		expect(metadata.getEvent()).toBe('clientReady');
 	});
 
 	it('createCustomOnDecorator() should create a decorator that works like @On', () => {

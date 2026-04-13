@@ -18,7 +18,10 @@ describe('CommandsModule', () => {
 		once: jest.fn(),
 		application: { partial: false, fetch: jest.fn() }
 	};
-	const optionsMock = { skipRegistration: false, development: [] };
+	const optionsMock: { skipRegistration: boolean; development: string[] | undefined } = {
+		skipRegistration: false,
+		development: []
+	};
 	const commandsServiceMock = { registerAllCommands: jest.fn(), getCommands: jest.fn() };
 
 	let emitReady: () => void;

@@ -8,10 +8,10 @@ describe('ContextMenuDiscovery', () => {
 
 	it.each([ApplicationCommandType.Message, ApplicationCommandType.User])(
 		'should create an instance (%s)',
-		(type: ApplicationCommandType.User | ApplicationCommandType.Message) => {
+		(type: number) => {
 			const discovery = new ContextMenuDiscovery({
 				name: 'test',
-				type
+				type: type as ApplicationCommandType.User | ApplicationCommandType.Message
 			});
 			expect(discovery).toBeInstanceOf(ContextMenuDiscovery);
 			expect(discovery.getType()).toBe(type);

@@ -26,7 +26,7 @@ describe('AsyncCustomListenerContext', () => {
 
 		AsyncCustomListenerContext.runInContext(
 			{
-				root: 'ready',
+				root: 'clientReady',
 				args: []
 			},
 			() => {
@@ -40,7 +40,7 @@ describe('AsyncCustomListenerContext', () => {
 	it('should provide a unique context per custom listener execution', () => {
 		const firstContext = AsyncCustomListenerContext.runInContext(
 			{
-				root: 'ready',
+				root: 'clientReady',
 				args: ['foo']
 			},
 			() => AsyncCustomListenerContext.getCurrentContext()
@@ -54,7 +54,7 @@ describe('AsyncCustomListenerContext', () => {
 		);
 
 		expect(firstContext).not.toBe(secondContext);
-		expect(firstContext.getRootEvent()).toBe('ready');
+		expect(firstContext.getRootEvent()).toBe('clientReady');
 		expect(firstContext.getRootArgs()).toEqual(['foo']);
 		expect(secondContext.getRootEvent()).toBe('guildCreate');
 		expect(secondContext.getRootArgs()).toEqual(['bar']);

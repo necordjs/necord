@@ -61,7 +61,7 @@ describe('ListenersModule', () => {
 
 	describe('should handle events', () => {
 		const listenerDiscovery = new ListenerDiscovery({
-			event: 'ready',
+			event: 'clientReady',
 			type: 'once'
 		});
 
@@ -75,7 +75,7 @@ describe('ListenersModule', () => {
 
 			listenersModule.onModuleInit();
 
-			emitEvent('ready');
+			emitEvent('clientReady');
 
 			expect(listenerDiscovery.execute).toHaveBeenCalled();
 		});
