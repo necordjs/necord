@@ -1,7 +1,7 @@
 import { ExecutionContextHost } from '@nestjs/core/helpers/execution-context-host';
 import { ArgumentsHost } from '@nestjs/common';
 import { NecordContextType } from './necord-execution-context';
-import { ClientEvents } from 'discord.js';
+import { ClientEventTypes } from 'discord.js';
 import { NecordBaseDiscovery } from '../context';
 import { ContextOf } from './necord-context.interface';
 
@@ -17,9 +17,9 @@ export class NecordArgumentsHost extends ExecutionContextHost {
 		return super.getType();
 	}
 
-	public getContext<T extends keyof ClientEvents>(): ContextOf<T>;
+	public getContext<T extends keyof ClientEventTypes>(): ContextOf<T>;
 	public getContext<T>(): T;
-	public getContext<T extends keyof ClientEvents>(): ContextOf<T> {
+	public getContext<T extends keyof ClientEventTypes>(): ContextOf<T> {
 		return this.getArgByIndex(0);
 	}
 

@@ -1,11 +1,11 @@
-import { ClientEvents } from 'discord.js';
+import { ClientEventTypes } from 'discord.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { ContextIdFactory } from '@nestjs/core';
 
 const ASYNC_CUSTOM_LISTENER_STORAGE = Symbol('ASYNC_CUSTOM_LISTENER_STORAGE');
 
 export interface AsyncCustomListenerContextOptions {
-	root: keyof ClientEvents;
+	root: keyof ClientEventTypes;
 	args: any[];
 }
 
@@ -16,7 +16,7 @@ export class AsyncCustomListenerContext {
 	public readonly id = ContextIdFactory.create();
 
 	public constructor(
-		protected readonly root: keyof ClientEvents,
+		protected readonly root: keyof ClientEventTypes,
 		protected readonly args: any[]
 	) {}
 
@@ -45,7 +45,7 @@ export class AsyncCustomListenerContext {
 		return AsyncCustomListenerContext[ASYNC_CUSTOM_LISTENER_STORAGE].run(context, callback);
 	}
 
-	public getRootEvent(): keyof ClientEvents {
+	public getRootEvent(): keyof ClientEventTypes {
 		return this.root;
 	}
 
