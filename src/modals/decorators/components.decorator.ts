@@ -2,12 +2,12 @@ import { createParamDecorator } from '@nestjs/common';
 import { NecordExecutionContext } from '../../context';
 
 /**
- * Represents a fields param decorator.
+ * Represents a components param decorator.
  * @url https://necord.org/interactions/modals
  * @param customId The custom id.
- * @returns The fields param decorator.
+ * @returns The components param decorator.
  */
-export const Fields = createParamDecorator((customId, context) => {
+export const ModalComponents = createParamDecorator((customId, context) => {
 	const necordContext = NecordExecutionContext.create(context);
 	const [interaction] = necordContext.getContext<'interactionCreate'>();
 	const discovery = necordContext.getDiscovery();
@@ -16,5 +16,5 @@ export const Fields = createParamDecorator((customId, context) => {
 		return null;
 	}
 
-	return customId ? interaction.fields.getTextInputValue(customId) : interaction.fields;
+	return customId ? interaction.components.getComponent(customId) : interaction.components;
 });
