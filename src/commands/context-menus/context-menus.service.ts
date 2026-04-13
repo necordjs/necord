@@ -26,7 +26,10 @@ export class ContextMenusService {
 		this.cache.set(id, contextMenu);
 	}
 
-	public get(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): ContextMenuDiscovery {
+	public get(
+		type: ContextMenuMeta['type'],
+		name: ContextMenuMeta['name']
+	): ContextMenuDiscovery | undefined {
 		return this.cache.get(this.getId(type, name));
 	}
 

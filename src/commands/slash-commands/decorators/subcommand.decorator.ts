@@ -1,5 +1,5 @@
 import { SlashCommandDiscovery, SubcommandMeta } from '../slash-command.discovery';
-import { ApplicationCommandOptionType, SlashCommandSubcommandBuilder } from 'discord.js';
+import { ApplicationCommandOptionType } from 'discord.js';
 import { Reflector } from '@nestjs/core';
 
 /**

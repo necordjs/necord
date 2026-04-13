@@ -24,7 +24,7 @@ export class SlashCommandsService {
 		this.cache.set(command.getName(), command);
 	}
 
-	public get(commandName: string): SlashCommandDiscovery {
+	public get(commandName: string): SlashCommandDiscovery | undefined {
 		return this.cache.get(commandName);
 	}
 

@@ -27,6 +27,10 @@ export const Options = createParamDecorator(
 	},
 	[
 		(target, propertyKey, parameterIndex) => {
+			if (propertyKey === undefined) {
+				throw new Error('@Options() cannot be used on constructor');
+			}
+
 			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
 			let { prototype } = paramTypes[parameterIndex];
 

@@ -43,6 +43,6 @@ export abstract class CommandDiscovery<
 	 * Returns the guilds.
 	 */
 	public getGuilds(): Snowflake[] {
-		return this.meta.guilds;
+		return this.meta.guilds ?? [];
 	}
 }

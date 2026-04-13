@@ -23,7 +23,7 @@ export class CommandsModule implements OnModuleInit, OnApplicationBootstrap {
 	private readonly logger = new Logger(CommandsModule.name);
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: Client<true>,
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,
 		private readonly commandsService: CommandsService

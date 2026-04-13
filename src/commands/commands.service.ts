@@ -13,7 +13,7 @@ export class CommandsService {
 	private readonly logger = new Logger(CommandsService.name);
 
 	public constructor(
-		private readonly client: Client,
+		private readonly client: Client<true>,
 		private readonly contextMenusService: ContextMenusService,
 		private readonly slashCommandsService: SlashCommandsService
 	) {}
@@ -102,7 +102,7 @@ export class CommandsService {
 		return collection;
 	}
 
-	public getCommandByName(name: string): CommandDiscovery {
+	public getCommandByName(name: string): CommandDiscovery | undefined {
 		return this.getCommands().find(command => command.getName() === name);
 	}
 
@@ -110,7 +110,7 @@ export class CommandsService {
 		return this.getCommands().filter(command => command.isGlobal());
 	}
 
-	public getGlobalCommandByName(name: string): CommandDiscovery {
+	public getGlobalCommandByName(name: string): CommandDiscovery | undefined {
 		return this.getGlobalCommands().find(command => command.getName() === name);
 	}
 
@@ -118,7 +118,7 @@ export class CommandsService {
 		return this.getCommandsGroupedByGuilds().get(guildId) ?? [];
 	}
 
-	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery {
+	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery | undefined {
 		return this.getGuildCommands(guildId).find(command => command.getName() === name);
 	}
 }
