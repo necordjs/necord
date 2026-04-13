@@ -26,12 +26,15 @@ export class NecordContextCreator {
 			return this.createContextCallback(instance, methodName);
 		}
 
-		const { instance: moduleRef } = wrapper.host.getProviderByKey<ModuleRef>(ModuleRef);
+		const host = wrapper.host;
+		if (!host) return;
+
+		const { instance: moduleRef } = host.getProviderByKey<ModuleRef>(ModuleRef);
 
 		return async (...args: any[]) => {
 			const necordContext = this.necordParamsFactory.exchangeKeyForValue(
 				NecordParamType.CONTEXT,
-				undefined,
+				{},
 				args as [Array<any>, NecordBaseDiscovery]
 			);
 			const context = AsyncContext.of(necordContext) ?? new AsyncContext();
@@ -41,7 +44,10 @@ export class NecordContextCreator {
 				context.attachTo(necordContext);
 			}
 
-			const requestScopedInstance = await moduleRef.resolve(wrapper.metatype, context.id, {
+			const metatype = wrapper.metatype;
+			if (!metatype) return;
+
+			const requestScopedInstance = await moduleRef.resolve(metatype, context.id, {
 				strict: true
 			});
 
@@ -51,6 +57,8 @@ export class NecordContextCreator {
 				context.id,
 				wrapper.id
 			);
+			if (!contextCallback) return;
+
 			return contextCallback(...args);
 		};
 	}

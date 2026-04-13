@@ -32,19 +32,21 @@ export class NecordExplorerService<T extends NecordBaseDiscovery> {
 		return this.wrappers.flatMap(callback).filter(Boolean);
 	}
 
-	private filterProperties(wrapper: InstanceWrapper, metadataKey: string) {
+	private filterProperties(wrapper: InstanceWrapper, metadataKey: string): T[] {
 		const { instance } = wrapper;
 		const prototype = Object.getPrototypeOf(instance);
 
-		return this.metadataScanner.getAllMethodNames(prototype).map(methodName => {
+		return this.metadataScanner.getAllMethodNames(prototype).flatMap(methodName => {
 			const item = this.reflector.get<T>(metadataKey, instance[methodName]);
+			if (!item) return [];
 
-			if (!item) return;
+			const callback = this.necordContextCreator.bind(wrapper, methodName);
+			if (!callback) return [];
 
 			item.setDiscoveryMeta({ class: instance.constructor, handler: instance[methodName] });
-			item.setContextCallback(this.necordContextCreator.bind(wrapper, methodName));
+			item.setContextCallback(callback);
 
-			return item;
+			return [item];
 		});
 	}
 }
