@@ -63,7 +63,8 @@
 	},
 	"author": "Alexey Filippov <socket.someone@gmail.com>",
 	"contributors": [
-		"Alexey Filippov <socket.someone@gmail.com>"
+		"Alexey Filippov <socket.someone@gmail.com>",
+		"Abismo <abinmnd@gmail.com>"
 	],
 	"dependencies": {
 		"@nuxt/opencollective": "^0.4.1",
@@ -82,7 +83,7 @@
 		"@types/jest": "^30.0.0",
 		"@types/node": "25.5.0",
 		"discord-api-types": "0.38.44",
-		"discord.js": "14.26.0",
+		"discord.js": "^15.0.0-dev.1775045529-1f9affd97",
 		"eslint": "^10.0.0",
 		"eslint-config-prettier": "10.1.8",
 		"eslint-plugin-import": "^2.31.0",
@@ -112,5 +113,6 @@
 	"engines": {
 		"node": ">=18",
 		"npm": ">=8.6.0"
-	}
+	},
+	"packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447"
 }
