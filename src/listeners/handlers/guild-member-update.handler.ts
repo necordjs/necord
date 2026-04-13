@@ -9,10 +9,18 @@ export type CustomGuildMemberUpdateEvents = {
 	guildMemberUnboost: [member: GuildMember];
 	guildMemberRoleAdd: [member: GuildMember, role: Role];
 	guildMemberRoleRemove: [member: GuildMember, role: Role];
-	guildMemberNicknameUpdate: [member: GuildMember, oldNickname: string, newNickname: string];
+	guildMemberNicknameUpdate: [
+		member: GuildMember,
+		oldNickname: string | null,
+		newNickname: string | null
+	];
 	guildMemberEntered: [member: GuildMember];
 	guildMemberAvatarAdd: [member: GuildMember, avatarURL: string];
-	guildMemberAvatarUpdate: [member: GuildMember, oldAvatarURL: string, newAvatarURL: string];
+	guildMemberAvatarUpdate: [
+		member: GuildMember,
+		oldAvatarURL: string | null,
+		newAvatarURL: string | null
+	];
 	guildMemberAvatarRemove: [member: GuildMember, oldAvatarURL: string];
 };
 
@@ -24,7 +32,7 @@ export class GuildMemberUpdateHandler extends BaseHandler<CustomGuildMemberUpdat
 		if (oldMember.partial) return;
 
 		if (!oldMember.avatar && newMember.avatar) {
-			this.emit('guildMemberAvatarAdd', newMember, newMember.avatarURL());
+			this.emit('guildMemberAvatarAdd', newMember, newMember.avatarURL()!);
 		}
 
 		if (oldMember.avatar !== newMember.avatar) {
@@ -37,7 +45,7 @@ export class GuildMemberUpdateHandler extends BaseHandler<CustomGuildMemberUpdat
 		}
 
 		if (oldMember.avatar && !newMember.avatar) {
-			this.emit('guildMemberAvatarRemove', newMember, oldMember.avatarURL());
+			this.emit('guildMemberAvatarRemove', newMember, oldMember.avatarURL()!);
 		}
 	}
 
@@ -45,20 +53,18 @@ export class GuildMemberUpdateHandler extends BaseHandler<CustomGuildMemberUpdat
 	public handleGuildMemberRoles([oldMember, newMember]: ContextOf<'guildMemberUpdate'>) {
 		if (oldMember.partial) return;
 
-		const addedRoles: Role[] = newMember.roles.cache.reduce(
-			(acc, role) => (!oldMember.roles.cache.has(role.id) ? acc.push(role) && acc : acc),
+		const addedRoles = newMember.roles.cache.reduce<Role[]>(
+			(acc, role) => (!oldMember.roles.cache.has(role.id) ? (acc.push(role), acc) : acc),
 			[]
 		);
-
 		addedRoles.forEach(role => {
 			this.emit('guildMemberRoleAdd', newMember, role);
 		});
 
-		const removedRoles: Role[] = oldMember.roles.cache.reduce(
-			(acc, role) => (!newMember.roles.cache.has(role.id) ? acc.push(role) && acc : acc),
+		const removedRoles = oldMember.roles.cache.reduce<Role[]>(
+			(acc, role) => (!newMember.roles.cache.has(role.id) ? (acc.push(role), acc) : acc),
 			[]
 		);
-
 		removedRoles.forEach(role => {
 			this.emit('guildMemberRoleRemove', newMember, role);
 		});

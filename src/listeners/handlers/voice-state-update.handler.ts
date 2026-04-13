@@ -5,19 +5,19 @@ import { ContextOf } from '../../context';
 import { GuildMember, VoiceBasedChannel } from 'discord.js';
 
 export type CustomVoiceStateUpdateEvents = {
-	voiceChannelJoin: [member: GuildMember, channel: VoiceBasedChannel];
+	voiceChannelJoin: [member: GuildMember | null, channel: VoiceBasedChannel];
 	voiceChannelSwitch: [
-		member: GuildMember,
+		member: GuildMember | null,
 		oldChannel: VoiceBasedChannel,
 		newChannel: VoiceBasedChannel
 	];
-	voiceChannelLeave: [member: GuildMember, channel: VoiceBasedChannel];
-	voiceChannelMute: [member: GuildMember, type: 'self-muted' | 'server-muted'];
-	voiceChannelUnmute: [member: GuildMember, type: 'self-muted' | 'server-muted'];
-	voiceChannelDeaf: [member: GuildMember, type: 'self-deafed' | 'server-deafed'];
-	voiceChannelUndeaf: [member: GuildMember, type: 'self-deafed' | 'server-deafed'];
-	voiceStreamingStart: [member: GuildMember, channel: VoiceBasedChannel];
-	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
+	voiceChannelLeave: [member: GuildMember | null, channel: VoiceBasedChannel];
+	voiceChannelMute: [member: GuildMember | null, type: 'self-muted' | 'server-muted'];
+	voiceChannelUnmute: [member: GuildMember | null, type: 'self-muted' | 'server-muted'];
+	voiceChannelDeaf: [member: GuildMember | null, type: 'self-deafed' | 'server-deafed'];
+	voiceChannelUndeaf: [member: GuildMember | null, type: 'self-deafed' | 'server-deafed'];
+	voiceStreamingStart: [member: GuildMember | null, channel: VoiceBasedChannel | null];
+	voiceStreamingStop: [member: GuildMember | null, channel: VoiceBasedChannel | null];
 };
 
 @Injectable()
