@@ -8,6 +8,9 @@
 	"transform": {
 		"^.+\\.(t|j)s$": "ts-jest"
 	},
+	"transformIgnorePatterns": [
+		"node_modules/(?!(uuid|@discordjs)/)"
+	],
 	"testEnvironment": "node",
 	"coverageDirectory": "./coverage",
 	"collectCoverageFrom": [

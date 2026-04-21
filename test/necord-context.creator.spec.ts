@@ -75,7 +75,8 @@ describe('NecordContextCreator', () => {
 			);
 
 			const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
-			const result = await callback('test-arg');
+			expect(callback).toBeDefined();
+			const result = await callback!('test-arg');
 
 			expect(createContextCallbackSpy).toHaveBeenCalledWith(mockInstance, 'testMethod');
 			expect(result).toBe('context-result');
@@ -100,7 +101,8 @@ describe('NecordContextCreator', () => {
 
 			it('should create a context callback for request-scoped dependencies', async () => {
 				const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
-				const result = await callback('test-arg');
+				expect(callback).toBeDefined();
+				const result = await callback!('test-arg');
 
 				expect(mockModuleRef.registerRequestByContextId).toHaveBeenCalled();
 				expect(mockModuleRef.resolve).toHaveBeenCalled();
@@ -112,7 +114,8 @@ describe('NecordContextCreator', () => {
 				const attachToSpy = jest.spyOn(AsyncContext.prototype, 'attachTo');
 
 				const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
-				await callback('test-arg');
+				expect(callback).toBeDefined();
+				await callback!('test-arg');
 
 				expect(attachToSpy).toHaveBeenCalled();
 			});
@@ -121,7 +124,8 @@ describe('NecordContextCreator', () => {
 				mockNecordContext[ASYNC_CONTEXT_ATTRIBUTE] = new AsyncContext();
 
 				const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
-				const result = await callback('test-arg');
+				expect(callback).toBeDefined();
+				const result = await callback!('test-arg');
 
 				expect(mockModuleRef.registerRequestByContextId).not.toHaveBeenCalled();
 				expect(mockModuleRef.resolve).toHaveBeenCalled();

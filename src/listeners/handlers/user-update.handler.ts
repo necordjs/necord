@@ -10,13 +10,13 @@ export type CustomUserUpdateEvents = {
 	userDiscriminatorUpdate: [user: User, oldDiscriminator: string, newDiscriminator: string];
 	userFlagsUpdate: [
 		user: User,
-		oldFlags: Readonly<UserFlagsBitField>,
-		newFlags: Readonly<UserFlagsBitField>
+		oldFlags: Readonly<UserFlagsBitField> | null,
+		newFlags: Readonly<UserFlagsBitField> | null
 	];
 	userPrimaryGuildUpdate: [
 		user: User,
-		oldPrimaryGuild: UserPrimaryGuild,
-		newPrimaryGuild: UserPrimaryGuild
+		oldPrimaryGuild: UserPrimaryGuild | null,
+		newPrimaryGuild: UserPrimaryGuild | null
 	];
 };
 

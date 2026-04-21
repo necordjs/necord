@@ -44,6 +44,8 @@ export class ListenersModule implements OnModuleInit, OnApplicationBootstrap {
 				wrapper
 			);
 
+			if (!customListener) continue;
+
 			const instance = wrapper.instance;
 			const prototype = Object.getPrototypeOf(instance);
 			const methods = this.metadataScanner

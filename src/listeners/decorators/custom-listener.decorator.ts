@@ -1,5 +1,5 @@
 import { DiscoveryService, Reflector } from '@nestjs/core';
-import { ClientEvents } from 'discord.js';
+import { ClientEventTypes } from 'discord.js';
 
 /**
  * Decorator that marks a class as a custom listener.
@@ -7,7 +7,7 @@ import { ClientEvents } from 'discord.js';
  * @returns The decorated class.
  * @url https://necord.org/listeners
  */
-export const CustomListener = DiscoveryService.createDecorator<keyof ClientEvents>();
+export const CustomListener = DiscoveryService.createDecorator<keyof ClientEventTypes>();
 
 /**
  * Decorator that marks a method as a custom listener handler.

@@ -2,7 +2,7 @@ import { createCustomOnceDecorator, Listener, ListenerDiscovery, Once } from '..
 
 describe('@Once', () => {
 	class Test {
-		@Once('ready')
+		@Once('clientReady')
 		public execute() {
 			return 'Executed';
 		}
@@ -20,7 +20,7 @@ describe('@Once', () => {
 
 		expect(metadata).toBeInstanceOf(ListenerDiscovery);
 		expect(metadata.getType()).toBe('once');
-		expect(metadata.getEvent()).toBe('ready');
+		expect(metadata.getEvent()).toBe('clientReady');
 	});
 
 	it('createCustomOnceDecorator() should create a decorator that works like @Once', () => {

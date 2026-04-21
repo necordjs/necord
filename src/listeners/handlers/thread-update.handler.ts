@@ -10,13 +10,13 @@ export type CustomThreadUpdateEvents = {
 	threadLockStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
 	threadRateLimitPerUserUpdate: [
 		thread: ThreadChannel,
-		oldRateLimit: number,
-		newRateLimit: number
+		oldRateLimit: number | null,
+		newRateLimit: number | null
 	];
 	threadAutoArchiveDurationUpdate: [
 		thread: ThreadChannel,
-		oldDuration: number | string,
-		newDuration: number | string
+		oldDuration: number | string | null,
+		newDuration: number | string | null
 	];
 };
 

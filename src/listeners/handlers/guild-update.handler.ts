@@ -14,7 +14,11 @@ export type CustomGuildUpdateEvents = {
 	guildBannerAdd: [guild: Guild, bannerURL: string];
 	guildAfkChannelAdd: [guild: Guild, afkChannel: VoiceChannel];
 	guildVanityURLAdd: [guild: Guild, vanityURLCode: string];
-	guildVanityURLUpdate: [guild: Guild, oldVanityURLCode: string, newVanityURLCode: string];
+	guildVanityURLUpdate: [
+		guild: Guild,
+		oldVanityURLCode: string | null,
+		newVanityURLCode: string | null
+	];
 	guildVanityURLRemove: [guild: Guild, vanityURLCode: string];
 	guildFeaturesUpdate: [
 		guild: Guild,
@@ -88,7 +92,7 @@ export class GuildUpdateHandler extends BaseHandler<CustomGuildUpdateEvents> {
 	@CustomListenerHandler()
 	public handleGuildChanges([oldGuild, newGuild]: ContextOf<'guildUpdate'>) {
 		if (!oldGuild.banner && newGuild.banner) {
-			this.emit('guildBannerAdd', newGuild, newGuild.bannerURL());
+			this.emit('guildBannerAdd', newGuild, newGuild.bannerURL()!);
 		}
 
 		if (!oldGuild.afkChannel && newGuild.afkChannel) {

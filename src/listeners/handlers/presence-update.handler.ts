@@ -16,12 +16,15 @@ export class PresenceUpdateHandler extends BaseHandler<CustomPresenceUpdateEvent
 	public handlePresenceUpdate([oldPresence, newPresence]: ContextOf<'presenceUpdate'>) {
 		if (!oldPresence) return;
 
+		const member = newPresence.member;
+		if (!member) return;
+
 		if (oldPresence.status !== 'offline' && newPresence.status === 'offline') {
-			this.emit('guildMemberOffline', newPresence.member, oldPresence.status);
+			this.emit('guildMemberOffline', member, oldPresence.status);
 		}
 
 		if (oldPresence.status === 'offline' && newPresence.status !== 'offline') {
-			this.emit('guildMemberOnline', newPresence.member, newPresence.status);
+			this.emit('guildMemberOnline', member, newPresence.status);
 		}
 	}
 }

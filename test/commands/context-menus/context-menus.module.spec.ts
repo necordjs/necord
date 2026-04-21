@@ -42,7 +42,7 @@ describe('ContextMenusModule', () => {
 
 		// simulate client.on('interactionCreate')
 		emitInteractionCreate = interaction => {
-			const listener = client.rawListeners('interactionCreate')[0];
+			const listener = client.rawListeners('interactionCreate')[0] as Function | undefined;
 			if (listener) listener(interaction);
 		};
 	});

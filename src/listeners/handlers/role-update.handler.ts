@@ -12,7 +12,7 @@ export type CustomRoleUpdateEvents = {
 		newPermissions: Readonly<PermissionsBitField>
 	];
 	roleIconAdd: [role: Role, iconURL: string];
-	roleIconUpdate: [role: Role, oldIconURL: string, newIconURL: string];
+	roleIconUpdate: [role: Role, oldIconURL: string | null, newIconURL: string | null];
 	roleIconRemove: [role: Role, iconURL: string];
 };
 
@@ -36,7 +36,7 @@ export class RoleUpdateHandler extends BaseHandler<CustomRoleUpdateEvents> {
 	@CustomListenerHandler()
 	public handleRoleIconChanges([oldRole, newRole]: ContextOf<'roleUpdate'>) {
 		if (!oldRole.icon && newRole.icon) {
-			this.emit('roleIconAdd', newRole, newRole.iconURL());
+			this.emit('roleIconAdd', newRole, newRole.iconURL()!);
 		}
 
 		if (oldRole.icon !== newRole.icon) {
@@ -44,7 +44,7 @@ export class RoleUpdateHandler extends BaseHandler<CustomRoleUpdateEvents> {
 		}
 
 		if (oldRole.icon && !newRole.icon) {
-			this.emit('roleIconRemove', newRole, oldRole.iconURL());
+			this.emit('roleIconRemove', newRole, oldRole.iconURL()!);
 		}
 	}
 }

@@ -8,7 +8,7 @@ import {
 	CommandInteractionOptionResolver,
 	Snowflake
 } from 'discord.js';
-import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
+import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads';
 import { CommandDiscovery } from '../command.discovery';
 import { OPTIONS_METADATA } from './options';
 
@@ -19,7 +19,7 @@ export type SubcommandMeta = ApplicationCommandSubCommandData;
 export type SlashCommandMeta = RootCommandMeta | SubcommandGroupMeta | SubcommandMeta;
 
 export interface OptionMeta extends APIApplicationCommandOptionBase<any> {
-	resolver?: keyof CommandInteractionOptionResolver;
+	resolver: keyof CommandInteractionOptionResolver;
 }
 
 /**
@@ -71,7 +71,10 @@ export class SlashCommandDiscovery extends CommandDiscovery<SlashCommandMeta> {
 	 * Returns raw options from metadata.
 	 */
 	public getRawOptions(): Record<string, OptionMeta> {
-		return this.reflector.get(OPTIONS_METADATA, this.getHandler()) ?? {};
+		const handler = this.getHandler();
+		if (!handler) return {};
+
+		return Reflect.getMetadata(OPTIONS_METADATA, handler) ?? {};
 	}
 
 	/**

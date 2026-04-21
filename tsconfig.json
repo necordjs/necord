@@ -15,7 +15,8 @@
 		"sourceMap": false,
 		"allowJs": false,
 		"outDir": "./dist",
-		"baseUrl": ".",
+		"rootDir": ".",
+		 "types": ["node", "jest"],
 		"forceConsistentCasingInFileNames": true,
 		"strictPropertyInitialization": false
 	},

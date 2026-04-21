@@ -45,7 +45,7 @@ describe('TextCommandsModule', () => {
 
 		// simulate client.on('messageCreate')
 		emitMessageCreate = message => {
-			const listener = client.rawListeners('messageCreate')[0];
+			const listener = client.rawListeners('messageCreate')[0] as Function | undefined;
 			if (listener) listener(message);
 		};
 	});

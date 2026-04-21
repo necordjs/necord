@@ -1,4 +1,4 @@
-import { ClientEvents } from 'discord.js';
+import { ClientEventTypes } from 'discord.js';
 import {
 	CustomChannelUpdateEvents,
 	CustomGuildAuditLogEntryCreateEvents,
@@ -12,7 +12,7 @@ import {
 	CustomVoiceStateUpdateEvents
 } from './handlers';
 
-export type NecordEvents = ClientEvents &
+export type NecordEvents = ClientEventTypes &
 	CustomChannelUpdateEvents &
 	CustomGuildAuditLogEntryCreateEvents &
 	CustomGuildMemberUpdateEvents &
