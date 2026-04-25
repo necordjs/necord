@@ -48,7 +48,7 @@ describe('SlashCommandsService', () => {
 
 	it('removes a command and returns true; removing again returns false', () => {
 		const cmd = new SlashCommandDiscovery({ name: 'to-remove', description: 'remove me' });
-		service.add(cmd as any);
+		service.add(cmd);
 
 		expect(service.remove('to-remove')).toBe(true);
 		expect(service.get('to-remove')).toBeUndefined();
@@ -65,14 +65,14 @@ describe('SlashCommandsService', () => {
 		// Reflector returns the root for SlashCommand.KEY and undefined for SubcommandGroup.KEY
 		jest.spyOn(reflector, 'get').mockImplementation((key: any, target: any) => {
 			if (target === sub.getClass()) {
-				if (key === SlashCommand.KEY) return root as any;
+				if (key === SlashCommand.KEY) return root;
 				if (key === SubcommandGroup.KEY) return undefined;
 			}
 			return undefined;
 		});
 
 		// Act
-		service.addSubCommand(sub as any);
+		service.addSubCommand(sub);
 
 		// Assert: root is ensured into the cache by name
 		expect(service.cache.get('root')).toBe(root);
@@ -99,13 +99,13 @@ describe('SlashCommandsService', () => {
 		// Reflector returns root for SlashCommand.KEY and group for SubcommandGroup.KEY
 		jest.spyOn(reflector, 'get').mockImplementation((key: any, target: any) => {
 			if (target === sub.getClass()) {
-				if (key === (SlashCommand as any).KEY) return root as any;
-				if (key === (SubcommandGroup as any).KEY) return group as any;
+				if (key === (SlashCommand as any).KEY) return root;
+				if (key === (SubcommandGroup as any).KEY) return group;
 			}
 			return undefined;
 		});
 
-		service.addSubCommand(sub as any);
+		service.addSubCommand(sub);
 
 		// Root must be present in cache (ensured)
 		expect(service.cache.get('root')).toBe(root);

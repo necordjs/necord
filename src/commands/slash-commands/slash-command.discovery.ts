@@ -8,7 +8,7 @@ import {
 	CommandInteractionOptionResolver,
 	Snowflake
 } from 'discord.js';
-import { APIApplicationCommandOptionBase } from 'discord-api-types/payloads/v10/_interactions/_applicationCommands/_chatInput/base';
+import { APIApplicationCommandOptionBase } from 'discord-api-types/v10';
 import { CommandDiscovery } from '../command.discovery';
 import { OPTIONS_METADATA } from './options';
 

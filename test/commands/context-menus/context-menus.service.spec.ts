@@ -33,13 +33,13 @@ describe('ContextMenusService', () => {
 
 		expect(warnSpy).toHaveBeenCalledTimes(1);
 
-		const got = service.get(2 as any, 'DuplicateMenu');
+		const got = service.get(2, 'DuplicateMenu');
 		expect(got).toBe(discovery);
 		expect(service.cache.size).toBe(1);
 	});
 
 	it('should return undefined when trying to get a non-existing item', () => {
-		const got = service.get(3 as any, 'Unknown');
+		const got = service.get(3, 'Unknown');
 		expect(got).toBeUndefined();
 	});
 

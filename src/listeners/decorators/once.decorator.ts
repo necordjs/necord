@@ -7,13 +7,7 @@ import { NecordEvents } from '../listener.interface';
  * @returns The decorated method.
  * @url https://necord.org/listeners
  */
-export function Once<E = NecordEvents>(event: keyof NoInfer<E>): ReturnType<typeof Listener>;
-/**
- * @deprecated Use `Once<CustomEvents>()` instead - This will be removed in future versions.
- * Or use `createCustomOnceDecorator<CustomEvents>()` to create a custom `Once` decorator.
- */
-export function Once<K extends keyof E, E = NecordEvents>(event: K): ReturnType<typeof Listener>;
-export function Once(event: keyof NecordEvents) {
+export function Once<E = NecordEvents>(event: keyof NoInfer<E>): ReturnType<typeof Listener> {
 	return Listener({ type: 'once', event });
 }
 

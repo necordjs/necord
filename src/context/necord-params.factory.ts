@@ -5,13 +5,13 @@ import { ParamData } from '@nestjs/common';
 
 export class NecordParamsFactory implements ParamsFactory {
 	public exchangeKeyForValue(
-		type: number,
+		type: NecordParamType,
 		data: ParamData,
 		args: [Array<any>, NecordBaseDiscovery]
 	): any {
 		if (!args) return null;
 
-		switch (type as NecordParamType) {
+		switch (type) {
 			case NecordParamType.CONTEXT:
 				return args[0];
 			case NecordParamType.DISCOVERY:

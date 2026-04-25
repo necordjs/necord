@@ -8,7 +8,7 @@ describe('NecordArgumentsHost', () => {
 
 	beforeEach(() => {
 		contextArg = { foo: 'bar' };
-		discoveryArg = { provide: 'DiscoveryStub' } as any;
+		discoveryArg = { provide: 'DiscoveryStub' };
 		host = new NecordArgumentsHost([contextArg, discoveryArg]);
 	});
 

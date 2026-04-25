@@ -7,13 +7,7 @@ import { NecordEvents } from '../listener.interface';
  * @returns The decorated method.
  * @url https://necord.org/listeners
  */
-export function On<E = NecordEvents>(event: keyof NoInfer<E>): ReturnType<typeof Listener>;
-/**
- * @deprecated Use `On<CustomEvents>()` instead - This will be removed in future versions.
- * Or use `createCustomOnDecorator<CustomEvents>()` to create a custom `On` decorator.
- */
-export function On<K extends keyof E, E = NecordEvents>(event: K): ReturnType<typeof Listener>;
-export function On(event: keyof NecordEvents) {
+export function On<E = NecordEvents>(event: keyof NoInfer<E>): ReturnType<typeof Listener> {
 	return Listener({ type: 'on', event });
 }
 
