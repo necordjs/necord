@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.13.0](https://github.com/necordjs/necord/compare/v6.12.0...v6.13.0) (2026-04-25)
+
+### Bug Fixes
+
+* migrate to ts 6 ([52be9c3](https://github.com/necordjs/necord/commit/52be9c3c3acb6d525e13ecd87a093d6749fcf45e))
+
 ## [6.12.0](https://github.com/necordjs/necord/compare/v6.11.2...v6.12.0) (2025-12-30)
 
 ### Features
