@@ -19,10 +19,7 @@
 		"forceConsistentCasingInFileNames": true,
 		"strictPropertyInitialization": false,
 		"strictNullChecks": false,
-		"types": [
-			"@types/node",
-			"@types/jest"
-		]
+		"types": ["node", "jest"]
 	},
 	"exclude": [
 		"node_modules"
