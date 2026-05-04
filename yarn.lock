@@ -2517,10 +2517,10 @@ discord-api-types@0.38.47, discord-api-types@^0.38.1, discord-api-types@^0.38.33
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.38.47.tgz#34f2dde6ff65d31fc8950b298426d61b46836901"
   integrity sha512-XgXQodHQBAE6kfD7kMvVo30863iHX1LHSqNq6MGUTDwIFCCvHva13+rwxyxVXDqudyApMNAd32PGjgVETi5rjA==
 
-discord.js@14.26.3:
-  version "14.26.3"
-  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.26.3.tgz#51d0b781780058cce4a2d71caa5653bfcc152559"
-  integrity sha512-XEKtYn28YFsiJ5l4fLRyikdbo6RD5oFyqfVHQlvXz2104JhH/E8slN28dbky05w3DCrJcNVWvhVvcJCTSl/KIg==
+discord.js@14.26.4:
+  version "14.26.4"
+  resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.26.4.tgz#090b1b906055f6f0be64fac2c72161a98146b346"
+  integrity sha512-4oBp8tc6Kf8IDBwAHhbsMaAqx1b5fob9SNasZT7V6yyyUydoO5i5fGuX7TmvRtR+q/WgKRnRViRoAWnG7fNyvA==
   dependencies:
     "@discordjs/builders" "^1.14.1"
     "@discordjs/collection" "1.5.3"
@@ -2825,9 +2825,9 @@ eslint-visitor-keys@^5.0.0, eslint-visitor-keys@^5.0.1:
   integrity sha512-tD40eHxA35h0PEIZNeIjkHoDR4YjjJp34biM0mDvplBe//mB+IHCqHDGV7pxF+7MklTvighcCPPZC7ynWyjdTA==
 
 eslint@^10.0.0:
-  version "10.2.1"
-  resolved "https://registry.yarnpkg.com/eslint/-/eslint-10.2.1.tgz#224b2a6caeb34473eddcf918762363e2e063222a"
-  integrity sha512-wiyGaKsDgqXvF40P8mDwiUp/KQjE1FdrIEJsM8PZ3XCiniTMXS3OHWWUe5FI5agoCnr8x4xPrTDZuxsBlNHl+Q==
+  version "10.3.0"
+  resolved "https://registry.yarnpkg.com/eslint/-/eslint-10.3.0.tgz#ed5b810eb8e0191bf24bddcf9cdb45b974e0a16d"
+  integrity sha512-XbEXaRva5cF0ZQB8w6MluHA0kZZfV2DuCMJ3ozyEOHLwDpZX2Lmm/7Pp0xdJmI0GL1W05VH5VwIFHEm1Vcw2gw==
   dependencies:
     "@eslint-community/eslint-utils" "^4.8.0"
     "@eslint-community/regexpp" "^4.12.2"
@@ -3304,9 +3304,9 @@ globals@^14.0.0:
   integrity sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==
 
 globals@^17.0.0:
-  version "17.5.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-17.5.0.tgz#a82c641d898f8dfbe0e81f66fdff7d0de43f88c6"
-  integrity sha512-qoV+HK2yFl/366t2/Cb3+xxPUo5BuMynomoDmiaZBIdbs+0pYbjfZU+twLhGKp4uCZ/+NbtpVepH5bGCxRyy2g==
+  version "17.6.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-17.6.0.tgz#0f0be018d5cca8690e6375ead1f65c4bb96191fc"
+  integrity sha512-sepffkT8stwnIYbsMBpoCHJuJM5l98FUF2AnE07hfvE0m/qp3R586hw4jF4uadbhvg1ooIdzuu7CsfD2jzCaNA==
 
 globalthis@^1.0.4:
   version "1.0.4"
