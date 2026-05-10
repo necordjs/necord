@@ -25,7 +25,7 @@ jobs:
 
   validate-title:
     name: Validate title
-    if: github.event.action != 'synchronize'
+    if: github.event.action != 'synchronize' && github.actor != 'dependabot[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Validate pull request title
