@@ -1,4 +1,5 @@
 import { ConfigurableModuleBuilder } from '@nestjs/common';
+
 import { NecordModuleOptions } from './necord-options.interface';
 
 export const {

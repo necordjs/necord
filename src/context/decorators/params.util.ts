@@ -1,6 +1,7 @@
-import { NecordParamType } from '../necord-paramtype.enum';
 import { assignMetadata, PipeTransform, Type } from '@nestjs/common';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
+
+import { NecordParamType } from '../necord-paramtype.enum';
 
 export function createNecordParamDecorator(type: NecordParamType) {
 	return (...pipes: (Type<PipeTransform> | PipeTransform)[]): ParameterDecorator =>

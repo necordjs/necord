@@ -1,5 +1,6 @@
-import { Collection } from 'discord.js';
 import { Injectable, Logger } from '@nestjs/common';
+import { Collection } from 'discord.js';
+
 import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
 
 /**

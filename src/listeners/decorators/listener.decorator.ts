@@ -1,5 +1,6 @@
-import { ListenerDiscovery, ListenerMeta } from '../listener.discovery';
 import { Reflector } from '@nestjs/core';
+
+import { ListenerDiscovery, ListenerMeta } from '../listener.discovery';
 
 /**
  * Decorator that marks a method as a listener for discord.js client.

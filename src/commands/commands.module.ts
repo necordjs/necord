@@ -6,12 +6,13 @@ import {
 	OnApplicationBootstrap,
 	OnModuleInit
 } from '@nestjs/common';
-import { ContextMenusModule } from './context-menus';
-import { SlashCommandsModule } from './slash-commands';
-import { CommandsService } from './commands.service';
 import { Client } from 'discord.js';
+
 import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
 import { NecordModuleOptions } from '../necord-options.interface';
+import { SlashCommandsModule } from './slash-commands';
+import { ContextMenusModule } from './context-menus';
+import { CommandsService } from './commands.service';
 
 @Global()
 @Module({
@@ -19,7 +20,7 @@ import { NecordModuleOptions } from '../necord-options.interface';
 	providers: [CommandsService],
 	exports: [ContextMenusModule, SlashCommandsModule, CommandsService]
 })
-export class CommandsModule implements OnModuleInit, OnApplicationBootstrap {
+export class CommandsModule implements OnApplicationBootstrap, OnModuleInit {
 	private readonly logger = new Logger(CommandsModule.name);
 
 	public constructor(

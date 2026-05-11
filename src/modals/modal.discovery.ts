@@ -1,6 +1,7 @@
-import { NecordBaseDiscovery } from '../context';
 import { ModalSubmitInteraction } from 'discord.js';
 import { match } from 'path-to-regexp';
+
+import { NecordBaseDiscovery } from '../context';
 
 export interface ModalMeta {
 	customId: string;

@@ -1,8 +1,9 @@
-import { BaseHandler } from './base.handler';
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { Injectable } from '@nestjs/common';
-import { ContextOf } from '../../context';
 import { Message, PartialMessage } from 'discord.js';
+import { Injectable } from '@nestjs/common';
+
+import { CustomListener, CustomListenerHandler } from '../decorators';
+import { BaseHandler } from './base.handler';
+import { ContextOf } from '../../context';
 
 export type CustomMessageUpdateEvents = {
 	messagePinned: [Message | PartialMessage];
@@ -13,8 +14,8 @@ export type CustomMessageUpdateEvents = {
 	];
 };
 
-@Injectable()
 @CustomListener('messageUpdate')
+@Injectable()
 export class MessageUpdateHandler extends BaseHandler<CustomMessageUpdateEvents> {
 	@CustomListenerHandler()
 	public handleMessagePinned([oldMessage, newMessage]: ContextOf<'messageUpdate'>) {

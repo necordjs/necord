@@ -1,8 +1,9 @@
-import { Test, TestingModule } from '@nestjs/testing';
 import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
-import { NecordBaseDiscovery, NecordExplorerService } from '../src';
+import { Test, TestingModule } from '@nestjs/testing';
+
 import { NecordContextCreator } from '../src/necord-context.creator';
+import { NecordBaseDiscovery, NecordExplorerService } from '../src';
 
 class MockNecordBaseDiscovery extends NecordBaseDiscovery {
 	toJSON(): Record<string, any> {

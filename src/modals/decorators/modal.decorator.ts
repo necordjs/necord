@@ -1,5 +1,6 @@
-import { ModalDiscovery } from '../modal.discovery';
 import { Reflector } from '@nestjs/core';
+
+import { ModalDiscovery } from '../modal.discovery';
 
 /**
  * Decorator that marks a method as a modal for discord.js client.

@@ -1,5 +1,6 @@
-import { TextCommandDiscovery, TextCommandMeta } from '../text-command.discovery';
 import { Reflector } from '@nestjs/core';
+
+import { TextCommandDiscovery, TextCommandMeta } from '../text-command.discovery';
 
 /**
  * Decorator that marks a method as a text command for discord.js client.

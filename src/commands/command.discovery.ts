@@ -1,4 +1,5 @@
 import { BaseApplicationCommandData, Snowflake } from 'discord.js';
+
 import { NecordBaseDiscovery } from '../context';
 
 export interface BaseCommandMeta extends BaseApplicationCommandData {

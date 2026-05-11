@@ -1,8 +1,9 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { SlashCommandsService } from './slash-commands.service';
 import { Client } from 'discord.js';
+
 import { NecordExplorerService } from '../../necord-explorer.service';
 import { SlashCommandDiscovery } from './slash-command.discovery';
+import { SlashCommandsService } from './slash-commands.service';
 import { SlashCommand, Subcommand } from './decorators';
 
 @Global()
@@ -10,7 +11,7 @@ import { SlashCommand, Subcommand } from './decorators';
 	providers: [SlashCommandsService],
 	exports: [SlashCommandsService]
 })
-export class SlashCommandsModule implements OnModuleInit, OnApplicationBootstrap {
+export class SlashCommandsModule implements OnApplicationBootstrap, OnModuleInit {
 	public constructor(
 		private readonly client: Client,
 		private readonly explorerService: NecordExplorerService<SlashCommandDiscovery>,

@@ -1,6 +1,7 @@
+import { Reflector } from '@nestjs/core';
 import { Collection } from 'discord.js';
 import { Logger } from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
+
 import {
 	SlashCommand,
 	SlashCommandDiscovery,

@@ -1,8 +1,9 @@
-import { BaseHandler } from './base.handler';
-import { Injectable } from '@nestjs/common';
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { ContextOf } from '../../context';
 import { AuditLogEvent, Guild, GuildAuditLogsEntry } from 'discord.js';
+import { Injectable } from '@nestjs/common';
+
+import { CustomListener, CustomListenerHandler } from '../decorators';
+import { BaseHandler } from './base.handler';
+import { ContextOf } from '../../context';
 
 export type CustomGuildAuditLogEntryCreateEvents = {
 	guildAuditLogEntryAdd: [auditLogEntry: GuildAuditLogsEntry, guild: Guild];
@@ -23,8 +24,8 @@ export type CustomGuildAuditLogEntryCreateEvents = {
 	];
 };
 
-@Injectable()
 @CustomListener('guildAuditLogEntryCreate')
+@Injectable()
 export class GuildAuditLogEntryCreateHandler extends BaseHandler<CustomGuildAuditLogEntryCreateEvents> {
 	@CustomListenerHandler()
 	public handleGuildAuditLogEntryChanges([

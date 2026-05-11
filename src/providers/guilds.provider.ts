@@ -1,5 +1,5 @@
-import { Provider } from '@nestjs/common';
 import { Client, GuildManager } from 'discord.js';
+import { Provider } from '@nestjs/common';
 
 export const GuildsProvider: Provider<GuildManager> = {
 	provide: GuildManager,

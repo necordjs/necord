@@ -1,5 +1,6 @@
-import { NestFactory } from '@nestjs/core';
 import { Module, Provider } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
+
 import { NecordModule } from '../../src';
 
 export const createApplication = (...providers: Provider[]) => {

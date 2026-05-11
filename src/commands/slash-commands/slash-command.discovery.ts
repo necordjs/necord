@@ -9,10 +9,11 @@ import {
 	Snowflake
 } from 'discord.js';
 import { APIApplicationCommandOptionBase } from 'discord-api-types/v10';
+
 import { CommandDiscovery } from '../command.discovery';
 import { OPTIONS_METADATA } from './options';
 
-export type RootCommandMeta = ChatInputApplicationCommandData & { guilds?: Snowflake[] };
+export type RootCommandMeta = { guilds?: Snowflake[] } & ChatInputApplicationCommandData;
 export type SubcommandGroupMeta = ApplicationCommandSubGroupData;
 export type SubcommandMeta = ApplicationCommandSubCommandData;
 

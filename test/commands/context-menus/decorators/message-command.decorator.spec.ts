@@ -1,5 +1,6 @@
-import { ContextMenu, ContextMenuDiscovery, MessageCommand } from '../../../../src';
 import { ApplicationCommandType } from 'discord-api-types/v10';
+
+import { ContextMenu, ContextMenuDiscovery, MessageCommand } from '../../../../src';
 
 describe('@MessageCommand', () => {
 	class Test {

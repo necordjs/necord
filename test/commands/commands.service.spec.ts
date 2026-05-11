@@ -1,5 +1,6 @@
-import { CommandsService, ContextMenuDiscovery, SlashCommandDiscovery } from '../../src';
 import { ApplicationCommandType, Collection } from 'discord.js';
+
+import { CommandsService, ContextMenuDiscovery, SlashCommandDiscovery } from '../../src';
 
 class Test {
 	method() {}

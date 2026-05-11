@@ -1,4 +1,7 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { DiscoveryService } from '@nestjs/core';
 import { Client } from 'discord.js';
+
 import {
 	AsyncCustomListenerContext,
 	CustomListener,
@@ -9,8 +12,6 @@ import {
 	NecordExplorerService,
 	NecordModule
 } from '../../src';
-import { Test, TestingModule } from '@nestjs/testing';
-import { DiscoveryService } from '@nestjs/core';
 
 describe('ListenersModule', () => {
 	let client: Client;

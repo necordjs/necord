@@ -1,5 +1,6 @@
-import { ContextMenuDiscovery } from '../../../src';
 import { ApplicationCommandType } from 'discord.js';
+
+import { ContextMenuDiscovery } from '../../../src';
 
 describe('ContextMenuDiscovery', () => {
 	it('should be defined', () => {

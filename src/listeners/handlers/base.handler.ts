@@ -1,5 +1,6 @@
 import { Client, ClientEvents } from 'discord.js';
 import { Inject } from '@nestjs/common';
+
 import { NecordEvents } from '../listener.interface';
 
 type OnlyCustomEvents = Exclude<NecordEvents, ClientEvents>;

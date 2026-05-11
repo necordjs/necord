@@ -1,7 +1,8 @@
 import { Injectable, Logger, Scope } from '@nestjs/common';
-import { SlashCommandDiscovery } from './slash-command.discovery';
-import { Collection } from 'discord.js';
 import { Reflector } from '@nestjs/core';
+import { Collection } from 'discord.js';
+
+import { SlashCommandDiscovery } from './slash-command.discovery';
 import { SlashCommand, SubcommandGroup } from './decorators';
 
 /**

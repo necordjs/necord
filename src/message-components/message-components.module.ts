@@ -1,8 +1,9 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { MessageComponentsService } from './message-components.service';
 import { Client } from 'discord.js';
-import { NecordExplorerService } from '../necord-explorer.service';
+
 import { MessageComponentDiscovery } from './message-component.discovery';
+import { MessageComponentsService } from './message-components.service';
+import { NecordExplorerService } from '../necord-explorer.service';
 import { MessageComponent } from './decorators';
 
 @Global()
@@ -10,7 +11,7 @@ import { MessageComponent } from './decorators';
 	providers: [MessageComponentsService],
 	exports: [MessageComponentsService]
 })
-export class MessageComponentsModule implements OnModuleInit, OnApplicationBootstrap {
+export class MessageComponentsModule implements OnApplicationBootstrap, OnModuleInit {
 	public constructor(
 		private readonly client: Client,
 		private readonly explorerService: NecordExplorerService<MessageComponentDiscovery>,

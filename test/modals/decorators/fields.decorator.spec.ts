@@ -1,5 +1,6 @@
-import { Fields, NecordExecutionContext } from '../../../src';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
+
+import { Fields, NecordExecutionContext } from '../../../src';
 
 describe('@Fields', () => {
 	class TestFieldsAll {

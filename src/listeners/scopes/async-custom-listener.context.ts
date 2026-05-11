@@ -1,6 +1,6 @@
-import { ClientEvents } from 'discord.js';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import { ContextIdFactory } from '@nestjs/core';
+import { ClientEvents } from 'discord.js';
 
 const ASYNC_CUSTOM_LISTENER_STORAGE = Symbol('ASYNC_CUSTOM_LISTENER_STORAGE');
 

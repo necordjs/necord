@@ -1,8 +1,9 @@
-import { BaseHandler } from './base.handler';
-import { Injectable } from '@nestjs/common';
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { ContextOf } from '../../context';
 import { GuildMember, VoiceBasedChannel } from 'discord.js';
+import { Injectable } from '@nestjs/common';
+
+import { CustomListener, CustomListenerHandler } from '../decorators';
+import { BaseHandler } from './base.handler';
+import { ContextOf } from '../../context';
 
 export type CustomVoiceStateUpdateEvents = {
 	voiceChannelJoin: [member: GuildMember, channel: VoiceBasedChannel];
@@ -20,8 +21,8 @@ export type CustomVoiceStateUpdateEvents = {
 	voiceStreamingStop: [member: GuildMember, channel: VoiceBasedChannel];
 };
 
-@Injectable()
 @CustomListener('voiceStateUpdate')
+@Injectable()
 export class VoiceStateUpdateHandler extends BaseHandler<CustomVoiceStateUpdateEvents> {
 	@CustomListenerHandler()
 	public handleVoiceChannelChanges([oldState, newState]: ContextOf<'voiceStateUpdate'>) {

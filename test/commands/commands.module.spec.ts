@@ -1,4 +1,6 @@
+import { ApplicationCommandType, Client } from 'discord.js';
 import { Test, TestingModule } from '@nestjs/testing';
+
 import {
 	CommandsModule,
 	CommandsService,
@@ -7,7 +9,6 @@ import {
 	NecordModule,
 	SlashCommandDiscovery
 } from '../../src';
-import { ApplicationCommandType, Client } from 'discord.js';
 
 describe('CommandsModule', () => {
 	let moduleRef: TestingModule;

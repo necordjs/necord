@@ -1,6 +1,7 @@
 import { CallHandler, ExecutionContext } from '@nestjs/common';
-import { of, firstValueFrom } from 'rxjs';
 import { AutocompleteInteraction } from 'discord.js';
+import { of, firstValueFrom } from 'rxjs';
+
 import { AutocompleteInterceptor, NecordExecutionContext } from '../../../../src';
 
 class TestInterceptor extends AutocompleteInterceptor {
@@ -15,7 +16,7 @@ describe('AutocompleteInterceptor', () => {
 	let callHandler: CallHandler;
 
 	// interaction & discovery stubs
-	let interaction: Partial<AutocompleteInteraction> & { isAutocomplete: jest.Mock };
+	let interaction: { isAutocomplete: jest.Mock } & Partial<AutocompleteInteraction>;
 	let discovery: { isSlashCommand: jest.Mock };
 
 	beforeEach(() => {

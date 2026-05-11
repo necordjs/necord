@@ -1,16 +1,17 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
-import { ModalsService } from './modals.service';
-import { Modal } from './decorators';
 import { Client } from 'discord.js';
+
 import { NecordExplorerService } from '../necord-explorer.service';
 import { ModalDiscovery } from './modal.discovery';
+import { ModalsService } from './modals.service';
+import { Modal } from './decorators';
 
 @Global()
 @Module({
 	providers: [ModalsService],
 	exports: [ModalsService]
 })
-export class ModalsModule implements OnModuleInit, OnApplicationBootstrap {
+export class ModalsModule implements OnApplicationBootstrap, OnModuleInit {
 	public constructor(
 		private readonly client: Client,
 		private readonly explorerService: NecordExplorerService<ModalDiscovery>,

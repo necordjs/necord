@@ -1,4 +1,3 @@
-import { Client } from 'discord.js';
 import {
 	Global,
 	Inject,
@@ -6,17 +5,19 @@ import {
 	OnApplicationBootstrap,
 	OnApplicationShutdown
 } from '@nestjs/common';
-import { NecordModuleOptions } from './necord-options.interface';
-import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.module-definition';
-import { TextCommandsModule } from './text-commands';
-import { ModalsModule } from './modals';
-import { MessageComponentsModule } from './message-components';
-import * as ProvidersMap from './providers';
-import { ListenersModule } from './listeners';
-import { NecordExplorerService } from './necord-explorer.service';
-import { CommandsModule } from './commands';
 import { DiscoveryModule } from '@nestjs/core';
+import { Client } from 'discord.js';
+
+import { ConfigurableModuleClass, NECORD_MODULE_OPTIONS } from './necord.module-definition';
+import { NecordExplorerService } from './necord-explorer.service';
+import { NecordModuleOptions } from './necord-options.interface';
 import { NecordContextCreator } from './necord-context.creator';
+import { MessageComponentsModule } from './message-components';
+import { TextCommandsModule } from './text-commands';
+import { ListenersModule } from './listeners';
+import * as ProvidersMap from './providers';
+import { CommandsModule } from './commands';
+import { ModalsModule } from './modals';
 
 const Providers = Object.values(ProvidersMap);
 

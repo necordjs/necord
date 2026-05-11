@@ -1,18 +1,19 @@
 import { Global, Inject, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
+import { Client } from 'discord.js';
+
+import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
+import { NecordExplorerService } from '../necord-explorer.service';
+import { NecordModuleOptions } from '../necord-options.interface';
+import { TextCommandDiscovery } from './text-command.discovery';
 import { TextCommandsService } from './text-commands.service';
 import { TextCommand } from './decorators';
-import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
-import { NecordModuleOptions } from '../necord-options.interface';
-import { Client } from 'discord.js';
-import { NecordExplorerService } from '../necord-explorer.service';
-import { TextCommandDiscovery } from './text-command.discovery';
 
 @Global()
 @Module({
 	providers: [TextCommandsService],
 	exports: [TextCommandsService]
 })
-export class TextCommandsModule implements OnModuleInit, OnApplicationBootstrap {
+export class TextCommandsModule implements OnApplicationBootstrap, OnModuleInit {
 	public constructor(
 		@Inject(NECORD_MODULE_OPTIONS)
 		private readonly options: NecordModuleOptions,

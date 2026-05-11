@@ -1,5 +1,5 @@
-import { Listener } from './listener.decorator';
 import { NecordEvents } from '../listener.interface';
+import { Listener } from './listener.decorator';
 
 /**
  * Decorator that marks a method as a listener for discord.js client.

@@ -1,8 +1,8 @@
-import { StringOption } from '../../src';
+import { StringOption } from '../../../src';
 
 export enum Style {
-	HALLOWEEN = 'halloween',
 	CHRISTMAS = 'christmas',
+	HALLOWEEN = 'halloween',
 	SUMMER = 'summer'
 }
 

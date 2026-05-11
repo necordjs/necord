@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
+
+import { SlashCommandsService } from './slash-commands';
 import { CommandDiscovery } from './command.discovery';
 import { ContextMenusService } from './context-menus';
-import { SlashCommandsService } from './slash-commands';
 
 /**
  * Represents a service that manages commands.

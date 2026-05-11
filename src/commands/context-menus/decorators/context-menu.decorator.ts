@@ -1,5 +1,6 @@
-import { ContextMenuDiscovery, ContextMenuMeta } from '../context-menu.discovery';
 import { Reflector } from '@nestjs/core';
+
+import { ContextMenuDiscovery, ContextMenuMeta } from '../context-menu.discovery';
 
 /**
  * Decorator that marks a method as a context menu.

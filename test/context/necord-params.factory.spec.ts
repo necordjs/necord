@@ -1,4 +1,5 @@
 import { ParamData } from '@nestjs/common';
+
 import { NecordParamsFactory, NecordParamType, NecordBaseDiscovery } from '../../src';
 
 class TestDiscovery extends NecordBaseDiscovery<{ name?: string }> {

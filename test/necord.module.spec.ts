@@ -1,5 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
+
 import { NecordModule, NecordModuleOptions } from '../src';
 
 describe('NecordModule', () => {

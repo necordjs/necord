@@ -1,4 +1,5 @@
 import { ComponentType } from 'discord.js';
+
 import { MessageComponent } from './message-component.decorator';
 
 /**

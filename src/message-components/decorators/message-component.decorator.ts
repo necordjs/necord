@@ -1,5 +1,6 @@
-import { MessageComponentDiscovery, MessageComponentMeta } from '../message-component.discovery';
 import { Reflector } from '@nestjs/core';
+
+import { MessageComponentDiscovery, MessageComponentMeta } from '../message-component.discovery';
 
 /**
  * Decorator that marks a method as a message component for discord.js client.

@@ -1,5 +1,6 @@
-import { Test } from '@nestjs/testing';
 import { Client, Interaction } from 'discord.js';
+import { Test } from '@nestjs/testing';
+
 import {
 	ContextMenu,
 	ContextMenuDiscovery,

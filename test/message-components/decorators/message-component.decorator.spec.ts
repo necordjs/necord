@@ -1,5 +1,6 @@
-import { MessageComponent, MessageComponentDiscovery } from '../../../src';
 import { ComponentType } from 'discord-api-types/v10';
+
+import { MessageComponent, MessageComponentDiscovery } from '../../../src';
 
 describe('@MessageComponent', () => {
 	class Test {

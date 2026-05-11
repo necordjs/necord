@@ -1,4 +1,6 @@
+import { EmbedBuilder, Message, User } from 'discord.js';
 import { Injectable } from '@nestjs/common';
+
 import {
 	Ctx,
 	MessageCommand,
@@ -9,7 +11,6 @@ import {
 	UserCommandContext
 } from '../../src';
 import { createApplication } from './utils.local-spec';
-import { EmbedBuilder, Message, User } from 'discord.js';
 
 @Injectable()
 export class ContextMenuLocalSpec {

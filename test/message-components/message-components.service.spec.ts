@@ -1,6 +1,7 @@
-import { MessageComponentDiscovery, MessageComponentsService, ModalDiscovery } from '../../src';
 import { ComponentType } from 'discord-api-types/v10';
 import { MessageComponentType } from 'discord.js';
+
+import { MessageComponentDiscovery, MessageComponentsService, ModalDiscovery } from '../../src';
 
 describe('MessageComponentsService', () => {
 	let service: MessageComponentsService;

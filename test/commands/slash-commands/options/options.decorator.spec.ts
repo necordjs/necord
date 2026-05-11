@@ -1,6 +1,7 @@
-import { IntegerOption, Options, SlashCommand, SlashCommandDiscovery } from '../../../../src';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 import { Reflector } from '@nestjs/core';
+
+import { IntegerOption, Options, SlashCommand, SlashCommandDiscovery } from '../../../../src';
 
 describe('@Options', () => {
 	class TestOptions {

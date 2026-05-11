@@ -1,13 +1,3 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import {
-	ChannelsProvider,
-	GuildsProvider,
-	RestProvider,
-	ShardProvider,
-	UsersProvider,
-	VoiceProvider,
-	WsProvider
-} from '../../src';
 import {
 	ChannelManager,
 	Client,
@@ -18,6 +8,17 @@ import {
 	UserManager,
 	WebSocketManager
 } from 'discord.js';
+import { Test, TestingModule } from '@nestjs/testing';
+
+import {
+	ChannelsProvider,
+	GuildsProvider,
+	RestProvider,
+	ShardProvider,
+	UsersProvider,
+	VoiceProvider,
+	WsProvider
+} from '../../src';
 
 describe('Client Providers', () => {
 	const mockClient = {

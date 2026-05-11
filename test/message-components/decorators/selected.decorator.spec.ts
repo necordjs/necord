@@ -1,3 +1,6 @@
+import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
+import { Collection } from 'discord.js';
+
 import {
 	NecordExecutionContext,
 	SelectedStrings,
@@ -6,8 +9,6 @@ import {
 	SelectedMembers,
 	SelectedRoles
 } from '../../../src';
-import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
-import { Collection } from 'discord.js';
 
 type MetaInfo = {
 	meta: any;

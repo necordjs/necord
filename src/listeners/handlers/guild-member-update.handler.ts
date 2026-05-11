@@ -1,8 +1,9 @@
+import { GuildMember, Role } from 'discord.js';
 import { Injectable } from '@nestjs/common';
+
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { BaseHandler } from './base.handler';
 import { ContextOf } from '../../context';
-import { GuildMember, Role } from 'discord.js';
 
 export type CustomGuildMemberUpdateEvents = {
 	guildMemberBoost: [member: GuildMember];
@@ -16,8 +17,8 @@ export type CustomGuildMemberUpdateEvents = {
 	guildMemberAvatarRemove: [member: GuildMember, oldAvatarURL: string];
 };
 
-@Injectable()
 @CustomListener('guildMemberUpdate')
+@Injectable()
 export class GuildMemberUpdateHandler extends BaseHandler<CustomGuildMemberUpdateEvents> {
 	@CustomListenerHandler()
 	public handleGuildMemberAvatar([oldMember, newMember]: ContextOf<'guildMemberUpdate'>) {

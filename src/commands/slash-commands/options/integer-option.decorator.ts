@@ -1,4 +1,5 @@
 import { ApplicationCommandOptionType, APIApplicationCommandIntegerOption } from 'discord.js';
+
 import { createOptionDecorator } from './option.util';
 
 /**

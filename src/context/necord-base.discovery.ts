@@ -1,8 +1,9 @@
 import { Reflector } from '@nestjs/core';
+
 import { ContextMenuDiscovery, SlashCommandDiscovery } from '../commands';
 import { MessageComponentDiscovery } from '../message-components';
-import { ListenerDiscovery } from '../listeners';
 import { TextCommandDiscovery } from '../text-commands';
+import { ListenerDiscovery } from '../listeners';
 import { ModalDiscovery } from '../modals';
 
 interface DiscoveredItem {

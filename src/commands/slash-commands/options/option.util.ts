@@ -1,5 +1,6 @@
 import { APIApplicationCommandOptionBase } from 'discord-api-types/v10';
 import { ApplicationCommandOptionType } from 'discord.js';
+
 import { OptionMeta } from '../slash-command.discovery';
 
 export const OPTIONS_METADATA = 'necord:options_meta';

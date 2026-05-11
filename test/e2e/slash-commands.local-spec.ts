@@ -1,13 +1,7 @@
-import { createApplication } from './utils.local-spec';
-import {
-	AsyncCustomListenerContext,
-	createCommandGroupDecorator,
-	Ctx,
-	On,
-	Opts,
-	Subcommand
-} from '../../src';
 import { CommandInteraction } from 'discord.js';
+
+import { createCommandGroupDecorator, Ctx, Opts, Subcommand } from '../../src';
+import { createApplication } from './utils.local-spec';
 import { LengthDto } from './dto/length.dto';
 
 const UtilsCommands = createCommandGroupDecorator({

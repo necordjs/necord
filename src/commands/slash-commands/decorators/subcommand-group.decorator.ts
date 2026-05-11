@@ -1,13 +1,14 @@
-import { applyDecorators } from '@nestjs/common';
 import { ApplicationCommandOptionType } from 'discord.js';
+import { applyDecorators } from '@nestjs/common';
+import { Reflector } from '@nestjs/core';
+import { noop } from 'rxjs';
+
 import {
 	RootCommandMeta,
 	SlashCommandDiscovery,
 	SubcommandGroupMeta
 } from '../slash-command.discovery';
 import { SlashCommand } from './slash-command.decorator';
-import { noop } from 'rxjs';
-import { Reflector } from '@nestjs/core';
 
 /**
  * Decorator that marks a method as a subcommand.

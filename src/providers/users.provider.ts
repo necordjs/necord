@@ -1,5 +1,5 @@
-import { Provider } from '@nestjs/common';
 import { Client, UserManager } from 'discord.js';
+import { Provider } from '@nestjs/common';
 
 export const UsersProvider: Provider<UserManager> = {
 	provide: UserManager,

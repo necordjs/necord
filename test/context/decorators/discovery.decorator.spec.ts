@@ -1,5 +1,6 @@
-import { Context, Discovery, NecordParamType } from '../../../src';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
+
+import { Context, Discovery, NecordParamType } from '../../../src';
 
 class Cls {
 	method(@Discovery() context: any) {}

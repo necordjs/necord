@@ -1,5 +1,6 @@
-import { Test } from '@nestjs/testing';
 import { Client, Message } from 'discord.js';
+import { Test } from '@nestjs/testing';
+
 import {
 	NECORD_MODULE_OPTIONS,
 	NecordExplorerService,

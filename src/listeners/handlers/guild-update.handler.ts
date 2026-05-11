@@ -1,8 +1,9 @@
-import { BaseHandler } from './base.handler';
-import { Injectable } from '@nestjs/common';
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { ContextOf } from '../../context';
 import { Guild, GuildFeature, GuildPremiumTier, VoiceChannel } from 'discord.js';
+import { Injectable } from '@nestjs/common';
+
+import { CustomListener, CustomListenerHandler } from '../decorators';
+import { BaseHandler } from './base.handler';
+import { ContextOf } from '../../context';
 
 export type CustomGuildUpdateEvents = {
 	guildBoostLevelUp: [
@@ -29,8 +30,8 @@ export type CustomGuildUpdateEvents = {
 	guildVerificationRemove: [guild: Guild];
 };
 
-@Injectable()
 @CustomListener('guildUpdate')
+@Injectable()
 export class GuildUpdateHandler extends BaseHandler<CustomGuildUpdateEvents> {
 	@CustomListenerHandler()
 	public handleGuildBoostLevel([oldGuild, newGuild]: ContextOf<'guildUpdate'>) {

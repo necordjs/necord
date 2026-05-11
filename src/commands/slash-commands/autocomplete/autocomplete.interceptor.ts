@@ -1,7 +1,8 @@
 import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
-import { Observable, of } from 'rxjs';
-import { AutocompleteContext, NecordExecutionContext } from '../../../context';
 import { AutocompleteInteraction } from 'discord.js';
+import { Observable, of } from 'rxjs';
+
+import { AutocompleteContext, NecordExecutionContext } from '../../../context';
 
 /**
  * The autocomplete interceptor.

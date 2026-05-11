@@ -1,5 +1,6 @@
 import { ApplicationCommandType, Collection } from 'discord.js';
 import { Logger } from '@nestjs/common';
+
 import { ContextMenuDiscovery, ContextMenusService } from '../../../src';
 
 describe('ContextMenusService', () => {

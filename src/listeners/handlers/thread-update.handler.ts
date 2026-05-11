@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
+import { ThreadChannel } from 'discord.js';
+
 import { CustomListener, CustomListenerHandler } from '../decorators';
 import { BaseHandler } from './base.handler';
 import { ContextOf } from '../../context';
-import { ThreadChannel } from 'discord.js';
 
 export type CustomThreadUpdateEvents = {
 	threadStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
@@ -20,8 +21,8 @@ export type CustomThreadUpdateEvents = {
 	];
 };
 
-@Injectable()
 @CustomListener('threadUpdate')
+@Injectable()
 export class ThreadUpdateHandler extends BaseHandler<CustomThreadUpdateEvents> {
 	@CustomListenerHandler()
 	public handleThreadStateUpdate([oldThread, newThread]: ContextOf<'threadUpdate'>) {

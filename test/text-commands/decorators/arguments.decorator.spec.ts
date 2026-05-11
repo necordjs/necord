@@ -1,5 +1,6 @@
-import { Arguments, NecordExecutionContext } from '../../../src';
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
+
+import { Arguments, NecordExecutionContext } from '../../../src';
 
 describe('@Arguments', () => {
 	class Test {

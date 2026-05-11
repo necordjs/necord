@@ -1,5 +1,5 @@
-import { Provider } from '@nestjs/common';
 import { ChannelManager, Client } from 'discord.js';
+import { Provider } from '@nestjs/common';
 
 export const ChannelsProvider: Provider<ChannelManager> = {
 	provide: ChannelManager,
