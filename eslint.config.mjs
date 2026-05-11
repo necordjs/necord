@@ -88,7 +88,7 @@ export default tseslint.config(
 			'@typescript-eslint/prefer-promise-reject-errors': 'off',
 			'@typescript-eslint/no-base-to-string': 'off',
 			'@typescript-eslint/unbound-method': 'off',
-			'@typescript-eslint/only-throw-error': 'off',
+			'@typescript-eslint/only-throw-error': 'off'
 		}
 	}
 );
