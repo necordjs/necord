@@ -18,10 +18,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
-      - name: Install Node v22
+      - name: Install Node
         uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: lts/*
           cache: npm
           cache-dependency-path: package-lock.json
 
