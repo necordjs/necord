@@ -17,7 +17,7 @@ describe('TextCommandsModule', () => {
 	let explorerService: NecordExplorerService<TextCommandDiscovery>;
 	let emitMessageCreate: (message: Partial<Message>) => void;
 
-	beforeEach(async () => {
+	const createModule = async (options: Record<string, unknown> = { prefix: '!' }) => {
 		client = new Client({ intents: [] });
 		textCommandsService = { add: jest.fn(), get: jest.fn() } as any;
 		explorerService = {
@@ -31,7 +31,7 @@ describe('TextCommandsModule', () => {
 			]
 		})
 			.overrideProvider(NECORD_MODULE_OPTIONS)
-			.useValue({ prefix: '!' })
+			.useValue(options)
 			.overrideProvider(Client)
 			.useValue(client)
 			.overrideProvider(TextCommandsService)
@@ -41,7 +41,7 @@ describe('TextCommandsModule', () => {
 			.compile();
 
 		const instance = moduleRef.get(TextCommandsModule);
-		instance.onModuleInit();
+		await instance.onModuleInit();
 		instance.onApplicationBootstrap();
 
 		// simulate client.on('messageCreate')
@@ -49,6 +49,10 @@ describe('TextCommandsModule', () => {
 			const listener = client.rawListeners('messageCreate')[0];
 			if (listener) listener(message);
 		};
+	};
+
+	beforeEach(async () => {
+		await createModule();
 	});
 
 	it('should add commands on module init', () => {
@@ -70,11 +74,32 @@ describe('TextCommandsModule', () => {
 		expect(execute).toHaveBeenCalledWith([msg]);
 	});
 
+	it('should ignore messages without prefix by default', () => {
+		emitMessageCreate({ content: 'hello', author: { bot: false } } as any);
+
+		expect(textCommandsService.get).not.toHaveBeenCalled();
+	});
+
+	it('should handle messages without prefix when allowed globally', async () => {
+		await createModule({ prefix: '!', allowTextCommandsWithoutPrefix: true });
+
+		const execute = jest.fn();
+		(textCommandsService.get as jest.Mock).mockReturnValue({ execute });
+
+		const msg = {
+			content: 'hello',
+			author: { bot: false }
+		};
+
+		emitMessageCreate(msg as any);
+		expect(textCommandsService.get).toHaveBeenCalledWith('hello');
+		expect(execute).toHaveBeenCalledWith([msg]);
+	});
+
 	it('should ignore bot messages and invalid formats', () => {
 		emitMessageCreate({ content: '', author: { bot: true } } as any);
 		emitMessageCreate({ content: null, author: { bot: false } } as any);
 		emitMessageCreate({ content: 'hi', webhookId: '123', author: { bot: false } } as any);
-		emitMessageCreate({ content: 'hi', author: { bot: false } } as any);
 
 		expect(textCommandsService.get).not.toHaveBeenCalled();
 	});

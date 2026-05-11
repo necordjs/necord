@@ -14,12 +14,21 @@ export class TextCommandsService {
 
 	public add(textCommand: TextCommandDiscovery) {
 		const name = textCommand.getName();
+		const aliases = textCommand.getAliases();
 
 		if (this.cache.has(name)) {
 			this.logger.warn(`TextCommand : ${name} already exists`);
 		}
 
-		this.cache.set(name, textCommand);
+		const variants = [name, ...aliases];
+
+		for (const variant of variants) {
+			if (this.cache.has(variant)) {
+				this.logger.warn(`TextCommand : ${variant} already exists`);
+			}
+
+			this.cache.set(variant, textCommand);
+		}
 	}
 
 	public get(name: string) {
