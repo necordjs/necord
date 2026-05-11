@@ -19,7 +19,7 @@ export class TextCommandDiscovery extends NecordBaseDiscovery<TextCommandMeta> {
 	}
 
 	public getAliases() {
-		return this.meta.aliases;
+		return this.meta.aliases ?? [];
 	}
 
 	public override isTextCommand(): this is TextCommandDiscovery {

@@ -34,23 +34,26 @@ export class TextCommandsModule implements OnApplicationBootstrap, OnModuleInit 
 				return;
 
 			const content = message.content.toLowerCase();
-			
-			let args: string[] = [];
-			let cmd: string | undefined;
 
 			const prefix =
 				typeof this.options.prefix !== 'function'
 					? (this.options.prefix ?? '!')
 					: await this.options.prefix(message);
 
-			if (prefix && content.startsWith(prefix)) {
-				const contentWithoutPrefix = content.slice(prefix.length);
-				args = contentWithoutPrefix.split(/ +/g);
-				cmd = args.shift();
-			} else {
-				args = content.split(/ +/g);
-				cmd = args.shift();
+			let contentWithoutPrefix: string;
+
+			const hasPrefix = prefix && content.startsWith(prefix);
+
+			if (hasPrefix) {
+				contentWithoutPrefix = content.slice(prefix.length);
+			} else if (this.options.allowTextCommandsWithoutPrefix) {
+				contentWithoutPrefix = content;
 			}
+
+			if (!contentWithoutPrefix) return;
+
+			const args = contentWithoutPrefix.trim().split(/ +/g);
+			const cmd = args.shift();
 
 			if (!cmd) return;
 

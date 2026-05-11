@@ -14,6 +14,10 @@ export interface NecordModuleOptions extends DiscordClientOptions {
 	 */
 	prefix?: string | Function;
 	/**
+	 * Allows text commands to be used without a prefix when enabled.
+	 */
+	allowTextCommandsWithoutPrefix?: boolean;
+	/**
 	 * As discord caches application commands for up to an hour, it is recommended to specify a development guild when doing development.
 	 *
 	 * * If you do not specify a development guild, your commands and their arguments are likely to be outdated.
