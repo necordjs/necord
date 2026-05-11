@@ -1,6 +1,7 @@
 .idea
 .vscode
 .github
+.npm
 docs
 sample
 src
@@ -10,5 +11,4 @@ test
 .eslintrc
 .gitattributes
 tsconfig.build.json
-yarn.lock
-yarn-error.log
+package-lock.json
