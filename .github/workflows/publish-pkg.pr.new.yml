@@ -8,6 +8,9 @@ on:
     tags:
       - '!**'
 
+permissions:
+  contents: read
+
 jobs:
   publish:
     if: github.actor != 'dependabot[bot]'
