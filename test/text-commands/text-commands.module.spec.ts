@@ -41,7 +41,7 @@ describe('TextCommandsModule', () => {
 			.compile();
 
 		const instance = moduleRef.get(TextCommandsModule);
-		instance.onModuleInit();
+		await instance.onModuleInit();
 		instance.onApplicationBootstrap();
 
 		// simulate client.on('messageCreate')
