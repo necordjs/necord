@@ -1,5 +1,22 @@
 # Changelog
 
+## [6.14.0](https://github.com/necordjs/necord/compare/v6.13.0...v6.14.0) (2026-05-12)
+
+### Features
+
+* added aliases to text commands ([#1710](https://github.com/necordjs/necord/issues/1710)) ([2bbae38](https://github.com/necordjs/necord/commit/2bbae38c630a1f8d944ae30e4121898216f08ba1))
+
+### Refactor
+
+* migrate to npm ([9e74dc5](https://github.com/necordjs/necord/commit/9e74dc5e7742764ba21bdfddb0d2bfc2d7a14e69))
+* migrate to npm ([2517c8a](https://github.com/necordjs/necord/commit/2517c8a93afc42ac1503aacdba607efa52d0bc07))
+* migrate to npm ([b9e7e90](https://github.com/necordjs/necord/commit/b9e7e901feffeb84e307ce5430f1cccc7d7bc0ec))
+
+### Styling
+
+* import perfectionist ([ed15e9d](https://github.com/necordjs/necord/commit/ed15e9df2be1871e65927f5c6812ffb69223d113))
+* remove trailing comma ([728a773](https://github.com/necordjs/necord/commit/728a773b8151acd5c9b41d67d0ea0cc4fd0ba7df))
+
 ## [6.13.0](https://github.com/necordjs/necord/compare/v6.12.0...v6.13.0) (2026-04-25)
 
 ### Bug Fixes
