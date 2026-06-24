@@ -71,8 +71,8 @@
 		"tslib": "^2.8.1"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "21.0.2",
-		"@commitlint/config-angular": "21.0.2",
+		"@commitlint/cli": "21.1.0",
+		"@commitlint/config-angular": "21.1.0",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^10.0.1",
 		"@nestjs/common": "11.1.27",
