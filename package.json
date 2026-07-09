@@ -71,7 +71,7 @@
 		"tslib": "^2.8.1"
 	},
 	"devDependencies": {
-		"@commitlint/cli": "21.2.0",
+		"@commitlint/cli": "21.2.1",
 		"@commitlint/config-angular": "21.2.0",
 		"@eslint/eslintrc": "^3.2.0",
 		"@eslint/js": "^10.0.1",
@@ -98,7 +98,7 @@
 		"rxjs": "7.8.2",
 		"ts-jest": "^29.3.2",
 		"ts-node": "10.9.2",
-		"typescript": "6.0.3",
+		"typescript": "7.0.2",
 		"typescript-eslint": "^8.21.0"
 	},
 	"peerDependencies": {
