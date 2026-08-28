@@ -80,7 +80,7 @@
 		"@nestjs/testing": "^11.1.0",
 		"@release-it/conventional-changelog": "^12.0.0",
 		"@types/jest": "^30.0.0",
-		"@types/node": "26.2.0",
+		"@types/node": "26.3.0",
 		"discord-api-types": "0.38.53",
 		"discord.js": "14.27.0",
 		"eslint": "^10.0.0",
