@@ -12,8 +12,12 @@ permissions:
 
 jobs:
   build:
-    name: Build and Test
+    name: Build and Test (Node ${{ matrix.node-version }})
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node-version: ['20.19.0', '22.13.0', 'lts/*']
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
@@ -21,23 +25,30 @@ jobs:
       - name: Install Node
         uses: actions/setup-node@v7
         with:
-          node-version: lts/*
+          node-version: ${{ matrix.node-version }}
           cache: npm
           cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Run ESlint
+      - name: Run Oxlint
         run: npm run lint
 
-      - name: Run Build
+      - name: Run TypeScript typecheck
+        run: npm run typecheck
+
+      - name: Build package
         run: npm run build
 
-      - name: Run Tests
+      - name: Verify package boundary
+        run: npm run test:package
+
+      - name: Run Vitest with coverage
         run: npm run test:ci
 
       - name: Upload coverage reports to Codecov
+        if: matrix.node-version == 'lts/*'
         uses: codecov/codecov-action@v7
         with:
           token: ${{ secrets.CODECOV_TOKEN }}

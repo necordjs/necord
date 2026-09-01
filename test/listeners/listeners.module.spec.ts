@@ -11,7 +11,7 @@ import {
 	ListenersModule,
 	NecordExplorerService,
 	NecordModule
-} from '../../src';
+} from '../../src/index.js';
 
 describe('ListenersModule', () => {
 	let client: Client;
@@ -43,7 +43,7 @@ describe('ListenersModule', () => {
 	describe('should register handlers on startup', () => {
 		it('should register listeners on module init', () => {
 			const explorerService = moduleRef.get(NecordExplorerService);
-			const exploreSpy = jest.spyOn(explorerService, 'explore');
+			const exploreSpy = vi.spyOn(explorerService, 'explore');
 
 			listenersModule.onModuleInit();
 
@@ -52,7 +52,7 @@ describe('ListenersModule', () => {
 
 		it('should register custom handlers on application bootstrap', () => {
 			const discoveryService = moduleRef.get(DiscoveryService);
-			const getProvidersSpy = jest.spyOn(discoveryService, 'getProviders');
+			const getProvidersSpy = vi.spyOn(discoveryService, 'getProviders');
 
 			listenersModule.onApplicationBootstrap();
 
@@ -66,25 +66,24 @@ describe('ListenersModule', () => {
 			type: 'once'
 		});
 
-		beforeEach(async () => {
-			jest.spyOn(listenerDiscovery, 'execute').mockImplementation();
-		});
-
 		it('should handle listener events', () => {
+			const executeSpy = vi
+				.spyOn(listenerDiscovery, 'execute')
+				.mockImplementation(() => undefined);
 			const explorerService = moduleRef.get(NecordExplorerService);
-			jest.spyOn(explorerService, 'explore').mockReturnValue([listenerDiscovery]);
+			vi.spyOn(explorerService, 'explore').mockReturnValue([listenerDiscovery]);
 
 			listenersModule.onModuleInit();
 
 			emitEvent('ready');
 
-			expect(listenerDiscovery.execute).toHaveBeenCalled();
+			expect(executeSpy).toHaveBeenCalled();
 		});
 
 		@CustomListener('messageCreate')
 		class CustomListenerExample {
 			@CustomListenerHandler()
-			handleEvent(args: any[]) {
+			handleEvent(_args: any[]) {
 				// handle the event
 			}
 		}
@@ -92,14 +91,14 @@ describe('ListenersModule', () => {
 		it('should handle custom listener events', () => {
 			const discoveryService = moduleRef.get(DiscoveryService);
 			const instance = new CustomListenerExample();
-			const getProvidersSpy = jest.spyOn(discoveryService, 'getProviders').mockReturnValue([
+			const getProvidersSpy = vi.spyOn(discoveryService, 'getProviders').mockReturnValue([
 				{
 					instance,
 					metatype: CustomListenerExample
 				} as any
 			]);
-			const handlers = jest.spyOn(discoveryService, 'getMetadataByDecorator');
-			jest.spyOn(instance, 'handleEvent');
+			const handlers = vi.spyOn(discoveryService, 'getMetadataByDecorator');
+			const handleEventSpy = vi.spyOn(instance, 'handleEvent');
 
 			listenersModule.onApplicationBootstrap();
 
@@ -108,22 +107,22 @@ describe('ListenersModule', () => {
 			expect(getProvidersSpy).toHaveBeenCalledWith({ metadataKey: CustomListener.KEY });
 			expect(handlers).toHaveBeenCalledWith(CustomListener, expect.any(Object));
 			expect(handlers).toHaveLastReturnedWith('messageCreate');
-			expect(instance.handleEvent).toHaveBeenCalledWith(['test message']);
+			expect(handleEventSpy).toHaveBeenCalledWith(['test message']);
 		});
 
 		it('should execute custom listeners within the async custom listener context', () => {
 			const discoveryService = moduleRef.get(DiscoveryService);
 			const instance = new CustomListenerExample();
 
-			jest.spyOn(discoveryService, 'getProviders').mockReturnValue([
+			vi.spyOn(discoveryService, 'getProviders').mockReturnValue([
 				{
 					instance,
 					metatype: CustomListenerExample
 				} as any
 			]);
-			jest.spyOn(discoveryService, 'getMetadataByDecorator');
+			vi.spyOn(discoveryService, 'getMetadataByDecorator');
 
-			jest.spyOn(instance, 'handleEvent').mockImplementation(args => {
+			const handleEventSpy = vi.spyOn(instance, 'handleEvent').mockImplementation(args => {
 				expect(AsyncCustomListenerContext.isAttached()).toBe(true);
 				expect(AsyncCustomListenerContext.getCurrentContext().getRootEvent()).toBe(
 					'messageCreate'
@@ -135,7 +134,7 @@ describe('ListenersModule', () => {
 				return args;
 			});
 
-			const runInContextSpy = jest.spyOn(AsyncCustomListenerContext, 'runInContext');
+			const runInContextSpy = vi.spyOn(AsyncCustomListenerContext, 'runInContext');
 
 			listenersModule.onApplicationBootstrap();
 
@@ -148,11 +147,11 @@ describe('ListenersModule', () => {
 				},
 				expect.any(Function)
 			);
-			expect(instance.handleEvent).toHaveBeenCalledWith(['scoped payload']);
+			expect(handleEventSpy).toHaveBeenCalledWith(['scoped payload']);
 		});
 	});
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 });

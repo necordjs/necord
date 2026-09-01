@@ -1,4 +1,4 @@
-import { Button, MessageComponent, MessageComponentDiscovery } from '../../../src';
+import { Button, MessageComponent, MessageComponentDiscovery } from '../../../src/index.js';
 
 describe('@Button', () => {
 	class Test {

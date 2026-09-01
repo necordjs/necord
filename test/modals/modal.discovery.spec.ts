@@ -1,4 +1,4 @@
-import { ModalDiscovery } from '../../src';
+import { ModalDiscovery } from '../../src/index.js';
 
 describe('ModalDiscovery', () => {
 	it('should be defined', () => {

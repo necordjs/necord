@@ -1,12 +1,12 @@
 import { Global, Inject, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
-import { NecordExplorerService } from '../necord-explorer.service';
-import { NecordModuleOptions } from '../necord-options.interface';
-import { TextCommandDiscovery } from './text-command.discovery';
-import { TextCommandsService } from './text-commands.service';
-import { TextCommand } from './decorators';
+import { NECORD_MODULE_OPTIONS } from '../necord.module-definition.js';
+import { NecordExplorerService } from '../necord-explorer.service.js';
+import { NecordModuleOptions } from '../necord-options.interface.js';
+import { TextCommandDiscovery } from './text-command.discovery.js';
+import { TextCommandsService } from './text-commands.service.js';
+import { TextCommand } from './decorators/index.js';
 
 @Global()
 @Module({
@@ -40,7 +40,7 @@ export class TextCommandsModule implements OnApplicationBootstrap, OnModuleInit 
 					? (this.options.prefix ?? '!')
 					: await this.options.prefix(message);
 
-			let contentWithoutPrefix: string;
+			let contentWithoutPrefix = '';
 
 			const hasPrefix = prefix && content.startsWith(prefix);
 

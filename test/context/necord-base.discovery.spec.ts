@@ -1,4 +1,4 @@
-import { NecordBaseDiscovery, SlashCommandDiscovery } from '../../src';
+import { NecordBaseDiscovery, SlashCommandDiscovery } from '../../src/index.js';
 
 class TestDiscovery extends NecordBaseDiscovery<{ name: string }> {
 	public isSlashCommand(): this is SlashCommandDiscovery {

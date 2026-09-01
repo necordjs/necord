@@ -5,11 +5,10 @@ import {
 	MentionableSelect,
 	MessageComponent,
 	MessageComponentDiscovery,
-	ModalDiscovery,
 	RoleSelect,
 	StringSelect,
 	UserSelect
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('Selected Menu Decorators', () => {
 	describe.each([

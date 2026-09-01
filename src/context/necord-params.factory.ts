@@ -1,14 +1,14 @@
 import { ParamsFactory } from '@nestjs/core/helpers/external-context-creator';
 import { ParamData } from '@nestjs/common';
 
-import { NecordParamType } from './necord-paramtype.enum';
-import { NecordBaseDiscovery } from '../context';
+import { NecordParamType } from './necord-paramtype.enum.js';
+import { NecordBaseDiscovery } from '../context/index.js';
 
 export class NecordParamsFactory implements ParamsFactory {
 	public exchangeKeyForValue(
 		type: NecordParamType,
-		data: ParamData,
-		args: [Array<any>, NecordBaseDiscovery]
+		data: ParamData | undefined,
+		args?: [Array<any>, NecordBaseDiscovery]
 	): any {
 		if (!args) return null;
 

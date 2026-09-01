@@ -1,4 +1,4 @@
-import { SlashCommand, SlashCommandDiscovery } from '../../../../src';
+import { SlashCommand, SlashCommandDiscovery } from '../../../../src/index.js';
 
 describe('@SlashCommand', () => {
 	class Test {

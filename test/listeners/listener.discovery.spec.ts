@@ -1,4 +1,4 @@
-import { ListenerDiscovery, ListenerMeta } from '../../src';
+import { ListenerDiscovery, ListenerMeta } from '../../src/index.js';
 
 describe('ListenerDiscovery', () => {
 	let discovery: ListenerDiscovery;
@@ -20,7 +20,7 @@ describe('ListenerDiscovery', () => {
 	});
 
 	it('should set and execute context callback', () => {
-		const contextCallback = jest.fn((ctx, disc) => ({ ctx, disc }));
+		const contextCallback = vi.fn<(...args: any[]) => any>((ctx, disc) => ({ ctx, disc }));
 		discovery.setContextCallback(contextCallback);
 
 		const context = ['testContext'];

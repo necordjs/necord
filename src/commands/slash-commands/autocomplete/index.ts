@@ -1,1 +1,1 @@
-export * from './autocomplete.interceptor';
+export * from './autocomplete.interceptor.js';

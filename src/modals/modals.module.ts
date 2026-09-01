@@ -1,10 +1,10 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { NecordExplorerService } from '../necord-explorer.service';
-import { ModalDiscovery } from './modal.discovery';
-import { ModalsService } from './modals.service';
-import { Modal } from './decorators';
+import { NecordExplorerService } from '../necord-explorer.service.js';
+import { ModalDiscovery } from './modal.discovery.js';
+import { ModalsService } from './modals.service.js';
+import { Modal } from './decorators/index.js';
 
 @Global()
 @Module({

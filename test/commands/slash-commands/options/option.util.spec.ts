@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType } from 'discord-api-types/v10';
 
-import { createOptionDecorator, OPTIONS_METADATA } from '../../../../src';
+import { createOptionDecorator, OPTIONS_METADATA } from '../../../../src/index.js';
 
 describe('createOptionDecorator', () => {
 	const IntOption = createOptionDecorator(ApplicationCommandOptionType.Integer, 'getInteger');

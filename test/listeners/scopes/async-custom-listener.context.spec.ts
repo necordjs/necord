@@ -1,8 +1,8 @@
-import { AsyncCustomListenerContext } from '../../../src';
+import { AsyncCustomListenerContext } from '../../../src/index.js';
 
 describe('AsyncCustomListenerContext', () => {
 	it('should run the callback inside the context and expose the root event and args', () => {
-		const callback = jest.fn(() => {
+		const callback = vi.fn<(...args: any[]) => any>(() => {
 			const context = AsyncCustomListenerContext.getCurrentContext();
 			expect(context.getRootEvent()).toBe('messageCreate');
 			expect(context.getRootArgs()).toEqual(['payload']);

@@ -1,3 +1,3 @@
-export * from './slash-command.decorator';
-export * from './subcommand-group.decorator';
-export * from './subcommand.decorator';
+export * from './slash-command.decorator.js';
+export * from './subcommand-group.decorator.js';
+export * from './subcommand.decorator.js';

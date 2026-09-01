@@ -1,4 +1,4 @@
-import { TextCommandDiscovery } from '../../src';
+import { TextCommandDiscovery } from '../../src/index.js';
 
 describe('TextCommandDiscovery', () => {
 	it('should be defined', () => {

@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Collection } from 'discord.js';
 
-import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery';
+import { MessageComponentDiscovery, MessageComponentMeta } from './message-component.discovery.js';
 
 /**
  * Service that manages message components.

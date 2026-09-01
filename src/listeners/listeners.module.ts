@@ -2,18 +2,18 @@ import { DiscoveryModule, DiscoveryService, MetadataScanner, Reflector } from '@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { AsyncCustomListenerContext, AsyncCustomListenerContextOptions } from './scopes';
-import { CustomListener, CustomListenerHandler, Listener } from './decorators';
-import { NecordExplorerService } from '../necord-explorer.service';
-import { ListenerDiscovery } from './listener.discovery';
-import * as CustomListeners from './handlers';
+import { AsyncCustomListenerContext, AsyncCustomListenerContextOptions } from './scopes/index.js';
+import { CustomListener, CustomListenerHandler, Listener } from './decorators/index.js';
+import { NecordExplorerService } from '../necord-explorer.service.js';
+import { ListenerDiscovery } from './listener.discovery.js';
+import * as CustomListeners from './handlers/index.js';
 
-const { BaseHandler, ...listeners } = CustomListeners;
+const { BaseHandler: _, ...LISTENERS } = CustomListeners;
 
 @Global()
 @Module({
 	imports: [DiscoveryModule],
-	providers: Object.values(listeners)
+	providers: Object.values(LISTENERS)
 })
 export class ListenersModule implements OnApplicationBootstrap, OnModuleInit {
 	public constructor(
@@ -46,6 +46,11 @@ export class ListenersModule implements OnApplicationBootstrap, OnModuleInit {
 			);
 
 			const instance = wrapper.instance;
+
+			if (!customListener || !instance) {
+				continue;
+			}
+
 			const prototype = Object.getPrototypeOf(instance);
 			const methods = this.metadataScanner
 				.getAllMethodNames(prototype)

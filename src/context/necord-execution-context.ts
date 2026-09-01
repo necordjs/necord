@@ -1,6 +1,6 @@
 import { ContextType, ExecutionContext } from '@nestjs/common';
 
-import { NecordArgumentsHost } from './necord-arguments-host';
+import { NecordArgumentsHost } from './necord-arguments-host.js';
 
 export type NecordContextType = 'necord' | ContextType;
 

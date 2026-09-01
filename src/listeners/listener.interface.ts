@@ -11,7 +11,7 @@ import {
 	CustomThreadUpdateEvents,
 	CustomUserUpdateEvents,
 	CustomVoiceStateUpdateEvents
-} from './handlers';
+} from './handlers/index.js';
 
 export type NecordEvents = ClientEvents &
 	CustomChannelUpdateEvents &

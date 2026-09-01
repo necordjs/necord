@@ -1,3 +1,5 @@
+import type { Mock } from 'vitest';
+
 import { Client, Interaction } from 'discord.js';
 import { Test } from '@nestjs/testing';
 
@@ -9,20 +11,25 @@ import {
 	NECORD_MODULE_OPTIONS,
 	NecordExplorerService,
 	NecordModule
-} from '../../src';
+} from '../../src/index.js';
 
 describe('MessageComponentsModule', () => {
 	let client: Client;
-	let componentsService: MessageComponentsService;
-	let explorerService: NecordExplorerService<MessageComponentDiscovery>;
+	let componentsServiceMock: { add: Mock; get: Mock };
+	let explorerServiceMock: { explore: Mock };
 	let emitInteractionCreate: (interaction: Partial<Interaction>) => void;
 
 	beforeEach(async () => {
 		client = new Client({ intents: [] });
-		componentsService = { add: jest.fn(), get: jest.fn() } as any;
-		explorerService = {
-			explore: jest.fn().mockReturnValue([{ customId: 'test' }])
-		} as any;
+		componentsServiceMock = {
+			add: vi.fn<(component: MessageComponentDiscovery) => void>(),
+			get: vi.fn<MessageComponentsService['get']>()
+		};
+		explorerServiceMock = {
+			explore: vi
+				.fn<() => Array<{ customId: string }>>()
+				.mockReturnValue([{ customId: 'test' }])
+		};
 
 		const moduleRef = await Test.createTestingModule({
 			imports: [NecordModule.forRoot({ intents: [], token: '' }), MessageComponentsModule]
@@ -32,9 +39,9 @@ describe('MessageComponentsModule', () => {
 			.overrideProvider(Client)
 			.useValue(client)
 			.overrideProvider(MessageComponentsService)
-			.useValue(componentsService)
+			.useValue(componentsServiceMock)
 			.overrideProvider(NecordExplorerService)
-			.useValue(explorerService)
+			.useValue(explorerServiceMock)
 			.compile();
 
 		const instance = moduleRef.get(MessageComponentsModule);
@@ -49,13 +56,13 @@ describe('MessageComponentsModule', () => {
 	});
 
 	it('should add components on module init', () => {
-		expect(explorerService.explore).toHaveBeenCalledWith(MessageComponent.KEY);
-		expect(componentsService.add).toHaveBeenCalledWith({ customId: 'test' });
+		expect(explorerServiceMock.explore).toHaveBeenCalledWith(MessageComponent.KEY);
+		expect(componentsServiceMock.add).toHaveBeenCalledWith({ customId: 'test' });
 	});
 
 	it('should handle message component interaction', () => {
-		const execute = jest.fn();
-		(componentsService.get as jest.Mock).mockReturnValue({ execute });
+		const execute = vi.fn<(interaction: unknown) => void>();
+		componentsServiceMock.get.mockReturnValue({ execute });
 
 		const interaction = {
 			isMessageComponent: () => true,
@@ -68,6 +75,6 @@ describe('MessageComponentsModule', () => {
 
 	it('should ignore non-message component interactions', () => {
 		emitInteractionCreate({ isMessageComponent: () => false } as any);
-		expect(componentsService.get).not.toHaveBeenCalled();
+		expect(componentsServiceMock.get).not.toHaveBeenCalled();
 	});
 });

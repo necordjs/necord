@@ -1,4 +1,4 @@
-import { TextCommand, TextCommandDiscovery } from '../../../src';
+import { TextCommand, TextCommandDiscovery } from '../../../src/index.js';
 
 describe('@TextCommand', () => {
 	class Test {

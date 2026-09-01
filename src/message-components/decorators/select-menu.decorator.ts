@@ -1,6 +1,6 @@
 import { ComponentType } from 'discord.js';
 
-import { MessageComponent } from './message-component.decorator';
+import { MessageComponent } from './message-component.decorator.js';
 
 /**
  * Select Menu for picking defined text options

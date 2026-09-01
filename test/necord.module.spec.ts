@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { Client } from 'discord.js';
 
-import { NecordModule, NecordModuleOptions } from '../src';
+import { NecordModule, NecordModuleOptions } from '../src/index.js';
 
 describe('NecordModule', () => {
 	let moduleRef: TestingModule;
@@ -22,7 +22,7 @@ describe('NecordModule', () => {
 	});
 
 	it('should login on application bootstrap', async () => {
-		const loginSpy = jest.spyOn(client, 'login').mockResolvedValue('logged');
+		const loginSpy = vi.spyOn(client, 'login').mockResolvedValue('logged');
 
 		const necordModule = moduleRef.get(NecordModule);
 		await necordModule.onApplicationBootstrap();
@@ -31,7 +31,7 @@ describe('NecordModule', () => {
 	});
 
 	it('should destroy client on shutdown', async () => {
-		const destroySpy = jest.spyOn(client, 'destroy').mockResolvedValue();
+		const destroySpy = vi.spyOn(client, 'destroy').mockResolvedValue();
 
 		const necordModule = moduleRef.get(NecordModule);
 		await necordModule.onApplicationShutdown();
@@ -40,6 +40,6 @@ describe('NecordModule', () => {
 	});
 
 	afterEach(async () => {
-		jest.resetAllMocks();
+		vi.resetAllMocks();
 	});
 });

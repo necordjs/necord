@@ -1,15 +1,15 @@
 import { AutocompleteInteraction, CommandInteraction } from 'discord.js';
 import { Injectable, UseInterceptors } from '@nestjs/common';
 
-import { AutocompleteInterceptor, Ctx, Opts, SlashCommand } from '../../src';
-import { createApplication } from './utils.local-spec';
-import { Style, ThemeDto } from './dto/theme.dto';
+import { AutocompleteInterceptor, Ctx, Opts, SlashCommand } from '../../src/index.js';
+import { createApplication } from './utils.local-spec.js';
+import { Style, ThemeDto } from './dto/theme.dto.js';
 
 @Injectable()
 class ThemeAutocompleteInterceptor extends AutocompleteInterceptor {
 	public transformOptions(interaction: AutocompleteInteraction) {
 		const focused = interaction.options.getFocused(true);
-		let choices: string[];
+		let choices: string[] = [];
 
 		if (focused.name === 'style') {
 			choices = Object.values(Style);

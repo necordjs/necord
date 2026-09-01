@@ -1,4 +1,4 @@
-import { ASYNC_CONTEXT_ATTRIBUTE, AsyncContext } from '../../src';
+import { ASYNC_CONTEXT_ATTRIBUTE, AsyncContext } from '../../src/index.js';
 
 describe('AsyncContext', () => {
 	it('should create a unique context id', () => {

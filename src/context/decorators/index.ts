@@ -1,2 +1,2 @@
-export * from './context.decorator';
-export * from './discovery.decorator';
+export * from './context.decorator.js';
+export * from './discovery.decorator.js';

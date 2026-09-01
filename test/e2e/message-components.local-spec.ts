@@ -39,8 +39,8 @@ import {
 	StringSelectContext,
 	UserSelect,
 	UserSelectContext
-} from '../../src';
-import { createApplication } from './utils.local-spec';
+} from '../../src/index.js';
+import { createApplication } from './utils.local-spec.js';
 
 @Injectable()
 export class MessageComponentsLocalSpec {

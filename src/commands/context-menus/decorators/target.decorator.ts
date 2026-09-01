@@ -1,6 +1,6 @@
 import { createParamDecorator } from '@nestjs/common';
 
-import { NecordExecutionContext } from '../../../context';
+import { NecordExecutionContext } from '../../../context/index.js';
 
 /**
  * Decorator that injects the target message of a message context menu command.

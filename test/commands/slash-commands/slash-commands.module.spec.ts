@@ -1,3 +1,5 @@
+import type { Mock } from 'vitest';
+
 import { Client, Interaction } from 'discord.js';
 import { Test } from '@nestjs/testing';
 
@@ -6,25 +8,27 @@ import {
 	NecordExplorerService,
 	NecordModule,
 	SlashCommand,
-	SlashCommandDiscovery,
 	SlashCommandsModule,
 	SlashCommandsService,
 	Subcommand
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('SlashCommandsModule', () => {
 	let client: Client;
-	let slashCommandsService: SlashCommandsService;
+	let slashCommandsServiceMock: { add: Mock; get: Mock };
 	let slashCommandsModule: SlashCommandsModule;
-	let explorerService: NecordExplorerService<SlashCommandDiscovery>;
+	let explorerServiceMock: { explore: Mock };
 	let emitInteractionCreate: (interaction: Partial<Interaction>) => void;
 
 	beforeEach(async () => {
 		client = new Client({ intents: [] });
-		slashCommandsService = { add: jest.fn(), get: jest.fn() } as any;
-		explorerService = {
-			explore: jest.fn()
-		} as any;
+		slashCommandsServiceMock = {
+			add: vi.fn<(...args: any[]) => any>(),
+			get: vi.fn<(...args: any[]) => any>()
+		};
+		explorerServiceMock = {
+			explore: vi.fn<(...args: any[]) => any>()
+		};
 
 		const moduleRef = await Test.createTestingModule({
 			imports: [NecordModule.forRoot({ intents: [], token: '' }), SlashCommandsModule]
@@ -34,9 +38,9 @@ describe('SlashCommandsModule', () => {
 			.overrideProvider(Client)
 			.useValue(client)
 			.overrideProvider(SlashCommandsService)
-			.useValue(slashCommandsService)
+			.useValue(slashCommandsServiceMock)
 			.overrideProvider(NecordExplorerService)
-			.useValue(explorerService)
+			.useValue(explorerServiceMock)
 			.compile();
 
 		slashCommandsModule = moduleRef.get(SlashCommandsModule);
@@ -49,22 +53,22 @@ describe('SlashCommandsModule', () => {
 	});
 
 	it('should add slash commands and subcommands on module init', () => {
-		jest.spyOn(explorerService, 'explore')
+		explorerServiceMock.explore
 			.mockReturnValueOnce([{ customId: 'test' }] as any)
 			.mockReturnValueOnce([]);
 
 		slashCommandsModule.onModuleInit();
 
-		expect(explorerService.explore).toHaveBeenCalledWith(SlashCommand.KEY);
-		expect(explorerService.explore).toHaveBeenCalledWith(Subcommand.KEY);
-		expect(slashCommandsService.add).toHaveBeenCalledWith({ customId: 'test' });
+		expect(explorerServiceMock.explore).toHaveBeenCalledWith(SlashCommand.KEY);
+		expect(explorerServiceMock.explore).toHaveBeenCalledWith(Subcommand.KEY);
+		expect(slashCommandsServiceMock.add).toHaveBeenCalledWith({ customId: 'test' });
 	});
 
 	it('should handle chat input interaction', () => {
 		slashCommandsModule.onApplicationBootstrap();
 
-		const execute = jest.fn();
-		(slashCommandsService.get as jest.Mock).mockReturnValue({ execute });
+		const execute = vi.fn<(...args: any[]) => any>();
+		slashCommandsServiceMock.get.mockReturnValue({ execute });
 
 		const interaction = {
 			isChatInputCommand: () => true,
@@ -83,6 +87,6 @@ describe('SlashCommandsModule', () => {
 			isAutocomplete: () => false
 		} as any);
 
-		expect(slashCommandsService.get).not.toHaveBeenCalled();
+		expect(slashCommandsServiceMock.get).not.toHaveBeenCalled();
 	});
 });

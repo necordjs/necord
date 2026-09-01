@@ -1,10 +1,10 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { NecordExplorerService } from '../../necord-explorer.service';
-import { ContextMenuDiscovery } from './context-menu.discovery';
-import { ContextMenusService } from './context-menus.service';
-import { ContextMenu } from './decorators';
+import { NecordExplorerService } from '../../necord-explorer.service.js';
+import { ContextMenuDiscovery } from './context-menu.discovery.js';
+import { ContextMenusService } from './context-menus.service.js';
+import { ContextMenu } from './decorators/index.js';
 
 @Global()
 @Module({

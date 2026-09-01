@@ -1,4 +1,4 @@
-import { createCustomOnDecorator, Listener, ListenerDiscovery, On } from '../../../src';
+import { createCustomOnDecorator, Listener, ListenerDiscovery, On } from '../../../src/index.js';
 
 describe('@On', () => {
 	class Test {

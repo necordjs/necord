@@ -1,7 +1,7 @@
 import { ComponentType } from 'discord-api-types/v10';
 import { MessageComponentType } from 'discord.js';
 
-import { MessageComponentDiscovery, MessageComponentsService, ModalDiscovery } from '../../src';
+import { MessageComponentDiscovery, MessageComponentsService } from '../../src/index.js';
 
 describe('MessageComponentsService', () => {
 	let service: MessageComponentsService;
@@ -33,7 +33,9 @@ describe('MessageComponentsService', () => {
 	});
 
 	it('should warn if a component is already added', () => {
-		const loggerWarnSpy = jest.spyOn(service['logger'], 'warn').mockImplementation();
+		const loggerWarnSpy = vi
+			.spyOn(service['logger'], 'warn')
+			.mockImplementation(() => undefined);
 		const type = ComponentType.Button;
 		const customId = 'duplicate-button';
 		const component = new MessageComponentDiscovery({ type, customId });

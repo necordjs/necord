@@ -1,6 +1,6 @@
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 
-import { ModalParam, NecordExecutionContext } from '../../../src';
+import { ModalParam, NecordExecutionContext } from '../../../src/index.js';
 
 describe('@ModalParam', () => {
 	class TestModalAll {

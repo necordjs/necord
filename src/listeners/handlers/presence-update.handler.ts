@@ -1,9 +1,9 @@
 import { GuildMember, PresenceStatus } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { BaseHandler } from './base.handler';
-import { ContextOf } from '../../context';
+import { CustomListener, CustomListenerHandler } from '../decorators/index.js';
+import { ContextOf } from '../../context/index.js';
+import { BaseHandler } from './base.handler.js';
 
 export type CustomPresenceUpdateEvents = {
 	guildMemberOffline: [member: GuildMember, oldStatus: PresenceStatus];
@@ -15,7 +15,7 @@ export type CustomPresenceUpdateEvents = {
 export class PresenceUpdateHandler extends BaseHandler<CustomPresenceUpdateEvents> {
 	@CustomListenerHandler()
 	public handlePresenceUpdate([oldPresence, newPresence]: ContextOf<'presenceUpdate'>) {
-		if (!oldPresence) return;
+		if (!oldPresence || !newPresence.member) return;
 
 		if (oldPresence.status !== 'offline' && newPresence.status === 'offline') {
 			this.emit('guildMemberOffline', newPresence.member, oldPresence.status);

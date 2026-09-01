@@ -7,8 +7,8 @@ import {
 	RootCommandMeta,
 	SlashCommandDiscovery,
 	SubcommandGroupMeta
-} from '../slash-command.discovery';
-import { SlashCommand } from './slash-command.decorator';
+} from '../slash-command.discovery.js';
+import { SlashCommand } from './slash-command.decorator.js';
 
 /**
  * Decorator that marks a method as a subcommand.

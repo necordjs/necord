@@ -1,3 +1,5 @@
+import type { Mock } from 'vitest';
+
 import { Client, Message } from 'discord.js';
 import { Test } from '@nestjs/testing';
 
@@ -6,23 +8,25 @@ import {
 	NecordExplorerService,
 	NecordModule,
 	TextCommand,
-	TextCommandDiscovery,
 	TextCommandsModule,
 	TextCommandsService
-} from '../../src';
+} from '../../src/index.js';
 
 describe('TextCommandsModule', () => {
 	let client: Client;
-	let textCommandsService: TextCommandsService;
-	let explorerService: NecordExplorerService<TextCommandDiscovery>;
+	let textCommandsServiceMock: { add: Mock; get: Mock };
+	let explorerServiceMock: { explore: Mock };
 	let emitMessageCreate: (message: Partial<Message>) => void;
 
 	const createModule = async (options: Record<string, unknown> = { prefix: '!' }) => {
 		client = new Client({ intents: [] });
-		textCommandsService = { add: jest.fn(), get: jest.fn() } as any;
-		explorerService = {
-			explore: jest.fn().mockReturnValue([{ name: 'test' }])
-		} as any;
+		textCommandsServiceMock = {
+			add: vi.fn<(...args: any[]) => any>(),
+			get: vi.fn<(...args: any[]) => any>()
+		};
+		explorerServiceMock = {
+			explore: vi.fn<(...args: any[]) => any>().mockReturnValue([{ name: 'test' }])
+		};
 
 		const moduleRef = await Test.createTestingModule({
 			imports: [
@@ -35,9 +39,9 @@ describe('TextCommandsModule', () => {
 			.overrideProvider(Client)
 			.useValue(client)
 			.overrideProvider(TextCommandsService)
-			.useValue(textCommandsService)
+			.useValue(textCommandsServiceMock)
 			.overrideProvider(NecordExplorerService)
-			.useValue(explorerService)
+			.useValue(explorerServiceMock)
 			.compile();
 
 		const instance = moduleRef.get(TextCommandsModule);
@@ -56,13 +60,13 @@ describe('TextCommandsModule', () => {
 	});
 
 	it('should add commands on module init', () => {
-		expect(explorerService.explore).toHaveBeenCalledWith(TextCommand.KEY);
-		expect(textCommandsService.add).toHaveBeenCalledWith({ name: 'test' });
+		expect(explorerServiceMock.explore).toHaveBeenCalledWith(TextCommand.KEY);
+		expect(textCommandsServiceMock.add).toHaveBeenCalledWith({ name: 'test' });
 	});
 
 	it('should handle valid command message', async () => {
-		const execute = jest.fn();
-		(textCommandsService.get as jest.Mock).mockReturnValue({ execute });
+		const execute = vi.fn<(...args: any[]) => any>();
+		textCommandsServiceMock.get.mockReturnValue({ execute });
 
 		const msg = {
 			content: '!hello',
@@ -77,14 +81,14 @@ describe('TextCommandsModule', () => {
 	it('should ignore messages without prefix by default', () => {
 		emitMessageCreate({ content: 'hello', author: { bot: false } } as any);
 
-		expect(textCommandsService.get).not.toHaveBeenCalled();
+		expect(textCommandsServiceMock.get).not.toHaveBeenCalled();
 	});
 
 	it('should handle messages without prefix when allowed globally', async () => {
 		await createModule({ prefix: '!', allowTextCommandsWithoutPrefix: true });
 
-		const execute = jest.fn();
-		(textCommandsService.get as jest.Mock).mockReturnValue({ execute });
+		const execute = vi.fn<(...args: any[]) => any>();
+		textCommandsServiceMock.get.mockReturnValue({ execute });
 
 		const msg = {
 			content: 'hello',
@@ -92,7 +96,7 @@ describe('TextCommandsModule', () => {
 		};
 
 		emitMessageCreate(msg as any);
-		expect(textCommandsService.get).toHaveBeenCalledWith('hello');
+		expect(textCommandsServiceMock.get).toHaveBeenCalledWith('hello');
 		expect(execute).toHaveBeenCalledWith([msg]);
 	});
 
@@ -101,6 +105,6 @@ describe('TextCommandsModule', () => {
 		emitMessageCreate({ content: null, author: { bot: false } } as any);
 		emitMessageCreate({ content: 'hi', webhookId: '123', author: { bot: false } } as any);
 
-		expect(textCommandsService.get).not.toHaveBeenCalled();
+		expect(textCommandsServiceMock.get).not.toHaveBeenCalled();
 	});
 });

@@ -1,10 +1,10 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { NecordExplorerService } from '../../necord-explorer.service';
-import { SlashCommandDiscovery } from './slash-command.discovery';
-import { SlashCommandsService } from './slash-commands.service';
-import { SlashCommand, Subcommand } from './decorators';
+import { NecordExplorerService } from '../../necord-explorer.service.js';
+import { SlashCommandDiscovery } from './slash-command.discovery.js';
+import { SlashCommandsService } from './slash-commands.service.js';
+import { SlashCommand, Subcommand } from './decorators/index.js';
 
 @Global()
 @Module({

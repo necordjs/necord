@@ -1,4 +1,4 @@
-import { Modal, ModalDiscovery } from '../../../src';
+import { Modal, ModalDiscovery } from '../../../src/index.js';
 
 describe('@Modal', () => {
 	class Test {

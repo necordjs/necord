@@ -1,6 +1,6 @@
 import { ArgumentsHost } from '@nestjs/common';
 
-import { NecordArgumentsHost } from '../../src';
+import { NecordArgumentsHost } from '../../src/index.js';
 
 describe('NecordArgumentsHost', () => {
 	let contextArg: unknown;

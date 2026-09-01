@@ -1,9 +1,9 @@
 import { GuildMember, VoiceBasedChannel } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { BaseHandler } from './base.handler';
-import { ContextOf } from '../../context';
+import { CustomListener, CustomListenerHandler } from '../decorators/index.js';
+import { ContextOf } from '../../context/index.js';
+import { BaseHandler } from './base.handler.js';
 
 export type CustomVoiceStateUpdateEvents = {
 	voiceChannelJoin: [member: GuildMember, channel: VoiceBasedChannel];
@@ -28,6 +28,10 @@ export class VoiceStateUpdateHandler extends BaseHandler<CustomVoiceStateUpdateE
 	public handleVoiceChannelChanges([oldState, newState]: ContextOf<'voiceStateUpdate'>) {
 		const newMember = newState.member;
 
+		if (!newMember) {
+			return;
+		}
+
 		if (!oldState.channel && newState.channel) {
 			this.emit('voiceChannelJoin', newMember, newState.channel);
 		}
@@ -44,6 +48,10 @@ export class VoiceStateUpdateHandler extends BaseHandler<CustomVoiceStateUpdateE
 	@CustomListenerHandler()
 	public handleVoiceChannelMuteChanges([oldState, newState]: ContextOf<'voiceStateUpdate'>) {
 		const newMember = newState.member;
+
+		if (!newMember) {
+			return;
+		}
 
 		if (!oldState.mute && newState.mute) {
 			this.emit(
@@ -66,6 +74,10 @@ export class VoiceStateUpdateHandler extends BaseHandler<CustomVoiceStateUpdateE
 	public handleVoiceChannelDeafChanges([oldState, newState]: ContextOf<'voiceStateUpdate'>) {
 		const newMember = newState.member;
 
+		if (!newMember) {
+			return;
+		}
+
 		if (!oldState.deaf && newState.deaf) {
 			this.emit(
 				'voiceChannelDeaf',
@@ -87,12 +99,20 @@ export class VoiceStateUpdateHandler extends BaseHandler<CustomVoiceStateUpdateE
 	public handleVoiceStreamingChanges([oldState, newState]: ContextOf<'voiceStateUpdate'>) {
 		const newMember = newState.member;
 
+		if (!newMember) {
+			return;
+		}
+
 		if (!oldState.streaming && newState.streaming) {
-			this.emit('voiceStreamingStart', newMember, newState.channel);
+			if (newState.channel) {
+				this.emit('voiceStreamingStart', newMember, newState.channel);
+			}
 		}
 
 		if (oldState.streaming && !newState.streaming) {
-			this.emit('voiceStreamingStop', newMember, newState.channel);
+			if (oldState.channel) {
+				this.emit('voiceStreamingStop', newMember, oldState.channel);
+			}
 		}
 	}
 }

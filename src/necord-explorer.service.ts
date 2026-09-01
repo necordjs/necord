@@ -2,8 +2,8 @@ import { DiscoveryService, MetadataScanner, Reflector } from '@nestjs/core';
 import { InstanceWrapper } from '@nestjs/core/injector/instance-wrapper';
 import { Injectable } from '@nestjs/common';
 
-import { NecordContextCreator } from './necord-context.creator';
-import { NecordBaseDiscovery } from './context';
+import { NecordContextCreator } from './necord-context.creator.js';
+import { NecordBaseDiscovery } from './context/index.js';
 
 /**
  * Represents a explorer service.
@@ -30,22 +30,37 @@ export class NecordExplorerService<T extends NecordBaseDiscovery> {
 	}
 
 	private flatMap(callback: (wrapper: InstanceWrapper) => T[]) {
-		return this.wrappers.flatMap(callback).filter(Boolean);
+		return this.wrappers.flatMap(callback).filter((item): item is T => Boolean(item));
 	}
 
 	private filterProperties(wrapper: InstanceWrapper, metadataKey: string) {
 		const { instance } = wrapper;
+
+		if (!instance) {
+			return [];
+		}
+
 		const prototype = Object.getPrototypeOf(instance);
 
-		return this.metadataScanner.getAllMethodNames(prototype).map(methodName => {
-			const item = this.reflector.get<T>(metadataKey, instance[methodName]);
+		return this.metadataScanner.getAllMethodNames(prototype).flatMap(methodName => {
+			const handler = instance[methodName];
 
-			if (!item) return;
+			if (typeof handler !== 'function') {
+				return [];
+			}
 
-			item.setDiscoveryMeta({ class: instance.constructor, handler: instance[methodName] });
-			item.setContextCallback(this.necordContextCreator.bind(wrapper, methodName));
+			const item = this.reflector.get<T>(metadataKey, handler);
 
-			return item;
+			if (!item) return [];
+
+			const contextCallback = this.necordContextCreator.bind(wrapper, methodName);
+
+			if (!contextCallback) return [];
+
+			item.setDiscoveryMeta({ class: instance.constructor, handler });
+			item.setContextCallback(contextCallback);
+
+			return [item];
 		});
 	}
 }

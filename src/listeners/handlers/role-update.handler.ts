@@ -1,9 +1,9 @@
 import { PermissionsBitField, Role } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { BaseHandler } from './base.handler';
-import { ContextOf } from '../../context';
+import { CustomListener, CustomListenerHandler } from '../decorators/index.js';
+import { ContextOf } from '../../context/index.js';
+import { BaseHandler } from './base.handler.js';
 
 export type CustomRoleUpdateEvents = {
 	rolePositionUpdate: [role: Role, oldPosition: number, newPosition: number];
@@ -12,9 +12,9 @@ export type CustomRoleUpdateEvents = {
 		oldPermissions: Readonly<PermissionsBitField>,
 		newPermissions: Readonly<PermissionsBitField>
 	];
-	roleIconAdd: [role: Role, iconURL: string];
-	roleIconUpdate: [role: Role, oldIconURL: string, newIconURL: string];
-	roleIconRemove: [role: Role, iconURL: string];
+	roleIconAdd: [role: Role, iconURL: string | null];
+	roleIconUpdate: [role: Role, oldIconURL: string | null, newIconURL: string | null];
+	roleIconRemove: [role: Role, iconURL: string | null];
 };
 
 @CustomListener('roleUpdate')

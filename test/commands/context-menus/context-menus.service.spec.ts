@@ -1,7 +1,7 @@
 import { ApplicationCommandType, Collection } from 'discord.js';
 import { Logger } from '@nestjs/common';
 
-import { ContextMenuDiscovery, ContextMenusService } from '../../../src';
+import { ContextMenuDiscovery, ContextMenusService } from '../../../src/index.js';
 
 describe('ContextMenusService', () => {
 	let service: ContextMenusService;
@@ -11,7 +11,7 @@ describe('ContextMenusService', () => {
 	});
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 
 	it('should add a context menu to the cache and allow retrieving it', () => {
@@ -27,7 +27,7 @@ describe('ContextMenusService', () => {
 
 	it('should log a warning when adding the same id twice', () => {
 		const discovery = new ContextMenuDiscovery({ type: 2, name: 'DuplicateMenu' });
-		const warnSpy = jest.spyOn(Logger.prototype, 'warn').mockImplementation(() => {});
+		const warnSpy = vi.spyOn(Logger.prototype, 'warn').mockImplementation(() => {});
 
 		service.add(discovery);
 		service.add(discovery);

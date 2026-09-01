@@ -1,28 +1,32 @@
+import type { Mock } from 'vitest';
+
 import { Client, Interaction } from 'discord.js';
 import { Test } from '@nestjs/testing';
 
 import {
 	ContextMenu,
-	ContextMenuDiscovery,
 	ContextMenusModule,
 	ContextMenusService,
 	NECORD_MODULE_OPTIONS,
 	NecordExplorerService,
 	NecordModule
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('ContextMenusModule', () => {
 	let client: Client;
-	let contextMenusService: ContextMenusService;
-	let explorerService: NecordExplorerService<ContextMenuDiscovery>;
+	let contextMenusService: { add: Mock; get: Mock };
+	let explorerService: { explore: Mock };
 	let emitInteractionCreate: (interaction: Partial<Interaction>) => void;
 
 	beforeEach(async () => {
 		client = new Client({ intents: [] });
-		contextMenusService = { add: jest.fn(), get: jest.fn() } as any;
+		contextMenusService = {
+			add: vi.fn<(...args: any[]) => any>(),
+			get: vi.fn<(...args: any[]) => any>()
+		};
 		explorerService = {
-			explore: jest.fn().mockReturnValue([{ customId: 'test' }])
-		} as any;
+			explore: vi.fn<(...args: any[]) => any>().mockReturnValue([{ customId: 'test' }])
+		};
 
 		const moduleRef = await Test.createTestingModule({
 			imports: [NecordModule.forRoot({ intents: [], token: '' }), ContextMenusModule]
@@ -54,8 +58,8 @@ describe('ContextMenusModule', () => {
 	});
 
 	it('should handle context menu interaction', () => {
-		const execute = jest.fn();
-		(contextMenusService.get as jest.Mock).mockReturnValue({ execute });
+		const execute = vi.fn<(...args: any[]) => any>();
+		contextMenusService.get.mockReturnValue({ execute });
 
 		const interaction = {
 			isContextMenuCommand: () => true,

@@ -5,7 +5,7 @@ import {
 	UserApplicationCommandData
 } from 'discord.js';
 
-import { CommandDiscovery } from '../command.discovery';
+import { CommandDiscovery } from '../command.discovery.js';
 
 /**
  * The context menu metadata.

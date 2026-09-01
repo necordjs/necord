@@ -2,9 +2,8 @@ import {
 	SubcommandGroup,
 	createCommandGroupDecorator,
 	SlashCommandDiscovery,
-	Subcommand,
 	SlashCommand
-} from '../../../../src';
+} from '../../../../src/index.js';
 
 describe('@Subcommand', () => {
 	const TestCommands = createCommandGroupDecorator({

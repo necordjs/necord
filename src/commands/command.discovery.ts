@@ -1,6 +1,6 @@
 import { BaseApplicationCommandData, Snowflake } from 'discord.js';
 
-import { NecordBaseDiscovery } from '../context';
+import { NecordBaseDiscovery } from '../context/index.js';
 
 export interface BaseCommandMeta extends BaseApplicationCommandData {
 	guilds?: Snowflake[];
@@ -43,7 +43,7 @@ export abstract class CommandDiscovery<
 	/**
 	 * Returns the guilds.
 	 */
-	public getGuilds(): Snowflake[] {
+	public getGuilds(): Snowflake[] | undefined {
 		return this.meta.guilds;
 	}
 }

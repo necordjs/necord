@@ -1,6 +1,6 @@
 import { ComponentType } from 'discord-api-types/v10';
 
-import { MessageComponentDiscovery } from '../../src';
+import { MessageComponentDiscovery } from '../../src/index.js';
 
 describe('MessageComponentDiscovery', () => {
 	it('should be defined', () => {

@@ -1,6 +1,6 @@
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 
-import { ComponentParam, NecordExecutionContext } from '../../../src';
+import { ComponentParam, NecordExecutionContext } from '../../../src/index.js';
 
 describe('@ComponentParam', () => {
 	class TestComponentAll {

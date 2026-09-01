@@ -1,6 +1,6 @@
 import { ParamData } from '@nestjs/common';
 
-import { NecordParamsFactory, NecordParamType, NecordBaseDiscovery } from '../../src';
+import { NecordParamsFactory, NecordParamType, NecordBaseDiscovery } from '../../src/index.js';
 
 class TestDiscovery extends NecordBaseDiscovery<{ name?: string }> {
 	public toJSON() {
@@ -20,11 +20,7 @@ describe('NecordParamsFactory', () => {
 	});
 
 	it('should return null when args is undefined', () => {
-		const res = factory.exchangeKeyForValue(
-			NecordParamType.CONTEXT,
-			undefined,
-			undefined as any
-		);
+		const res = factory.exchangeKeyForValue(NecordParamType.CONTEXT, undefined, undefined);
 		expect(res).toBeNull();
 	});
 

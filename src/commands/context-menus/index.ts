@@ -1,5 +1,5 @@
-export * from './context-menu.discovery';
+export * from './context-menu.discovery.js';
 
-export * from './context-menus.module';
-export * from './context-menus.service';
-export * from './decorators';
+export * from './context-menus.module.js';
+export * from './context-menus.service.js';
+export * from './decorators/index.js';

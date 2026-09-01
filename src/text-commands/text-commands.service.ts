@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Collection } from 'discord.js';
 
-import { TextCommandDiscovery } from './text-command.discovery';
+import { TextCommandDiscovery } from './text-command.discovery.js';
 
 /**
  * Service that manages text commands.

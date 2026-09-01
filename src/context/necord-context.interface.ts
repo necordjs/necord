@@ -13,7 +13,7 @@ import {
 	UserSelectMenuInteraction
 } from 'discord.js';
 
-import { NecordEvents } from '../listeners';
+import { NecordEvents } from '../listeners/index.js';
 
 export type AutocompleteContext = [AutocompleteInteraction];
 

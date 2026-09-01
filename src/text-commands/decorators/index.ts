@@ -1,2 +1,2 @@
-export * from './arguments.decorator';
-export * from './text-command.decorator';
+export * from './arguments.decorator.js';
+export * from './text-command.decorator.js';

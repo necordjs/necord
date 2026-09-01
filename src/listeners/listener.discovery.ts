@@ -1,4 +1,4 @@
-import { NecordBaseDiscovery } from '../context';
+import { NecordBaseDiscovery } from '../context/index.js';
 
 export interface ListenerMeta {
 	type: 'once' | 'on';

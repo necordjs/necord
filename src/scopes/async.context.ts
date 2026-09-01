@@ -22,7 +22,7 @@ export class AsyncContext {
 	/**
 	 * Checks if target is already attached to any async context.
 	 * @param target The object to check.
-	 * @returns "true" if the target is attached to an async context, "false" otherwise.
+	 * @returns "true" if the target is attached to any async context.
 	 */
 	static isAttached(target: object): boolean {
 		return !!target[ASYNC_CONTEXT_ATTRIBUTE];

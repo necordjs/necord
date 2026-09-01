@@ -1,6 +1,6 @@
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
 
-import { TargetMember, TargetMessage, TargetUser } from '../../../../src';
+import { TargetMember, TargetMessage, TargetUser } from '../../../../src/index.js';
 
 describe('Target Decorators', () => {
 	class Test {

@@ -8,7 +8,7 @@ import {
 	SelectedUsers,
 	SelectedMembers,
 	SelectedRoles
-} from '../../../src';
+} from '../../../src/index.js';
 
 type MetaInfo = {
 	meta: any;

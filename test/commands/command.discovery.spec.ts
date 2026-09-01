@@ -1,4 +1,4 @@
-import { CommandDiscovery } from '../../src';
+import { CommandDiscovery } from '../../src/index.js';
 
 class TestCommandDiscovery extends CommandDiscovery {
 	public toJSON(): Record<string, any> {

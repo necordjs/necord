@@ -7,7 +7,7 @@ import {
 	SlashCommandDiscovery,
 	SlashCommandsService,
 	SubcommandGroup
-} from '../../../src';
+} from '../../../src/index.js';
 
 describe('SlashCommandsService', () => {
 	let reflector: Reflector;
@@ -19,7 +19,7 @@ describe('SlashCommandsService', () => {
 	});
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 
 	it('adds a command to the cache and retrieves it', () => {
@@ -32,7 +32,7 @@ describe('SlashCommandsService', () => {
 	});
 
 	it('logs a warning when adding a command with a duplicate name', () => {
-		const warnSpy = jest.spyOn(Logger.prototype as any, 'warn').mockImplementation(() => {});
+		const warnSpy = vi.spyOn(Logger.prototype as any, 'warn').mockImplementation(() => {});
 		const cmd = new SlashCommandDiscovery({ name: 'ping', description: 'ping' });
 
 		service.add(cmd);
@@ -61,10 +61,10 @@ describe('SlashCommandsService', () => {
 		const root = new SlashCommandDiscovery({ name: 'root', description: 'root command' });
 		const sub = new SlashCommandDiscovery({ name: 'child', description: 'child command' });
 		// Spy on ensureSubcommand to ensure it was called with sub
-		const rootEnsureSpy = jest.spyOn(root, 'ensureSubcommand');
+		const rootEnsureSpy = vi.spyOn(root, 'ensureSubcommand');
 
 		// Reflector returns the root for SlashCommand.KEY and undefined for SubcommandGroup.KEY
-		jest.spyOn(reflector, 'get').mockImplementation((key: any, target: any) => {
+		vi.spyOn(reflector, 'get').mockImplementation((key: any, target: any) => {
 			if (target === sub.getClass()) {
 				if (key === SlashCommand.KEY) return root;
 				if (key === SubcommandGroup.KEY) return undefined;
@@ -85,7 +85,9 @@ describe('SlashCommandsService', () => {
 	it('addSubCommand (with group): ensures root, ensures group under root, and ensures sub under group', () => {
 		const root = new SlashCommandDiscovery({ name: 'root', description: 'root command' });
 		// Spy to verify group is ensured into root
-		const groupEnsureSpy = jest.fn((_: SlashCommandDiscovery) => group);
+		const groupEnsureSpy = vi.fn<(...args: any[]) => any>(
+			(_subcommand: SlashCommandDiscovery) => group
+		);
 		const group = new SlashCommandDiscovery({ name: 'group', description: 'group command' });
 		// Override root.ensureSubcommand to use our spy
 		root.ensureSubcommand = groupEnsureSpy;
@@ -94,11 +96,11 @@ describe('SlashCommandsService', () => {
 		const sub = new SlashCommandDiscovery({ name: 'child', description: 'child command' });
 
 		// Spy to verify call ordering: root.ensureSubcommand(group) then group.ensureSubcommand(sub)
-		const rootEnsureSpy = jest.spyOn(root, 'ensureSubcommand');
-		const subEnsureSpy = jest.spyOn(group, 'ensureSubcommand');
+		const rootEnsureSpy = vi.spyOn(root, 'ensureSubcommand');
+		const subEnsureSpy = vi.spyOn(group, 'ensureSubcommand');
 
 		// Reflector returns root for SlashCommand.KEY and group for SubcommandGroup.KEY
-		jest.spyOn(reflector, 'get').mockImplementation((key: any, target: any) => {
+		vi.spyOn(reflector, 'get').mockImplementation((key: any, target: any) => {
 			if (target === sub.getClass()) {
 				if (key === (SlashCommand as any).KEY) return root;
 				if (key === (SubcommandGroup as any).KEY) return group;

@@ -1,9 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Client, Collection } from 'discord.js';
 
-import { SlashCommandsService } from './slash-commands';
-import { CommandDiscovery } from './command.discovery';
-import { ContextMenusService } from './context-menus';
+import { SlashCommandsService } from './slash-commands/index.js';
+import { ContextMenusService } from './context-menus/index.js';
+import { CommandDiscovery } from './command.discovery.js';
 
 /**
  * Represents a service that manages commands.
@@ -44,8 +44,10 @@ export class CommandsService {
 			return;
 		}
 
+		const application = this.getApplication();
+
 		this.logger.debug(`Registering ${rawCommands.length} global application commands...`);
-		return this.client.application.commands.set(rawCommands).catch(error => {
+		return application.commands.set(rawCommands).catch(error => {
 			this.logger.error(
 				`Failed to register application commands (global): ${error}`,
 				error.stack
@@ -66,8 +68,10 @@ export class CommandsService {
 
 		const rawCommands = commands.flatMap(command => command.toJSON());
 
+		const application = this.getApplication();
+
 		this.logger.debug(`Registering ${rawCommands.length} guild commands in ${guildId}`);
-		return this.client.application.commands.set(rawCommands, guildId).catch(error => {
+		return application.commands.set(rawCommands, guildId).catch(error => {
 			this.logger.error(
 				`Failed to register application commands (guild: ${guildId}): ${error}`,
 				error.stack
@@ -103,7 +107,7 @@ export class CommandsService {
 		return collection;
 	}
 
-	public getCommandByName(name: string): CommandDiscovery {
+	public getCommandByName(name: string): CommandDiscovery | undefined {
 		return this.getCommands().find(command => command.getName() === name);
 	}
 
@@ -111,7 +115,7 @@ export class CommandsService {
 		return this.getCommands().filter(command => command.isGlobal());
 	}
 
-	public getGlobalCommandByName(name: string): CommandDiscovery {
+	public getGlobalCommandByName(name: string): CommandDiscovery | undefined {
 		return this.getGlobalCommands().find(command => command.getName() === name);
 	}
 
@@ -119,7 +123,19 @@ export class CommandsService {
 		return this.getCommandsGroupedByGuilds().get(guildId) ?? [];
 	}
 
-	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery {
+	public getGuildCommandByName(guildId: string, name: string): CommandDiscovery | undefined {
 		return this.getGuildCommands(guildId).find(command => command.getName() === name);
+	}
+
+	private getApplication() {
+		const application = this.client.application;
+
+		if (!application) {
+			throw new Error(
+				'Discord client application is unavailable while registering commands.'
+			);
+		}
+
+		return application;
 	}
 }

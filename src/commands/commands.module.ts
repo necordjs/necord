@@ -8,11 +8,11 @@ import {
 } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { NECORD_MODULE_OPTIONS } from '../necord.module-definition';
-import { NecordModuleOptions } from '../necord-options.interface';
-import { SlashCommandsModule } from './slash-commands';
-import { ContextMenusModule } from './context-menus';
-import { CommandsService } from './commands.service';
+import { NECORD_MODULE_OPTIONS } from '../necord.module-definition.js';
+import { NecordModuleOptions } from '../necord-options.interface.js';
+import { SlashCommandsModule } from './slash-commands/index.js';
+import { ContextMenusModule } from './context-menus/index.js';
+import { CommandsService } from './commands.service.js';
 
 @Global()
 @Module({
@@ -36,8 +36,14 @@ export class CommandsModule implements OnApplicationBootstrap, OnModuleInit {
 		}
 
 		return this.client.once('clientReady', async () => {
-			if (this.client.application.partial) {
-				await this.client.application.fetch();
+			const application = this.client.application;
+
+			if (!application) {
+				throw new Error('Discord client application is unavailable after clientReady.');
+			}
+
+			if (application.partial) {
+				await application.fetch();
 			}
 
 			return this.commandsService.registerAllCommands();

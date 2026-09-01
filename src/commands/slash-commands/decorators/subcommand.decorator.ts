@@ -1,7 +1,7 @@
-import { ApplicationCommandOptionType, SlashCommandSubcommandBuilder } from 'discord.js';
+import { ApplicationCommandOptionType } from 'discord.js';
 import { Reflector } from '@nestjs/core';
 
-import { SlashCommandDiscovery, SubcommandMeta } from '../slash-command.discovery';
+import { SlashCommandDiscovery, SubcommandMeta } from '../slash-command.discovery.js';
 
 /**
  * Decorator that marks a method as a subcommand.

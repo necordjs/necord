@@ -25,7 +25,6 @@ export interface NecordModuleOptions extends DiscordClientOptions {
 	 * * If you have commands using the guilds property, the global development argument will not overwrite it.
 	 */
 	development?: Snowflake[] | false;
-
 	/**
 	 * If skipRegistration is true, necord would not automatically register your application commands with Discord. You would have to register the application commands manually.
 	 */

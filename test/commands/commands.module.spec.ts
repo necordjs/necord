@@ -7,20 +7,27 @@ import {
 	ContextMenuDiscovery,
 	NECORD_MODULE_OPTIONS,
 	NecordModule,
+	type NecordModuleOptions,
 	SlashCommandDiscovery
-} from '../../src';
+} from '../../src/index.js';
 
 describe('CommandsModule', () => {
 	let moduleRef: TestingModule;
 	let module: CommandsModule;
 
 	const clientMock = {
-		on: jest.fn(),
-		once: jest.fn(),
-		application: { partial: false, fetch: jest.fn() }
+		on: vi.fn<(...args: any[]) => any>(),
+		once: vi.fn<(...args: any[]) => any>(),
+		application: { partial: false, fetch: vi.fn<(...args: any[]) => any>() }
 	};
-	const optionsMock = { skipRegistration: false, development: [] };
-	const commandsServiceMock = { registerAllCommands: jest.fn(), getCommands: jest.fn() };
+	const optionsMock: Pick<NecordModuleOptions, 'development' | 'skipRegistration'> = {
+		skipRegistration: false,
+		development: []
+	};
+	const commandsServiceMock = {
+		registerAllCommands: vi.fn<(...args: any[]) => any>(),
+		getCommands: vi.fn<(...args: any[]) => any>()
+	};
 
 	let emitReady: () => void;
 
@@ -107,7 +114,9 @@ describe('CommandsModule', () => {
 			});
 
 			it('should not override command guilds', () => {
-				const loggerSpy = jest.spyOn(module['logger'], 'debug').mockImplementation();
+				const loggerSpy = vi
+					.spyOn(module['logger'], 'debug')
+					.mockImplementation(() => undefined);
 				module.onApplicationBootstrap();
 				expect(loggerSpy).not.toHaveBeenCalled();
 			});
@@ -130,7 +139,9 @@ describe('CommandsModule', () => {
 			});
 
 			it('should override command guilds and log debug message', () => {
-				const loggerSpy = jest.spyOn(module['logger'], 'debug').mockImplementation();
+				const loggerSpy = vi
+					.spyOn(module['logger'], 'debug')
+					.mockImplementation(() => undefined);
 				module.onApplicationBootstrap();
 				expect(loggerSpy).toHaveBeenCalledWith(
 					'Running in development mode, overriding guilds to all commands'
@@ -144,6 +155,6 @@ describe('CommandsModule', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 });

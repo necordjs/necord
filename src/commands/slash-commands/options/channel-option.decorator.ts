@@ -1,6 +1,6 @@
 import { ApplicationCommandOptionType, APIApplicationCommandChannelOption } from 'discord.js';
 
-import { createOptionDecorator } from './option.util';
+import { createOptionDecorator } from './option.util.js';
 
 /**
  * Param decorator that marks a method as a channel option.

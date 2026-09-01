@@ -1,4 +1,9 @@
-import { createCustomOnceDecorator, Listener, ListenerDiscovery, Once } from '../../../src';
+import {
+	createCustomOnceDecorator,
+	Listener,
+	ListenerDiscovery,
+	Once
+} from '../../../src/index.js';
 
 describe('@Once', () => {
 	class Test {

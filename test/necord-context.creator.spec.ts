@@ -10,12 +10,11 @@ import {
 	AsyncContext,
 	NecordParamsFactory,
 	NecordParamType
-} from '../src';
-import { NecordContextCreator } from '../src/necord-context.creator';
+} from '../src/index.js';
+import { NecordContextCreator } from '../src/necord-context.creator.js';
 
 describe('NecordContextCreator', () => {
 	let contextCreator: NecordContextCreator;
-	let externalContextCreator: ExternalContextCreator;
 
 	class TestClass {
 		testMethod() {
@@ -23,34 +22,35 @@ describe('NecordContextCreator', () => {
 		}
 	}
 
+	const testMethodSpy = vi.spyOn(TestClass.prototype, 'testMethod');
 	const mockInstance = new TestClass();
 	const mockModuleRef = {
-		registerRequestByContextId: jest.fn(),
-		resolve: jest.fn().mockResolvedValue(new TestClass())
-	} as unknown as ModuleRef;
-
-	const mockContextId = {
-		id: 'test-context-id'
-	} as unknown as ContextId;
+		registerRequestByContextId: vi.fn<(request: object, contextId: ContextId) => void>(),
+		resolve: vi.fn<() => Promise<TestClass>>().mockResolvedValue(new TestClass())
+	};
 
 	const mockHost = {
-		getProviderByKey: jest.fn()
+		getProviderByKey: vi.fn<() => { instance: ModuleRef }>()
 	};
-	mockHost.getProviderByKey.mockReturnValue({ instance: mockModuleRef });
+	mockHost.getProviderByKey.mockReturnValue({
+		instance: mockModuleRef as unknown as ModuleRef
+	});
+
+	const externalContextCreatorMock = {
+		create: vi.fn<() => () => string>()
+	};
 
 	const mockInstanceWrapper = {
 		instance: mockInstance,
 		metatype: TestClass,
 		id: 'test-wrapper-id',
-		isDependencyTreeStatic: jest.fn().mockReturnValue(true),
+		isDependencyTreeStatic: vi.fn<() => boolean>().mockReturnValue(true),
 		isTransient: false,
 		host: mockHost
 	} as unknown as InstanceWrapper;
 
 	beforeEach(async () => {
-		const externalContextCreatorMock = {
-			create: jest.fn().mockReturnValue(() => 'context-result')
-		};
+		externalContextCreatorMock.create.mockReturnValue(() => 'context-result');
 
 		const module: TestingModule = await Test.createTestingModule({
 			providers: [
@@ -60,7 +60,6 @@ describe('NecordContextCreator', () => {
 		}).compile();
 
 		contextCreator = module.get<NecordContextCreator>(NecordContextCreator);
-		externalContextCreator = module.get<ExternalContextCreator>(ExternalContextCreator);
 	});
 
 	it('should be defined', () => {
@@ -69,18 +68,21 @@ describe('NecordContextCreator', () => {
 
 	describe('bind', () => {
 		it('should create a context callback directly for static dependencies', async () => {
-			mockInstanceWrapper.isDependencyTreeStatic = jest.fn().mockReturnValue(true);
-			const createContextCallbackSpy = jest.spyOn(
+			mockInstanceWrapper.isDependencyTreeStatic = vi
+				.fn<() => boolean>()
+				.mockReturnValue(true);
+			const createContextCallbackSpy = vi.spyOn(
 				contextCreator as any,
 				'createContextCallback'
 			);
 
 			const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
+			if (!callback) throw new Error('Expected a callback for the existing test method.');
 			const result = await callback('test-arg');
 
 			expect(createContextCallbackSpy).toHaveBeenCalledWith(mockInstance, 'testMethod');
 			expect(result).toBe('context-result');
-			expect(externalContextCreator.create).toHaveBeenCalled();
+			expect(externalContextCreatorMock.create).toHaveBeenCalled();
 		});
 
 		describe('when request-scoped dependencies are used', () => {
@@ -88,10 +90,12 @@ describe('NecordContextCreator', () => {
 
 			beforeEach(async () => {
 				mockNecordContext = {};
-				mockInstanceWrapper.isDependencyTreeStatic = jest.fn().mockReturnValue(false);
-				NecordParamsFactory.prototype.exchangeKeyForValue = jest
-					.fn()
-					.mockImplementation((paramType, data, args) => {
+				mockInstanceWrapper.isDependencyTreeStatic = vi
+					.fn<() => boolean>()
+					.mockReturnValue(false);
+				NecordParamsFactory.prototype.exchangeKeyForValue = vi
+					.fn<NecordParamsFactory['exchangeKeyForValue']>()
+					.mockImplementation(paramType => {
 						if (paramType === NecordParamType.CONTEXT) {
 							return mockNecordContext;
 						}
@@ -101,18 +105,20 @@ describe('NecordContextCreator', () => {
 
 			it('should create a context callback for request-scoped dependencies', async () => {
 				const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
+				if (!callback) throw new Error('Expected a callback for the existing test method.');
 				const result = await callback('test-arg');
 
 				expect(mockModuleRef.registerRequestByContextId).toHaveBeenCalled();
 				expect(mockModuleRef.resolve).toHaveBeenCalled();
-				expect(externalContextCreator.create).toHaveBeenCalled();
+				expect(externalContextCreatorMock.create).toHaveBeenCalled();
 				expect(result).toBe('context-result');
 			});
 
 			it('should attach the async context to the request-scoped instance', async () => {
-				const attachToSpy = jest.spyOn(AsyncContext.prototype, 'attachTo');
+				const attachToSpy = vi.spyOn(AsyncContext.prototype, 'attachTo');
 
 				const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
+				if (!callback) throw new Error('Expected a callback for the existing test method.');
 				await callback('test-arg');
 
 				expect(attachToSpy).toHaveBeenCalled();
@@ -122,11 +128,12 @@ describe('NecordContextCreator', () => {
 				mockNecordContext[ASYNC_CONTEXT_ATTRIBUTE] = new AsyncContext();
 
 				const callback = contextCreator.bind(mockInstanceWrapper, 'testMethod');
+				if (!callback) throw new Error('Expected a callback for the existing test method.');
 				const result = await callback('test-arg');
 
 				expect(mockModuleRef.registerRequestByContextId).not.toHaveBeenCalled();
 				expect(mockModuleRef.resolve).toHaveBeenCalled();
-				expect(externalContextCreator.create).toHaveBeenCalled();
+				expect(externalContextCreatorMock.create).toHaveBeenCalled();
 				expect(result).toBe('context-result');
 			});
 		});
@@ -154,9 +161,9 @@ describe('NecordContextCreator', () => {
 		it('should create a context callback using externalContextCreator', () => {
 			(contextCreator as any).createContextCallback(mockInstance, 'testMethod');
 
-			expect(externalContextCreator.create).toHaveBeenCalledWith(
+			expect(externalContextCreatorMock.create).toHaveBeenCalledWith(
 				mockInstance,
-				mockInstance.testMethod,
+				testMethodSpy,
 				'testMethod',
 				ROUTE_ARGS_METADATA,
 				expect.any(NecordParamsFactory),
@@ -169,6 +176,6 @@ describe('NecordContextCreator', () => {
 	});
 
 	afterEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 	});
 });

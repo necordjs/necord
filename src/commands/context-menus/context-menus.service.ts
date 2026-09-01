@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { Collection } from 'discord.js';
 
-import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery';
+import { ContextMenuDiscovery, ContextMenuMeta } from './context-menu.discovery.js';
 
 /**
  * Service that manages context menus.
@@ -27,7 +27,10 @@ export class ContextMenusService {
 		this.cache.set(id, contextMenu);
 	}
 
-	public get(type: ContextMenuMeta['type'], name: ContextMenuMeta['name']): ContextMenuDiscovery {
+	public get(
+		type: ContextMenuMeta['type'],
+		name: ContextMenuMeta['name']
+	): ContextMenuDiscovery | undefined {
 		return this.cache.get(this.getId(type, name));
 	}
 

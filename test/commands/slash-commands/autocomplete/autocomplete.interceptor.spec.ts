@@ -1,45 +1,48 @@
-import { CallHandler, ExecutionContext } from '@nestjs/common';
+import type { Mock, MockInstance } from 'vitest';
+
 import { AutocompleteInteraction } from 'discord.js';
+import { ExecutionContext } from '@nestjs/common';
 import { of, firstValueFrom } from 'rxjs';
 
-import { AutocompleteInterceptor, NecordExecutionContext } from '../../../../src';
+import { AutocompleteInterceptor, NecordExecutionContext } from '../../../../src/index.js';
 
 class TestInterceptor extends AutocompleteInterceptor {
-	public transformOptions = jest.fn();
+	public transformOptions = vi.fn<(...args: any[]) => any>();
 }
 
 describe('AutocompleteInterceptor', () => {
 	let interceptor: TestInterceptor;
+	let createContextSpy: MockInstance<typeof NecordExecutionContext.create>;
 
 	// shared stubs
 	let executionContext: ExecutionContext;
-	let callHandler: CallHandler;
+	let callHandler: { handle: Mock };
 
 	// interaction & discovery stubs
-	let interaction: { isAutocomplete: jest.Mock } & Partial<AutocompleteInteraction>;
-	let discovery: { isSlashCommand: jest.Mock };
+	let interaction: { isAutocomplete: Mock } & Partial<AutocompleteInteraction>;
+	let discovery: { isSlashCommand: Mock };
 
 	beforeEach(() => {
-		jest.clearAllMocks();
+		vi.clearAllMocks();
 
 		interceptor = new TestInterceptor();
 
 		executionContext = {} as unknown as ExecutionContext;
 		callHandler = {
-			handle: jest.fn().mockReturnValue(of('next-value'))
+			handle: vi.fn<(...args: any[]) => any>().mockReturnValue(of('next-value'))
 		};
 
 		interaction = {
-			isAutocomplete: jest.fn()
+			isAutocomplete: vi.fn<(...args: any[]) => any>()
 		} as any;
 
 		discovery = {
-			isSlashCommand: jest.fn()
+			isSlashCommand: vi.fn<(...args: any[]) => any>()
 		};
 
-		jest.spyOn(NecordExecutionContext, 'create').mockReturnValue({
-			getContext: jest.fn().mockReturnValue([interaction]),
-			getDiscovery: jest.fn().mockReturnValue(discovery)
+		createContextSpy = vi.spyOn(NecordExecutionContext, 'create').mockReturnValue({
+			getContext: vi.fn<(...args: any[]) => any>().mockReturnValue([interaction]),
+			getDiscovery: vi.fn<(...args: any[]) => any>().mockReturnValue(discovery)
 		} as any);
 	});
 
@@ -49,7 +52,7 @@ describe('AutocompleteInterceptor', () => {
 
 		const result$ = await interceptor.intercept(executionContext, callHandler);
 
-		expect(NecordExecutionContext.create).toHaveBeenCalledWith(executionContext);
+		expect(createContextSpy).toHaveBeenCalledWith(executionContext);
 		expect(interaction.isAutocomplete).toHaveBeenCalledTimes(1);
 		expect(discovery.isSlashCommand).not.toHaveBeenCalled(); // short-circuit
 		expect(callHandler.handle).toHaveBeenCalledTimes(1);
@@ -65,7 +68,7 @@ describe('AutocompleteInterceptor', () => {
 
 		const result$ = await interceptor.intercept(executionContext, callHandler);
 
-		expect(NecordExecutionContext.create).toHaveBeenCalledWith(executionContext);
+		expect(createContextSpy).toHaveBeenCalledWith(executionContext);
 		expect(interaction.isAutocomplete).toHaveBeenCalledTimes(1);
 		expect(discovery.isSlashCommand).toHaveBeenCalledTimes(1);
 		expect(callHandler.handle).toHaveBeenCalledTimes(1);

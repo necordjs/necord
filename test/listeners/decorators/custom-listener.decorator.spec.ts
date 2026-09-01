@@ -1,4 +1,4 @@
-import { CustomListener, CustomListenerHandler } from '../../../src';
+import { CustomListener, CustomListenerHandler } from '../../../src/index.js';
 
 @CustomListener('messageCreate')
 class CustomListenerHandlerTest {

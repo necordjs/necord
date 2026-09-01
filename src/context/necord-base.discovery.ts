@@ -1,10 +1,10 @@
 import { Reflector } from '@nestjs/core';
 
-import { ContextMenuDiscovery, SlashCommandDiscovery } from '../commands';
-import { MessageComponentDiscovery } from '../message-components';
-import { TextCommandDiscovery } from '../text-commands';
-import { ListenerDiscovery } from '../listeners';
-import { ModalDiscovery } from '../modals';
+import { ContextMenuDiscovery, SlashCommandDiscovery } from '../commands/index.js';
+import { MessageComponentDiscovery } from '../message-components/index.js';
+import { TextCommandDiscovery } from '../text-commands/index.js';
+import { ListenerDiscovery } from '../listeners/index.js';
+import { ModalDiscovery } from '../modals/index.js';
 
 interface DiscoveredItem {
 	class: any;
@@ -13,9 +13,7 @@ interface DiscoveredItem {
 
 export abstract class NecordBaseDiscovery<T = any> {
 	protected readonly reflector = new Reflector();
-
 	protected discovery: DiscoveredItem;
-
 	protected contextCallback: Function;
 
 	public constructor(protected readonly meta: T) {}

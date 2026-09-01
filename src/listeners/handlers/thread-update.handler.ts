@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { ThreadChannel } from 'discord.js';
 
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { BaseHandler } from './base.handler';
-import { ContextOf } from '../../context';
+import { CustomListener, CustomListenerHandler } from '../decorators/index.js';
+import { ContextOf } from '../../context/index.js';
+import { BaseHandler } from './base.handler.js';
 
 export type CustomThreadUpdateEvents = {
 	threadStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
@@ -11,13 +11,13 @@ export type CustomThreadUpdateEvents = {
 	threadLockStateUpdate: [oldThread: ThreadChannel, newThread: ThreadChannel];
 	threadRateLimitPerUserUpdate: [
 		thread: ThreadChannel,
-		oldRateLimit: number,
-		newRateLimit: number
+		oldRateLimit: number | null,
+		newRateLimit: number | null
 	];
 	threadAutoArchiveDurationUpdate: [
 		thread: ThreadChannel,
-		oldDuration: number | string,
-		newDuration: number | string
+		oldDuration: number | string | null,
+		newDuration: number | string | null
 	];
 };
 

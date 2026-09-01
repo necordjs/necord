@@ -6,9 +6,9 @@ import {
 } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { BaseHandler } from './base.handler';
-import { ContextOf } from '../../context';
+import { CustomListener, CustomListenerHandler } from '../decorators/index.js';
+import { ContextOf } from '../../context/index.js';
+import { BaseHandler } from './base.handler.js';
 
 export type CustomChannelUpdateEvents = {
 	guildChannelPermissionsUpdate: [

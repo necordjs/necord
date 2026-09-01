@@ -1,5 +1,5 @@
-import { NecordParamType } from '../necord-paramtype.enum';
-import { createNecordParamDecorator } from './params.util';
+import { NecordParamType } from '../necord-paramtype.enum.js';
+import { createNecordParamDecorator } from './params.util.js';
 
 /**
  * Context decorator that marks a argument as a context.

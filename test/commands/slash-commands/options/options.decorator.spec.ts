@@ -1,7 +1,11 @@
 import { ROUTE_ARGS_METADATA } from '@nestjs/common/constants';
-import { Reflector } from '@nestjs/core';
 
-import { IntegerOption, Options, SlashCommand, SlashCommandDiscovery } from '../../../../src';
+import {
+	IntegerOption,
+	Options,
+	SlashCommand,
+	SlashCommandDiscovery
+} from '../../../../src/index.js';
 
 describe('@Options', () => {
 	class TestOptions {
@@ -50,10 +54,10 @@ describe('@Options', () => {
 	it('should return null if discovery is not slash command', () => {
 		const interaction = {
 			options: {
-				getInteger: jest.fn()
+				getInteger: vi.fn<(...args: any[]) => any>()
 			}
 		};
-		jest.spyOn(slashCommandDiscovery, 'isSlashCommand').mockReturnValue(false);
+		vi.spyOn(slashCommandDiscovery, 'isSlashCommand').mockReturnValue(false);
 		const ctx = createMockContext(interaction);
 		expect(factory(undefined, ctx)).toBeNull();
 	});
@@ -61,7 +65,7 @@ describe('@Options', () => {
 	it('should map interaction options to the options class', () => {
 		const interaction = {
 			options: {
-				getInteger: jest.fn().mockReturnValue(42)
+				getInteger: vi.fn<(...args: any[]) => any>().mockReturnValue(42)
 			}
 		};
 
@@ -73,6 +77,6 @@ describe('@Options', () => {
 	});
 
 	afterEach(() => {
-		jest.restoreAllMocks();
+		vi.restoreAllMocks();
 	});
 });

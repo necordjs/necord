@@ -1,4 +1,4 @@
-import { TextCommandDiscovery, TextCommandsService } from '../../src';
+import { TextCommandDiscovery, TextCommandsService } from '../../src/index.js';
 
 describe('TextCommandsService', () => {
 	let service: TextCommandsService;
@@ -19,7 +19,9 @@ describe('TextCommandsService', () => {
 	});
 
 	it('should warn if a command is already added', () => {
-		const loggerWarnSpy = jest.spyOn(service['logger'], 'warn').mockImplementation();
+		const loggerWarnSpy = vi
+			.spyOn(service['logger'], 'warn')
+			.mockImplementation(() => undefined);
 		const command = new TextCommandDiscovery({
 			name: 'duplicate-command',
 			description: 'A duplicate command'

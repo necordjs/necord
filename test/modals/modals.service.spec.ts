@@ -1,4 +1,4 @@
-import { ModalDiscovery, ModalsService } from '../../src';
+import { ModalDiscovery, ModalsService } from '../../src/index.js';
 
 describe('ModalsService', () => {
 	let service: ModalsService;
@@ -16,7 +16,9 @@ describe('ModalsService', () => {
 	});
 
 	it('should warn if a modal is already added', () => {
-		const loggerWarnSpy = jest.spyOn(service['logger'], 'warn').mockImplementation();
+		const loggerWarnSpy = vi
+			.spyOn(service['logger'], 'warn')
+			.mockImplementation(() => undefined);
 		const modal = new ModalDiscovery({ customId: 'duplicate-modal' });
 
 		service.add(modal);

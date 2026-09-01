@@ -1,4 +1,4 @@
-import { SlashCommandDiscovery } from '../../../src';
+import { SlashCommandDiscovery } from '../../../src/index.js';
 
 describe('SlashCommandDiscovery', () => {
 	it('should be defined', () => {
@@ -17,7 +17,7 @@ describe('SlashCommandDiscovery', () => {
 	});
 
 	it('should execute', () => {
-		const mockExecute = jest.fn();
+		const mockExecute = vi.fn<(...args: any[]) => any>();
 		const discovery = new SlashCommandDiscovery({
 			name: 'test',
 			description: 'Test command'
@@ -32,8 +32,8 @@ describe('SlashCommandDiscovery', () => {
 	it('should handle subcommands', () => {
 		const intercationMock = {
 			options: {
-				getSubcommandGroup: jest.fn().mockReturnValue(null),
-				getSubcommand: jest.fn().mockReturnValue('sub')
+				getSubcommandGroup: vi.fn<(...args: any[]) => any>().mockReturnValue(null),
+				getSubcommand: vi.fn<(...args: any[]) => any>().mockReturnValue('sub')
 			},
 			createdAt: new Date()
 		};
@@ -53,7 +53,7 @@ describe('SlashCommandDiscovery', () => {
 		expect(mainCommand.getSubcommand('sub')).toBe(subCommand);
 		expect(mainCommand.getSubcommands().size).toBe(1);
 
-		const mockExecute = jest.fn();
+		const mockExecute = vi.fn<(...args: any[]) => any>();
 		subCommand.setContextCallback(mockExecute);
 
 		mainCommand.execute(intercationMock as any, 1);
@@ -64,8 +64,8 @@ describe('SlashCommandDiscovery', () => {
 	it('should handle subcommand groups with subcommands', () => {
 		const intercationMock = {
 			options: {
-				getSubcommandGroup: jest.fn().mockReturnValue('group'),
-				getSubcommand: jest.fn().mockReturnValue('sub')
+				getSubcommandGroup: vi.fn<(...args: any[]) => any>().mockReturnValue('group'),
+				getSubcommand: vi.fn<(...args: any[]) => any>().mockReturnValue('sub')
 			},
 			createdAt: new Date()
 		};
@@ -91,7 +91,7 @@ describe('SlashCommandDiscovery', () => {
 		expect(mainCommand.getSubcommand('group')).toBe(subCommandGroup);
 		expect(mainCommand.getSubcommands().size).toBe(1);
 
-		const mockExecute = jest.fn();
+		const mockExecute = vi.fn<(...args: any[]) => any>();
 		subCommand.setContextCallback(mockExecute);
 
 		mainCommand.execute(intercationMock as any, 1);

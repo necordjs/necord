@@ -1,3 +1,5 @@
+import type { Mock } from 'vitest';
+
 import { Client, Interaction } from 'discord.js';
 import { Test } from '@nestjs/testing';
 
@@ -9,20 +11,25 @@ import {
 	ModalDiscovery,
 	ModalsModule,
 	ModalsService
-} from '../../src';
+} from '../../src/index.js';
 
 describe('ModalsModule', () => {
 	let client: Client;
-	let modalsService: ModalsService;
-	let explorerService: NecordExplorerService<ModalDiscovery>;
+	let modalsServiceMock: { add: Mock; get: Mock };
+	let explorerServiceMock: { explore: Mock };
 	let emitInteractionCreate: (interaction: Partial<Interaction>) => void;
 
 	beforeEach(async () => {
 		client = new Client({ intents: [] });
-		modalsService = { add: jest.fn(), get: jest.fn() } as any;
-		explorerService = {
-			explore: jest.fn().mockReturnValue([{ customId: 'test' }])
-		} as any;
+		modalsServiceMock = {
+			add: vi.fn<(modal: ModalDiscovery) => void>(),
+			get: vi.fn<ModalsService['get']>()
+		};
+		explorerServiceMock = {
+			explore: vi
+				.fn<() => Array<{ customId: string }>>()
+				.mockReturnValue([{ customId: 'test' }])
+		};
 
 		const moduleRef = await Test.createTestingModule({
 			imports: [NecordModule.forRoot({ intents: [], token: '' }), ModalsModule]
@@ -32,9 +39,9 @@ describe('ModalsModule', () => {
 			.overrideProvider(Client)
 			.useValue(client)
 			.overrideProvider(ModalsService)
-			.useValue(modalsService)
+			.useValue(modalsServiceMock)
 			.overrideProvider(NecordExplorerService)
-			.useValue(explorerService)
+			.useValue(explorerServiceMock)
 			.compile();
 
 		const instance = moduleRef.get(ModalsModule);
@@ -49,13 +56,13 @@ describe('ModalsModule', () => {
 	});
 
 	it('should add modals on module init', () => {
-		expect(explorerService.explore).toHaveBeenCalledWith(Modal.KEY);
-		expect(modalsService.add).toHaveBeenCalledWith({ customId: 'test' });
+		expect(explorerServiceMock.explore).toHaveBeenCalledWith(Modal.KEY);
+		expect(modalsServiceMock.add).toHaveBeenCalledWith({ customId: 'test' });
 	});
 
 	it('should handle modal submit interaction', () => {
-		const execute = jest.fn();
-		(modalsService.get as jest.Mock).mockReturnValue({ execute });
+		const execute = vi.fn<(interaction: unknown) => void>();
+		modalsServiceMock.get.mockReturnValue({ execute });
 
 		const interaction = {
 			isModalSubmit: () => true,
@@ -68,6 +75,6 @@ describe('ModalsModule', () => {
 
 	it('should ignore non-modal interactions', () => {
 		emitInteractionCreate({ isModalSubmit: () => false } as any);
-		expect(modalsService.get).not.toHaveBeenCalled();
+		expect(modalsServiceMock.get).not.toHaveBeenCalled();
 	});
 });

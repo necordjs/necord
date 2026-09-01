@@ -1,10 +1,10 @@
 import { Global, Module, OnApplicationBootstrap, OnModuleInit } from '@nestjs/common';
 import { Client } from 'discord.js';
 
-import { MessageComponentDiscovery } from './message-component.discovery';
-import { MessageComponentsService } from './message-components.service';
-import { NecordExplorerService } from '../necord-explorer.service';
-import { MessageComponent } from './decorators';
+import { MessageComponentDiscovery } from './message-component.discovery.js';
+import { MessageComponentsService } from './message-components.service.js';
+import { NecordExplorerService } from '../necord-explorer.service.js';
+import { MessageComponent } from './decorators/index.js';
 
 @Global()
 @Module({

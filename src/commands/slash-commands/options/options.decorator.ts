@@ -1,7 +1,7 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-import { NecordExecutionContext, SlashCommandContext } from '../../../context';
-import { OPTIONS_METADATA } from './option.util';
+import { NecordExecutionContext, SlashCommandContext } from '../../../context/index.js';
+import { OPTIONS_METADATA } from './option.util.js';
 
 /**
  * Options decorator that mark arguments as options.
@@ -15,10 +15,16 @@ export const Options = createParamDecorator(
 		const [interaction] = necordContext.getContext<SlashCommandContext>();
 		const discovery = necordContext.getDiscovery();
 
-		if (!discovery.isSlashCommand()) return null;
+		if (!interaction || !discovery.isSlashCommand()) return null;
 
 		return Object.entries(discovery.getRawOptions()).reduce((acc, [parameter, option]) => {
-			acc[parameter] = interaction.options[option.resolver].call(
+			const resolver = option.resolver;
+
+			if (!resolver) {
+				return acc;
+			}
+
+			acc[parameter] = interaction.options[resolver].call(
 				interaction.options,
 				option.name,
 				!!option.required
@@ -28,8 +34,18 @@ export const Options = createParamDecorator(
 	},
 	[
 		(target, propertyKey, parameterIndex) => {
+			if (propertyKey === undefined) {
+				return;
+			}
+
 			const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey);
-			let { prototype } = paramTypes[parameterIndex];
+			const paramType = paramTypes?.[parameterIndex];
+
+			if (!paramType) {
+				return;
+			}
+
+			let { prototype } = paramType;
 
 			const options = {};
 

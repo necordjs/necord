@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-import { NecordExecutionContext, TextCommandContext } from '../../context';
+import { NecordExecutionContext, TextCommandContext } from '../../context/index.js';
 
 /**
  * Represents an arguments param decorator.

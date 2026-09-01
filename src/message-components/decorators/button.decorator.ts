@@ -1,6 +1,6 @@
 import { ComponentType } from 'discord.js';
 
-import { MessageComponent } from './message-component.decorator';
+import { MessageComponent } from './message-component.decorator.js';
 
 /**
  * Decorator that marks a method as a button for discord.js client.

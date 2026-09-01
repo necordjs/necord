@@ -1,7 +1,7 @@
 import { ComponentType, MessageComponentInteraction, MessageComponentType } from 'discord.js';
 import { match } from 'path-to-regexp';
 
-import { NecordBaseDiscovery } from '../context';
+import { NecordBaseDiscovery } from '../context/index.js';
 
 export interface MessageComponentMeta {
 	type: Exclude<MessageComponentType, ComponentType.ActionRow | ComponentType.TextInput>;

@@ -18,7 +18,7 @@ import {
 	UsersProvider,
 	VoiceProvider,
 	WsProvider
-} from '../../src';
+} from '../../src/index.js';
 
 describe('Client Providers', () => {
 	const mockClient = {

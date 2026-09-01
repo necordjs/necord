@@ -1,6 +1,6 @@
 import { ExecutionContext } from '@nestjs/common';
 
-import { NecordExecutionContext } from '../../src';
+import { NecordExecutionContext } from '../../src/index.js';
 
 class TestController {}
 

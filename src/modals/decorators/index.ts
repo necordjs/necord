@@ -1,3 +1,3 @@
-export * from './fields.decorator';
-export * from './modal-param.decorator';
-export * from './modal.decorator';
+export * from './fields.decorator.js';
+export * from './modal-param.decorator.js';
+export * from './modal.decorator.js';

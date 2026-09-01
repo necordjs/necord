@@ -1,6 +1,6 @@
 import { createParamDecorator } from '@nestjs/common';
 
-import { NecordExecutionContext } from '../../context';
+import { NecordExecutionContext } from '../../context/index.js';
 
 /**
  * Represents a fields param decorator.

@@ -1,7 +1,7 @@
 import { APIApplicationCommandOptionBase } from 'discord-api-types/v10';
 import { ApplicationCommandOptionType } from 'discord.js';
 
-import { OptionMeta } from '../slash-command.discovery';
+import { OptionMeta } from '../slash-command.discovery.js';
 
 export const OPTIONS_METADATA = 'necord:options_meta';
 
@@ -16,9 +16,7 @@ export function createOptionDecorator<T extends APIApplicationCommandOptionBase<
 				target
 			);
 
-			if (!metadata) {
-				metadata = {};
-			}
+			if (!metadata) metadata = {};
 
 			metadata[String(propertyKey)] = {
 				...data,

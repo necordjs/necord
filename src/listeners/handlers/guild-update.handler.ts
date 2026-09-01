@@ -1,9 +1,9 @@
 import { Guild, GuildFeature, GuildPremiumTier, VoiceChannel } from 'discord.js';
 import { Injectable } from '@nestjs/common';
 
-import { CustomListener, CustomListenerHandler } from '../decorators';
-import { BaseHandler } from './base.handler';
-import { ContextOf } from '../../context';
+import { CustomListener, CustomListenerHandler } from '../decorators/index.js';
+import { ContextOf } from '../../context/index.js';
+import { BaseHandler } from './base.handler.js';
 
 export type CustomGuildUpdateEvents = {
 	guildBoostLevelUp: [
@@ -12,10 +12,14 @@ export type CustomGuildUpdateEvents = {
 		newPremiumTier: GuildPremiumTier
 	];
 	guildBoostLevelDown: [oldGuild: Guild, newGuild: Guild];
-	guildBannerAdd: [guild: Guild, bannerURL: string];
+	guildBannerAdd: [guild: Guild, bannerURL: string | null];
 	guildAfkChannelAdd: [guild: Guild, afkChannel: VoiceChannel];
 	guildVanityURLAdd: [guild: Guild, vanityURLCode: string];
-	guildVanityURLUpdate: [guild: Guild, oldVanityURLCode: string, newVanityURLCode: string];
+	guildVanityURLUpdate: [
+		guild: Guild,
+		oldVanityURLCode: string | null,
+		newVanityURLCode: string | null
+	];
 	guildVanityURLRemove: [guild: Guild, vanityURLCode: string];
 	guildFeaturesUpdate: [
 		guild: Guild,

@@ -1,4 +1,4 @@
-import { Listener, ListenerDiscovery } from '../../../src';
+import { Listener, ListenerDiscovery } from '../../../src/index.js';
 
 describe('@Listener', () => {
 	class TestListener {
