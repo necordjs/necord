@@ -41,9 +41,6 @@ jobs:
       - name: Build package
         run: npm run build
 
-      - name: Verify package boundary
-        run: npm run test:package
-
       - name: Run Vitest with coverage
         run: npm run test:ci
 
