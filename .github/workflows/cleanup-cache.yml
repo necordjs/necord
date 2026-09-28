@@ -20,7 +20,7 @@ jobs:
 
       - name: Cleanup caches older than 7 days
         if: github.event_name == 'schedule'
-        uses: MyAlbum/purge-cache@v2
+        uses: MyAlbum/purge-cache@v3
 
       # https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows#force-deleting-cache-entries
       - name: Cleanup on PR close
