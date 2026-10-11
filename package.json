@@ -98,7 +98,7 @@
 		"eslint-plugin-prettier": "5.5.6",
 		"husky": "9.1.7",
 		"lint-staged": "17.6.0",
-		"oxlint": "1.86.0",
+		"oxlint": "1.87.0",
 		"oxlint-tsgolint": "7.0.2003",
 		"prettier": "3.9.9",
 		"reflect-metadata": "0.2.2",
