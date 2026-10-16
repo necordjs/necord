@@ -19,6 +19,8 @@ export type CustomUserUpdateEvents = {
 		oldPrimaryGuild: UserPrimaryGuild | null,
 		newPrimaryGuild: UserPrimaryGuild | null
 	];
+	userPrimaryGuildAdd: [user: User, primaryGuild: UserPrimaryGuild];
+	userPrimaryGuildRemove: [user: User, oldPrimaryGuild: UserPrimaryGuild];
 };
 
 @CustomListener('userUpdate')
@@ -85,5 +87,27 @@ export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 				newUser.primaryGuild
 			);
 		}
+	}
+
+	@CustomListenerHandler()
+	public handleUserPrimaryGuild([oldUser, newUser]: ContextOf<'userUpdate'>) {
+		if (oldUser.partial) return;
+
+		const oldPrimaryGuild = this.getDisplayedPrimaryGuild(oldUser);
+		const newPrimaryGuild = this.getDisplayedPrimaryGuild(newUser);
+
+		if (oldPrimaryGuild?.identityGuildId === newPrimaryGuild?.identityGuildId) return;
+
+		if (oldPrimaryGuild) {
+			this.emit('userPrimaryGuildRemove', newUser, oldPrimaryGuild);
+		}
+
+		if (newPrimaryGuild) {
+			this.emit('userPrimaryGuildAdd', newUser, newPrimaryGuild);
+		}
+	}
+
+	private getDisplayedPrimaryGuild({ primaryGuild }: User) {
+		return primaryGuild?.identityEnabled && primaryGuild.identityGuildId ? primaryGuild : null;
 	}
 }
