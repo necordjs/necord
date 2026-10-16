@@ -26,16 +26,29 @@ export class ChannelUpdateHandler extends BaseHandler<CustomChannelUpdateEvents>
 		oldChannel,
 		newChannel
 	]: ContextOf<'channelUpdate'>) {
-		if (
-			(oldChannel as GuildChannel).permissionOverwrites !==
-			(newChannel as GuildChannel).permissionOverwrites
-		) {
-			this.emit(
-				'guildChannelPermissionsUpdate',
-				newChannel,
-				(oldChannel as GuildChannel).permissionOverwrites,
-				(newChannel as GuildChannel).permissionOverwrites
-			);
+		const oldPermissions = (oldChannel as GuildChannel).permissionOverwrites;
+		const newPermissions = (newChannel as GuildChannel).permissionOverwrites;
+
+		if (!oldPermissions || !newPermissions) return;
+
+		if (this.hasPermissionOverwritesChanged(oldPermissions, newPermissions)) {
+			this.emit('guildChannelPermissionsUpdate', newChannel, oldPermissions, newPermissions);
 		}
+	}
+
+	private hasPermissionOverwritesChanged(
+		oldPermissions: PermissionOverwriteManager,
+		newPermissions: PermissionOverwriteManager
+	) {
+		if (oldPermissions.cache.size !== newPermissions.cache.size) return true;
+
+		return oldPermissions.cache.some(oldOverwrite => {
+			const newOverwrite = newPermissions.cache.get(oldOverwrite.id);
+
+			return (
+				oldOverwrite.allow.bitfield !== newOverwrite?.allow.bitfield ||
+				oldOverwrite.deny.bitfield !== newOverwrite?.deny.bitfield
+			);
+		});
 	}
 }
