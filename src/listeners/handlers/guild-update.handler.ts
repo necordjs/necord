@@ -100,7 +100,10 @@ export class GuildUpdateHandler extends BaseHandler<CustomGuildUpdateEvents> {
 			this.emit('guildAfkChannelAdd', newGuild, newGuild.afkChannel);
 		}
 
-		if (oldGuild.features.length !== newGuild.features.length) {
+		if (
+			oldGuild.features.length !== newGuild.features.length ||
+			oldGuild.features.some(feature => !newGuild.features.includes(feature))
+		) {
 			this.emit('guildFeaturesUpdate', newGuild, oldGuild.features, newGuild.features);
 		}
 

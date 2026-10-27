@@ -67,7 +67,7 @@ export class UserUpdateHandler extends BaseHandler<CustomUserUpdateEvents> {
 	public handleUserFlagsUpdate([oldUser, newUser]: ContextOf<'userUpdate'>) {
 		if (oldUser.partial) return;
 
-		if (oldUser.flags !== newUser.flags) {
+		if (oldUser.flags?.bitfield !== newUser.flags?.bitfield) {
 			this.emit('userFlagsUpdate', newUser, oldUser.flags, newUser.flags);
 		}
 	}
