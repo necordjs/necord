@@ -1,5 +1,15 @@
 # Changelog
 
+## [7.1.0](https://github.com/necordjs/necord/compare/v7.0.0...v7.1.0) (2026-10-28)
+
+### Features
+
+* **handler:** user primary guild add/remove events ([#1902](https://github.com/necordjs/necord/issues/1902)) ([9abd4d8](https://github.com/necordjs/necord/commit/9abd4d803afd28d1c84b38194d208ff305263642))
+
+### Bug Fixes
+
+* **handler:** update events firing on unrelated changes ([#1903](https://github.com/necordjs/necord/issues/1903)) ([252047a](https://github.com/necordjs/necord/commit/252047ad2fa29aaf627b7b2b741652102aeea388))
+
 ## [7.0.0](https://github.com/necordjs/necord/compare/v6.14.0...v7.0.0) (2026-09-01)
 
 ### ⚠ BREAKING CHANGES
