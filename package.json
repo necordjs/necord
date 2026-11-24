@@ -85,13 +85,13 @@
 	"devDependencies": {
 		"@commitlint/cli": "21.2.4",
 		"@commitlint/config-angular": "21.2.4",
-		"@nestjs/common": "12.5.1",
-		"@nestjs/core": "12.5.1",
-		"@nestjs/testing": "12.5.1",
+		"@nestjs/common": "12.6.0",
+		"@nestjs/core": "12.6.0",
+		"@nestjs/testing": "12.6.0",
 		"@release-it/conventional-changelog": "^12.0.0",
 		"@types/node": "26.6.6",
-		"@vitest/coverage-v8": "5.1.0",
-		"discord-api-types": "0.38.59",
+		"@vitest/coverage-v8": "5.1.1",
+		"discord-api-types": "0.38.60",
 		"discord.js": "14.28.1",
 		"eslint": "^10.0.0",
 		"eslint-plugin-perfectionist": "5.14.0",
@@ -107,7 +107,7 @@
 		"rxjs": "7.8.2",
 		"ts-node": "10.9.2",
 		"typescript": "7.0.2",
-		"vitest": "5.1.0"
+		"vitest": "5.1.1"
 	},
 	"peerDependencies": {
 		"@nestjs/common": "^10.2.0 || ^11.0.0 || ^12.0.0",
